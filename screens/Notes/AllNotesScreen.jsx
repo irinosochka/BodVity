@@ -12,7 +12,7 @@ import { auth } from '../../firebase';
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#383A59',
+        backgroundColor: '#ffffff',
     },
     notesWrapper: {
         paddingTop: 80,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     newNote: {
-        backgroundColor: '#BD93F9',
+        backgroundColor: '#c1d2b0',
         width: '50%',
         padding: 10,
         borderRadius: 20,

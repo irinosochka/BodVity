@@ -10,7 +10,7 @@ import {auth} from "../firebase";
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        backgroundColor: '#BD93F9',
+        backgroundColor: '#d7eac4',
         paddingTop: 20,
         paddingBottom: 20,
         paddingLeft: 20,
@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     pinButton: {
-        backgroundColor: '#c39df9',
+        backgroundColor: '#d7eac4',
         padding: 10,
         paddingLeft: 50,
         paddingRight: 50,
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1,
     },
     reminderButton: {
-        backgroundColor: '#c39df9',
+        backgroundColor: '#c1d2b0',
         padding: 5,
         paddingLeft: 50,
         paddingRight: 50,

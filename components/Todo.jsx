@@ -4,13 +4,14 @@ import {
 import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { UpdateTodoForUser } from '../services/collections';
+import {UpdateNoteForUser, UpdateTodoForUser} from '../services/collections';
 import { auth } from '../firebase';
+import note from "./Note";
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        backgroundColor: '#BD93F9',
+        backgroundColor: '#d7eac4',
         paddingTop: 20,
         paddingBottom: 20,
         paddingLeft: 20,
@@ -82,7 +83,7 @@ const styles = StyleSheet.create({
         shadowRadius: 1,
     },
     reminderButton: {
-        backgroundColor: '#c39df9',
+        backgroundColor: '#c1d2b0',
         padding: 5,
         paddingLeft: 50,
         paddingRight: 50,
@@ -98,11 +99,11 @@ function Todo(props) {
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleExpanded = () => setIsExpanded((value) => !value);
 
-    const [reminderTime, setreminderTime] = useState(new Date(Date.now()));
+    const [reminderTime, setreminderTime] = useState(todo.date);
 
     const onReminderTimeChange = async (_event, selectedDate) => {
         await UpdateTodoForUser(auth.currentUser.uid, todo.id, {
-            reminder: reminderTime.getTime(),
+            date: Date.parse(selectedDate),
         });
         setreminderTime(selectedDate);
     };
@@ -112,13 +113,11 @@ function Todo(props) {
         ExpandedView = (
             <View style={styles.expandedItem}>
                 <TouchableOpacity style={styles.reminderButton}>
-                    <Text>
-                        Reminder
-                    </Text>
                     <DateTimePicker
                         value={reminderTime}
                         mode="time"
                         is24Hour
+                        style={{width: 90, height: 30}}
                         onChange={onReminderTimeChange}
                     />
                 </TouchableOpacity>

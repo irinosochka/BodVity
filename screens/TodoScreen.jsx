@@ -15,7 +15,7 @@ import {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#383A59',
+        backgroundColor: '#FFFFFF',
     },
     todosWrapper: {
         flex: 1,

@@ -6,10 +6,10 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Todo from '../components/Todo';
+import Pill from '../components/Pill';
 import { auth } from '../firebase';
 import {
-    retrieveTodosForUser, AddTodoForUser, DeleteTodoForUser, UpdateTodoForUser,
+    retrievePillsForUser, AddPillForUser, DeletePillForUser, UpdatePillForUser,
 } from '../services/collections';
 
 const styles = StyleSheet.create({
@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#FFFFFF',
     },
-    todosWrapper: {
+    pillsWrapper: {
         flex: 1,
         paddingTop: 80,
         paddingHorizontal: 20,
@@ -65,62 +65,63 @@ const styles = StyleSheet.create({
     },
 });
 
-function TodoScreen() {
-    const [todo, setTodo] = useState('');
-    const [todoItems, setTodoItems] = useState([]);
+function PillScreen() {
+    const [pill, setPill] = useState('');
+    const [pillItems, setPillItems] = useState([]);
 
     useEffect(async () => {
-        const newTodos = await retrieveTodosForUser(auth.currentUser.uid);
-        setTodoItems(newTodos);
+        const newTodos = await retrievePillsForUser(auth.currentUser.uid);
+        setPillItems(newTodos);
     }, []);
 
-    const handleAddTodo = async () => {
-        const newTodoItem = {
-            content: todo,
+    const handleAddPill = async () => {
+        const newPillItem = {
+            content: pill,
             date: Date.now(),
             completed: false,
             reminder: null,
+
         };
-        const newDocID = await AddTodoForUser(auth.currentUser.uid, newTodoItem);
-        newTodoItem.id = newDocID;
-        setTodoItems([...todoItems, newTodoItem]);
-        setTodo('');
+        const newDocID = await AddPillForUser(auth.currentUser.uid, newPillItem);
+        newPillItem.id = newDocID;
+        setPillItems([...pillItems, newPillItem]);
+        setPill('');
         Keyboard.dismiss();
     };
 
     const handleKeyPress = () => {
-        handleAddTodo();
+        handleAddPill();
     };
 
-    const completeTodo = async (docID, index) => {
-        await UpdateTodoForUser(auth.currentUser.uid, docID, {
-            completed: !todoItems[index].completed,
+    const completePill = async (docID, index) => {
+        await UpdatePillForUser(auth.currentUser.uid, docID, {
+            completed: !pillItems[index].completed,
         });
-        const newTodoItems = [...todoItems];
-        newTodoItems[index].completed = !todoItems[index].completed;
+        const newPillItems = [...pillItems];
+        newPillItems[index].completed = !pillItems[index].completed;
 
-        setTodoItems(newTodoItems);
+        setPillItems(newPillItems);
     };
 
-    const deleteTodo = async (docID, index) => {
-        const itemsCopy = [...todoItems];
-        await DeleteTodoForUser(auth.currentUser.uid, docID);
+    const deletePill = async (docID, index) => {
+        const itemsCopy = [...pillItems];
+        await DeletePillForUser(auth.currentUser.uid, docID);
         itemsCopy.splice(index, 1);
-        setTodoItems(itemsCopy);
+        setPillItems(itemsCopy);
     };
 
     return (
         <View style={styles.container}>
-            <View style={styles.todosWrapper}>
+            <View style={styles.pillsWrapper}>
                 <Text style={styles.sectionTitle}>Today's Todos</Text>
                 <ScrollView style={styles.items}>
                     {
-                        todoItems.map((todoItem, index) => (
-                            <View key={todoItem.id}>
-                                <Todo
-                                    todo={todoItem}
-                                    completeAction={() => completeTodo(todoItem.id, index)}
-                                    deleteAction={() => deleteTodo(todoItem.id, index)}
+                        pillItems.map((pillItem, index) => (
+                            <View key={pillItem.id}>
+                                <Pill
+                                    pill={pillItem}
+                                    completeAction={() => completePill(pillItem.id, index)}
+                                    deleteAction={() => deletePill(pillItem.id, index)}
                                 />
                             </View>
                         ))
@@ -134,13 +135,13 @@ function TodoScreen() {
             >
                 <TextInput
                     style={styles.input}
-                    placeholder="Add a todo item..."
-                    value={todo}
-                    onChangeText={(text) => setTodo(text)}
+                    placeholder="Add new pill ..."
+                    value={pill}
+                    onChangeText={(text) => setPill(text)}
                     onSubmitEditing={() => handleKeyPress()}
                     clearButtonMode="while-editing"
                 />
-                <TouchableOpacity onPress={() => handleAddTodo()}>
+                <TouchableOpacity onPress={() => handleAddPill()}>
                     <View style={styles.addWrapper}>
                         <MaterialCommunityIcons name="plus" size={25} />
                     </View>
@@ -150,4 +151,4 @@ function TodoScreen() {
     );
 }
 
-export default TodoScreen;
+export default PillScreen;

@@ -101,7 +101,7 @@ function Note(props) {
 
     const onReminderTimeChange = async (_event, selectedDate) => {
         await UpdateNoteForUser(auth.currentUser.uid, note.id, {
-            date: Date.parse(selectedDate)
+            reminder: Date.parse(selectedDate)
         });
         setReminderTime(selectedDate);
     };

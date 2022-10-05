@@ -5,7 +5,7 @@ import LoginScreen from "../../screens/LoginScreen";
 import NoteScreen from "../../screens/Notes/NoteScreen";
 import AllNotesScreen from "../../screens/Notes/AllNotesScreen";
 import CreateNoteScreen from "../../screens/Notes/CreateNoteScreen";
-import TodoScreen from "../../screens/TodoScreen";
+import PillScreen from "../../screens/PillScreen";
 import HomeScreen from "../../screens/HomeScreen";
 
 const Stack = createNativeStackNavigator();
@@ -56,8 +56,8 @@ export default function Routes() {
                     }}
                 />
                 <Stack.Screen
-                    name="Todo"
-                    component={TodoScreen}
+                    name="Pill"
+                    component={PillScreen}
                     options={{
                         headerShown: false,
                         gestureEnabled: false,

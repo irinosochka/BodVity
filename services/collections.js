@@ -11,48 +11,50 @@ const notesInitData = {
     completed: false,
 };
 
-const todoInitData = {
-    content: 'go gym',
+const pillInitData = {
+    content: 'omega 3',
     date: Date.now(),
     completed: false,
+    quantity: 1,
+    reminder: null,
 };
 
 // Common
 export const autoAddDoc = async (userID) => {
     try {
-        const todoDoc = await addDoc(collection(db, 'users', userID, 'todos'), todoInitData);
+        const pillDoc = await addDoc(collection(db, 'users', userID, 'pills'), pillInitData);
         const notesDoc = await addDoc(collection(db, 'users', userID, 'notes'), notesInitData);
-        console.log('Document written with ID: ', todoDoc.id, notesDoc.id);
+        console.log('Document written with ID: ', pillDoc.id, notesDoc.id);
     } catch (e) {
         console.error('Error adding document: ', e);
     }
 };
 
-/// Todos
-export const retrieveTodosForUser = async (userID) => {
-    const collectionRef = collection(db, 'users', userID, 'todos');
-    const allTodosSnapshot = await getDocs(collectionRef);
-    const data = allTodosSnapshot.docs.map((todoDoc) => {
-        const dataItem = todoDoc.data();
-        dataItem.id = todoDoc.id;
+/// Pills
+export const retrievePillsForUser = async (userID) => {
+    const collectionRef = collection(db, 'users', userID, 'pills');
+    const allPillsSnapshot = await getDocs(collectionRef);
+    const data = allPillsSnapshot.docs.map((pillDoc) => {
+        const dataItem = pillDoc.data();
+        dataItem.id = pillDoc.id;
         return dataItem;
     });
     return data;
 };
 
-export const AddTodoForUser = async (userID, dataToAdd) => {
-    const newDocRef = collection(db, 'users', userID, 'todos');
+export const AddPillForUser = async (userID, dataToAdd) => {
+    const newDocRef = collection(db, 'users', userID, 'pills');
     const data = await addDoc(newDocRef, dataToAdd);
     return data.id;
 };
 
-export const UpdateTodoForUser = async (userID, docID, updateData) => {
-    const docRef = doc(db, 'users', userID, 'todos', docID);
+export const UpdatePillForUser = async (userID, docID, updateData) => {
+    const docRef = doc(db, 'users', userID, 'pills', docID);
     await updateDoc(docRef, updateData);
 };
 
-export const DeleteTodoForUser = async (userID, docID) => {
-    const docRef = doc(db, 'users', userID, 'todos', docID);
+export const DeletePillForUser = async (userID, docID) => {
+    const docRef = doc(db, 'users', userID, 'pills', docID);
     await deleteDoc(docRef);
 };
 

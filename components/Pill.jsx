@@ -4,7 +4,7 @@ import {
 import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {UpdateNoteForUser, UpdateTodoForUser} from '../services/collections';
+import {UpdateNoteForUser, UpdatePillForUser} from '../services/collections';
 import { auth } from '../firebase';
 import note from "./Note";
 
@@ -91,18 +91,18 @@ const styles = StyleSheet.create({
     },
 });
 
-function Todo(props) {
+function Pill(props) {
     const {
-        todo, deleteAction, completeAction,
+        pill, deleteAction, completeAction,
     } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleExpanded = () => setIsExpanded((value) => !value);
 
-    const [reminderTime, setreminderTime] = useState(todo.date);
+    const [reminderTime, setreminderTime] = useState(pill.date);
 
     const onReminderTimeChange = async (_event, selectedDate) => {
-        await UpdateTodoForUser(auth.currentUser.uid, todo.id, {
+        await UpdatePillForUser(auth.currentUser.uid, pill.id, {
             date: Date.parse(selectedDate),
         });
         setreminderTime(selectedDate);
@@ -131,17 +131,17 @@ function Todo(props) {
                 <View style={styles.item}>
                     <View style={styles.itemsLeft}>
                         <TouchableOpacity
-                            style={todo.completed ? styles.squareComplete : styles.square}
+                            style={pill.completed ? styles.squareComplete : styles.square}
                             onPress={completeAction}
                         >
                             <View>
-                                {todo.completed ? <MaterialCommunityIcons name="check" size={20} color="white" /> : null}
+                                {pill.completed ? <MaterialCommunityIcons name="check" size={20} color="white" /> : null}
                             </View>
                         </TouchableOpacity>
                         <Text
-                            style={todo.completed ? styles.lineThroughItemText : styles.itemText}
+                            style={pill.completed ? styles.lineThroughItemText : styles.itemText}
                         >
-                            {todo.content}
+                            {pill.content}
                         </Text>
                     </View>
                     <TouchableOpacity onPress={deleteAction}>
@@ -154,4 +154,4 @@ function Todo(props) {
     );
 }
 
-export default Todo;
+export default Pill;

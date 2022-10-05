@@ -47,10 +47,10 @@ function HomeScreen({ navigation }) {
                     <Text>Notes</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Todo')}
+                    onPress={() => navigation.navigate('Pill')}
                     style={styles.button}
                 >
-                    <Text>Todo</Text>
+                    <Text>Pill</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     onPress={handleSignOut}

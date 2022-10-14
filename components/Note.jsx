@@ -3,9 +3,9 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import DateTimePicker from "@react-native-community/datetimepicker";
 import {UpdateNoteForUser} from "../services/collections";
 import {auth} from "../firebase";
+import moment from 'moment';
 
 const styles = StyleSheet.create({
     container: {
@@ -48,30 +48,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 50,
     },
-    square: {
-        width: 24,
-        height: 24,
-        backgroundColor: '#383A59',
-        opacity: 0.8,
-        borderRadius: 5,
-        marginRight: 15,
-    },
-    squareComplete: {
-        width: 24,
-        height: 24,
-        backgroundColor: '#383A59',
-        opacity: 0.8,
-        borderRadius: 5,
-        marginRight: 15,
-        alignItems: 'center',
-    },
-    lineThroughItemText: {
-        maxWidth: '80%',
-        fontStyle: 'italic',
-        textDecorationLine: 'line-through',
-        textDecorationStyle: 'solid',
-        color: 'black',
-    },
     expandedItem: {
         paddingTop: 10,
         paddingBottom: 10,
@@ -79,10 +55,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'space-between',
-        shadowColor: '#282A36',
-        shadowOffset: { width: 2, height: 3 },
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
     },
     reminderButton: {
         backgroundColor: '#c1d2b0',
@@ -110,15 +82,9 @@ function Note(props) {
     if (isExpanded) {
         ExpandedView = (
             <View style={styles.expandedItem}>
-                <TouchableOpacity style={styles.reminderButton}>
-                    <DateTimePicker
-                        value={reminderTime}
-                        mode="time"
-                        is24Hour
-                        style={{width: 90, height: 30}}
-                        onChange={onReminderTimeChange}
-                    />
-                </TouchableOpacity>
+                <Text>
+                    {moment(note.date).format("DD/MM/YYYY")}
+                </Text>
             </View>
         );
     }
@@ -126,21 +92,7 @@ function Note(props) {
     return (
         <View style={styles.container}>
             <View style={styles.item}>
-                <View style={styles.itemsLeft}>
-                    <TouchableOpacity
-                        style={note.completed ? styles.squareComplete : styles.square}
-                        onPress={completeAction}
-                    >
-                        <View>
-                            {note.completed ? <MaterialCommunityIcons name="check" size={20} color="white" /> : null}
-                        </View>
-                    </TouchableOpacity>
-                    <Text
-                        style={note.completed ? styles.lineThroughItemText : styles.itemText}
-                    >
-                        {note.title}
-                    </Text>
-                </View>
+                <Text style={styles.itemTitle}>{note.title}</Text>
                 <TouchableOpacity style={styles.infoButton} onPress={toggleExpanded}>
                     <MaterialCommunityIcons name="information-outline" size={20} />
                 </TouchableOpacity>

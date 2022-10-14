@@ -61,11 +61,20 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         marginBottom: 2.5,
     },
-    addText: {
+    newPill: {
+        backgroundColor: '#c1d2b0',
+        width: '50%',
+        padding: 10,
+        borderRadius: 20,
+        alignItems: 'center',
+        position: 'absolute',
+        marginBottom: 30,
+        bottom: 0,
+        marginLeft: 100,
     },
 });
 
-function PillScreen() {
+function PillScreen({ props, navigation }) {
     const [pill, setPill] = useState('');
     const [pillItems, setPillItems] = useState([]);
 
@@ -129,24 +138,31 @@ function PillScreen() {
                 </ScrollView>
             </View>
 
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={styles.writeTodoWrapper}
-            >
-                <TextInput
-                    style={styles.input}
-                    placeholder="Add new pill ..."
-                    value={pill}
-                    onChangeText={(text) => setPill(text)}
-                    onSubmitEditing={() => handleKeyPress()}
-                    clearButtonMode="while-editing"
-                />
-                <TouchableOpacity onPress={() => handleAddPill()}>
-                    <View style={styles.addWrapper}>
-                        <MaterialCommunityIcons name="plus" size={25} />
-                    </View>
+            <View style={styles.newPill}>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createNote')}>
+                    <Text>New</Text>
                 </TouchableOpacity>
-            </KeyboardAvoidingView>
+            </View>
+
+            {/*<KeyboardAvoidingView*/}
+            {/*    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}*/}
+            {/*    style={styles.writeTodoWrapper}*/}
+            {/*>*/}
+            {/*    <TextInput*/}
+            {/*        style={styles.input}*/}
+            {/*        placeholder="Add new pill ..."*/}
+            {/*        value={pill}*/}
+            {/*        onChangeText={(text) => setPill(text)}*/}
+            {/*        onSubmitEditing={() => handleKeyPress()}*/}
+            {/*        clearButtonMode="while-editing"*/}
+            {/*    />*/}
+
+            {/*    <TouchableOpacity onPress={() => handleAddPill()}>*/}
+            {/*        <View style={styles.addWrapper}>*/}
+            {/*            <MaterialCommunityIcons name="plus" size={25} />*/}
+            {/*        </View>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</KeyboardAvoidingView>*/}
         </View>
     );
 }

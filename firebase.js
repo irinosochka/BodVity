@@ -4,12 +4,12 @@ import { getAuth } from 'firebase/auth';
 
 
 const firebaseConfig = {
-    apiKey: "AIzaSyCcfkobLT6IG78gp_a4FRBx5kdDbepmujQ",
-    authDomain: "bodvity-4e469.firebaseapp.com",
-    projectId: "bodvity-4e469",
-    storageBucket: "bodvity-4e469.appspot.com",
-    messagingSenderId: "123385144198",
-    appId: "1:123385144198:web:facd4d94bdc664b310c207"
+    apiKey: "AIzaSyBxnu8mEY-ERdYHepFaRjtQP_ZYNxFD9CA",
+    authDomain: "bodvity-9e8a1.firebaseapp.com",
+    projectId: "bodvity-9e8a1",
+    storageBucket: "bodvity-9e8a1.appspot.com",
+    messagingSenderId: "118765072918",
+    appId: "1:118765072918:web:e9ac2587545f22f75dfb37"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);

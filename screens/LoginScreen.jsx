@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../firebase';
-import { autoAddDoc } from '../services/collections';
+import {autoAddDoc, retrievePillsForUser} from '../services/collections';
 
 const styles = StyleSheet.create({
     container: {
@@ -45,13 +45,26 @@ function LoginScreen({ navigation }) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    // useEffect(() => {
+    //     const unsubscribe = onAuthStateChanged(auth, (user) => {
+    //         if (user) {
+    //             navigation.navigate('Home');
+    //         }
+    //     });
+    //     return unsubscribe;
+    // }, []);
+
     useEffect(() => {
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-            if (user) {
-                navigation.navigate('Home');
-            }
-        });
-        return unsubscribe;
+        const fetchData = async () => {
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    navigation.navigate('Home');
+                }
+            });
+            return unsubscribe;
+        }
+        fetchData()
+            .catch(console.error)
     }, []);
 
     const handleSignUp = () => {

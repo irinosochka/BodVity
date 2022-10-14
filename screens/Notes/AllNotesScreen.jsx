@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import Note from '../../components/Note';
 import {
-    retrieveNotesForUser, DeleteNoteForUser, UpdateNoteForUser,
+    retrieveNotesForUser, DeleteNoteForUser, UpdateNoteForUser, retrievePillsForUser,
 } from '../../services/collections';
 import { auth } from '../../firebase';
 
@@ -68,11 +68,22 @@ function AllNotesScreen({ props, navigation }) {
     const [noteItems, setNoteItems] = useState([]);
     const isFocused = useIsFocused();
 
-    useEffect(async () => {
-        if (isFocused) {
-            const newNotes = await retrieveNotesForUser(auth.currentUser.uid);
-            setNoteItems(newNotes);
+    // useEffect(async () => {
+    //     if (isFocused) {
+    //         const newNotes = await retrieveNotesForUser(auth.currentUser.uid);
+    //         setNoteItems(newNotes);
+    //     }
+    // }, [props, isFocused]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (isFocused) {
+                const newNotes = await retrieveNotesForUser(auth.currentUser.uid);
+                setNoteItems(newNotes);
+            }
         }
+        fetchData()
+            .catch(console.error)
     }, [props, isFocused]);
 
     const deleteNote = async (docID, index) => {

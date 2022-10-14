@@ -1,11 +1,10 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
-    Keyboard, KeyboardAvoidingView, Platform, Text, TextInput, TouchableOpacity, View,
+    Keyboard, Text, TouchableOpacity, View,
     StyleSheet,
     ScrollView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Pill from '../components/Pill';
 import { auth } from '../firebase';
 import {
@@ -78,9 +77,13 @@ function PillScreen({ props, navigation }) {
     const [pill, setPill] = useState('');
     const [pillItems, setPillItems] = useState([]);
 
-    useEffect(async () => {
-        const newTodos = await retrievePillsForUser(auth.currentUser.uid);
-        setPillItems(newTodos);
+    useEffect(() => {
+        const fetchData = async () => {
+            const newTodos = await retrievePillsForUser(auth.currentUser.uid);
+            setPillItems(newTodos);
+        }
+        fetchData()
+            .catch(console.error)
     }, []);
 
     const handleAddPill = async () => {

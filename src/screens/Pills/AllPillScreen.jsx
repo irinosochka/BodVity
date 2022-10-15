@@ -5,11 +5,11 @@ import {
     ScrollView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import Pill from '../components/Pill';
-import { auth } from '../firebase';
+import Pill from '../../components/Pill';
+import { auth } from '../../../firebase';
 import {
     retrievePillsForUser, AddPillForUser, DeletePillForUser, UpdatePillForUser,
-} from '../services/collections';
+} from '../../services/collections';
 
 const styles = StyleSheet.create({
     container: {
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function PillScreen({ props, navigation }) {
+function AllPillScreen({ props, navigation }) {
     const [pill, setPill] = useState('');
     const [pillItems, setPillItems] = useState([]);
 
@@ -99,10 +99,6 @@ function PillScreen({ props, navigation }) {
         setPillItems([...pillItems, newPillItem]);
         setPill('');
         Keyboard.dismiss();
-    };
-
-    const handleKeyPress = () => {
-        handleAddPill();
     };
 
     const completePill = async (docID, index) => {
@@ -170,4 +166,4 @@ function PillScreen({ props, navigation }) {
     );
 }
 
-export default PillScreen;
+export default AllPillScreen;

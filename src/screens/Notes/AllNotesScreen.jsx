@@ -5,9 +5,9 @@ import React, { useEffect, useState } from 'react';
 import { useIsFocused } from '@react-navigation/native';
 import Note from '../../components/Note';
 import {
-    retrieveNotesForUser, DeleteNoteForUser, UpdateNoteForUser, retrievePillsForUser,
+    retrieveNotesForUser, DeleteNoteForUser, UpdateNoteForUser,
 } from '../../services/collections';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 
 const styles = StyleSheet.create({
     container: {

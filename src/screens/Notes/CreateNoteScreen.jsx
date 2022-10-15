@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import { AddNoteForUser } from '../../services/collections';
-import { auth } from '../../firebase';
+import { auth } from '../../../firebase';
 
 const styles = StyleSheet.create({
     container: {

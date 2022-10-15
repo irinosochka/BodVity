@@ -4,9 +4,8 @@ import {
 import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import {UpdateNoteForUser, UpdatePillForUser} from '../services/collections';
-import { auth } from '../firebase';
-import note from "./Note";
+import {UpdatePillForUser} from '../services/collections';
+import { auth } from '../../firebase';
 
 const styles = StyleSheet.create({
     container: {

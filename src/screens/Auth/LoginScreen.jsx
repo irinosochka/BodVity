@@ -4,8 +4,8 @@ import {
     TouchableWithoutFeedback, Keyboard,
 } from 'react-native';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../firebase';
-import {autoAddDoc, retrievePillsForUser} from '../services/collections';
+import { auth } from '../../../firebase';
+import {autoAddDoc} from '../../services/collections';
 
 const styles = StyleSheet.create({
     container: {
@@ -58,7 +58,7 @@ function LoginScreen({ navigation }) {
         const fetchData = async () => {
             const unsubscribe = onAuthStateChanged(auth, (user) => {
                 if (user) {
-                    navigation.navigate('Home');
+                    navigation.navigate('AppTab');
                 }
             });
             return unsubscribe;

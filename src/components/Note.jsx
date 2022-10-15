@@ -3,8 +3,6 @@ import {
 } from 'react-native';
 import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import {UpdateNoteForUser} from "../services/collections";
-import {auth} from "../firebase";
 import moment from 'moment';
 
 const styles = StyleSheet.create({
@@ -66,17 +64,9 @@ const styles = StyleSheet.create({
 });
 
 function Note(props) {
-    const { note, deleteAction, completeAction } = props;
+    const { note, deleteAction } = props;
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleExpanded = () => setIsExpanded((value) => !value);
-    const [reminderTime, setReminderTime] = useState(note.date);
-
-    const onReminderTimeChange = async (_event, selectedDate) => {
-        await UpdateNoteForUser(auth.currentUser.uid, note.id, {
-            reminder: Date.parse(selectedDate)
-        });
-        setReminderTime(selectedDate);
-    };
 
     let ExpandedView;
     if (isExpanded) {

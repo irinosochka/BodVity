@@ -8,6 +8,7 @@ import {StyleSheet, View} from "react-native";
 import CreateNoteScreen from "../../screens/Notes/CreateNoteScreen";
 import NoteScreen from "../../screens/Notes/NoteScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import ProfileScreen from "../../screens/Profile/ProfileScreen";
 
 const styles = StyleSheet.create({
     container: {
@@ -119,7 +120,7 @@ export default function AppTab() {
             />
             <Tab.Screen
                 name="Profile"
-                component={HomeScreen}
+                component={ProfileScreen}
                 options={{
                     headerShown: false,
                     gestureEnabled: false,

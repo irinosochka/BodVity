@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {
-    KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View,
-    TouchableWithoutFeedback, Keyboard,
+    Keyboard,
+    KeyboardAvoidingView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    TouchableWithoutFeedback,
+    View,
 } from 'react-native';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth';
-import { auth } from '../../../firebase';
+import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
+import {auth, db} from '../../../firebase';
+import { setDoc, doc, getDoc} from 'firebase/firestore';
 import {autoAddDoc} from '../../services/collections';
 
 const styles = StyleSheet.create({
@@ -56,34 +63,60 @@ function LoginScreen({ navigation }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            const unsubscribe = onAuthStateChanged(auth, (user) => {
+            return onAuthStateChanged(auth, (user) => {
                 if (user) {
                     navigation.navigate('AppTab');
                 }
             });
-            return unsubscribe;
         }
         fetchData()
             .catch(console.error)
     }, []);
 
-    const handleSignUp = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const { user } = userCredential;
-                console.log('Registered with:', user.email);
-                autoAddDoc(user.uid);
-            })
-            .catch((error) => alert(error.message));
+    const handleSignUp = async() => {
+        // createUserWithEmailAndPassword(auth, email, password)
+        //     .then((userCredential) => {
+        //         const { user } = userCredential;
+        //         console.log('Registered with:', user.email);
+        //         autoAddDoc(user.uid);
+        //     })
+        //     .catch((error) => alert(error.message));
+        try {
+            const response = await createUserWithEmailAndPassword(auth, email, password)
+            const uid = response.user.uid
+            const data = {
+                id: uid,
+                email,
+                // fullName,
+            };
+            const usersRef = doc(db, 'users', uid);
+            await setDoc(usersRef, data);
+            console.log('Registered with:', email);
+        } catch(error) {
+            alert(error.message)
+        }
     };
 
-    const handleSignIn = () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                const { user } = userCredential;
-                console.log('Logged in with:', user.uid);
-            })
-            .catch((error) => alert(error.message));
+    const handleSignIn = async() => {
+        // signInWithEmailAndPassword(auth, email, password)
+        //     .then((userCredential) => {
+        //         const { user } = userCredential;
+        //         console.log('Logged in with:', user.uid);
+        //     })
+        //     .catch((error) => alert(error.message));
+        try {
+            const response = await signInWithEmailAndPassword(auth, email, password)
+            const uid = response.user.uid
+            const usersRef = doc(db, 'users', uid)
+            const firestoreDocument = await getDoc(usersRef)
+            if (!firestoreDocument.exists) {
+                alert("User does not exist anymore.")
+                return;
+            }
+            console.log('Logged in with:', uid);
+        } catch(error) {
+            alert(error.message)
+        }
     };
 
     return (

@@ -61,7 +61,7 @@ function CreateNoteScreen({ navigation }) {
             title: titleData,
             completed: false,
         };
-        AddNoteForUser(auth.currentUser.uid, newNoteItem);
+        AddNoteForUser(auth.currentUser.uid, newNoteItem).catch(console.error);
         Keyboard.dismiss();
     };
 

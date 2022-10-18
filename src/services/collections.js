@@ -4,31 +4,31 @@ import {
 import { db } from '../../firebase';
 
 // Constants
-const notesInitData = {
-    content: 'first note content',
-    date: Date.now(),
-    title: 'first note',
-    completed: false,
-};
-
-const pillInitData = {
-    content: 'omega 3',
-    date: Date.now(),
-    completed: false,
-    quantity: 1,
-    reminder: null,
-};
+// const notesInitData = {
+//     content: 'first note content',
+//     date: Date.now(),
+//     title: 'first note',
+//     completed: false,
+// };
+//
+// const pillInitData = {
+//     content: 'omega 3',
+//     date: Date.now(),
+//     completed: false,
+//     quantity: 1,
+//     reminder: null,
+// };
 
 // Common
-export const autoAddDoc = async (userID) => {
-    try {
-        const pillDoc = await addDoc(collection(db, 'users', userID, 'pills'), pillInitData);
-        const notesDoc = await addDoc(collection(db, 'users', userID, 'notes'), notesInitData);
-        console.log('Document written with ID: ', pillDoc.id, notesDoc.id);
-    } catch (e) {
-        console.error('Error adding document: ', e);
-    }
-};
+// export const autoAddDoc = async (userID) => {
+//     try {
+//         const pillDoc = await addDoc(collection(db, 'users', userID, 'pills'), pillInitData);
+//         const notesDoc = await addDoc(collection(db, 'users', userID, 'notes'), notesInitData);
+//         console.log('Document written with ID: ', pillDoc.id, notesDoc.id);
+//     } catch (e) {
+//         console.error('Error adding document: ', e);
+//     }
+// };
 
 /// Pills
 export const retrievePillsForUser = async (userID) => {

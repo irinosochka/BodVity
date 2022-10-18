@@ -74,32 +74,16 @@ const styles = StyleSheet.create({
 });
 
 function AllPillScreen({ props, navigation }) {
-    const [pill, setPill] = useState('');
     const [pillItems, setPillItems] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const newTodos = await retrievePillsForUser(auth.currentUser.uid);
-            setPillItems(newTodos);
+            const newPills = await retrievePillsForUser(auth.currentUser.uid);
+            setPillItems(newPills);
         }
         fetchData()
             .catch(console.error)
     }, []);
-
-    const handleAddPill = async () => {
-        const newPillItem = {
-            content: pill,
-            date: Date.now(),
-            completed: false,
-            reminder: null,
-
-        };
-        const newDocID = await AddPillForUser(auth.currentUser.uid, newPillItem);
-        newPillItem.id = newDocID;
-        setPillItems([...pillItems, newPillItem]);
-        setPill('');
-        Keyboard.dismiss();
-    };
 
     const completePill = async (docID, index) => {
         await UpdatePillForUser(auth.currentUser.uid, docID, {
@@ -121,7 +105,7 @@ function AllPillScreen({ props, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.pillsWrapper}>
-                <Text style={styles.sectionTitle}>Today's Todos</Text>
+                <Text style={styles.sectionTitle}>Today's Pills</Text>
                 <ScrollView style={styles.items}>
                     {
                         pillItems.map((pillItem, index) => (
@@ -137,11 +121,11 @@ function AllPillScreen({ props, navigation }) {
                 </ScrollView>
             </View>
 
-            <View style={styles.newPill}>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createNote')}>
-                    <Text>New</Text>
-                </TouchableOpacity>
-            </View>
+            {/*<View style={styles.newPill}>*/}
+            {/*    <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createPill')}>*/}
+            {/*        <Text>New</Text>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
 
             {/*<KeyboardAvoidingView*/}
             {/*    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}*/}

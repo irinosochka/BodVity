@@ -12,7 +12,6 @@ import {
 import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
 import {auth, db} from '../../../firebase';
 import { setDoc, doc, getDoc} from 'firebase/firestore';
-import {autoAddDoc} from '../../services/collections';
 
 const styles = StyleSheet.create({
     container: {

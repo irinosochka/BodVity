@@ -28,17 +28,19 @@ export default function Navigation() {
         <NavigationContainer>
             <Stack.Navigator headerMode="none" mode="modal">
                 {/*<Stack.Screen name="Splash" component={SplashScreen} />*/}
-                {userData? <Stack.Screen name="AuthStack" component={AuthStack}
+                {userData? <Stack.Screen name="AppTab" component={AppTab}
                                          options={{
                                              headerShown: false,
                                              gestureEnabled: false,
                                          }}
-                    /> :
-                    <Stack.Screen name="AppTab" component={AppTab}
-                                  options={{
-                                      headerShown: false,
-                                      gestureEnabled: false,
-                                  }}
+                />
+                    :
+
+                    <Stack.Screen name="AuthStack" component={AuthStack}
+                                         options={{
+                                             headerShown: false,
+                                             gestureEnabled: false,
+                                         }}
                     />}
             </Stack.Navigator>
         </NavigationContainer>

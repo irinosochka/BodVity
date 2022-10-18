@@ -140,7 +140,7 @@ function Pill(props) {
                         <Text
                             style={pill.completed ? styles.lineThroughItemText : styles.itemText}
                         >
-                            {pill.content}
+                            {pill.title}
                         </Text>
                     </View>
                     <TouchableOpacity onPress={deleteAction}>

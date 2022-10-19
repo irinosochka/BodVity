@@ -9,7 +9,7 @@ import {
     TouchableWithoutFeedback,
     View,
 } from 'react-native';
-import {createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword} from 'firebase/auth';
+import {createUserWithEmailAndPassword, signInWithEmailAndPassword} from 'firebase/auth';
 import {auth, db} from '../../../firebase';
 import { setDoc, doc, getDoc} from 'firebase/firestore';
 
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function LoginScreen({ navigation }) {
+function LoginScreen() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
@@ -61,15 +61,16 @@ function LoginScreen({ navigation }) {
     // }, []);
 
     useEffect(() => {
-        const fetchData = async () => {
-            return onAuthStateChanged(auth, (user) => {
-                if (user) {
-                    navigation.navigate('AppTab');
-                }
-            });
-        }
-        fetchData()
-            .catch(console.error)
+        // const fetchData = async () => {
+        //     return onAuthStateChanged(auth, (user) => {
+        //         if (user) {
+        //             navigation.navigate('AppTab');
+        //         }
+        //     });
+        // }
+        // fetchData()
+        //     .catch(console.error)
+        // console.log('Login screen')
     }, []);
 
     const handleSignUp = async() => {
@@ -112,7 +113,7 @@ function LoginScreen({ navigation }) {
                 alert("User does not exist anymore.")
                 return;
             }
-            console.log('Logged in with:', uid);
+            console.log('Logged in with:', uid, ' email: ', email);
         } catch(error) {
             alert(error.message)
         }

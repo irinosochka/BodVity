@@ -2,8 +2,6 @@ import {
     StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
 import React from 'react';
-import { signOut } from 'firebase/auth';
-import { auth } from '../../firebase';
 
 const styles = StyleSheet.create({
     container: {
@@ -28,14 +26,6 @@ const styles = StyleSheet.create({
 });
 
 function HomeScreen({ navigation }) {
-    const handleSignOut = () => {
-        signOut(auth)
-            .then(() => {
-                navigation.navigate('Login');
-            })
-            // eslint-disable-next-line no-alert
-            .catch((error) => alert(error.message));
-    };
 
     return (
         <View style={styles.container}>
@@ -51,12 +41,6 @@ function HomeScreen({ navigation }) {
                     style={styles.button}
                 >
                     <Text>Pill</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={handleSignOut}
-                    style={styles.button}
-                >
-                    <Text>Logout</Text>
                 </TouchableOpacity>
             </View>
         </View>

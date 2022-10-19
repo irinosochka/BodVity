@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 import {
-    Keyboard, Text, TouchableOpacity, View,
+    Text, TouchableOpacity, View,
     StyleSheet,
     ScrollView,
 } from 'react-native';
@@ -8,8 +8,9 @@ import React, { useState, useEffect } from 'react';
 import Pill from '../../components/Pill';
 import { auth } from '../../../firebase';
 import {
-    retrievePillsForUser, AddPillForUser, DeletePillForUser, UpdatePillForUser,
+    retrievePillsForUser, DeletePillForUser, UpdatePillForUser,
 } from '../../services/collections';
+import {useIsFocused} from "@react-navigation/native";
 
 const styles = StyleSheet.create({
     container: {
@@ -75,15 +76,18 @@ const styles = StyleSheet.create({
 
 function AllPillScreen({ props, navigation }) {
     const [pillItems, setPillItems] = useState([]);
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         const fetchData = async () => {
-            const newPills = await retrievePillsForUser(auth.currentUser.uid);
-            setPillItems(newPills);
+            if (isFocused) {
+                const newPills = await retrievePillsForUser(auth.currentUser.uid);
+                setPillItems(newPills);
+            }
         }
         fetchData()
             .catch(console.error)
-    }, []);
+    }, [props, isFocused]);
 
     const completePill = async (docID, index) => {
         await UpdatePillForUser(auth.currentUser.uid, docID, {
@@ -91,7 +95,6 @@ function AllPillScreen({ props, navigation }) {
         });
         const newPillItems = [...pillItems];
         newPillItems[index].completed = !pillItems[index].completed;
-
         setPillItems(newPillItems);
     };
 
@@ -121,11 +124,12 @@ function AllPillScreen({ props, navigation }) {
                 </ScrollView>
             </View>
 
-            {/*<View style={styles.newPill}>*/}
-            {/*    <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createPill')}>*/}
-            {/*        <Text>New</Text>*/}
-            {/*    </TouchableOpacity>*/}
-            {/*</View>*/}
+
+            <View style={styles.newPill}>
+                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createPill')}>
+                    <Text>New</Text>
+                </TouchableOpacity>
+            </View>
 
             {/*<KeyboardAvoidingView*/}
             {/*    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}*/}

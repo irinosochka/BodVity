@@ -5,6 +5,7 @@ import React, {useContext} from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import {UserDataContext} from "../../context/UserDataContext";
+import {Restart} from "../../utils/Restart";
 
 const styles = StyleSheet.create({
     container: {
@@ -28,22 +29,24 @@ const styles = StyleSheet.create({
     },
 });
 
-function ProfileScreen({ navigation }) {
+function ProfileScreen() {
     const { userData, setUserData } = useContext(UserDataContext)
 
     const handleSignOut = () => {
         signOut(auth)
             .then(() => {
-                navigation.navigate('Login');
+                setUserData('');
+                Restart()
             })
-            // eslint-disable-next-line no-alert
-            .catch((error) => alert(error.message));
+            .catch((error) => {
+                console.log(error.message);
+            });
     };
 
     return (
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
-                {console.log({userData})}
+                {/*{console.log({userData})}*/}
                 <Text>Email: {userData.email}</Text>
                 <TouchableOpacity
                     onPress={handleSignOut}

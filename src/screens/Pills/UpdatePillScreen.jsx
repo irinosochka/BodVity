@@ -3,6 +3,8 @@ import {View, Text, TouchableOpacity, KeyboardAvoidingView, TextInput, StyleShee
 import Icon from 'react-native-vector-icons/Feather';
 import {UpdatePillForUser} from "../../services/collections";
 import { auth } from '../../../firebase';
+import moment from "moment";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 
 const styles = StyleSheet.create({
     container:{
@@ -76,8 +78,21 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderRadius: 14,
 
-    }
+    },
+    quantityInputTime:{
+        fontSize: 15,
+        color: '#9B9B9B',
+    },
+    inputTime:{
+        marginTop: 11,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginRight: 15,
+    },
 });
+
+//TODO: invalid date in datepicker before modification
 
 function UpdatePillScreen({navigation, route}){
 
@@ -87,6 +102,21 @@ function UpdatePillScreen({navigation, route}){
     const[notification, setNotification]=useState(pillItem.time)
     const[quantity, setQuantity]=useState(pillItem.quantity)
     const[days, setDays]=useState(pillItem.days)
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const timeSetter = (time) => {
+        setNotification(time);
+        hideDatePicker();
+    }
 
     const updatePill = async () => {
         const docID = pillItem.id;
@@ -122,6 +152,9 @@ function UpdatePillScreen({navigation, route}){
     <KeyboardAvoidingView
         style={styles.container}
     >
+        {/*{console.log(pillItem.notification)}*/}
+        {/*{console.log(pillItem.time)}*/}
+        {/*{console.log(notification.seconds)}*/}
         <TouchableOpacity onPress={()=> navigation.navigate('allPills')} style={styles.btnBack}>
             <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
         </TouchableOpacity>
@@ -165,11 +198,33 @@ function UpdatePillScreen({navigation, route}){
             <Text style={styles.txtTitle}>
                 Notification
             </Text>
-            <TextInput style={styles.input}
-                onChangeText={setNotification}
-                value={notification}
-            />
+            <View style={styles.input}>
+                <View style={styles.inputTime}>
+                    <Text style={styles.quantityInputTime}>{moment(notification).format('hh:mm A')}</Text>
+                    <TouchableOpacity onPress={showDatePicker}>
+                        <Icon name="clock" size={23} color={'#9B9B9B'} />
+                        <DateTimePickerModal
+                            mode='time'
+                            isVisible={isDatePickerVisible}
+                            value={notification}
+                            onDateChange={setNotification}
+                            onConfirm={timeSetter}
+                            onCancel={hideDatePicker}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
         </View>
+
+        {/*<View >*/}
+        {/*    <Text style={styles.txtTitle}>*/}
+        {/*        Notification*/}
+        {/*    </Text>*/}
+        {/*    <TextInput style={styles.input}*/}
+        {/*        onChangeText={setNotification}*/}
+        {/*        value={notification}*/}
+        {/*    />*/}
+        {/*</View>*/}
 
         {/*<TouchableOpacity style={styles.btnExcluir}*/}
         {/*    onPress={()=>{*/}

@@ -2,10 +2,11 @@ import {
     StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard, KeyboardAvoidingView,
 } from 'react-native';
 import React, { useState } from 'react';
-import {AddPillForUser, UpdatePillForUser} from '../../services/collections';
+import {AddPillForUser} from '../../services/collections';
 import { auth } from '../../../firebase';
 import Icon from 'react-native-vector-icons/Feather';
-import DateTimePicker from "@react-native-community/datetimepicker";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import moment from "moment";
 
 const styles = StyleSheet.create({
     container:{
@@ -36,6 +37,13 @@ const styles = StyleSheet.create({
         borderRadius: 14,
         paddingLeft: 10
     },
+    inputTime:{
+        marginTop: 11,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginRight: 15,
+    },
     txtTitle:{
         fontSize: 15,
         width: 190,
@@ -51,6 +59,10 @@ const styles = StyleSheet.create({
         backgroundColor: '#F8F8F6',
         borderRadius: 14,
         paddingLeft: 10
+    },
+    quantityInputTime:{
+        fontSize: 15,
+        color: '#9B9B9B',
     },
     quantity:{
         flexDirection: 'row',
@@ -84,9 +96,24 @@ const styles = StyleSheet.create({
 
 function CreatePillScreen({ navigation }) {
     const[title, setTitle]=useState(null)
-    const[notification, setNotification]=useState(new Date(Date.now()))
+    const[notification, setNotification] = useState(Date.now());
     const[quantity, setQuantity]=useState(null)
     const[days, setDays]=useState(null)
+
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+
+    const timeSetter = (time) => {
+        setNotification(time);
+        hideDatePicker();
+    }
 
     const handleAddPill = async () => {
         const newPillItem = {
@@ -106,23 +133,14 @@ function CreatePillScreen({ navigation }) {
         setQuantity('');
         setNotification('');
         setDays('');
-        navigation.navigate('allPills');
-    };
-
-    const onReminderTimeChange = async (_event, selectedDate) => {
-
-        if (_event?.type === 'dismissed') {
-            setNotification(notification);
-            return;
-        }
-        setNotification(selectedDate);
+        navigation.navigate('Pill');
     };
 
     return (
         <KeyboardAvoidingView
             style={styles.container}
         >
-            <TouchableOpacity onPress={()=> navigation.navigate('allPills')} style={styles.btnBack}>
+            <TouchableOpacity onPress={()=> navigation.navigate('Pill')} style={styles.btnBack}>
                 <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
             </TouchableOpacity>
 
@@ -168,21 +186,22 @@ function CreatePillScreen({ navigation }) {
                     Notification
                 </Text>
                 <View style={styles.input}>
-                    <DateTimePicker
-                        value={notification}
-                        mode="time"
-                        is24Hour
-                        style={{width: 90, height: 30}}
-                        onChange={onReminderTimeChange}
-                    />
+                    <View style={styles.inputTime}>
+                        <Text style={styles.quantityInputTime}>{moment(notification).format('hh:mm A')}</Text>
+                        <TouchableOpacity onPress={showDatePicker}>
+                            <Icon name="clock" size={23} color={'#9B9B9B'} />
+                            <DateTimePickerModal
+                                mode='time'
+                                isVisible={isDatePickerVisible}
+                                value={notification}
+                                onDateChange={setNotification}
+                                onConfirm={timeSetter}
+                                onCancel={hideDatePicker}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                {/*<TextInput style={styles.input}*/}
-                {/*           placeholder='Ex: 10:00'*/}
-                {/*           onChangeText={setNotification}*/}
-                {/*           value={notification}*/}
-                {/*/>*/}
             </View>
-
 
 
             <TouchableOpacity style={styles.btnDone} onPress={createPill}>

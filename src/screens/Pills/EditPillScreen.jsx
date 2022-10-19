@@ -84,7 +84,7 @@ function EditPillScreen({navigation, route}){
     const { pillItem } = route.params;
 
     const[title, setTitle]=useState(pillItem.title)
-    const[notification, setNotification]=useState(pillItem.days)
+    const[notification, setNotification]=useState(pillItem.time)
     const[quantity, setQuantity]=useState(pillItem.quantity)
     const[days, setDays]=useState(pillItem.days)
 
@@ -96,7 +96,7 @@ function EditPillScreen({navigation, route}){
         pillItem.days = days;
         UpdatePillForUser(auth.currentUser.uid, docID, {
             title: title,
-            notification: notification,
+            time: notification,
             quantity: quantity,
             days: days,
         }).catch(console.error);

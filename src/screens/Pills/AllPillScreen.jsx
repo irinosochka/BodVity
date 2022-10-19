@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 import {
     Text, TouchableOpacity, View,
     StyleSheet,
@@ -115,6 +114,7 @@ function AllPillScreen({ props, navigation }) {
                                 key={pillItem.id}
                                 onPress={() => navigation.navigate('editPill', {
                                     pillItem,
+                                    index
                                 })}
                             >
                                 <Pill

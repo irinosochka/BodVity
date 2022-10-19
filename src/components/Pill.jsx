@@ -125,7 +125,6 @@ function Pill(props) {
     // }
 
     return (
-
             <View style={styles.container}>
                 <View style={styles.item}>
                     <View style={styles.itemsLeft}>

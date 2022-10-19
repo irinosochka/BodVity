@@ -67,6 +67,8 @@ function CreateNoteScreen({ navigation }) {
 
     const onCreate = () => {
         handleAddNote(newContent, newTitle);
+        setNewContent('');
+        setNewTitle('');
         navigation.navigate('allNotes');
     };
 

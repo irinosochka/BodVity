@@ -102,6 +102,10 @@ function CreatePillScreen({ navigation }) {
 
     const createPill = () => {
         handleAddPill();
+        setTitle('');
+        setQuantity('');
+        setNotification('');
+        setDays('');
         navigation.navigate('allPills');
     };
 

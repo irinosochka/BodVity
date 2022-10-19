@@ -62,6 +62,28 @@ const styles = StyleSheet.create({
         width: '100%',
         height: '100%',
     },
+    btnContainer:{
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#FFF',
+        paddingLeft: 25,
+        paddingRight: 25,
+        paddingTop: 30
+    },
+    btnSave:{
+        width: 319,
+        height: 56,
+        backgroundColor: '#c8e2ae',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 14,
+        marginTop: 138
+    },
+    txtBtnSave:{
+        fontSize: 17,
+        color:'#FFF'
+    },
 });
 
 function AllNotesScreen({ props, navigation }) {
@@ -128,11 +150,23 @@ function AllNotesScreen({ props, navigation }) {
                     }
                 </ScrollView>
             </View>
-            <View style={styles.newNote}>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createNote')}>
-                    <Text>New</Text>
+            <View style={styles.btnContainer}>
+                <TouchableOpacity style={styles.btnSave}
+                                  onPress={() => navigation.navigate('createNote')}
+                >
+                    <Text
+                        style={styles.txtBtnSave}>
+                        New Note
+                    </Text>
+
                 </TouchableOpacity>
             </View>
+
+            {/*<View style={styles.newNote}>*/}
+            {/*    /!*<TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createNote')}>*!/*/}
+            {/*    /!*    <Text>New</Text>*!/*/}
+            {/*    /!*</TouchableOpacity>*!/*/}
+            {/*</View>*/}
         </View>
     );
 }

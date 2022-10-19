@@ -48,6 +48,19 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 25,
     },
+    btnSave:{
+        width: 319,
+        height: 56,
+        backgroundColor: '#c8e2ae',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 14,
+        marginTop: 40
+    },
+    txtBtnSave:{
+        fontSize: 17,
+        color:'#FFF'
+    },
 });
 
 function CreateNoteScreen({ navigation }) {
@@ -92,11 +105,22 @@ function CreateNoteScreen({ navigation }) {
                     multiline
                     autoFocus
                 />
-                <View style={styles.saveNote}>
-                    <TouchableOpacity style={styles.touchable} onPress={onCreate}>
-                        <Text>Create</Text>
-                    </TouchableOpacity>
-                </View>
+                <TouchableOpacity style={styles.btnSave}
+                                  onPress={()=>{
+                                      onCreate()
+                                  }}
+                >
+                    <Text
+                        style={styles.txtBtnSave}>
+                        Save
+                    </Text>
+
+                </TouchableOpacity>
+                {/*<View style={styles.saveNote}>*/}
+                {/*    <TouchableOpacity style={styles.touchable} onPress={onCreate}>*/}
+                {/*        <Text>Create</Text>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</View>*/}
             </View>
         </TouchableWithoutFeedback>
     );

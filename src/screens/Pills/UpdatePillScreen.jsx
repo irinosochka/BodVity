@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function EditPillScreen({navigation, route}){
+function UpdatePillScreen({navigation, route}){
 
     const { pillItem } = route.params;
 
@@ -196,4 +196,4 @@ function EditPillScreen({navigation, route}){
      </KeyboardAvoidingView>
     )
 }
-export default EditPillScreen
+export default UpdatePillScreen

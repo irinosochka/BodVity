@@ -10,7 +10,7 @@ import NoteScreen from "../../screens/Notes/NoteScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import CreatePillScreen from "../../screens/Pills/CreatePillScreen";
-import EditPillScreen from "../../screens/Pills/EditPillScreen";
+import UpdatePillScreen from "../../screens/Pills/UpdatePillScreen";
 
 const styles = StyleSheet.create({
     container: {
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 6,
-        shadowColor: '#9C27B0',
+        shadowColor: '#586b46',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
@@ -52,7 +52,7 @@ function PillStack() {
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="allPills" component={AllPillScreen} />
             <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreatePillScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="editPill" component={EditPillScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="editPill" component={UpdatePillScreen} />
         </Stack.Navigator>
     );
 }

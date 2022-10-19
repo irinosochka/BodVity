@@ -2,9 +2,10 @@ import {
     StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard, KeyboardAvoidingView,
 } from 'react-native';
 import React, { useState } from 'react';
-import {AddPillForUser} from '../../services/collections';
+import {AddPillForUser, UpdatePillForUser} from '../../services/collections';
 import { auth } from '../../../firebase';
 import Icon from 'react-native-vector-icons/Feather';
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const styles = StyleSheet.create({
     container:{
@@ -78,13 +79,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 14,
-
     }
 });
 
 function CreatePillScreen({ navigation }) {
     const[title, setTitle]=useState(null)
-    const[notification, setNotification]=useState(null)
+    const[notification, setNotification]=useState(new Date(Date.now()))
     const[quantity, setQuantity]=useState(null)
     const[days, setDays]=useState(null)
 
@@ -107,6 +107,15 @@ function CreatePillScreen({ navigation }) {
         setNotification('');
         setDays('');
         navigation.navigate('allPills');
+    };
+
+    const onReminderTimeChange = async (_event, selectedDate) => {
+
+        if (_event?.type === 'dismissed') {
+            setNotification(notification);
+            return;
+        }
+        setNotification(selectedDate);
     };
 
     return (
@@ -158,11 +167,20 @@ function CreatePillScreen({ navigation }) {
                 <Text style={styles.txtTitle}>
                     Notification
                 </Text>
-                <TextInput style={styles.input}
-                           placeholder='Ex: 10:00'
-                           onChangeText={setNotification}
-                           value={notification}
-                />
+                <View style={styles.input}>
+                    <DateTimePicker
+                        value={notification}
+                        mode="time"
+                        is24Hour
+                        style={{width: 90, height: 30}}
+                        onChange={onReminderTimeChange}
+                    />
+                </View>
+                {/*<TextInput style={styles.input}*/}
+                {/*           placeholder='Ex: 10:00'*/}
+                {/*           onChangeText={setNotification}*/}
+                {/*           value={notification}*/}
+                {/*/>*/}
             </View>
 
 

@@ -98,35 +98,35 @@ function Pill(props) {
     const [isExpanded, setIsExpanded] = useState(false);
     const toggleExpanded = () => setIsExpanded((value) => !value);
 
-    const [reminderTime, setreminderTime] = useState(pill.date);
+    // const [reminderTime, setreminderTime] = useState(pill.date);
 
-    const onReminderTimeChange = async (_event, selectedDate) => {
-        await UpdatePillForUser(auth.currentUser.uid, pill.id, {
-            date: Date.parse(selectedDate),
-        });
-        setreminderTime(selectedDate);
-    };
+    // const onReminderTimeChange = async (_event, selectedDate) => {
+    //     await UpdatePillForUser(auth.currentUser.uid, pill.id, {
+    //         date: Date.parse(selectedDate),
+    //     });
+    //     setreminderTime(selectedDate);
+    // };
 
-    let ExpandedView;
-    if (isExpanded) {
-        ExpandedView = (
-            <View style={styles.expandedItem}>
-                <TouchableOpacity style={styles.reminderButton}>
-                    <DateTimePicker
-                        value={reminderTime}
-                        mode="time"
-                        is24Hour
-                        style={{width: 90, height: 30}}
-                        onChange={onReminderTimeChange}
-                    />
-                </TouchableOpacity>
-            </View>
-        );
-    }
+    // let ExpandedView;
+    // if (isExpanded) {
+    //     ExpandedView = (
+    //         <View style={styles.expandedItem}>
+    //             <TouchableOpacity style={styles.reminderButton}>
+    //                 <DateTimePicker
+    //                     value={reminderTime}
+    //                     mode="time"
+    //                     is24Hour
+    //                     style={{width: 90, height: 30}}
+    //                     onChange={onReminderTimeChange}
+    //                 />
+    //             </TouchableOpacity>
+    //         </View>
+    //     );
+    // }
 
     return (
-        <View>
-            <TouchableOpacity style={styles.container} onPress={toggleExpanded}>
+
+            <View style={styles.container}>
                 <View style={styles.item}>
                     <View style={styles.itemsLeft}>
                         <TouchableOpacity
@@ -147,9 +147,9 @@ function Pill(props) {
                         <MaterialCommunityIcons name="delete" size={20} />
                     </TouchableOpacity>
                 </View>
-                {ExpandedView}
-            </TouchableOpacity>
-        </View>
+                {/*{ExpandedView}*/}
+            </View>
+
     );
 }
 

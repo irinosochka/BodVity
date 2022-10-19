@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     notesWrapper: {
+        flex: 1,
         paddingTop: 80,
-        paddingHorizontal: 10,
-        paddingBottom: 100,
+        paddingHorizontal: 20,
     },
     sectionTitle: {
         fontSize: 24,

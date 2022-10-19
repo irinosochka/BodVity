@@ -1,5 +1,5 @@
 import {
-    StyleSheet, Text, View, TouchableOpacity, TouchableWithoutFeedback, TextInput, Keyboard, KeyboardAvoidingView,
+    StyleSheet, Text, View, TouchableOpacity, TextInput, Keyboard, KeyboardAvoidingView,
 } from 'react-native';
 import React, { useState } from 'react';
 import {AddPillForUser} from '../../services/collections';
@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
         fontSize: 17,
         color:'#FFF'
     },
-
     btnBack:{
         width: 56,
         height: 56,
@@ -81,8 +80,6 @@ const styles = StyleSheet.create({
         borderRadius: 14,
 
     }
-
-
 });
 
 function CreatePillScreen({ navigation }) {
@@ -112,7 +109,7 @@ function CreatePillScreen({ navigation }) {
         <KeyboardAvoidingView
             style={styles.container}
         >
-            <TouchableOpacity onPress={()=> navigation.navigate('Pill')} style={styles.btnBack}>
+            <TouchableOpacity onPress={()=> navigation.navigate('allPills')} style={styles.btnBack}>
                 <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
             </TouchableOpacity>
 

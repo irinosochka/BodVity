@@ -10,6 +10,7 @@ import NoteScreen from "../../screens/Notes/NoteScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import CreatePillScreen from "../../screens/Pills/CreatePillScreen";
+import EditPillScreen from "../../screens/Pills/EditPillScreen";
 
 const styles = StyleSheet.create({
     container: {
@@ -51,6 +52,7 @@ function PillStack() {
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="allPills" component={AllPillScreen} />
             <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreatePillScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="editPill" component={EditPillScreen} />
         </Stack.Navigator>
     );
 }

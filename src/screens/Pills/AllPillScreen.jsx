@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     items: {
-        marginTop: 30,
-        marginBottom: 75,
+        marginTop: 20,
+        height: '95%',
     },
     writeTodoWrapper: {
         position: 'absolute',
@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
         borderRadius: 60,
         borderColor: '#C0C0C0',
         borderWidth: 1,
-        marginBottom: 10,
     },
     addWrapper: {
         width: 50,
@@ -112,24 +111,28 @@ function AllPillScreen({ props, navigation }) {
                 <ScrollView style={styles.items}>
                     {
                         pillItems.map((pillItem, index) => (
-                            <View key={pillItem.id}>
+                            <TouchableOpacity
+                                key={pillItem.id}
+                                onPress={() => navigation.navigate('editPill', {
+                                    pillItem,
+                                })}
+                            >
                                 <Pill
                                     pill={pillItem}
                                     completeAction={() => completePill(pillItem.id, index)}
                                     deleteAction={() => deletePill(pillItem.id, index)}
                                 />
-                            </View>
+                            </TouchableOpacity>
                         ))
                     }
                 </ScrollView>
             </View>
 
-
-            <View style={styles.newPill}>
-                <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createPill')}>
-                    <Text>New</Text>
-                </TouchableOpacity>
-            </View>
+            {/*<View style={styles.newPill}>*/}
+            {/*    <TouchableOpacity style={styles.touchable} onPress={() => navigation.navigate('createPill')}>*/}
+            {/*        <Text>New</Text>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
 
             {/*<KeyboardAvoidingView*/}
             {/*    behavior={Platform.OS === 'ios' ? 'padding' : 'height'}*/}

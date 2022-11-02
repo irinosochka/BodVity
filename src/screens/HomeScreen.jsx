@@ -1,48 +1,40 @@
 import {
     StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import React from 'react';
-import {colors} from "../styles/Styles";
+import React, {useContext} from 'react';
+import {colors, FormStyles} from "../styles/Styles";
+import {UserDataContext} from "../context/UserDataContext";
+import Icon from "react-native-vector-icons/Feather";
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#ffffff',
     },
-    buttonContainer: {
-        width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
+    homeWrapper: {
+        flex: 1,
+        paddingTop: 80,
     },
-    button: {
-        backgroundColor: colors.backgr,
-        width: '100%',
-        padding: 15,
-        borderRadius: 20,
-        alignItems: 'center',
-        marginVertical: 10,
-    },
+    topWrapper: {
+        paddingHorizontal: 20,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    }
 });
 
 function HomeScreen({ navigation }) {
 
+    const { userData, setUserData } = useContext(UserDataContext)
+
     return (
         <View style={styles.container}>
-            <View style={styles.buttonContainer}>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Notes')}
-                    style={styles.button}
-                >
-                    <Text>Notes</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Pill')}
-                    style={styles.button}
-                >
-                    <Text>Pill</Text>
-                </TouchableOpacity>
+            <View style={styles.homeWrapper}>
+                <View style={styles.topWrapper}>
+                    <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
+                    <TouchableOpacity>
+                        <Icon name="bell" size={23} color={'#9B9B9B'} />
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );

@@ -8,7 +8,7 @@ import {
     retrieveNotesForUser, DeleteNoteForUser, UpdateNoteForUser,
 } from '../../services/collections';
 import { auth } from '../../../firebase';
-import {colors} from "../../styles/Styles";
+import {colors, FormStyles} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
@@ -19,10 +19,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 80,
         paddingHorizontal: 20,
-    },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
     },
     items: {
         marginTop: 20,
@@ -129,7 +125,7 @@ function AllNotesScreen({ props, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.notesWrapper}>
-                <Text style={styles.sectionTitle}>All notes</Text>
+                <Text style={FormStyles.title}>All notes</Text>
                 <ScrollView style={styles.items}>
                     {
                         noteItems.map((noteItem, index) => (

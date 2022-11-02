@@ -10,7 +10,7 @@ import {
     retrievePillsForUser, DeletePillForUser, UpdatePillForUser,
 } from '../../services/collections';
 import {useIsFocused} from "@react-navigation/native";
-import {colors} from "../../styles/Styles";
+import {colors, FormStyles} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
@@ -21,10 +21,6 @@ const styles = StyleSheet.create({
         flex: 1,
         paddingTop: 80,
         paddingHorizontal: 20,
-    },
-    sectionTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
     },
     items: {
         marginTop: 20,
@@ -107,7 +103,7 @@ function AllPillScreen({ props, navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.pillsWrapper}>
-                <Text style={styles.sectionTitle}>Today's Pills</Text>
+                <Text style={FormStyles.title}>Today's Pills</Text>
                 <ScrollView style={styles.items}>
                     {
                         pillItems.map((pillItem, index) => (

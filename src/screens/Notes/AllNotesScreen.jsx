@@ -8,6 +8,7 @@ import {
     retrieveNotesForUser, DeleteNoteForUser, UpdateNoteForUser,
 } from '../../services/collections';
 import { auth } from '../../../firebase';
+import {colors} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
@@ -47,7 +48,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     newNote: {
-        backgroundColor: '#c1d2b0',
+        backgroundColor: colors.backgr,
         width: '50%',
         padding: 10,
         borderRadius: 20,
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     btnSave:{
         width: 319,
         height: 56,
-        backgroundColor: '#c8e2ae',
+        backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 14,

@@ -10,6 +10,7 @@ import {
     retrievePillsForUser, DeletePillForUser, UpdatePillForUser,
 } from '../../services/collections';
 import {useIsFocused} from "@react-navigation/native";
+import {colors} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
@@ -60,7 +61,7 @@ const styles = StyleSheet.create({
         marginBottom: 2.5,
     },
     newPill: {
-        backgroundColor: '#c1d2b0',
+        backgroundColor: colors.backgr,
         width: '50%',
         padding: 10,
         borderRadius: 20,

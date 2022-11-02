@@ -4,11 +4,12 @@ import {
 import React, { useState } from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import moment from 'moment';
+import {colors} from "../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        backgroundColor: '#d7eac4',
+        backgroundColor: colors.backgr,
         paddingTop: 20,
         paddingBottom: 20,
         paddingLeft: 20,
@@ -26,7 +27,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     pinButton: {
-        backgroundColor: '#d7eac4',
+        backgroundColor: colors.backgr,
         padding: 10,
         paddingLeft: 50,
         paddingRight: 50,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     reminderButton: {
-        backgroundColor: '#c1d2b0',
+        backgroundColor: colors.backgr,
         padding: 5,
         paddingLeft: 50,
         paddingRight: 50,

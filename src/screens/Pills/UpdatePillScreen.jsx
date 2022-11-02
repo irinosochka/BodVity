@@ -5,6 +5,7 @@ import {UpdatePillForUser} from "../../services/collections";
 import { auth } from '../../../firebase';
 import moment from "moment";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
+import {colors} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container:{
@@ -59,7 +60,7 @@ const styles = StyleSheet.create({
     btnSave:{
         width: 319,
         height: 56,
-        backgroundColor: '#c8e2ae',
+        backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 14,

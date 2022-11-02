@@ -4,6 +4,7 @@ import {
 import React, { useState } from 'react';
 import { AddNoteForUser } from '../../services/collections';
 import { auth } from '../../../firebase';
+import {colors} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
@@ -13,7 +14,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     saveNote: {
-        backgroundColor: '#d7eac4',
+        backgroundColor: colors.backgr,
         width: '50%',
         padding: 10,
         borderRadius: 20,
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
     input: {
         paddingVertical: 15,
         paddingHorizontal: 15,
-        backgroundColor: '#d7eac4',
+        backgroundColor: colors.backgr,
         color: '#000',
         width: '95%',
         height: '60%',
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     titleInput: {
         paddingVertical: 10,
         paddingHorizontal: 5,
-        backgroundColor: '#d7eac4',
+        backgroundColor: colors.backgr,
         color: '#000',
         width: '95%',
         fontWeight: 'bold',
@@ -51,7 +52,7 @@ const styles = StyleSheet.create({
     btnSave:{
         width: 319,
         height: 56,
-        backgroundColor: '#c8e2ae',
+        backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 14,

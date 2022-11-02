@@ -7,6 +7,7 @@ import { auth } from '../../../firebase';
 import Icon from 'react-native-vector-icons/Feather';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import moment from "moment";
+import {colors} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container:{
@@ -73,7 +74,7 @@ const styles = StyleSheet.create({
     btnDone:{
         width: 319,
         height: 56,
-        backgroundColor: '#c8e2ae',
+        backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 14,

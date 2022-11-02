@@ -2,6 +2,7 @@ import {
     StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
 import React from 'react';
+import {colors} from "../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     button: {
-        backgroundColor: '#d7eac4',
+        backgroundColor: colors.backgr,
         width: '100%',
         padding: 15,
         borderRadius: 20,

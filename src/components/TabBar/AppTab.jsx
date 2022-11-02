@@ -11,6 +11,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import CreatePillScreen from "../../screens/Pills/CreatePillScreen";
 import UpdatePillScreen from "../../screens/Pills/UpdatePillScreen";
+import {colors} from "../../styles/Styles";
 
 const styles = StyleSheet.create({
     container: {
@@ -27,11 +28,11 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         elevation: 6,
-        shadowColor: '#586b46',
+        shadowColor: colors.gray,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.2,
         shadowRadius: 3,
-        backgroundColor: '#c8e2ae',
+        backgroundColor: colors.primary,
     }
 });
 

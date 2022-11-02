@@ -48,6 +48,7 @@ function ProfileScreen() {
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
                 {/*{console.log({userData})}*/}
+                <Text>Hey {userData.name}</Text>
                 <Text>Email: {userData.email}</Text>
                 <TouchableOpacity
                     onPress={handleSignOut}

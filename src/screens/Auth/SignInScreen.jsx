@@ -49,7 +49,7 @@ const SignInScreen = ({ navigation }) => {
                     <Text style={FormStyles.title}>Sign In</Text>
                     <TextInput
                         style={FormStyles.textInput}
-                        placeholder="Enter Email"
+                        placeholder="Email"
                         value={email}
                         onChangeText={(text) => setEmail(text)}
                         keyboardType="email-address"
@@ -59,7 +59,7 @@ const SignInScreen = ({ navigation }) => {
                     />
                     <TextInput
                         style={FormStyles.textInput}
-                        placeholder="Enter Password"
+                        placeholder="Password"
                         value={password}
                         onChangeText={(value) => setPassword(value)}
                         secureTextEntry
@@ -89,7 +89,7 @@ const SignInScreen = ({ navigation }) => {
                         style={{ marginLeft: 4 }}
                         onPress={() => navigation.navigate('Welcome')}
                     >
-                        <Text style={{ color: colors.gray2, fontSize: sizes.body }}>Back to Welcome Screen</Text>
+                        <Text style={{ color: colors.gray2, fontSize: sizes.body }}>New to BodVity? Register</Text>
                     </TouchableOpacity>
                 </View>
             </View>

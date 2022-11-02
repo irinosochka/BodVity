@@ -134,11 +134,11 @@ export default function WelcomeScreen( {navigation} ) {
         <View style={styles.container}>
             <View style={styles.container1}>
                 <Text style={{fontSize: sizes.h1, textAlign: "center", fontWeight: "bold"}}>
-                    Your Home.
+                    Your Health.
                     <Text style={{fontSize: sizes.h1, color: colors.primary}}> BodVity. </Text>
                 </Text>
                 <Text style={{fontSize: sizes.h3, color: colors.gray2, marginTop: sizes.padding / 2}}>
-                    Enjoy the experience.
+                    Take care of your health
                 </Text>
             </View>
 

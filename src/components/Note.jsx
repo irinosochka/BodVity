@@ -17,10 +17,6 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'space-between',
         marginBottom: 5,
-        shadowColor: '#282A36',
-        shadowOffset: { width: 2, height: 3 },
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
     },
     item: {
         flexDirection: 'row',

@@ -30,7 +30,7 @@ const SignUpScreen = ({ navigation }) => {
 
 
     const signUpUser = async() => {
-        setSignUpLoading(true);
+        // setSignUpLoading(true);
         if(password === confirmPassword && name.length !== 0){
             try{
                 const response = await createUserWithEmailAndPassword(auth, email, password)
@@ -48,7 +48,7 @@ const SignUpScreen = ({ navigation }) => {
                 setError(error.message);
             }
         }
-        setSignUpLoading(false);
+        // setSignUpLoading(false);
     };
 
     // const signUpUser = () => {

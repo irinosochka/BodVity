@@ -1,9 +1,10 @@
 import {
     StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import React, { useState } from 'react';
+import React  from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from "../styles/Styles";
+import moment from "moment";
 
 const styles = StyleSheet.create({
     container: {
@@ -16,85 +17,55 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         justifyContent: 'space-between',
         marginBottom: 5,
-        shadowColor: '#282A36',
-        shadowOffset: { width: 2, height: 3 },
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
     },
     item: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-    },
-    itemsLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        flexWrap: 'wrap',
+        alignItems: "center"
     },
     square: {
-        width: 24,
-        height: 24,
-        backgroundColor: '#383A59',
+        width: 20,
+        height: 20,
+        borderWidth: 1,
+        // borderColor: '#73758a',
+        borderColor: colors.gray3,
         opacity: 0.8,
         borderRadius: 5,
         marginRight: 15,
     },
     squareComplete: {
-        width: 24,
-        height: 24,
-        backgroundColor: '#383A59',
+        width: 20,
+        height: 20,
+        // backgroundColor: '#73758a',
+        backgroundColor: colors.gray3,
         opacity: 0.8,
         borderRadius: 5,
         marginRight: 15,
         alignItems: 'center',
     },
-    itemText: {
-        maxWidth: '80%',
+    txtPillTitle: {
+        fontWeight: "500",
     },
-    lineThroughItemText: {
-        maxWidth: '80%',
-        fontStyle: 'italic',
-        textDecorationLine: 'line-through',
-        textDecorationStyle: 'solid',
-        color: 'black',
+    pillInfoWrapper: {
+        width: "60%",
     },
-    deleteButton: {
-        position: 'absolute',
-        right: 20,
+    txtPillInfo: {
+
     },
-    infoButton: {
-        backgroundColor: '#fff',
-        position: 'absolute',
-        right: 50,
-        padding: 10,
+    timeWrapper: {
+
     },
-    expandedItem: {
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 10,
-        borderRadius: 10,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        shadowColor: '#282A36',
-        shadowOffset: { width: 2, height: 3 },
-        shadowOpacity: 0.8,
-        shadowRadius: 1,
-    },
-    reminderButton: {
-        backgroundColor: colors.backgr,
-        padding: 5,
-        paddingLeft: 50,
-        paddingRight: 50,
-        borderRadius: 10,
-    },
+    verticleLine: {
+        height: '100%',
+        width: 1,
+        backgroundColor: colors.gray3,
+    }
 });
 
 function Pill(props) {
     const {
         pill, deleteAction, completeAction,
     } = props;
-
-    const [isExpanded, setIsExpanded] = useState(false);
-    const toggleExpanded = () => setIsExpanded((value) => !value);
 
     // const [reminderTime, setreminderTime] = useState(pill.date);
 
@@ -123,30 +94,42 @@ function Pill(props) {
     // }
 
     return (
-            <View style={styles.container}>
-                <View style={styles.item}>
-                    <View style={styles.itemsLeft}>
-                        <TouchableOpacity
-                            style={pill.completed ? styles.squareComplete : styles.square}
-                            onPress={completeAction}
-                        >
-                            <View>
-                                {pill.completed ? <MaterialCommunityIcons name="check" size={20} color="white" /> : null}
-                            </View>
-                        </TouchableOpacity>
-                        <Text
-                            style={pill.completed ? styles.lineThroughItemText : styles.itemText}
-                        >
-                            {pill.title}
-                        </Text>
-                    </View>
-                    <TouchableOpacity onPress={deleteAction}>
-                        <MaterialCommunityIcons name="delete" size={20} />
-                    </TouchableOpacity>
+        <View style={styles.container}>
+            <View style={styles.item}>
+                <View style={styles.timeWrapper}>
+                    <Text
+                        style={styles.txtPillTitle}
+                    >
+                        {moment.unix(pill.time).format('HH:mm')}
+                    </Text>
                 </View>
-                {/*{ExpandedView}*/}
+                <View style={styles.verticleLine}></View>
+                <View style={styles.pillInfoWrapper}>
+                    <Text
+                        style={styles.txtPillTitle}
+                    >
+                        {pill.title}
+                    </Text>
+                    <Text
+                        style={styles.txtPillInfo}
+                    >
+                        {pill.quantity}
+                    </Text>
+                </View>
+                <TouchableOpacity
+                    style={pill.completed ? styles.squareComplete : styles.square}
+                    onPress={completeAction}
+                >
+                    <View>
+                        {pill.completed ? <MaterialCommunityIcons name="check" size={20} color="white" /> : null}
+                    </View>
+                </TouchableOpacity>
+                {/*<TouchableOpacity onPress={deleteAction}>*/}
+                {/*    <MaterialCommunityIcons name="delete" size={20} />*/}
+                {/*</TouchableOpacity>*/}
             </View>
-
+            {/*{ExpandedView}*/}
+        </View>
     );
 }
 

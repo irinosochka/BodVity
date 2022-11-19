@@ -12,8 +12,10 @@ export const colors = {
     black: "#323643",
     white: "#FFFFFF",
     gray: "#9DA3B4",
-    gray2: "#C5CCD6",
+    gray2: "#4E515A",
+    gray3: "#909090",
     backgr: "#e8effe",
+
 };
 
 export const sizes = {

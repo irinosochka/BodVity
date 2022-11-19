@@ -24,7 +24,7 @@ const SignInScreen = ({ navigation }) => {
     const [error, setError] = useState();
 
     const signInUser = async () => {
-        setSignInLoading(true);
+        // setSignInLoading(true);
         try {
             const response = await signInWithEmailAndPassword(auth, email, password)
             const uid = response.user.uid
@@ -39,7 +39,7 @@ const SignInScreen = ({ navigation }) => {
             alert(error.message)
             setError(error.message);
         }
-        setSignInLoading(false);
+        // setSignInLoading(false);
     };
 
     return (

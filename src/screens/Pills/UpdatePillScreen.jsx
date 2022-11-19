@@ -201,7 +201,7 @@ function UpdatePillScreen({navigation, route}){
             </Text>
             <View style={styles.input}>
                 <View style={styles.inputTime}>
-                    <Text style={styles.quantityInputTime}>{moment(notification).format('hh:mm A')}</Text>
+                    <Text style={styles.quantityInputTime}>{moment.unix(notification).format('HH:mm')}</Text>
                     <TouchableOpacity onPress={showDatePicker}>
                         <Icon name="clock" size={23} color={'#9B9B9B'} />
                         <DateTimePickerModal

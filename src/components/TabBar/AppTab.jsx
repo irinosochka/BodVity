@@ -87,7 +87,7 @@ export default function AppTab() {
 
                                    return <Icon name={iconName} size={size} color={color} />;
                                },
-                           tabBarActiveTintColor: '#586b46',
+                           tabBarActiveTintColor: colors.gray2,
                            tabBarInactiveTintColor: '#b4b4b4',
                            tabBarShowLabel: false,
                        })}>

@@ -188,11 +188,13 @@ function CreatePillScreen({ navigation }) {
                 </Text>
                 <View style={styles.input}>
                     <View style={styles.inputTime}>
-                        <Text style={styles.quantityInputTime}>{moment(notification).format('HH:mm')}</Text>
+                        {/*<Text style={styles.quantityInputTime}>{moment(notification).format('HH:mm')}</Text>*/}
+                        <Text style={styles.quantityInputTime}>{moment(notification).format('D MMMM HH:mm')}</Text>
                         <TouchableOpacity onPress={showDatePicker}>
                             <Icon name="clock" size={23} color={'#9B9B9B'} />
                             <DateTimePickerModal
-                                mode='time'
+                                // mode='time'
+                                mode='datetime'
                                 isVisible={isDatePickerVisible}
                                 value={notification}
                                 onDateChange={setNotification}

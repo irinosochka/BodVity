@@ -1,15 +1,18 @@
 import {
     StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import React  from 'react';
+import React, {useState} from 'react';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {colors} from "../styles/Styles";
 import moment from "moment";
+import {UpdatePillForUser} from "../services/collections";
+import {auth} from "../../firebase";
+
 
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         paddingTop: 20,
         paddingBottom: 20,
         paddingLeft: 20,
@@ -28,7 +31,7 @@ const styles = StyleSheet.create({
         height: 20,
         borderWidth: 1,
         // borderColor: '#73758a',
-        borderColor: colors.gray3,
+        borderColor: colors.primary,
         opacity: 0.8,
         borderRadius: 5,
         marginRight: 15,
@@ -37,7 +40,7 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         // backgroundColor: '#73758a',
-        backgroundColor: colors.gray3,
+        backgroundColor: colors.primary,
         opacity: 0.8,
         borderRadius: 5,
         marginRight: 15,
@@ -62,36 +65,22 @@ const styles = StyleSheet.create({
     }
 });
 
+//TODO: pill completed doesn't change without refreshing page
+
 function Pill(props) {
     const {
-        pill, deleteAction, completeAction,
+        pill,
     } = props;
 
-    // const [reminderTime, setreminderTime] = useState(pill.date);
+    const [pillCompleted, setPillCompleted] = useState(pill.completed);
 
-    // const onReminderTimeChange = async (_event, selectedDate) => {
-    //     await UpdatePillForUser(auth.currentUser.uid, pill.id, {
-    //         date: Date.parse(selectedDate),
-    //     });
-    //     setreminderTime(selectedDate);
-    // };
 
-    // let ExpandedView;
-    // if (isExpanded) {
-    //     ExpandedView = (
-    //         <View style={styles.expandedItem}>
-    //             <TouchableOpacity style={styles.reminderButton}>
-    //                 <DateTimePicker
-    //                     value={reminderTime}
-    //                     mode="time"
-    //                     is24Hour
-    //                     style={{width: 90, height: 30}}
-    //                     onChange={onReminderTimeChange}
-    //                 />
-    //             </TouchableOpacity>
-    //         </View>
-    //     );
-    // }
+    const handleComplete = async () => {
+        await UpdatePillForUser(auth.currentUser.uid, pill.id, {
+            completed: !pill.completed
+        })
+        setPillCompleted(!pillCompleted);
+    }
 
     return (
         <View style={styles.container}>
@@ -117,18 +106,14 @@ function Pill(props) {
                     </Text>
                 </View>
                 <TouchableOpacity
-                    style={pill.completed ? styles.squareComplete : styles.square}
-                    onPress={completeAction}
+                    style={pillCompleted ? styles.squareComplete : styles.square}
+                    onPress={handleComplete}
                 >
                     <View>
-                        {pill.completed ? <MaterialCommunityIcons name="check" size={20} color="white" /> : null}
+                        {pillCompleted ? <MaterialCommunityIcons name="check" size={20} color="white" /> : null}
                     </View>
                 </TouchableOpacity>
-                {/*<TouchableOpacity onPress={deleteAction}>*/}
-                {/*    <MaterialCommunityIcons name="delete" size={20} />*/}
-                {/*</TouchableOpacity>*/}
             </View>
-            {/*{ExpandedView}*/}
         </View>
     );
 }

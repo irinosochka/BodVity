@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FFFFFF',
     },
     saveNote: {
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         width: '50%',
         padding: 10,
         borderRadius: 20,
@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
     input: {
         paddingVertical: 15,
         paddingHorizontal: 15,
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         color: '#000',
         width: '95%',
         height: '60%',
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     titleInput: {
         paddingVertical: 10,
         paddingHorizontal: 5,
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         color: '#000',
         width: '95%',
         fontWeight: 'bold',

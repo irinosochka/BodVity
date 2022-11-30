@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
     newNote: {
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         width: '50%',
         padding: 10,
         borderRadius: 20,

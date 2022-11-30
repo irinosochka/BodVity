@@ -9,7 +9,7 @@ import {colors} from "../styles/Styles";
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         paddingTop: 20,
         paddingBottom: 20,
         paddingLeft: 20,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     pinButton: {
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         padding: 10,
         paddingLeft: 50,
         paddingRight: 50,
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
     },
     reminderButton: {
-        backgroundColor: colors.backgr,
+        backgroundColor: colors.lightBlue,
         padding: 5,
         paddingLeft: 50,
         paddingRight: 50,

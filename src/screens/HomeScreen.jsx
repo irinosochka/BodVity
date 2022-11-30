@@ -5,7 +5,8 @@ import React from 'react';
 import TopBarHome from "../components/HomeScreenComponents/TopBarHome";
 import ProgressComponents from "../components/HomeScreenComponents/ProgressComponent";
 import {colors} from "../styles/Styles";
-import PillList from "../components/PillsComponents/PillList";
+import PillsOfDay from "../components/PillsComponents/PillsOfDay";
+import moment from "moment";
 
 const styles = StyleSheet.create({
     container: {
@@ -36,8 +37,6 @@ const styles = StyleSheet.create({
     }
 });
 
-//design HomeScreen && edited list with all pills && fixed showing time
-
 function HomeScreen({ navigation }) {
 
     return (
@@ -51,7 +50,7 @@ function HomeScreen({ navigation }) {
                         <Text style={styles.txtButton}>See all</Text>
                     </TouchableOpacity>
                 </View>
-                <PillList/>
+                <PillsOfDay day={moment(new Date()).format('DD-MMM-YYYY')} />
             </View>
 
         </View>

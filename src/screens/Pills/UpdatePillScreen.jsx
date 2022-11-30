@@ -93,8 +93,6 @@ const styles = StyleSheet.create({
     },
 });
 
-//TODO: invalid date in datepicker before modification
-
 function UpdatePillScreen({navigation, route}){
 
     const { pillItem } = route.params;
@@ -150,106 +148,106 @@ function UpdatePillScreen({navigation, route}){
     // }
 
     return(
-    <KeyboardAvoidingView
-        style={styles.container}
-    >
-        {/*{console.log(pillItem.notification)}*/}
-        {/*{console.log(pillItem.time)}*/}
-        {/*{console.log(notification.seconds)}*/}
-        <TouchableOpacity onPress={()=> navigation.navigate('allPills')} style={styles.btnBack}>
-            <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
-        </TouchableOpacity>
+        <KeyboardAvoidingView
+            style={styles.container}
+        >
+            {/*{console.log(pillItem.notification)}*/}
+            {/*{console.log(pillItem.time)}*/}
+            {/*{console.log(notification.seconds)}*/}
+            <TouchableOpacity onPress={()=> navigation.navigate('allPills')} style={styles.btnBack}>
+                <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
+            </TouchableOpacity>
 
-        <Text style={styles.title}>Edit Pill</Text>
+            <Text style={styles.title}>Edit Pill</Text>
 
-        <View >
-            <Text style={styles.txtTitle}>
-                Pill name
-            </Text>
-            <TextInput style={styles.input}
-                onChangeText={setTitle}
-                value={title}
-            />
-        </View>
-
-
-        <View style={styles.quantity}>
-            <View>
+            <View >
                 <Text style={styles.txtTitle}>
-                    Quantity
+                    Pill name
                 </Text>
-                <TextInput style={styles.quantityInput}
-                    onChangeText={setQuantity}
-                    value={quantity}
+                <TextInput style={styles.input}
+                           onChangeText={setTitle}
+                           value={title}
                 />
+            </View>
+
+
+            <View style={styles.quantity}>
+                <View>
+                    <Text style={styles.txtTitle}>
+                        Quantity
+                    </Text>
+                    <TextInput style={styles.quantityInput}
+                               onChangeText={setQuantity}
+                               value={quantity}
+                    />
+                </View>
+
+                <View >
+                    <Text style={styles.txtTitle}>
+                        How long?
+                    </Text>
+                    <TextInput style={styles.quantityInput}
+                               onChangeText={setDays}
+                               value={days}
+                    />
+                </View>
             </View>
 
             <View >
                 <Text style={styles.txtTitle}>
-                    How long?
+                    Notification
                 </Text>
-                <TextInput style={styles.quantityInput}
-                    onChangeText={setDays}
-                    value={days}
-                />
-            </View>
-        </View>
-
-        <View >
-            <Text style={styles.txtTitle}>
-                Notification
-            </Text>
-            <View style={styles.input}>
-                <View style={styles.inputTime}>
-                    <Text style={styles.quantityInputTime}>{moment.unix(notification).format('HH:mm')}</Text>
-                    <TouchableOpacity onPress={showDatePicker}>
-                        <Icon name="clock" size={23} color={'#9B9B9B'} />
-                        <DateTimePickerModal
-                            mode='time'
-                            isVisible={isDatePickerVisible}
-                            value={notification}
-                            onDateChange={setNotification}
-                            onConfirm={timeSetter}
-                            onCancel={hideDatePicker}
-                        />
-                    </TouchableOpacity>
+                <View style={styles.input}>
+                    <View style={styles.inputTime}>
+                        <Text style={styles.quantityInputTime}>{moment.unix(notification).format('D MMMM HH:mm')}</Text>
+                        <TouchableOpacity onPress={showDatePicker}>
+                            <Icon name="clock" size={23} color={'#9B9B9B'} />
+                            <DateTimePickerModal
+                                mode='time'
+                                isVisible={isDatePickerVisible}
+                                value={notification}
+                                onDateChange={setNotification}
+                                onConfirm={timeSetter}
+                                onCancel={hideDatePicker}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
-        </View>
 
-        {/*<View >*/}
-        {/*    <Text style={styles.txtTitle}>*/}
-        {/*        Notification*/}
-        {/*    </Text>*/}
-        {/*    <TextInput style={styles.input}*/}
-        {/*        onChangeText={setNotification}*/}
-        {/*        value={notification}*/}
-        {/*    />*/}
-        {/*</View>*/}
+            {/*<View >*/}
+            {/*    <Text style={styles.txtTitle}>*/}
+            {/*        Notification*/}
+            {/*    </Text>*/}
+            {/*    <TextInput style={styles.input}*/}
+            {/*        onChangeText={setNotification}*/}
+            {/*        value={notification}*/}
+            {/*    />*/}
+            {/*</View>*/}
 
-        {/*<TouchableOpacity style={styles.btnExcluir}*/}
-        {/*    onPress={()=>{*/}
-        {/*        deletePill()*/}
-        {/*    }}*/}
-        {/*>*/}
-        {/*    <Text style={styles.txtBtnExcluir}>*/}
-        {/*        Delete*/}
-        {/*    </Text>*/}
-        {/*</TouchableOpacity>*/}
+            {/*<TouchableOpacity style={styles.btnExcluir}*/}
+            {/*    onPress={()=>{*/}
+            {/*        deletePill()*/}
+            {/*    }}*/}
+            {/*>*/}
+            {/*    <Text style={styles.txtBtnExcluir}>*/}
+            {/*        Delete*/}
+            {/*    </Text>*/}
+            {/*</TouchableOpacity>*/}
 
-        <TouchableOpacity style={styles.btnSave}
-            onPress={()=>{
-                onSave()
-            }}
-        >
-            <Text
-            style={styles.txtBtnSave}>
-                Save
-            </Text>
+            <TouchableOpacity style={styles.btnSave}
+                              onPress={()=>{
+                                  onSave()
+                              }}
+            >
+                <Text
+                    style={styles.txtBtnSave}>
+                    Save
+                </Text>
 
-        </TouchableOpacity>
+            </TouchableOpacity>
 
-     </KeyboardAvoidingView>
+        </KeyboardAvoidingView>
     )
 }
 export default UpdatePillScreen

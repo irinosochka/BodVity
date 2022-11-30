@@ -2,7 +2,7 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Icon from 'react-native-vector-icons/Feather';
 import HomeScreen from "../../screens/HomeScreen";
-import AllPillScreen from "../../screens/Pills/AllPillScreen";
+import CalendarScreen from "../../screens/Pills/CalendarScreen";
 import AllNotesScreen from "../../screens/Notes/AllNotesScreen";
 import {StyleSheet, View} from "react-native";
 import CreateNoteScreen from "../../screens/Notes/CreateNoteScreen";
@@ -51,7 +51,7 @@ function NotesStack() {
 function PillStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="allPills" component={AllPillScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarScreen} />
             <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreatePillScreen} />
             <Stack.Screen options={{ headerShown: false }} name="editPill" component={UpdatePillScreen} />
         </Stack.Navigator>

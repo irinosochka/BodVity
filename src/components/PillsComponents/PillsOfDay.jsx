@@ -7,10 +7,11 @@ import React, { useState, useEffect } from 'react';
 import Pill from '../../components/Pill';
 import { auth } from '../../../firebase';
 import {
-    retrievePillsForUser, DeletePillForUser, UpdatePillForUser,
+    retrievePillsForUser,
 } from '../../services/collections';
 import {useIsFocused} from "@react-navigation/native";
 import {colors} from "../../styles/Styles";
+import moment from "moment";
 
 const styles = StyleSheet.create({
     pillsWrapper: {
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function PillList({ props, navigation }) {
+function PillsOfDays({ props, day, navigation }) {
     const [pillItems, setPillItems] = useState([]);
     const isFocused = useIsFocused();
 
@@ -80,26 +81,19 @@ function PillList({ props, navigation }) {
             .catch(console.error)
     }, [props, isFocused]);
 
-    const completePill = async (docID, index) => {
-        await UpdatePillForUser(auth.currentUser.uid, docID, {
-            completed: !pillItems[index].completed,
-        });
-        const newPillItems = [...pillItems];
-        newPillItems[index].completed = !pillItems[index].completed;
-        setPillItems(newPillItems);
-    };
-
-    const deletePill = async (docID, index) => {
-        const itemsCopy = [...pillItems];
-        await DeletePillForUser(auth.currentUser.uid, docID);
-        itemsCopy.splice(index, 1);
-        setPillItems(itemsCopy);
-    };
+    // const deletePill = async (docID, index) => {
+    //     const itemsCopy = [...pillItems];
+    //     await DeletePillForUser(auth.currentUser.uid, docID);
+    //     itemsCopy.splice(index, 1);
+    //     setPillItems(itemsCopy);
+    // };
 
     return (
         <ScrollView style={styles.items}>
             {
-                pillItems.map((pillItem, index) => (
+                pillItems.filter(pillItem =>
+                    (moment.unix(pillItem.time.seconds).format('DD-MMM-YYYY') === day)
+                ).map((pillItem, index) => (
                     <TouchableOpacity
                         key={pillItem.id}
                         onPress={() => navigation.navigate('editPill', {
@@ -117,4 +111,4 @@ function PillList({ props, navigation }) {
     );
 }
 
-export default PillList;
+export default PillsOfDays;

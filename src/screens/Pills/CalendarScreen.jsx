@@ -1,21 +1,25 @@
 import {
-    TouchableOpacity,
+    View,
     StyleSheet,
-    ScrollView,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import Pill from '../../components/Pill';
 import { auth } from '../../../firebase';
 import {
-    retrievePillsForUser, DeletePillForUser, UpdatePillForUser,
+    retrievePillsForUser,
 } from '../../services/collections';
 import {useIsFocused} from "@react-navigation/native";
 import {colors} from "../../styles/Styles";
+import CalendarStrip from 'react-native-calendar-strip';
+import moment from "moment";
+import PillsOfDay from "../../components/PillsComponents/PillsOfDay";
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#FFFFFF',
+    },
     pillsWrapper: {
         flex: 1,
-        paddingTop: 80,
         paddingHorizontal: 20,
     },
     items: {
@@ -63,13 +67,18 @@ const styles = StyleSheet.create({
         bottom: 0,
         marginLeft: 100,
     },
+    calendar: {
+        paddingTop: 25,
+    }
 });
 
-function PillList({ props, navigation }) {
+function CalendarScreen() {
     const [pillItems, setPillItems] = useState([]);
     const isFocused = useIsFocused();
+    const [selectedDate, setSelectedDate] = useState();
 
     useEffect(() => {
+        setSelectedDate(new Date());
         const fetchData = async () => {
             if (isFocused) {
                 const newPills = await retrievePillsForUser(auth.currentUser.uid);
@@ -78,43 +87,30 @@ function PillList({ props, navigation }) {
         }
         fetchData()
             .catch(console.error)
-    }, [props, isFocused]);
-
-    const completePill = async (docID, index) => {
-        await UpdatePillForUser(auth.currentUser.uid, docID, {
-            completed: !pillItems[index].completed,
-        });
-        const newPillItems = [...pillItems];
-        newPillItems[index].completed = !pillItems[index].completed;
-        setPillItems(newPillItems);
-    };
-
-    const deletePill = async (docID, index) => {
-        const itemsCopy = [...pillItems];
-        await DeletePillForUser(auth.currentUser.uid, docID);
-        itemsCopy.splice(index, 1);
-        setPillItems(itemsCopy);
-    };
+    }, [isFocused]);
 
     return (
-        <ScrollView style={styles.items}>
-            {
-                pillItems.map((pillItem, index) => (
-                    <TouchableOpacity
-                        key={pillItem.id}
-                        onPress={() => navigation.navigate('editPill', {
-                            pillItem,
-                            index
-                        })}
-                    >
-                        <Pill
-                            pill={pillItem}
-                        />
-                    </TouchableOpacity>
-                ))
-            }
-        </ScrollView>
+        <View style={styles.container}>
+            <View style={styles.calendar}>
+                <CalendarStrip
+                    calendarAnimation={{type: 'sequence', duration: 20}}
+                    daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
+                    style={{height: 110, paddingTop: 20}}
+                    calendarHeaderStyle={{color: colors.primary}}
+                    dateNumberStyle={{color: colors.black}}
+                    dateNameStyle={{color: colors.black}}
+                    highlightDateNumberStyle={{color: colors.primary}}
+                    highlightDateNameStyle={{color: colors.primary}}
+                    onDateSelected={(date)=>setSelectedDate(date)}
+                    scrollable
+                    selectedDate={selectedDate}
+                />
+            </View>
+            <View style={styles.pillsWrapper}>
+                <PillsOfDay day={moment(selectedDate).format('DD-MMM-YYYY')} />
+            </View>
+        </View>
     );
 }
 
-export default PillList;
+export default CalendarScreen;

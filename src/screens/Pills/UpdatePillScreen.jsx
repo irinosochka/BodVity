@@ -98,7 +98,7 @@ function UpdatePillScreen({navigation, route}){
     const { pillItem } = route.params;
 
     const[title, setTitle]=useState(pillItem.title)
-    const[notification, setNotification]=useState(pillItem.time)
+    const[notification, setNotification]=useState(moment.unix(pillItem.time).format('D MMMM HH:mm'))
     const[quantity, setQuantity]=useState(pillItem.quantity)
     const[days, setDays]=useState(pillItem.days)
 
@@ -151,9 +151,6 @@ function UpdatePillScreen({navigation, route}){
         <KeyboardAvoidingView
             style={styles.container}
         >
-            {/*{console.log(pillItem.notification)}*/}
-            {/*{console.log(pillItem.time)}*/}
-            {/*{console.log(notification.seconds)}*/}
             <TouchableOpacity onPress={()=> navigation.navigate('allPills')} style={styles.btnBack}>
                 <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
             </TouchableOpacity>
@@ -199,16 +196,18 @@ function UpdatePillScreen({navigation, route}){
                 </Text>
                 <View style={styles.input}>
                     <View style={styles.inputTime}>
-                        <Text style={styles.quantityInputTime}>{moment.unix(notification).format('D MMMM HH:mm')}</Text>
+                        <Text style={styles.quantityInputTime}>{moment(notification).format('D MMMM HH:mm')}</Text>
                         <TouchableOpacity onPress={showDatePicker}>
                             <Icon name="clock" size={23} color={'#9B9B9B'} />
                             <DateTimePickerModal
-                                mode='time'
+                                // mode='time'
+                                mode='datetime'
                                 isVisible={isDatePickerVisible}
                                 value={notification}
                                 onDateChange={setNotification}
                                 onConfirm={timeSetter}
                                 onCancel={hideDatePicker}
+                                locale="en_GB"
                             />
                         </TouchableOpacity>
                     </View>

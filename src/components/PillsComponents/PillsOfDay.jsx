@@ -12,6 +12,7 @@ import {
 import {useIsFocused} from "@react-navigation/native";
 import {colors} from "../../styles/Styles";
 import moment from "moment";
+import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     pillsWrapper: {
@@ -66,9 +67,10 @@ const styles = StyleSheet.create({
     },
 });
 
-function PillsOfDays({ props, day, navigation }) {
+function PillsOfDays({ props, day }) {
     const [pillItems, setPillItems] = useState([]);
     const isFocused = useIsFocused();
+    const navigation = useNavigation();
 
     useEffect(() => {
         const fetchData = async () => {

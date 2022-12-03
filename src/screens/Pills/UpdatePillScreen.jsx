@@ -98,7 +98,7 @@ function UpdatePillScreen({navigation, route}){
     const { pillItem } = route.params;
 
     const[title, setTitle]=useState(pillItem.title)
-    const[notification, setNotification]=useState(moment(pillItem.time).format('D MMMM HH:mm'))
+    const[notification, setNotification]=useState(pillItem.time)
     const[quantity, setQuantity]=useState(pillItem.quantity)
     const[days, setDays]=useState(pillItem.days)
 
@@ -135,6 +135,14 @@ function UpdatePillScreen({navigation, route}){
         updatePill();
         navigation.navigate('allPills');
     };
+
+    function notificationString() {
+        if(moment(notification).format('D MMMM HH:mm') === "Invalid date"){
+            return moment.unix(notification).format('D MMMM HH:mm');
+        } else {
+            return moment(notification).format('D MMMM HH:mm');
+        }
+    }
 
     // const deletePill = async () => {
     //     // db.collection("pills").doc(id).delete()
@@ -196,7 +204,9 @@ function UpdatePillScreen({navigation, route}){
                 </Text>
                 <View style={styles.input}>
                     <View style={styles.inputTime}>
-                        <Text style={styles.quantityInputTime}>{moment(notification).format('D MMMM HH:mm')}</Text>
+                        <Text style={styles.quantityInputTime}>
+                            {notificationString()}
+                        </Text>
                         <TouchableOpacity onPress={showDatePicker}>
                             <Icon name="clock" size={23} color={'#9B9B9B'} />
                             <DateTimePickerModal
@@ -213,26 +223,6 @@ function UpdatePillScreen({navigation, route}){
                     </View>
                 </View>
             </View>
-
-            {/*<View >*/}
-            {/*    <Text style={styles.txtTitle}>*/}
-            {/*        Notification*/}
-            {/*    </Text>*/}
-            {/*    <TextInput style={styles.input}*/}
-            {/*        onChangeText={setNotification}*/}
-            {/*        value={notification}*/}
-            {/*    />*/}
-            {/*</View>*/}
-
-            {/*<TouchableOpacity style={styles.btnExcluir}*/}
-            {/*    onPress={()=>{*/}
-            {/*        deletePill()*/}
-            {/*    }}*/}
-            {/*>*/}
-            {/*    <Text style={styles.txtBtnExcluir}>*/}
-            {/*        Delete*/}
-            {/*    </Text>*/}
-            {/*</TouchableOpacity>*/}
 
             <TouchableOpacity style={styles.btnSave}
                               onPress={()=>{

@@ -96,10 +96,10 @@ const styles = StyleSheet.create({
 });
 
 function CreatePillScreen({ navigation }) {
-    const[title, setTitle]=useState(null)
-    const[notification, setNotification] = useState(Date.now());
-    const[quantity, setQuantity]=useState(null)
-    const[days, setDays]=useState(null)
+    const[title, setTitle]=useState('')
+    const[notification, setNotification] = useState(new Date());
+    const[quantity, setQuantity]=useState('')
+    const[days, setDays]=useState('')
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
@@ -116,25 +116,20 @@ function CreatePillScreen({ navigation }) {
         hideDatePicker();
     }
 
-    const handleAddPill = async () => {
-        const newPillItem = {
-            title: title,
-            time: notification,
-            quantity: quantity,
-            days: days,
-            completed: false,
-        };
-        AddPillForUser(auth.currentUser.uid, newPillItem).catch(console.error);
-        Keyboard.dismiss();
-    };
-
-    const createPill = () => {
-        handleAddPill();
-        setTitle('');
-        setQuantity('');
-        setNotification('');
-        setDays('');
-        navigation.navigate('Pill');
+    const handleAddPill = (event:React.FormEvent<EventTarget>) => {
+        event.preventDefault();
+        if(title.length !== 0 && quantity.length !== 0 && days.length !== 0 ){
+            const newPillItem = { title: title, time: notification, quantity: quantity, days: days, completed: false};
+            AddPillForUser(auth.currentUser.uid, newPillItem).catch(console.error);
+            Keyboard.dismiss();
+            setTitle('');
+            setQuantity('');
+            setNotification(new Date());
+            setDays('');
+            navigation.navigate('Pill');
+        }else {
+            console.log('empty error')
+        }
     };
 
     return (
@@ -142,11 +137,10 @@ function CreatePillScreen({ navigation }) {
             style={styles.container}
         >
             <TouchableOpacity onPress={()=> navigation.navigate('Pill')} style={styles.btnBack}>
-                <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
+                <Icon name="arrow-left" size={24} color="black"/>
             </TouchableOpacity>
 
             <Text style={styles.title}>Add Pill</Text>
-
 
             <View >
                 <Text style={styles.txtTitle}>
@@ -170,6 +164,7 @@ function CreatePillScreen({ navigation }) {
                                value={quantity}
                     />
                 </View>
+
                 <View >
                     <Text style={styles.txtTitle}>
                         How long?
@@ -208,7 +203,7 @@ function CreatePillScreen({ navigation }) {
             </View>
 
 
-            <TouchableOpacity style={styles.btnDone} onPress={createPill}>
+            <TouchableOpacity style={styles.btnDone} onPress={handleAddPill}>
                 <Text style={styles.txtBtnDone}>
                     Done
                 </Text>

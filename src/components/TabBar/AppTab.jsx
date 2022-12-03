@@ -72,7 +72,7 @@ export default function AppTab() {
                                            iconName = 'home';
                                            break;
                                        case 'Pill':
-                                           iconName = 'activity';
+                                           iconName = 'calendar';
                                            break;
                                        case 'Profile':
                                             iconName = 'user';

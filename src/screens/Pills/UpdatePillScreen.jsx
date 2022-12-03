@@ -152,7 +152,7 @@ function UpdatePillScreen({navigation, route}){
             style={styles.container}
         >
             <TouchableOpacity onPress={()=> navigation.navigate('allPills')} style={styles.btnBack}>
-                <Icon name="arrow-left" size={24} color="black" style={styles.arrowBack}/>
+                <Icon name="arrow-left" size={24} color="black"/>
             </TouchableOpacity>
 
             <Text style={styles.title}>Edit Pill</Text>

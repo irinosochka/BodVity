@@ -89,6 +89,9 @@ function CalendarScreen() {
             .catch(console.error)
     }, [isFocused]);
 
+    const pillsOfDay = pillItems.filter(pillItem =>
+        (moment.unix(pillItem.time.seconds).format('DD-MMM-YYYY') === moment(selectedDate).format('DD-MMM-YYYY')));
+
     return (
         <View style={styles.container}>
             <View style={styles.calendar}>
@@ -96,18 +99,18 @@ function CalendarScreen() {
                     calendarAnimation={{type: 'sequence', duration: 20}}
                     daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
                     style={{height: 110, paddingTop: 20}}
-                    calendarHeaderStyle={{color: colors.primary}}
-                    dateNumberStyle={{color: colors.black}}
+                    // calendarHeaderStyle={{color: colors.primary}}
+                    dateNumberStyle={{color: colors.black, fontSize: 22}}
                     dateNameStyle={{color: colors.black}}
-                    highlightDateNumberStyle={{color: colors.primary}}
-                    highlightDateNameStyle={{color: colors.primary}}
+                    highlightDateNumberStyle={{color: colors.primary, fontSize: 20}}
+                    highlightDateNameStyle={{color: colors.primary, fontSize: 9}}
                     onDateSelected={(date)=>setSelectedDate(date)}
                     scrollable
                     selectedDate={selectedDate}
                 />
             </View>
             <View style={styles.pillsWrapper}>
-                <PillsOfDay day={moment(selectedDate).format('DD-MMM-YYYY')} />
+                <PillsOfDay pillsOfDay={pillsOfDay} />
             </View>
         </View>
     );

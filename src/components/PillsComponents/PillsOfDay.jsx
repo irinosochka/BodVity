@@ -3,15 +3,9 @@ import {
     StyleSheet,
     ScrollView,
 } from 'react-native';
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import Pill from '../../components/Pill';
-import { auth } from '../../../firebase';
-import {
-    retrievePillsForUser,
-} from '../../services/collections';
-import {useIsFocused} from "@react-navigation/native";
 import {colors} from "../../styles/Styles";
-import moment from "moment";
 import { useNavigation } from '@react-navigation/native';
 
 const styles = StyleSheet.create({
@@ -67,21 +61,9 @@ const styles = StyleSheet.create({
     },
 });
 
-function PillsOfDays({ props, day }) {
-    const [pillItems, setPillItems] = useState([]);
-    const isFocused = useIsFocused();
-    const navigation = useNavigation();
+function PillsOfDays({ pillsOfDay }) {
 
-    useEffect(() => {
-        const fetchData = async () => {
-            if (isFocused) {
-                const newPills = await retrievePillsForUser(auth.currentUser.uid);
-                setPillItems(newPills);
-            }
-        }
-        fetchData()
-            .catch(console.error)
-    }, [props, isFocused]);
+    const navigation = useNavigation();
 
     // const deletePill = async (docID, index) => {
     //     const itemsCopy = [...pillItems];
@@ -93,9 +75,7 @@ function PillsOfDays({ props, day }) {
     return (
         <ScrollView style={styles.items}>
             {
-                pillItems.filter(pillItem =>
-                    (moment.unix(pillItem.time.seconds).format('DD-MMM-YYYY') === day)
-                ).map((pillItem, index) => (
+                pillsOfDay.map((pillItem, index) => (
                     <TouchableOpacity
                         key={pillItem.id}
                         onPress={() => navigation.navigate('editPill', {

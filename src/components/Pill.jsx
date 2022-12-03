@@ -53,7 +53,9 @@ const styles = StyleSheet.create({
         width: "60%",
     },
     txtPillInfo: {
-
+        color: colors.gray2,
+        paddingTop: 4,
+        fontSize: 12,
     },
     timeWrapper: {
 

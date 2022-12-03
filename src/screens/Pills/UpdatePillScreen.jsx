@@ -98,7 +98,7 @@ function UpdatePillScreen({navigation, route}){
     const { pillItem } = route.params;
 
     const[title, setTitle]=useState(pillItem.title)
-    const[notification, setNotification]=useState(moment.unix(pillItem.time).format('D MMMM HH:mm'))
+    const[notification, setNotification]=useState(moment(pillItem.time).format('D MMMM HH:mm'))
     const[quantity, setQuantity]=useState(pillItem.quantity)
     const[days, setDays]=useState(pillItem.days)
 

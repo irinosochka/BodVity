@@ -110,7 +110,7 @@ function CalendarScreen() {
                 />
             </View>
             <View style={styles.pillsWrapper}>
-                <PillsOfDay pillsOfDay={pillsOfDay} />
+                <PillsOfDay pillsOfDay={pillsOfDay}/>
             </View>
         </View>
     );

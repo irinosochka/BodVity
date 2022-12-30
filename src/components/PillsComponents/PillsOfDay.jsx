@@ -88,6 +88,11 @@ function PillsOfDays({ pillsOfDay }) {
                         />
                     </TouchableOpacity>
                 ))
+
+                    // .sort(function (a,b){
+                    //     let dateA=new Date(a.pillItem.time), dateB=new Date(b.pillItem.time)
+                    //     return dateA-dateB
+                    // })
             }
         </ScrollView>
     );

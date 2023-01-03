@@ -9,9 +9,9 @@ import CreateNoteScreen from "../../screens/Notes/CreateNoteScreen";
 import NoteScreen from "../../screens/Notes/NoteScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
-import CreatePillScreen from "../../screens/Pills/CreatePillScreen";
 import UpdatePillScreen from "../../screens/Pills/UpdatePillScreen";
 import {colors} from "../../styles/Styles";
+import CreateMedicationScreen from "../../screens/Pills/CreateMedication";
 
 const styles = StyleSheet.create({
     container: {
@@ -52,7 +52,7 @@ function PillStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreatePillScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreateMedicationScreen} />
             <Stack.Screen options={{ headerShown: false }} name="editPill" component={UpdatePillScreen} />
         </Stack.Navigator>
     );
@@ -110,7 +110,7 @@ export default function AppTab() {
             />
             <Tab.Screen
                     name="CreatePill"
-                    component={CreatePillScreen}
+                    component={CreateMedicationScreen}
                     options={() => ({
                         tabBarIcon: ({}) => (
                             <View>

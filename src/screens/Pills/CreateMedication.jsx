@@ -91,15 +91,11 @@ function CreateMedicationScreen({ navigation }) {
     };
 
     const hideStartDatePicker = () => {
-        // setStartDate(null)
         setStartDatePickerVisibility(false);
     };
 
     const handleConfirmStartDate = (day) => {
-        //setErrorMessage()
-
         if (day < new Date()) {
-            //setErrorMessage('Your medication should be scheduled from today.')
             setStartDate(new Date())
         } else setStartDate(day)
 
@@ -116,14 +112,11 @@ function CreateMedicationScreen({ navigation }) {
     };
 
     const handleConfirmEndDate = (day) => {
-        //setErrorMessage()
-
         if (day <= startDate) {
             //setErrorMessage('Your medication should be ended after the start day.')
         } else setEndDate(day)
 
         setEndDatePickerVisibility(false);
-
     };
 
     //pill in stock
@@ -208,8 +201,10 @@ function CreateMedicationScreen({ navigation }) {
                 console.log('Error in inserting a new medication plan:', error.message);
             }
         }
-        createMedicationPlan()
+        await createMedicationPlan()
     }
+
+    // TODO: delete create medication with reminders in array
 
     // const createMedication = async () => {
     //     const createMedicationPlan = async () => {
@@ -296,17 +291,13 @@ function CreateMedicationScreen({ navigation }) {
             <SafeAreaView
                 style={styles.container}
             >
-                {/*<TouchableOpacity onPress={()=> navigation.navigate('Pill')} style={styles.btnBack}>*/}
-                {/*    <Icon name="arrow-left" size={24} color="black"/>*/}
-                {/*</TouchableOpacity>*/}
-
                 <View>
                     <Text style={styles.title}>Add Pill</Text>
                 </View>
 
                 <View>
                     <Text style={styles.txtTitle}>
-                        Pill name
+                        Medication name
                     </Text>
                     <TextInput style={styles.input}
                                placeholder='Ex: Ibuprofen'
@@ -449,11 +440,7 @@ export default CreateMedicationScreen;
 
 
 const styles = StyleSheet.create({
-    // container: {
-    //     flex: 1
-    // },
     headerBar: {
-        // height: 50,
         padding: 10,
         backgroundColor: colors.primary,
         flexDirection: 'row',
@@ -462,7 +449,6 @@ const styles = StyleSheet.create({
     },
     button : {
         flexDirection: 'row',
-        // flex: 1,
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: colors.primary,
@@ -490,11 +476,9 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     modalHeader: {
-        // height: 80,
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: colors.primary,
-        // borderBottomWidth: 1,
         padding: 10
     },
     modalContainer : {
@@ -502,16 +486,11 @@ const styles = StyleSheet.create({
         top: '50%',
         width: '100%',
         height: '50%',
-        // justifyContent: '',
-        // backgroundColor: 'gray'
         backgroundColor: 'white',
-        // padding: 10
     },
     modalDose: {
-        // flexDirection: 'row',
         justifyContent: 'space-between',
         marginTop: 20,
-        // flex: 1
     },
     modalTime : {
         flexDirection: 'row',

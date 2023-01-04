@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20,
         borderWidth: 1,
-        // borderColor: '#73758a',
         borderColor: colors.primary,
         opacity: 0.8,
         borderRadius: 5,
@@ -40,7 +39,6 @@ const styles = StyleSheet.create({
     squareComplete: {
         width: 20,
         height: 20,
-        // backgroundColor: '#73758a',
         backgroundColor: colors.primary,
         opacity: 0.8,
         borderRadius: 5,
@@ -72,23 +70,12 @@ function MedicationItem({reminder}) {
 
     const [medicationItems, setMedicationItems] = useState([]);
     const isFocused = useIsFocused();
-    const [medication, setMedication] = useState(reminder.medicationId);
-
-    const [medItem, setMedItem] = useState();
 
     const med = medicationItems.filter(medItem => medItem.id === reminder.medicationId).map(medication => medication.title).pop()
 
-    // const medTitle = (medId) => {
-    //     const med = medicationItems.filter(medItem => medItem.id === medId);
-    //     setMedItem(med)
-    // }
-
-
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
 
-
     useEffect(() => {
-        medicationItem(reminder.medicationId)
         const fetchData = async () => {
             if (isFocused) {
                 const newMedication = await retrieveMedicationsForUser(auth.currentUser.uid);
@@ -99,10 +86,6 @@ function MedicationItem({reminder}) {
             .catch(console.error)
     }, [isFocused]);
 
-
-    const medicationItem = (pillItem) => {
-        return setMedication(medicationItems.filter(medicationItem => medicationItem.medicationId === pillItem.medicationId))
-    }
 
     const handleComplete = async () => {
         await UpdateMedicationReminderForUser(auth.currentUser.uid, reminder.medicationId, reminder.id, {

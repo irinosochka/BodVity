@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import Routes from "./src/routes/Routes";
 import { Provider } from 'jotai'
 import {UserDataContextProvider} from "./src/context/UserDataContext";

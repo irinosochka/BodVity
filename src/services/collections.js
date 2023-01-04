@@ -35,14 +35,6 @@ export const retrieveMedicationsForUser = async (userID) => {
     return data;
 };
 
-// export const getTitleOfMedication = async (userID, medicationID) => {
-//     const docRef = doc(db, 'users', userID, 'medications', medicationID)
-//     const medicationsDocs = await getDocs(docRef);
-//     return medicationsDocs.docs.map((medicationDoc) => {
-//         return medicationDoc.data.title;
-//     });
-// }
-
 export const AddPillForUser = async (userID, dataToAdd) => {
     const newDocRef = collection(db, 'users', userID, 'pills');
     const data = await addDoc(newDocRef, dataToAdd);

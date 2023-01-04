@@ -118,7 +118,6 @@ function CalendarMedicationScreen() {
                     calendarAnimation={{type: 'sequence', duration: 20}}
                     daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
                     style={{height: 110, paddingTop: 20}}
-                    // calendarHeaderStyle={{color: colors.primary}}
                     dateNumberStyle={{color: colors.black, fontSize: 22}}
                     dateNameStyle={{color: colors.black}}
                     highlightDateNumberStyle={{color: colors.primary, fontSize: 20}}
@@ -141,30 +140,6 @@ function CalendarMedicationScreen() {
                         <Text>You have no medication!</Text>
                     </View>
             }
-            {/*<View style={styles.pillsWrapper}>*/}
-            {/*    <MedicationOfDay medicationOfDay={medicationOfDay}/>*/}
-            {/*</View>*/}
-            {/*{ medications.length > 0 && isHavingRemindersToday() ?*/}
-            {/*    <FlatList*/}
-            {/*        showsVerticalScrollIndicator={true}*/}
-            {/*        data={medications}*/}
-            {/*        keyExtractor={(item) => item.id}*/}
-            {/*        renderItem={({ item })  => {*/}
-            {/*            return item.reminders*/}
-            {/*                .filter(reminder => { return reminder.timestamp.toLocaleDateString() === selectedDate.toLocaleDateString()})*/}
-            {/*                .map(reminder => <MedicationItem reminder={{*/}
-            {/*                    ...reminder,*/}
-            {/*                    // medicationId: item.id,*/}
-            {/*                    title: item.title*/}
-            {/*                }} key={reminder.id}/>)*/}
-            {/*        }*/}
-            {/*        }*/}
-            {/*    />*/}
-            {/*    :*/}
-            {/*    <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>*/}
-            {/*        <Text>You have no medication today!</Text>*/}
-            {/*    </View>*/}
-            {/*}*/}
         </View>
     );
 }

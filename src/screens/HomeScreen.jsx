@@ -90,7 +90,6 @@ function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            {console.log(medicationOfDay)}
             <View style={styles.homeWrapper}>
                 <TopBarHome/>
                 <ProgressComponents pillsOfDay={pillsOfDay}/>

@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import {
     Keyboard,
-    Modal,
     SafeAreaView,
     ScrollView,
     ScrollViewComponent,
@@ -11,10 +10,6 @@ import {
     TouchableOpacity,
     View
 } from "react-native";
-import {MaterialCommunityIcons, MaterialIcons} from "@expo/vector-icons";
-import {KeyboardAvoidingView} from "react-native-web";
-import Icon from 'react-native-vector-icons/Feather';
-import {Picker} from "@react-native-picker/picker";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import {addDoc, collection, serverTimestamp, Timestamp} from "firebase/firestore";
 import {auth, db} from "../../../firebase";
@@ -193,11 +188,11 @@ function CreateMedicationScreen({ navigation }) {
                         let array = []
 
                         for(let plan of plans) {
-                            console.log('Plan:', plan);
                             const reminderDocument = {
                                 ...plan,
                                 timestamp: Timestamp.fromDate(plan.timestamp),
-                                updatedAt: Timestamp.fromDate(plan.updatedAt)
+                                updatedAt: Timestamp.fromDate(plan.updatedAt),
+                                medicationId: medicationDoc.id.toString(),
                             }
                             console.log('ReminderDocument:', reminderDocument);
 
@@ -215,6 +210,41 @@ function CreateMedicationScreen({ navigation }) {
         }
         createMedicationPlan()
     }
+
+    // const createMedication = async () => {
+    //     const createMedicationPlan = async () => {
+    //         const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
+    //
+    //         const plans = setUpReminders(startDate, endDate)
+    //         let array = []
+    //
+    //         for(let plan of plans) {
+    //             const reminderDocument = {
+    //                 ...plan,
+    //                 timestamp: Timestamp.fromDate(plan.timestamp),
+    //                 updatedAt: Timestamp.fromDate(plan.updatedAt),
+    //             }
+    //             console.log('ReminderDocument:', reminderDocument);
+    //             array.push(reminderDocument);
+    //         }
+    //
+    //         const medicationDocument = {
+    //             createdAt: serverTimestamp(),
+    //             title: title,
+    //             pillsInStock: parseInt(pillsInStock),
+    //             startDate: Timestamp.fromDate(startDate),
+    //             endDate: endDate ? Timestamp.fromDate(endDate) : null,
+    //             updatedAt: serverTimestamp(),
+    //             reminders: array
+    //         }
+    //         try{
+    //             await addDoc(userMedicationsRef, medicationDocument)
+    //         }catch (error) {
+    //             console.log('Error in inserting a new medication plan:', error.message);
+    //         }
+    //     }
+    //     createMedicationPlan()
+    // }
 
     const  setUpReminders = (startDate, endDate) => {
         let res = []

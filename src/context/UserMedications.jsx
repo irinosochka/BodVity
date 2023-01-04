@@ -11,15 +11,15 @@ export function useMedications() {
 export const MedicationsContextProvider = ({children}) => {
     const [medications, setMedications] = useState([])
 
-    const fetchData = async () => {
-        await setMedications(prev => [])
+    const fetchData = async (user) => {
+        setMedications(prev => [])
 
-        const medicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
+        const medicationsRef = collection(db, 'users', user.uid, 'medications')
         const medicationsDocs = await getDocs(medicationsRef)
 
         medicationsDocs.docs.map( (medication) => {
             const getReminders = async () => {
-                const remindersRef = query(collection(db, 'users', auth.currentUser.uid, 'medications', medication.id, 'reminders'), orderBy('timestamp'))
+                const remindersRef = query(collection(db, 'users', user.uid, 'medications', medication.id, 'reminders'), orderBy('timestamp'))
                 const remindersDocs = await getDocs(remindersRef)
 
                 return {...medication.data(), id: medication.id, reminders: remindersDocs.docs.map(reminder => ({...reminder.data(), id: reminder.id, timestamp: reminder.data().timestamp.toDate()}))}
@@ -33,9 +33,13 @@ export const MedicationsContextProvider = ({children}) => {
 
     }
 
+    async function get() {
+        await fetchData(auth.currentUser)
+    }
+
     const medicationsValue = {
         medications,
-        fetchData,
+        get,
         setMedications
     }
 

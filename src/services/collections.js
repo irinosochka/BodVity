@@ -1,23 +1,5 @@
-import {
-    collection, addDoc, getDocs, updateDoc, deleteDoc, doc,
-} from 'firebase/firestore';
-import { db } from '../../firebase';
-
-// Constants
-// const notesInitData = {
-//     content: 'first note content',
-//     date: Date.now(),
-//     title: 'first note',
-//     completed: false,
-// };
-//
-// const pillInitData = {
-//     content: 'omega 3',
-//     date: Date.now(),
-//     completed: false,
-//     quantity: 1,
-//     reminder: null,
-// };
+import {addDoc, collection, deleteDoc, doc, getDocs, updateDoc,} from 'firebase/firestore';
+import {db} from '../../firebase';
 
 // Common
 // export const autoAddDoc = async (userID) => {
@@ -42,6 +24,25 @@ export const retrievePillsForUser = async (userID) => {
     return data;
 };
 
+export const retrieveMedicationsForUser = async (userID) => {
+    const collectionRef = collection(db, 'users', userID, 'medications');
+    const allMedicationsSnapshot = await getDocs(collectionRef);
+    const data = allMedicationsSnapshot.docs.map((medicationDoc) => {
+        const dataItem = medicationDoc.data();
+        dataItem.id = medicationDoc.id;
+        return dataItem;
+    });
+    return data;
+};
+
+// export const getTitleOfMedication = async (userID, medicationID) => {
+//     const docRef = doc(db, 'users', userID, 'medications', medicationID)
+//     const medicationsDocs = await getDocs(docRef);
+//     return medicationsDocs.docs.map((medicationDoc) => {
+//         return medicationDoc.data.title;
+//     });
+// }
+
 export const AddPillForUser = async (userID, dataToAdd) => {
     const newDocRef = collection(db, 'users', userID, 'pills');
     const data = await addDoc(newDocRef, dataToAdd);
@@ -52,6 +53,12 @@ export const UpdatePillForUser = async (userID, docID, updateData) => {
     const docRef = doc(db, 'users', userID, 'pills', docID);
     await updateDoc(docRef, updateData);
 };
+
+export const UpdateMedicationReminderForUser = async (userID, medicationId, reminderID, updateData) => {
+    const docRef = doc(db, 'users', userID, 'pills', medicationId, 'reminders', reminderID);
+    await updateDoc(docRef, updateData);
+};
+
 
 export const DeletePillForUser = async (userID, docID) => {
     const docRef = doc(db, 'users', userID, 'pills', docID);

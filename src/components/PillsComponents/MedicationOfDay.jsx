@@ -69,10 +69,32 @@ function MedicationOfDay({ medicationOfDay }) {
     //     setPillItems(itemsCopy);
     // };
 
+    // const completedPill = medicationOfDay.map(medication => medication.reminders).flat(1).filter(medItem => medItem.isConfirmed).length
+
+    // (medications.map(medication => medication.reminders)
+    //     .flat(1).filter(medItem =>
+    //         (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today))
+    //     .map(med => med.isConfirmed).filter(med => (med === true)).length)
+
+
+
+    // const newArray = medicationOfDay.map(medItem => medItem).sort(medicationOfDay.map(medItem => medItem).map(med => med.timestamp.seconds))
+
+    // const mapped = data.map((v, i) => {
+    //     return { i, value: someSlowOperation(v) };
+    // });
+
+    // const notsorted = medicationOfDay.map(medItem => medItem);
+    //
+    // const sorted = new Map ([...medicationOfDay.entries()].sort())
+    //
+    // const rr = medicationOfDay.map(medItem => medItem).map(med => med.timestamp.seconds)
+    // const kk = medicationOfDay.map(medItem => medItem).map(med => med.timestamp.seconds)
+
     return (
         <ScrollView style={styles.items}>
             {
-                medicationOfDay.map((medItem, title, index) => (
+                medicationOfDay.map(medItem => (
                     <TouchableOpacity
                         key={medItem.id}
                         // onPress={() => navigation.navigate('editPill', {
@@ -83,15 +105,11 @@ function MedicationOfDay({ medicationOfDay }) {
                         <MedicationItem reminder={medItem}/>
                     </TouchableOpacity>
                 ))
-
-                // <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                // <Text>You have no medication today!</Text>
-                // </View>
-
-                // .sort(function (a,b){
-                //     let dateA=new Date(a.pillItem.time), dateB=new Date(b.pillItem.time)
-                //     return dateA-dateB
-                // })
+                    // .map(med => med.timestamp)
+                    // .sort(function (a,b){
+                    //     let dateA=new Date(a.medItem.timestamp), dateB=new Date(b.medItem.timestamp)
+                    //     return dateA-dateB
+                    // })
             }
         </ScrollView>
     );

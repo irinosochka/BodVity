@@ -1,28 +1,8 @@
 import {addDoc, collection, deleteDoc, doc, getDocs, updateDoc,} from 'firebase/firestore';
 import {db} from '../../firebase';
 
-// Common
-// export const autoAddDoc = async (userID) => {
-//     try {
-//         const pillDoc = await addDoc(collection(db, 'users', userID, 'pills'), pillInitData);
-//         const notesDoc = await addDoc(collection(db, 'users', userID, 'notes'), notesInitData);
-//         console.log('Document written with ID: ', pillDoc.id, notesDoc.id);
-//     } catch (e) {
-//         console.error('Error adding document: ', e);
-//     }
-// };
 
-/// Pills
-export const retrievePillsForUser = async (userID) => {
-    const collectionRef = collection(db, 'users', userID, 'pills');
-    const allPillsSnapshot = await getDocs(collectionRef);
-    const data = allPillsSnapshot.docs.map((pillDoc) => {
-        const dataItem = pillDoc.data();
-        dataItem.id = pillDoc.id;
-        return dataItem;
-    });
-    return data;
-};
+/// Medications
 
 export const retrieveMedicationsForUser = async (userID) => {
     const collectionRef = collection(db, 'users', userID, 'medications');
@@ -41,19 +21,23 @@ export const AddPillForUser = async (userID, dataToAdd) => {
     return data.id;
 };
 
-export const UpdatePillForUser = async (userID, docID, updateData) => {
-    const docRef = doc(db, 'users', userID, 'pills', docID);
+export const UpdateMedicationForUser = async (userID, medicationID, updateData) => {
+    const docRef = doc(db, 'users', userID, 'medications', medicationID);
     await updateDoc(docRef, updateData);
 };
 
-export const UpdateMedicationReminderForUser = async (userID, medicationId, reminderID, updateData) => {
-    const docRef = doc(db, 'users', userID, 'pills', medicationId, 'reminders', reminderID);
+export const UpdateMedicationReminderForUser = async (userID, medicationID, reminderID, updateData) => {
+    const docRef = doc(db, 'users', userID, 'medications', medicationID, 'reminders', reminderID);
     await updateDoc(docRef, updateData);
 };
-
 
 export const DeletePillForUser = async (userID, docID) => {
     const docRef = doc(db, 'users', userID, 'pills', docID);
+    await deleteDoc(docRef);
+};
+
+export const DeleteMedicationsForUser = async (userID, medicationID) => {
+    const docRef = doc(db, 'users', userID, 'medications', medicationID);
     await deleteDoc(docRef);
 };
 
@@ -84,4 +68,3 @@ export const DeleteNoteForUser = async (userID, docID) => {
     const docRef = doc(db, 'users', userID, 'notes', docID);
     await deleteDoc(docRef);
 };
-

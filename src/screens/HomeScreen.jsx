@@ -7,7 +7,6 @@ import ProgressComponents from "../components/HomeScreenComponents/ProgressCompo
 import {colors} from "../styles/Styles";
 import moment from "moment";
 import {useIsFocused} from "@react-navigation/native";
-import {retrievePillsForUser} from "../services/collections";
 import {auth, db} from "../../firebase";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import MedicationOfDay from "../components/PillsComponents/MedicationOfDay";
@@ -42,32 +41,29 @@ const styles = StyleSheet.create({
 });
 
 function HomeScreen({ navigation }) {
-    const [medications, setMedications] = useState([])
-    const [pillItems, setPillItems] = useState([]);
+    const [medications, setMedications] = useState([]);
     const isFocused = useIsFocused();
     const today = moment(new Date()).format('DD-MMM-YYYY');
 
+
     useEffect(() => {
         const fetchData = async () => {
-            if (isFocused) {
-                const newPills = await retrievePillsForUser(auth.currentUser.uid);
-                setPillItems(newPills);
-                await getRemind(auth.currentUser)
-            }
+            await getRemind(auth.currentUser.uid)
         }
         fetchData()
             .catch(console.error)
     }, [isFocused]);
 
-    const getRemind = async (user) => {
+
+    const getRemind = async (userID) => {
         setMedications(prev => [])
 
-        const medicationsRef = collection(db, 'users', user.uid, 'medications')
+        const medicationsRef = collection(db, 'users', userID, 'medications')
         const medicationsDocs = await getDocs(medicationsRef)
 
         medicationsDocs.docs.map( (medication) => {
             const getReminders = async () => {
-                const remindersRef = query(collection(db, 'users', user.uid, 'medications', medication.id, 'reminders'), orderBy('timestamp'))
+                const remindersRef = query(collection(db, 'users', userID, 'medications', medication.id, 'reminders'), orderBy('timestamp'))
                 const remindersDocs = await getDocs(remindersRef)
 
                 return {...medication.data(), id: medication.id, reminders: remindersDocs.docs.map(reminder => ({...reminder.data(), id: reminder.id, timestamp: reminder.data().timestamp}))}
@@ -80,19 +76,25 @@ function HomeScreen({ navigation }) {
         })
     }
 
-    const pillsOfDay = pillItems.filter(pillItem =>
-        (moment.unix(pillItem.time.seconds).format('DD-MMM-YYYY') === today));
-
     const medicationOfDay = medications.map(medication => medication.reminders)
         .flat(1).filter(medItem =>
             (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today));
+
+
+    const completed = (medications.map(medication => medication.reminders)
+        .flat(1).filter(medItem =>
+            (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today)).length) ===
+        (medications.map(medication => medication.reminders)
+        .flat(1).filter(medItem =>
+            (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today))
+        .map(med => med.isConfirmed).filter(med => (med === true)).length)
 
 
     return (
         <View style={styles.container}>
             <View style={styles.homeWrapper}>
                 <TopBarHome/>
-                <ProgressComponents pillsOfDay={pillsOfDay}/>
+                <ProgressComponents allCompleted={completed}/>
                 <View style={styles.upcomingWrapper}>
                     <Text style={styles.txtTitle}>Upcoming Doses</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Pill')}>

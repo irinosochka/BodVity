@@ -7,7 +7,6 @@ import {colors} from "../styles/Styles";
 import moment from "moment";
 import {retrieveMedicationsForUser, UpdateMedicationReminderForUser} from "../services/collections";
 import {auth} from "../../firebase";
-import {useIsFocused} from "@react-navigation/native";
 
 
 const styles = StyleSheet.create({
@@ -69,7 +68,6 @@ const styles = StyleSheet.create({
 function MedicationItem({reminder}) {
 
     const [medicationItems, setMedicationItems] = useState([]);
-    const isFocused = useIsFocused();
 
     const med = medicationItems.filter(medItem => medItem.id === reminder.medicationId).map(medication => medication.title).pop()
 
@@ -77,14 +75,12 @@ function MedicationItem({reminder}) {
 
     useEffect(() => {
         const fetchData = async () => {
-            if (isFocused) {
-                const newMedication = await retrieveMedicationsForUser(auth.currentUser.uid);
-                setMedicationItems(newMedication);
-            }
+            const newMedication = await retrieveMedicationsForUser(auth.currentUser.uid);
+            setMedicationItems(newMedication);
         }
         fetchData()
             .catch(console.error)
-    }, [isFocused]);
+    }, []);
 
 
     const handleComplete = async () => {

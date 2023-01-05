@@ -4,7 +4,7 @@ import moment from "moment";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, medication, reminder, handleComplete}) {
+export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, medication, reminder, handleComplete, isCompleted}) {
 
     const title = medication.map(medication => medication.title).pop();
     const startDate = moment.unix(medication.map(medication => medication.startDate.seconds).pop()).format('D MMM YY')
@@ -12,6 +12,11 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, me
             moment.unix(medication.map(medication => medication.endDate.seconds).pop()).format('D MMM YY')
             :
             'not')
+
+    const handleCompleteAndClose = async() => {
+        handleComplete();
+        setIsShowReminderInfo(!isShowReminderInfo);
+    }
 
     return (
         <Modal transparent={true} visible={isShowReminderInfo} animationType='fade'>
@@ -79,8 +84,12 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, me
                     {/*</View>*/}
 
                     <View style={styles.btnContainer}>
-                        <TouchableOpacity style={styles.btn} onPress={handleComplete}>
-                            <Text style={styles.btnText}>Completed</Text>
+                        <TouchableOpacity style={styles.btn} onPress={handleCompleteAndClose}>
+                            {
+                                isCompleted ?  <Text style={styles.btnText}>Incomplete</Text>
+                                    :
+                                    <Text style={styles.btnText}>Complete</Text>
+                            }
                         </TouchableOpacity>
                         <View style={styles.verticalLine}></View>
                         <TouchableOpacity style={styles.btn}>

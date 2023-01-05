@@ -1,5 +1,41 @@
-import {addDoc, collection, deleteDoc, doc, getDocs, updateDoc,} from 'firebase/firestore';
+import {
+    addDoc,
+    collection,
+    deleteDoc,
+    doc,
+    getDoc,
+    getDocs,
+    updateDoc,
+} from 'firebase/firestore';
 import {db} from '../../firebase';
+
+class Medication {
+    constructor (title, pillsInStock, createdAt, startDate, endDate, updatedAt) {
+        this.title = title;
+        this.pillsInStock = pillsInStock;
+        this.createdAt = createdAt;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.updatedAt = updatedAt;
+    }
+}
+
+const medConverter = {
+    toFirestore: (medication) => {
+        return {
+            title: medication.title,
+            pillsInStock : medication.pillsInStock,
+            createdAt: medication.createdAt,
+            startDate: medication.startDate,
+            endDate: medication.endDate,
+            updatedAt: medication.updatedAt
+        };
+    },
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new Medication(data.title, data.pillsInStock, data.createdAt, data.startDate, data.endDate, data.updatedAt);
+    }
+};
 
 
 /// Medications
@@ -14,6 +50,16 @@ export const retrieveMedicationsForUser = async (userID) => {
     });
     return data;
 };
+
+export const getMedicationByID = async (userID, medicationID) => {
+    const ref = doc(db, 'users', userID, 'medications', medicationID).withConverter(medConverter);
+    const docSnap = await getDoc(ref);
+    if (docSnap.exists()) {
+        return docSnap.data();
+    } else {
+        return console.log("No such document!");
+    }
+}
 
 export const AddPillForUser = async (userID, dataToAdd) => {
     const newDocRef = collection(db, 'users', userID, 'pills');

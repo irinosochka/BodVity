@@ -5,9 +5,15 @@ import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
 import {colors} from "../styles/Styles";
 import moment from "moment";
-import {retrieveMedicationsForUser, UpdateMedicationReminderForUser} from "../services/collections";
+import {
+    getMedicationByID,
+    retrieveMedicationsForUser,
+    UpdateMedicationForUser,
+    UpdateMedicationReminderForUser
+} from "../services/collections";
 import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
+import {useIsFocused} from "@react-navigation/native";
 
 
 const styles = StyleSheet.create({
@@ -71,11 +77,14 @@ function MedicationItem({reminder}) {
     const [medicationItems, setMedicationItems] = useState([]);
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setIsShowReminderInfo ] = useState(false);
+    const [medication, setMedication] = useState();
 
     useEffect(() => {
         const fetchData = async () => {
-            const newMedication = await retrieveMedicationsForUser(auth.currentUser.uid);
-            setMedicationItems(newMedication);
+            const newMedications = await retrieveMedicationsForUser(auth.currentUser.uid);
+            setMedicationItems(newMedications);
+            const newMed = await getMedicationByID(auth.currentUser.uid, reminder.medicationId);
+            setMedication(newMed)
         }
         fetchData()
             .catch(console.error)
@@ -85,17 +94,36 @@ function MedicationItem({reminder}) {
 
     const titleMed = medItem.map(medication => medication.title).pop()
 
-
     const handleComplete = async () => {
+        return medicationCompleted ? medIncomplete() : medComplete()
+    }
+
+    const medComplete = async () => {
         await UpdateMedicationReminderForUser(auth.currentUser.uid, reminder.medicationId, reminder.id, {
-            isConfirmed: !reminder.isConfirmed
+            isConfirmed: true,
+            isMissed: false
         })
-        setMedicationCompleted(!medicationCompleted);
+        await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
+            pillsInStock: medication.pillsInStock-=reminder.quantity
+        })
+        setMedicationCompleted(true);
+    }
+
+    const medIncomplete = async () => {
+        await UpdateMedicationReminderForUser(auth.currentUser.uid, reminder.medicationId, reminder.id, {
+            isConfirmed: false,
+            isMissed: true
+        })
+        await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
+            pillsInStock: medication.pillsInStock+=reminder.quantity
+        })
+        setMedicationCompleted(false);
     }
 
     return (
         <>
         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)} style={styles.container}>
+            {console.log(medication)}
             <View style={styles.item}>
                 <View style={styles.timeWrapper}>
                     <Text
@@ -126,7 +154,7 @@ function MedicationItem({reminder}) {
             </View>
         </TouchableOpacity>
 
-            <ReminderInfoModal isShowReminderInfo={isShowReminderInfo} setIsShowReminderInfo={setIsShowReminderInfo} medication={medItem} reminder={reminder} handleComplete={handleComplete}/>
+            <ReminderInfoModal isShowReminderInfo={isShowReminderInfo} setIsShowReminderInfo={setIsShowReminderInfo} medication={medItem} reminder={reminder} handleComplete={handleComplete} isCompleted={medicationCompleted}/>
         </>
     );
 }

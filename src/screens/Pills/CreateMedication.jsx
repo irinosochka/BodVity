@@ -268,7 +268,7 @@ function CreateMedicationScreen({ navigation }) {
                         timestamp: new Date(date),
                         quantity: plan.quantity,
                         isConfirmed: false,
-                        isMissed: false,
+                        isMissed: true,
                         note: plan.note,
                         updatedAt: new Date(date)
                     }]

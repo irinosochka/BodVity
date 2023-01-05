@@ -4,7 +4,7 @@ import {useState} from "react";
 import {colors} from "../../styles/Styles";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function ReminderModal({reminders, setReminders, reminder, idx}) {
+export function SetDoseAndTimeModal({reminders, setReminders, reminder, idx}) {
     const [openReminderModal, setOpenReminderModal] = useState(false)
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
@@ -61,7 +61,6 @@ export function ReminderModal({reminders, setReminders, reminder, idx}) {
     const handleClickDone = () => {
         setReminders( reminders.map( (reminder, index) => (index === idx ? time : reminder)))
         setOpenReminderModal(!openReminderModal)
-        console.log(reminders);
     }
 
     const position = (idx) => {
@@ -76,7 +75,9 @@ export function ReminderModal({reminders, setReminders, reminder, idx}) {
             <TouchableOpacity onPress={() => setOpenReminderModal(!openReminderModal)} style={styles.reminder}>
                 <Text>{position(idx)}</Text>
                 <Text>{getTime(time)}</Text>
-                <Text>Take {reminder.quantity} pills</Text>
+                {
+                    parseInt(reminder.quantity) > 1 ? <Text>Take {reminder.quantity} pills</Text> : <Text>Take {reminder.quantity} pill</Text>
+                }
             </TouchableOpacity>
 
             <Modal transparent={true} visible={openReminderModal} animationType='fade'>

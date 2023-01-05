@@ -101,7 +101,7 @@ export async function registerForPushNotificationsAsync() {
     }
 
     if (Platform.OS === 'android') {
-        Notifications.setNotificationChannelAsync('default', {
+        await Notifications.setNotificationChannelAsync('default', {
             pill: 'default',
             importance: Notifications.AndroidImportance.MAX,
             vibrationPattern: [0, 250, 250, 250],

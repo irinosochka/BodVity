@@ -14,8 +14,9 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import {addDoc, collection, serverTimestamp, Timestamp} from "firebase/firestore";
 import {auth, db} from "../../../firebase";
 import {colors} from "../../styles/Styles";
-import {ReminderModal} from "../../components/PillsComponents/ReminderModal";
+import {SetDoseAndTimeModal} from "../../components/PillsComponents/SetDoseAndTimeModal";
 import {confirmPushNotification, schedulePushNotification, Scheduling} from "../../components/PushNotifications";
+import {ButtonCustom} from "../../common/Button";
 
 
 function CreateMedicationScreen({ navigation }) {
@@ -68,7 +69,7 @@ function CreateMedicationScreen({ navigation }) {
         },
     ]
 
-    const [times, setTimes] = useState(1)
+    // const [times, setTimes] = useState(1)
 
     const [title, setTitle] = useState('')
     const [pillsInStock, setPillsInStock] = useState('0')
@@ -387,7 +388,7 @@ function CreateMedicationScreen({ navigation }) {
                     <Text style={styles.txtTitle}>
                         Time and doses
                     </Text>
-                    { reminders.map( (reminder, idx) => <ReminderModal key={idx} reminders={reminders} setReminders={setReminders} idx={idx} reminder={reminder} />)}
+                    { reminders.map( (reminder, idx) => <SetDoseAndTimeModal key={idx} reminders={reminders} setReminders={setReminders} idx={idx} reminder={reminder} />)}
                 </View>
 
 
@@ -401,30 +402,32 @@ function CreateMedicationScreen({ navigation }) {
                 {/*        <></>*/}
                 {/*}*/}
 
-                <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.txtTitle}>
-                        Starts in
-                    </Text>
-                    <Text onPress={showStartDatePicker} style={styles.dayText}>{startDate.toDateString()}</Text>
-                    <DateTimePicker
-                        isVisible={isStartDatePickerVisible}
-                        mode={'date'}
-                        onCancel={hideStartDatePicker}
-                        onConfirm={handleConfirmStartDate}
-                    />
-                </View>
+                <View>
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={styles.txtTitle}>
+                            Starts in
+                        </Text>
+                        <Text onPress={showStartDatePicker} style={styles.dayText}>{startDate.toDateString()}</Text>
+                        <DateTimePicker
+                            isVisible={isStartDatePickerVisible}
+                            mode={'date'}
+                            onCancel={hideStartDatePicker}
+                            onConfirm={handleConfirmStartDate}
+                        />
+                    </View>
 
-                <View style={{flexDirection: 'row'}}>
-                    <Text style={styles.txtTitle}>
-                        Ends in
-                    </Text>
-                    <Text  onPress={showEndDatePicker} style={styles.dayText}>{endDate ? endDate.toDateString() : 'ending date'}</Text>
-                    <DateTimePicker
-                        isVisible={isEndDatePickerVisible}
-                        mode={'date'}
-                        onCancel={hideEndDatePicker}
-                        onConfirm={handleConfirmEndDate}
-                    />
+                    <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                        <Text style={styles.txtTitle}>
+                            Ends in
+                        </Text>
+                        <Text  onPress={showEndDatePicker} style={styles.dayText}>{endDate ? endDate.toDateString() : 'ending date'}</Text>
+                        <DateTimePicker
+                            isVisible={isEndDatePickerVisible}
+                            mode={'date'}
+                            onCancel={hideEndDatePicker}
+                            onConfirm={handleConfirmEndDate}
+                        />
+                    </View>
                 </View>
 
                 <View>
@@ -440,11 +443,8 @@ function CreateMedicationScreen({ navigation }) {
                     />
                 </View>
 
-                <TouchableOpacity style={styles.btnDone} onPress={handleAddMedication}>
-                    <Text style={styles.txtBtnDone}>
-                        Done
-                    </Text>
-                </TouchableOpacity>
+                <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
+
             </SafeAreaView>
         </>
     )
@@ -607,20 +607,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent:'space-evenly',
         paddingLeft: 40
-    },
-
-    btnDone:{
-        width: 319,
-        height: 56,
-        backgroundColor: colors.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 14,
-        marginTop: 138
-    },
-    txtBtnDone:{
-        fontSize: 17,
-        color:'#FFF'
     },
     btnBack:{
         width: 56,

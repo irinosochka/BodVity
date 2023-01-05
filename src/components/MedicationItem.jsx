@@ -69,8 +69,6 @@ function MedicationItem({reminder}) {
 
     const [medicationItems, setMedicationItems] = useState([]);
 
-    const med = medicationItems.filter(medItem => medItem.id === reminder.medicationId).map(medication => medication.title).pop()
-
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
 
     useEffect(() => {
@@ -81,6 +79,8 @@ function MedicationItem({reminder}) {
         fetchData()
             .catch(console.error)
     }, []);
+
+    const med = medicationItems.filter(medItem => medItem.id === reminder.medicationId).map(medication => medication.title).pop()
 
 
     const handleComplete = async () => {

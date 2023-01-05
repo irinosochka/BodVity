@@ -4,7 +4,7 @@
     "slug": "BodVity",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/iconHart.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -23,13 +23,18 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/iconHart.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "BodVity.apk"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b805ac72-8d77-4eb1-9594-0fda3f8b39ef"
+      }
     }
   }
 }

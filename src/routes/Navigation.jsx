@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppTab from "../components/TabBar/AppTab";
 import {UserDataContext} from "../context/UserDataContext";
 import AuthStack from "./AuthStack";
+import {Scheduling} from "../components/PushNotifications";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ const Stack = createNativeStackNavigator();
 // }
 
 export default function Navigation() {
+    Scheduling()
 
     const { userData } = useContext(UserDataContext)
     return (

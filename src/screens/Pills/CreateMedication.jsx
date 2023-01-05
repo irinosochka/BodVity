@@ -15,6 +15,7 @@ import {addDoc, collection, serverTimestamp, Timestamp} from "firebase/firestore
 import {auth, db} from "../../../firebase";
 import {colors} from "../../styles/Styles";
 import {ReminderModal} from "../../components/PillsComponents/ReminderModal";
+import {confirmPushNotification, schedulePushNotification, Scheduling} from "../../components/PushNotifications";
 
 
 function CreateMedicationScreen({ navigation }) {
@@ -202,6 +203,12 @@ function CreateMedicationScreen({ navigation }) {
             }
         }
         await createMedicationPlan()
+
+        await confirmPushNotification()
+        for (let reminder of reminders)
+        {
+            schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock))
+        }
     }
 
     // TODO: delete create medication with reminders in array
@@ -239,6 +246,12 @@ function CreateMedicationScreen({ navigation }) {
     //         }
     //     }
     //     createMedicationPlan()
+
+    //     await confirmPushNotification()
+    //         for (let reminder of reminders)
+    //         {
+    //             await schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock))
+    //         }
     // }
 
     const  setUpReminders = (startDate, endDate) => {
@@ -285,6 +298,8 @@ function CreateMedicationScreen({ navigation }) {
         }
         return res
     }
+
+    Scheduling();
 
     return (
         <>

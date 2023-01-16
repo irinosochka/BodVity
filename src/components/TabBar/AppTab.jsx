@@ -12,6 +12,7 @@ import UpdatePillScreen from "../../screens/Pills/UpdatePillScreen";
 import {colors} from "../../styles/Styles";
 import CreateMedicationScreen from "../../screens/Pills/CreateMedication";
 import CalendarMedicationScreen from "../../screens/Pills/CalendarMedicationScreen";
+import StockScreen from "../../screens/Stock/StockScreen";
 
 const styles = StyleSheet.create({
     container: {
@@ -38,12 +39,20 @@ const styles = StyleSheet.create({
 
 const Stack = createNativeStackNavigator();
 
-function NotesStack() {
+// function NotesStack() {
+//     return (
+//         <Stack.Navigator>
+//             <Stack.Screen options={{ headerShown: false }} name="allNotes" component={AllNotesScreen} />
+//             <Stack.Screen options={{ headerShown: false }} name="createNote" component={CreateNoteScreen} />
+//             <Stack.Screen options={{ headerShown: false }} name="note" component={NoteScreen} />
+//         </Stack.Navigator>
+//     );
+// }
+
+function StockStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="allNotes" component={AllNotesScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="createNote" component={CreateNoteScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="note" component={NoteScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="stock" component={StockScreen} />
         </Stack.Navigator>
     );
 }
@@ -77,9 +86,12 @@ export default function AppTab() {
                                        case 'Profile':
                                             iconName = 'user';
                                             break;
-                                       case 'Notes':
-                                           iconName = 'list';
-                                           break;
+                                       case 'Stock':
+                                            iconName = 'archive';
+                                            break;
+                                       // case 'Notes':
+                                       //     iconName = 'list';
+                                       //     break;
                                        default:
                                            iconName = 'circle';
                                            break;
@@ -123,13 +135,21 @@ export default function AppTab() {
                         gestureEnabled: false,
                     })}
             />
+            {/*<Tab.Screen*/}
+            {/*        name="Notes"*/}
+            {/*        component={NotesStack}*/}
+            {/*        options={{*/}
+            {/*            headerShown: false,*/}
+            {/*            gestureEnabled: false,*/}
+            {/*        }}*/}
+            {/*/>*/}
             <Tab.Screen
-                    name="Notes"
-                    component={NotesStack}
-                    options={{
-                        headerShown: false,
-                        gestureEnabled: false,
-                    }}
+                name="Stock"
+                component={StockStack}
+                options={{
+                    headerShown: false,
+                    gestureEnabled: false,
+                }}
             />
             <Tab.Screen
                 name="Profile"

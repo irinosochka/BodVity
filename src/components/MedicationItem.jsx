@@ -13,7 +13,6 @@ import {
 } from "../services/collections";
 import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
-import {useIsFocused} from "@react-navigation/native";
 
 
 const styles = StyleSheet.create({
@@ -72,7 +71,9 @@ const styles = StyleSheet.create({
     }
 });
 
-function MedicationItem({reminder}) {
+function MedicationItem({reminder, medic}) {
+
+    const medicationId = reminder.medicationId;
 
     const [medicationItems, setMedicationItems] = useState([]);
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
@@ -83,7 +84,14 @@ function MedicationItem({reminder}) {
         const fetchData = async () => {
             const newMedications = await retrieveMedicationsForUser(auth.currentUser.uid);
             setMedicationItems(newMedications);
-            const newMed = await getMedicationByID(auth.currentUser.uid, reminder.medicationId);
+        }
+        fetchData()
+            .catch(console.error)
+    }, []);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const newMed = await getMedicationByID(auth.currentUser.uid, medicationId);
             setMedication(newMed)
         }
         fetchData()
@@ -123,8 +131,8 @@ function MedicationItem({reminder}) {
     return (
         <>
         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)} style={styles.container}>
-            {console.log(medication)}
             <View style={styles.item}>
+                {console.log(medic)}
                 <View style={styles.timeWrapper}>
                     <Text
                         style={styles.txtPillTitle}

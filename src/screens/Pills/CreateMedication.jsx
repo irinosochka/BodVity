@@ -153,7 +153,7 @@ function CreateMedicationScreen({ navigation }) {
             ])
             setFrequency('Daily');
             setTitle(1)
-            navigation.navigate('Pill');
+            navigation.navigate('Home');
         } else {
             console.log('empty error')
         }

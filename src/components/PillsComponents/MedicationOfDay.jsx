@@ -6,6 +6,8 @@ import {
 import React from 'react';
 import {colors} from "../../styles/Styles";
 import MedicationItem from "../MedicationItem";
+import {getMedicationByID} from "../../services/collections";
+import {auth} from "../../../firebase";
 
 const styles = StyleSheet.create({
     pillsWrapper: {
@@ -102,7 +104,7 @@ function MedicationOfDay({ medicationOfDay }) {
                         //     index
                         // })}
                     >
-                        <MedicationItem reminder={medItem}/>
+                        <MedicationItem reminder={medItem} medic={getMedicationByID(auth.currentUser.uid, medItem.medicationId)}/>
                     </TouchableOpacity>
                 ))
                     // .map(med => med.timestamp)

@@ -21,6 +21,10 @@ class Medication {
 }
 
 const medConverter = {
+    fromFirestore: (snapshot, options) => {
+        const data = snapshot.data(options);
+        return new Medication(data.title, data.pillsInStock, data.createdAt, data.startDate, data.endDate, data.updatedAt);
+    },
     toFirestore: (medication) => {
         return {
             title: medication.title,
@@ -31,10 +35,6 @@ const medConverter = {
             updatedAt: medication.updatedAt
         };
     },
-    fromFirestore: (snapshot, options) => {
-        const data = snapshot.data(options);
-        return new Medication(data.title, data.pillsInStock, data.createdAt, data.startDate, data.endDate, data.updatedAt);
-    }
 };
 
 
@@ -52,8 +52,8 @@ export const retrieveMedicationsForUser = async (userID) => {
 };
 
 export const getMedicationByID = async (userID, medicationID) => {
-    const ref = doc(db, 'users', userID, 'medications', medicationID).withConverter(medConverter);
-    const docSnap = await getDoc(ref);
+    const collectionRef = doc(db, 'users', userID, 'medications', medicationID).withConverter(medConverter);
+    const docSnap = await getDoc(collectionRef);
     if (docSnap.exists()) {
         return docSnap.data();
     } else {

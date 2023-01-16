@@ -15,7 +15,6 @@ export const colors = {
     gray2: "#4E515A",
     gray3: "#909090",
     lightBlue: "#e8effe",
-
 };
 
 export const sizes = {

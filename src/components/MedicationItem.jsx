@@ -71,23 +71,12 @@ const styles = StyleSheet.create({
     }
 });
 
-function MedicationItem({reminder, medic}) {
+function MedicationItem({reminder}) {
 
     const medicationId = reminder.medicationId;
-
-    const [medicationItems, setMedicationItems] = useState([]);
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setIsShowReminderInfo ] = useState(false);
-    const [medication, setMedication] = useState();
-
-    useEffect(() => {
-        const fetchData = async () => {
-            const newMedications = await retrieveMedicationsForUser(auth.currentUser.uid);
-            setMedicationItems(newMedications);
-        }
-        fetchData()
-            .catch(console.error)
-    }, []);
+    const [medication, setMedication] = useState(getMedicationByID(auth.currentUser.uid, medicationId));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -98,9 +87,7 @@ function MedicationItem({reminder, medic}) {
             .catch(console.error)
     }, []);
 
-    const medItem = medicationItems.filter(medItem => medItem.id === reminder.medicationId);
-
-    const titleMed = medItem.map(medication => medication.title).pop()
+    const [startDate, setStartDate] = useState(medication.startDate)
 
     const handleComplete = async () => {
         return medicationCompleted ? medIncomplete() : medComplete()
@@ -112,7 +99,7 @@ function MedicationItem({reminder, medic}) {
             isMissed: false
         })
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
-            pillsInStock: medication.pillsInStock-=reminder.quantity
+            pillsInStock: medication.pillsInStock-=reminder.quantity,
         })
         setMedicationCompleted(true);
     }
@@ -132,7 +119,7 @@ function MedicationItem({reminder, medic}) {
         <>
         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)} style={styles.container}>
             <View style={styles.item}>
-                {console.log(medic)}
+                {/*{console.log(medication.startDate)}*/}
                 <View style={styles.timeWrapper}>
                     <Text
                         style={styles.txtPillTitle}
@@ -143,7 +130,7 @@ function MedicationItem({reminder, medic}) {
                 <View style={styles.verticalLine}></View>
                 <View style={styles.pillInfoWrapper}>
                     <Text style={styles.txtPillTitle}>
-                        {titleMed}
+                        {medication.title}
                     </Text>
                     {
                         parseInt(reminder.quantity) > 1 ? <Text style={styles.txtPillInfo}>{reminder.quantity} pills </Text>
@@ -162,7 +149,16 @@ function MedicationItem({reminder, medic}) {
             </View>
         </TouchableOpacity>
 
-            <ReminderInfoModal isShowReminderInfo={isShowReminderInfo} setIsShowReminderInfo={setIsShowReminderInfo} medication={medItem} reminder={reminder} handleComplete={handleComplete} isCompleted={medicationCompleted}/>
+            <ReminderInfoModal
+                isShowReminderInfo={isShowReminderInfo}
+                setIsShowReminderInfo={setIsShowReminderInfo}
+                medication={medication} reminder={reminder}
+                handleComplete={handleComplete}
+                isCompleted={medicationCompleted}
+                title={medication.title}
+                startDate={startDate}
+                endDate={medication.endDate}
+            />
         </>
     );
 }

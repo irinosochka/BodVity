@@ -4,14 +4,17 @@ import moment from "moment";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, medication, reminder, handleComplete, isCompleted}) {
+export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, medication, reminder, handleComplete, isCompleted, endDate, title, startDate}) {
 
-    const title = medication.map(medication => medication.title).pop();
-    const startDate = moment.unix(medication.map(medication => medication.startDate.seconds).pop()).format('D MMM YY')
-    const endDate = ( medication.filter( reminder => reminder.endDate !== null).length !== 0 ?
-            moment.unix(medication.map(medication => medication.endDate.seconds).pop()).format('D MMM YY')
-            :
-            'not')
+    // const title = medication.title;
+    // const startDate = medication.startDate;
+    // const endDate = medication.endDate;
+    // const title = medication.map(medication => medication.title).pop();
+    // const startDate = moment.unix(medication.map(medication => medication.startDate.seconds).pop()).format('D MMM YY')
+    // const endDate = ( medication.filter( reminder => reminder.endDate !== null).length !== 0 ?
+    //         moment.unix(medication.map(medication => medication.endDate.seconds).pop()).format('D MMM YY')
+    //         :
+    //         'not')
 
     const handleCompleteAndClose = async() => {
         handleComplete();
@@ -47,7 +50,12 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, me
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>start:</Text>
                                     </View>
-                                    <Text style={styles.modalText}>{startDate}</Text>
+                                    {
+                                        startDate ? <Text style={styles.modalText}>{moment.unix(startDate.seconds).format('D MMM YY')}</Text>
+                                            :
+                                            <Text style={styles.modalText}>00</Text>
+                                    }
+                                    {/*<Text style={styles.modalText}>{moment.unix(startDate.seconds).format('D MMM YY')}</Text>*/}
                                 </View>
                             </View>
 
@@ -67,7 +75,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, me
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>end:</Text>
                                     </View>
-                                    <Text style={styles.modalText}>{endDate}</Text>
+                                    {/*<Text style={styles.modalText}>{moment.unix(endDate.seconds).format('D MMM YY')}</Text>*/}
                                 </View>
                             </View>
 

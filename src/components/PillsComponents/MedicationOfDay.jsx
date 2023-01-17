@@ -80,6 +80,8 @@ function MedicationOfDay({ medicationOfDay }) {
 
 
 
+
+
     // const newArray = medicationOfDay.map(medItem => medItem).sort(medicationOfDay.map(medItem => medItem).map(med => med.timestamp.seconds))
 
     // const mapped = data.map((v, i) => {
@@ -104,7 +106,8 @@ function MedicationOfDay({ medicationOfDay }) {
                         //     index
                         // })}
                     >
-                        <MedicationItem reminder={medItem} medic={getMedicationByID(auth.currentUser.uid, medItem.medicationId)}/>
+                        {/*<MedicationItem reminder={medItem} medic={getMedicationByID(auth.currentUser.uid, medItem.medicationId)}/>*/}
+                        <MedicationItem reminder={medItem}/>
                     </TouchableOpacity>
                 ))
                     // .map(med => med.timestamp)

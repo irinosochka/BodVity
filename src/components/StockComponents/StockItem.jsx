@@ -1,13 +1,14 @@
 import {
     StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {colors} from "../../styles/Styles";
 import {StockItemModal} from "./StockItemModal";
 import Icon from "react-native-vector-icons/Feather";
 import {AddToStockModal} from "./AddToStockModal";
 import {UpdateMedicationForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
+import {useIsFocused} from "@react-navigation/native";
 
 
 const styles = StyleSheet.create({
@@ -44,6 +45,14 @@ function StockItem({medication}) {
     const [isShowAddModal, setIsShowAddModal] = useState(false);
     const [medInStock, setMedInStock] = useState(parseInt(medication.pillsInStock))
     const [quantityToAdd, setQuantityToAdd] = useState();
+    const isFocused = useIsFocused();
+
+    useEffect(() => {
+        const fetchData = async () => {
+        }
+        fetchData()
+            .catch(console.error)
+    }, [isFocused]);
 
     const handleSave = async() => {
         let number = parseInt(quantityToAdd);

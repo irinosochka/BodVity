@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function ProgressComponents({ allCompleted }) {
+function ProgressComponents({ isCompleted }) {
     // const allPill = medicationOfDay.length;
 
     //const completedPill = medicationOfDay.map(medication => medication.reminders).flat(1).filter(medItem => medItem.isConfirmed).length
@@ -48,7 +48,7 @@ function ProgressComponents({ allCompleted }) {
 
     return (
         <View>
-            { allCompleted ?
+            { isCompleted ?
                 <View style={styles.progressWrapper}>
                     <View style={styles.progressTextWrapper}>
                         <Text style={styles.txtTitle}>Keep it up!</Text>

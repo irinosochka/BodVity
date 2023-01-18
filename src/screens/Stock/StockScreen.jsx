@@ -24,8 +24,8 @@ const styles = StyleSheet.create({
 });
 
 function StockScreen({ navigation }) {
-    const isFocused = useIsFocused();
     const [medicationItems, setMedicationItems] = useState([]);
+    const isFocused = useIsFocused();
 
     useEffect(() => {
         const fetchData = async () => {

@@ -41,14 +41,25 @@ const styles = StyleSheet.create({
 });
 
 function HomeScreen({ navigation }) {
+    const [howManyCompleted, setHowManyCompleted] = useState(0);
     const [medications, setMedications] = useState([]);
     const isFocused = useIsFocused();
     const today = moment(new Date()).format('DD-MMM-YYYY');
-
+    const [isCompleted, setIsCompleted] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
             await getRemind(auth.currentUser.uid)
+        }
+        fetchData()
+            .catch(console.error)
+    }, [isFocused]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            setHowManyCompleted(medicationOfDay.map(med => med.isConfirmed).filter(med => (med === true)).length);
+            setIsCompleted(medicationOfDay.length ===
+                medicationOfDay.map(med => med.isConfirmed).filter(med => (med === true)).length);
         }
         fetchData()
             .catch(console.error)
@@ -81,29 +92,23 @@ function HomeScreen({ navigation }) {
             (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today));
 
 
-    const completed = (medications.map(medication => medication.reminders)
-        .flat(1).filter(medItem =>
-            (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today)).length) ===
-        (medications.map(medication => medication.reminders)
-        .flat(1).filter(medItem =>
-            (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today))
-        .map(med => med.isConfirmed).filter(med => (med === true)).length)
+    // const completed = medicationOfDay.length ===
+    //     medicationOfDay.map(med => med.isConfirmed).filter(med => (med === true)).length;
 
 
     return (
         <View style={styles.container}>
             <View style={styles.homeWrapper}>
                 <TopBarHome/>
-                <ProgressComponents allCompleted={completed}/>
+                <ProgressComponents isCompleted={isCompleted}/>
                 <View style={styles.upcomingWrapper}>
                     <Text style={styles.txtTitle}>Upcoming Doses</Text>
                     <TouchableOpacity onPress={() => navigation.navigate('Pill')}>
                         <Text style={styles.txtButton}>See all</Text>
                     </TouchableOpacity>
                 </View>
-                <MedicationOfDay medicationOfDay={medicationOfDay} />
+                <MedicationOfDay medicationOfDay={medicationOfDay} howManyCompleted={howManyCompleted} setHowManyCompleted={setHowManyCompleted}/>
             </View>
-
         </View>
     );
 }

@@ -6,8 +6,6 @@ import {
 import React from 'react';
 import {colors} from "../../styles/Styles";
 import MedicationItem from "../MedicationItem";
-import {getMedicationByID} from "../../services/collections";
-import {auth} from "../../../firebase";
 
 const styles = StyleSheet.create({
     pillsWrapper: {
@@ -62,7 +60,19 @@ const styles = StyleSheet.create({
     },
 });
 
-function MedicationOfDay({ medicationOfDay }) {
+function MedicationOfDay({ medicationOfDay, howManyCompleted, setHowManyCompleted }) {
+
+    // const [allMeds, setAllMeds] = useState(medicationOfDay.length);
+    //const [howManyCompleted, setHowManyCompleted] = useState(medicationOfDay.map(medItem => medItem).flat(1).filter(medItem => medItem.isConfirmed).length);
+
+    // useEffect(() => {
+    //     const fetchData = async () => {
+    //         setIsCompleted(allMeds === howManyCompleted);
+    //         console.log(howManyCompleted);
+    //     }
+    //     fetchData()
+    //             .catch(console.error)
+    // }, []);
 
     // const deletePill = async (docID, index) => {
     //     const itemsCopy = [...pillItems];
@@ -77,10 +87,6 @@ function MedicationOfDay({ medicationOfDay }) {
     //     .flat(1).filter(medItem =>
     //         (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today))
     //     .map(med => med.isConfirmed).filter(med => (med === true)).length)
-
-
-
-
 
     // const newArray = medicationOfDay.map(medItem => medItem).sort(medicationOfDay.map(medItem => medItem).map(med => med.timestamp.seconds))
 
@@ -101,20 +107,10 @@ function MedicationOfDay({ medicationOfDay }) {
                 medicationOfDay.map(medItem => (
                     <TouchableOpacity
                         key={medItem.id}
-                        // onPress={() => navigation.navigate('editPill', {
-                        //     pillItem,
-                        //     index
-                        // })}
                     >
-                        {/*<MedicationItem reminder={medItem} medic={getMedicationByID(auth.currentUser.uid, medItem.medicationId)}/>*/}
-                        <MedicationItem reminder={medItem}/>
+                        <MedicationItem reminder={medItem} setHowManyCompleted={setHowManyCompleted} howManyCompleted={howManyCompleted} />
                     </TouchableOpacity>
                 ))
-                    // .map(med => med.timestamp)
-                    // .sort(function (a,b){
-                    //     let dateA=new Date(a.medItem.timestamp), dateB=new Date(b.medItem.timestamp)
-                    //     return dateA-dateB
-                    // })
             }
         </ScrollView>
     );

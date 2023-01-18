@@ -61,12 +61,6 @@ export const getMedicationByID = async (userID, medicationID) => {
     }
 }
 
-export const AddPillForUser = async (userID, dataToAdd) => {
-    const newDocRef = collection(db, 'users', userID, 'pills');
-    const data = await addDoc(newDocRef, dataToAdd);
-    return data.id;
-};
-
 export const UpdateMedicationForUser = async (userID, medicationID, updateData) => {
     const docRef = doc(db, 'users', userID, 'medications', medicationID);
     await updateDoc(docRef, updateData);

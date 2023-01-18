@@ -4,18 +4,7 @@ import moment from "moment";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, medication, reminder, handleComplete, isCompleted, endDate, title, startDate}) {
-
-    // const title = medication.title;
-    // const startDate = medication.startDate;
-    // const endDate = medication.endDate;
-    // const title = medication.map(medication => medication.title).pop();
-    // const startDate = moment.unix(medication.map(medication => medication.startDate.seconds).pop()).format('D MMM YY')
-    // const endDate = ( medication.filter( reminder => reminder.endDate !== null).length !== 0 ?
-    //         moment.unix(medication.map(medication => medication.endDate.seconds).pop()).format('D MMM YY')
-    //         :
-    //         'not')
-
+export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication}) {
     const handleCompleteAndClose = async() => {
         handleComplete();
         setIsShowReminderInfo(!isShowReminderInfo);
@@ -35,7 +24,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, me
                     </View>
                     <View style={styles.modalMedInfo}>
                         <View style={{alignItems: 'center'}}>
-                            <Text style={styles.titleText}>{title}</Text>
+                            <Text style={styles.titleText}>{medication.title}</Text>
                         </View>
                         <View style={styles.rowContainer}>
                             <View>
@@ -50,12 +39,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, me
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>start:</Text>
                                     </View>
-                                    {
-                                        startDate ? <Text style={styles.modalText}>{moment.unix(startDate.seconds).format('D MMM YY')}</Text>
-                                            :
-                                            <Text style={styles.modalText}>00</Text>
-                                    }
-                                    {/*<Text style={styles.modalText}>{moment.unix(startDate.seconds).format('D MMM YY')}</Text>*/}
+                                    <Text style={styles.modalText}>{moment.unix(medication.startDate.seconds).format('D MMM YY')}</Text>
                                 </View>
                             </View>
 
@@ -75,21 +59,12 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, me
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>end:</Text>
                                     </View>
-                                    {/*<Text style={styles.modalText}>{moment.unix(endDate.seconds).format('D MMM YY')}</Text>*/}
+                                    <Text style={styles.modalText}>{moment.unix(medication.endDate.seconds).format('D MMM YY')}</Text>
                                 </View>
                             </View>
 
                         </View>
                     </View>
-                    {/*<View style={styles.modalFooter}>*/}
-                    {/*    <TouchableOpacity >*/}
-                    {/*        <Text style={styles.btnText}>Completed</Text>*/}
-                    {/*    </TouchableOpacity>*/}
-                    {/*    <TouchableOpacity >*/}
-                    {/*        <Text style={styles.btnText}>Reschedule</Text>*/}
-                    {/*    </TouchableOpacity>*/}
-                    {/*    /!*<Text style={styles.btnText} onPress={() => setIsShowReminderInfo(!isShowReminderInfo)}>Cancel</Text>*!/*/}
-                    {/*</View>*/}
 
                     <View style={styles.btnContainer}>
                         <TouchableOpacity style={styles.btn} onPress={handleCompleteAndClose}>

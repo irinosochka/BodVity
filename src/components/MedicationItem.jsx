@@ -7,7 +7,6 @@ import {colors} from "../styles/Styles";
 import moment from "moment";
 import {
     getMedicationByID,
-    retrieveMedicationsForUser,
     UpdateMedicationForUser,
     UpdateMedicationReminderForUser
 } from "../services/collections";
@@ -71,23 +70,19 @@ const styles = StyleSheet.create({
     }
 });
 
-function MedicationItem({reminder}) {
+function MedicationItem({reminder, setHowManyCompleted, howManyCompleted}) {
 
-    const medicationId = reminder.medicationId;
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setIsShowReminderInfo ] = useState(false);
-    const [medication, setMedication] = useState(getMedicationByID(auth.currentUser.uid, medicationId));
+    const [medication, setMedication] = useState(getMedicationByID(auth.currentUser.uid, reminder.medicationId));
 
     useEffect(() => {
         const fetchData = async () => {
-            const newMed = await getMedicationByID(auth.currentUser.uid, medicationId);
-            setMedication(newMed)
+            const newMedication = await getMedicationByID(auth.currentUser.uid, reminder.medicationId);
+            setMedication(newMedication);
         }
-        fetchData()
-            .catch(console.error)
-    }, []);
-
-    const [startDate, setStartDate] = useState(medication.startDate)
+        fetchData().catch(console.error)
+    },[])
 
     const handleComplete = async () => {
         return medicationCompleted ? medIncomplete() : medComplete()
@@ -101,6 +96,7 @@ function MedicationItem({reminder}) {
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
             pillsInStock: medication.pillsInStock-=reminder.quantity,
         })
+        setHowManyCompleted(howManyCompleted++);
         setMedicationCompleted(true);
     }
 
@@ -112,6 +108,7 @@ function MedicationItem({reminder}) {
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
             pillsInStock: medication.pillsInStock+=reminder.quantity
         })
+        setHowManyCompleted(howManyCompleted--);
         setMedicationCompleted(false);
     }
 
@@ -119,7 +116,6 @@ function MedicationItem({reminder}) {
         <>
         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)} style={styles.container}>
             <View style={styles.item}>
-                {/*{console.log(medication.startDate)}*/}
                 <View style={styles.timeWrapper}>
                     <Text
                         style={styles.txtPillTitle}
@@ -148,17 +144,18 @@ function MedicationItem({reminder}) {
                 </TouchableOpacity>
             </View>
         </TouchableOpacity>
+            {
+                isShowReminderInfo &&
 
-            <ReminderInfoModal
-                isShowReminderInfo={isShowReminderInfo}
-                setIsShowReminderInfo={setIsShowReminderInfo}
-                medication={medication} reminder={reminder}
-                handleComplete={handleComplete}
-                isCompleted={medicationCompleted}
-                title={medication.title}
-                startDate={startDate}
-                endDate={medication.endDate}
-            />
+                <ReminderInfoModal
+                    isShowReminderInfo={isShowReminderInfo}
+                    setIsShowReminderInfo={setIsShowReminderInfo}
+                    medication={medication}
+                    reminder={reminder}
+                    handleComplete={handleComplete}
+                    isCompleted={medicationCompleted}
+                />
+            }
         </>
     );
 }

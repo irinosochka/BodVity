@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function MedicationOfDay({ medicationOfDay, howManyCompleted, setHowManyCompleted }) {
+function MedicationOfDay({navigation, medicationOfDay, howManyCompleted, setHowManyCompleted }) {
 
     // const [allMeds, setAllMeds] = useState(medicationOfDay.length);
     //const [howManyCompleted, setHowManyCompleted] = useState(medicationOfDay.map(medItem => medItem).flat(1).filter(medItem => medItem.isConfirmed).length);
@@ -108,7 +108,7 @@ function MedicationOfDay({ medicationOfDay, howManyCompleted, setHowManyComplete
                     <TouchableOpacity
                         key={medItem.id}
                     >
-                        <MedicationItem reminder={medItem} setHowManyCompleted={setHowManyCompleted} howManyCompleted={howManyCompleted} />
+                        <MedicationItem navigator={navigation} reminder={medItem} setHowManyCompleted={setHowManyCompleted} howManyCompleted={howManyCompleted} />
                     </TouchableOpacity>
                 ))
             }

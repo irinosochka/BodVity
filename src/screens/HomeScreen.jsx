@@ -99,7 +99,7 @@ function HomeScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.homeWrapper}>
-                <TopBarHome/>
+                <TopBarHome navigation={navigation}/>
                 <ProgressComponents isCompleted={isCompleted}/>
                 <View style={styles.upcomingWrapper}>
                     <Text style={styles.txtTitle}>Upcoming Doses</Text>
@@ -107,7 +107,7 @@ function HomeScreen({ navigation }) {
                         <Text style={styles.txtButton}>See all</Text>
                     </TouchableOpacity>
                 </View>
-                <MedicationOfDay medicationOfDay={medicationOfDay} howManyCompleted={howManyCompleted} setHowManyCompleted={setHowManyCompleted}/>
+                <MedicationOfDay navigation={navigation} medicationOfDay={medicationOfDay} howManyCompleted={howManyCompleted} setHowManyCompleted={setHowManyCompleted}/>
             </View>
         </View>
     );

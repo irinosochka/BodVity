@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function MedicationItem({reminder, setHowManyCompleted, howManyCompleted}) {
+function MedicationItem({navigator, reminder, setHowManyCompleted, howManyCompleted}) {
 
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setIsShowReminderInfo ] = useState(false);
@@ -154,6 +154,7 @@ function MedicationItem({reminder, setHowManyCompleted, howManyCompleted}) {
                     reminder={reminder}
                     handleComplete={handleComplete}
                     isCompleted={medicationCompleted}
+                    navigation={navigator}
                 />
             }
         </>

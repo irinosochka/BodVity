@@ -4,10 +4,15 @@ import moment from "moment";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication}) {
+export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication}) {
     const handleCompleteAndClose = async() => {
         handleComplete();
         setIsShowReminderInfo(!isShowReminderInfo);
+    }
+
+    const navigateToUpdatePill = async () => {
+        setIsShowReminderInfo(!isShowReminderInfo);
+        navigation.navigate('editMedication')
     }
 
     return (
@@ -15,7 +20,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
             <View style={styles.modal}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>
-                        <TouchableOpacity style={{marginTop: 6, marginRight: 15}} onPress={() => setIsShowReminderInfo(!isShowReminderInfo)}>
+                        <TouchableOpacity style={{marginTop: 6, marginRight: 15}} onPress={() => navigation.navigate('editMedication')}>
                             <Icon name="edit-2" size={27} color= {colors.primary} />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)}>

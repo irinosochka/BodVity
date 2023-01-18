@@ -136,7 +136,7 @@ function CreateMedicationScreen({ navigation }) {
     //add pill
     const handleAddMedication = (event:React.FormEvent<EventTarget>) => {
         event.preventDefault();
-        if(title.length !== 0){
+        if(title.length !== 0 && pillsInStock.length !== 0){
             createMedication();
             Keyboard.dismiss();
             setTitle('');

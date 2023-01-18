@@ -24,7 +24,7 @@ function TopBarHome({ navigation }) {
     return (
         <View style={styles.topWrapper}>
             <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => navigation.navigate('stock')}>
                 <Icon name="bell" size={23} color={'#9B9B9B'} />
             </TouchableOpacity>
         </View>

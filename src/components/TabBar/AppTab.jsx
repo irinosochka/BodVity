@@ -1,11 +1,8 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Icon from 'react-native-vector-icons/Feather';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import HomeScreen from "../../screens/HomeScreen";
-import AllNotesScreen from "../../screens/Notes/AllNotesScreen";
 import {StyleSheet, View} from "react-native";
-import CreateNoteScreen from "../../screens/Notes/CreateNoteScreen";
-import NoteScreen from "../../screens/Notes/NoteScreen";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import UpdatePillScreen from "../../screens/Pills/UpdatePillScreen";
@@ -13,6 +10,7 @@ import {colors} from "../../styles/Styles";
 import CreateMedicationScreen from "../../screens/Pills/CreateMedication";
 import CalendarMedicationScreen from "../../screens/Pills/CalendarMedicationScreen";
 import StockScreen from "../../screens/Stock/StockScreen";
+import UpdateMedicationScreen from "../../screens/Pills/UpdateMedicationScreen";
 
 const styles = StyleSheet.create({
     container: {
@@ -57,12 +55,22 @@ function StockStack() {
     );
 }
 
+
+function HomeStack() {
+    return (
+        <Stack.Navigator>
+            <Stack.Screen options={{ headerShown: false }} name="home" component={HomeScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="stock" component={StockScreen} />
+        </Stack.Navigator>
+    );
+}
+
 function PillStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarMedicationScreen} />
             <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreateMedicationScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="editPill" component={UpdatePillScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="editMedication" component={UpdateMedicationScreen} />
         </Stack.Navigator>
     );
 }
@@ -81,13 +89,13 @@ export default function AppTab() {
                                            iconName = 'home';
                                            break;
                                        case 'Pill':
-                                           iconName = 'calendar';
+                                           iconName = 'event';
                                            break;
                                        case 'Profile':
-                                            iconName = 'user';
+                                            iconName = 'person';
                                             break;
-                                       case 'Stock':
-                                            iconName = 'archive';
+                                       case 'Analytics':
+                                            iconName = 'insights';
                                             break;
                                        // case 'Notes':
                                        //     iconName = 'list';
@@ -106,7 +114,7 @@ export default function AppTab() {
 
             <Tab.Screen
                 name="Home"
-                component={HomeScreen}
+                component={HomeStack}
                 options={{
                     headerShown: false,
                     gestureEnabled: false,
@@ -127,7 +135,7 @@ export default function AppTab() {
                         tabBarIcon: ({}) => (
                             <View>
                                 <View style={styles.iconTabRound}>
-                                    <Icon name="plus" size={26} color='#FFF'/>
+                                    <Icon name="add" size={33} color='#FFF'/>
                                 </View>
                             </View>
                         ),
@@ -144,7 +152,7 @@ export default function AppTab() {
             {/*        }}*/}
             {/*/>*/}
             <Tab.Screen
-                name="Stock"
+                name="Analytics"
                 component={StockStack}
                 options={{
                     headerShown: false,

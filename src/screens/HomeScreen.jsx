@@ -10,6 +10,8 @@ import {useIsFocused} from "@react-navigation/native";
 import {auth, db} from "../../firebase";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import MedicationOfDay from "../components/PillsComponents/MedicationOfDay";
+import CalendarMedicationScreen from "./Pills/CalendarMedicationScreen";
+import CalendarStrip from "react-native-calendar-strip";
 
 const styles = StyleSheet.create({
     container: {
@@ -17,7 +19,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     homeWrapper: {
-        flex: 1,
+        // flex: 1,
         paddingTop: 80,
         paddingHorizontal: 20,
     },
@@ -97,17 +99,22 @@ function HomeScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
+            {/*<View style={styles.homeWrapper}>*/}
+            {/*    <TopBarHome navigation={navigation}/>*/}
+            {/*    /!*<ProgressComponents isCompleted={isCompleted}/>*!/*/}
+            {/*    /!*<View style={styles.upcomingWrapper}>*!/*/}
+            {/*    /!*    <Text style={styles.txtTitle}>Upcoming Doses</Text>*!/*/}
+            {/*    /!*    <TouchableOpacity onPress={() => navigation.navigate('Pill')}>*!/*/}
+            {/*    /!*        <Text style={styles.txtButton}>See all</Text>*!/*/}
+            {/*    /!*    </TouchableOpacity>*!/*/}
+            {/*    /!*</View>*!/*/}
+            {/*    /!*<MedicationOfDay navigation={navigation} medicationOfDay={medicationOfDay}/>*!/*/}
+            {/*</View>*/}
             <View style={styles.homeWrapper}>
                 <TopBarHome navigation={navigation}/>
-                <ProgressComponents isCompleted={isCompleted}/>
-                <View style={styles.upcomingWrapper}>
-                    <Text style={styles.txtTitle}>Upcoming Doses</Text>
-                    <TouchableOpacity onPress={() => navigation.navigate('Pill')}>
-                        <Text style={styles.txtButton}>See all</Text>
-                    </TouchableOpacity>
-                </View>
-                <MedicationOfDay navigation={navigation} medicationOfDay={medicationOfDay}/>
             </View>
+            <CalendarMedicationScreen />
+
         </View>
     );
 }

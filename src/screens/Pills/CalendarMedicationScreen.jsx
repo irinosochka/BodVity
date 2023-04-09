@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
         marginLeft: 100,
     },
     calendar: {
-        paddingTop: 25,
+        //paddingTop: 25,
     }
 });
 
@@ -113,20 +113,20 @@ function CalendarMedicationScreen() {
 
     return (
         <View style={styles.container}>
-            <View style={styles.calendar}>
-                <CalendarStrip
-                    calendarAnimation={{type: 'sequence', duration: 20}}
-                    daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
-                    style={{height: 110, paddingTop: 20}}
-                    dateNumberStyle={{color: colors.black, fontSize: 22}}
-                    dateNameStyle={{color: colors.black}}
-                    highlightDateNumberStyle={{color: colors.primary, fontSize: 20}}
-                    highlightDateNameStyle={{color: colors.primary, fontSize: 9}}
-                    onDateSelected={(date)=>setSelectedDate(date)}
-                    scrollable
-                    selectedDate={selectedDate}
-                />
-            </View>
+            <CalendarStrip
+                calendarAnimation={{type: 'sequence', duration: 20}}
+                daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
+                style={{height: 110, display: 'flex'}}
+                dateNumberStyle={{color: colors.black, fontSize: 22}}
+                dateNameStyle={{color: colors.black, }}
+                highlightDateNumberStyle={{color: colors.primary, fontSize: 20}}
+                highlightDateNameStyle={{color: colors.primary, fontSize: 9}}
+                onDateSelected={(date)=>setSelectedDate(date)}
+                scrollable
+                calendarHeaderStyle={{color: colors.gray3, alignSelf: 'flex-end', paddingRight: 20}}
+                selectedDate={selectedDate}
+                // dayContainerStyle={{backgroundColor: colors.lightBlue, height: 45, borderRadius: 5}}
+            />
             {
                 medicationOfDay.length > 0 ?
 

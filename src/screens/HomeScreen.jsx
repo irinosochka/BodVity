@@ -57,7 +57,6 @@ function HomeScreen({ navigation }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            setHowManyCompleted(medicationOfDay.map(med => med.isConfirmed).filter(med => (med === true)).length);
             setIsCompleted(medicationOfDay.length ===
                 medicationOfDay.map(med => med.isConfirmed).filter(med => (med === true)).length);
         }
@@ -107,7 +106,7 @@ function HomeScreen({ navigation }) {
                         <Text style={styles.txtButton}>See all</Text>
                     </TouchableOpacity>
                 </View>
-                <MedicationOfDay navigation={navigation} medicationOfDay={medicationOfDay} howManyCompleted={howManyCompleted} setHowManyCompleted={setHowManyCompleted}/>
+                <MedicationOfDay navigation={navigation} medicationOfDay={medicationOfDay}/>
             </View>
         </View>
     );

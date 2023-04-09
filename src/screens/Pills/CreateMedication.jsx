@@ -114,10 +114,13 @@ function CreateMedicationScreen({ navigation }) {
     };
 
     const handleConfirmEndDate = (day) => {
-        if (day <= startDate) {
-            //setErrorMessage('Your medication should be ended after the start day.')
-        } else setEndDate(day)
+        // if (day <= startDate) {
+        //     //setErrorMessage('Your medication should be ended after the start day.')
+        // } else setEndDate(day)
 
+        setEndDate(day)
+        // console.log(endDate)
+        // console.log(Timestamp.fromDate(endDate))
         setEndDatePickerVisibility(false);
     };
 
@@ -206,9 +209,10 @@ function CreateMedicationScreen({ navigation }) {
         await createMedicationPlan()
 
         await confirmPushNotification()
-        for (let reminder of reminders)
+
+        for(let reminder of reminders)
         {
-            schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock))
+            await schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock), title)
         }
     }
 
@@ -261,7 +265,7 @@ function CreateMedicationScreen({ navigation }) {
         if (endDate) {
             let date = new Date(startDate)
 
-            while(date < endDate) {
+            while(date <= endDate) {
                 reminders.forEach( plan => {
                     date.setHours(plan.hour, plan.minute, 0)
                     res = [...res, {

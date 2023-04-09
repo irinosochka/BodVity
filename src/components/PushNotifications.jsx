@@ -37,12 +37,12 @@ export function Scheduling() {
 }
 
 
-export async function schedulePushNotification(h, m, quantity) {
+export async function schedulePushNotification(h, m, quantity, pillTitle) {
     await Notifications.scheduleNotificationAsync({
         content: {
             sound: 'default',
             title: "BodVity",
-            body: 'Time to take your medicine',
+            body: 'Time to take ' + pillTitle + '.',
             data: { data: 'goes here' },
         },
         trigger: {
@@ -57,7 +57,7 @@ export async function confirmPushNotification() {
     await Notifications.scheduleNotificationAsync({
         content: {
             sound: 'default',
-            title: "Success!",
+            title: "BodVity",
             body: 'Successfully schedule your medicine.',
             data: { data: 'goes here' },
         },
@@ -71,7 +71,7 @@ export async function refillNotification() {
     await Notifications.scheduleNotificationAsync({
         content: {
             sound: 'default',
-            title: "Refill!",
+            title: "BodVity",
             body: 'Please refill your stock',
             data: { data: 'goes here' },
         },

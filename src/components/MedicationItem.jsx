@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     }
 });
 
-function MedicationItem({navigator, reminder, setHowManyCompleted, howManyCompleted}) {
+function MedicationItem({navigator, reminder}) {
 
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setIsShowReminderInfo ] = useState(false);
@@ -96,7 +96,6 @@ function MedicationItem({navigator, reminder, setHowManyCompleted, howManyComple
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
             pillsInStock: medication.pillsInStock-=reminder.quantity,
         })
-        setHowManyCompleted(howManyCompleted++);
         setMedicationCompleted(true);
     }
 
@@ -108,7 +107,6 @@ function MedicationItem({navigator, reminder, setHowManyCompleted, howManyComple
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
             pillsInStock: medication.pillsInStock+=reminder.quantity
         })
-        setHowManyCompleted(howManyCompleted--);
         setMedicationCompleted(false);
     }
 

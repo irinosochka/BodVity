@@ -2,12 +2,9 @@ import React, {useState} from "react";
 import {
     Keyboard,
     SafeAreaView,
-    ScrollView,
-    ScrollViewComponent,
     StyleSheet,
     Text,
     TextInput,
-    TouchableOpacity,
     View
 } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -459,13 +456,6 @@ export default CreateMedicationScreen;
 
 
 const styles = StyleSheet.create({
-    headerBar: {
-        padding: 10,
-        backgroundColor: colors.primary,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'flex-end'
-    },
     button : {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -494,31 +484,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         flex: 1,
     },
-    modalHeader: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        backgroundColor: colors.primary,
-        padding: 10
-    },
-    modalContainer : {
-        position: 'absolute',
-        top: '50%',
-        width: '100%',
-        height: '50%',
-        backgroundColor: 'white',
-    },
-    modalDose: {
-        justifyContent: 'space-between',
-        marginTop: 20,
-    },
-    modalTime : {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginTop: 10
-    },
-    modalNote: {
-        marginTop: 20
-    },
     buttonBox : {
         marginVertical: 10
     },
@@ -527,30 +492,9 @@ const styles = StyleSheet.create({
         marginBottom: 3,
         fontWeight: 'bold'
     },
-    contentContainer : {
-        padding: 15
-    },
-    checkBox : {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: colors.primary,
-        padding: 5,
-        borderBottomWidth: 1
-    },
-    checkText : {
-
-    },
-
     dayText : {
         fontWeight: 'bold',
         color: 'tomato'
-    },
-    boxContainer: {
-        // borderRadius: 10
-    },
-    modalText: {
-        fontSize: 18
     },
     container:{
         flex: 1,
@@ -581,44 +525,14 @@ const styles = StyleSheet.create({
         paddingLeft: 10,
         marginTop: -10,
     },
-    inputTime:{
-        marginTop: 11,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        marginRight: 15,
-    },
     txtTitle:{
         fontSize: 15,
         width: 190,
         height: 38
     },
-    quantityInput:{
-        fontSize: 15,
-        color: '#9B9B9B',
-        width: 152,
-        height: 48,
-        marginBottom: 15,
-        backgroundColor: '#F8F8F6',
-        borderRadius: 14,
-        paddingLeft: 10
-    },
-    quantityInputTime:{
-        fontSize: 15,
-        color: '#9B9B9B',
-    },
     quantity:{
         flexDirection: 'row',
         justifyContent:'space-evenly',
         paddingLeft: 40
-    },
-    btnBack:{
-        width: 56,
-        height: 56,
-        alignSelf:'flex-start',
-        backgroundColor: '#F8F8F6',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 14,
     },
 })

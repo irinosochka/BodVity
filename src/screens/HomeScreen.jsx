@@ -1,17 +1,14 @@
 import {
-    StyleSheet, Text, View, TouchableOpacity
+    StyleSheet, Text, View
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import TopBarHome from "../components/HomeScreenComponents/TopBarHome";
-import ProgressComponents from "../components/HomeScreenComponents/ProgressComponent";
 import {colors} from "../styles/Styles";
 import moment from "moment";
 import {useIsFocused} from "@react-navigation/native";
 import {auth, db} from "../../firebase";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
-import MedicationOfDay from "../components/PillsComponents/MedicationOfDay";
-import CalendarMedicationScreen from "./Pills/CalendarMedicationScreen";
-import CalendarStrip from "react-native-calendar-strip";
+import CalendarComponent from "./Pills/CalendarComponent";
 
 const styles = StyleSheet.create({
     container: {
@@ -39,11 +36,21 @@ const styles = StyleSheet.create({
     },
     txtButton: {
         color: colors.primary
+    },
+    journalTextContainer: {
+        position: 'sticky',
+        top: 25,
+        left: 20,
+        right: 0,
+        zIndex: '99',
+    },
+    journalText: {
+        fontWeight: '700',
+        fontSize: 14
     }
 });
 
 function HomeScreen({ navigation }) {
-    const [howManyCompleted, setHowManyCompleted] = useState(0);
     const [medications, setMedications] = useState([]);
     const isFocused = useIsFocused();
     const today = moment(new Date()).format('DD-MMM-YYYY');
@@ -113,7 +120,16 @@ function HomeScreen({ navigation }) {
             <View style={styles.homeWrapper}>
                 <TopBarHome navigation={navigation}/>
             </View>
-            <CalendarMedicationScreen />
+            {/*<View style={styles.upcomingWrapper}>*/}
+            {/*    <Text style={styles.txtTitle}>Upcoming Doses</Text>*/}
+            {/*    <TouchableOpacity onPress={() => navigation.navigate('Pill')}>*/}
+            {/*        <Text style={styles.txtButton}>See all</Text>*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
+            <View style={styles.journalTextContainer}>
+                <Text style={styles.journalText}>Journal</Text>
+            </View>
+            <CalendarComponent />
 
         </View>
     );

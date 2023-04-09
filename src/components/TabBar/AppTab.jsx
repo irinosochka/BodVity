@@ -5,10 +5,9 @@ import HomeScreen from "../../screens/HomeScreen";
 import {StyleSheet, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
-import UpdatePillScreen from "../../screens/Pills/UpdatePillScreen";
 import {colors} from "../../styles/Styles";
 import CreateMedicationScreen from "../../screens/Pills/CreateMedication";
-import CalendarMedicationScreen from "../../screens/Pills/CalendarMedicationScreen";
+import CalendarComponent from "../../screens/Pills/CalendarComponent";
 import StockScreen from "../../screens/Stock/StockScreen";
 import UpdateMedicationScreen from "../../screens/Pills/UpdateMedicationScreen";
 
@@ -37,15 +36,6 @@ const styles = StyleSheet.create({
 
 const Stack = createNativeStackNavigator();
 
-// function NotesStack() {
-//     return (
-//         <Stack.Navigator>
-//             <Stack.Screen options={{ headerShown: false }} name="allNotes" component={AllNotesScreen} />
-//             <Stack.Screen options={{ headerShown: false }} name="createNote" component={CreateNoteScreen} />
-//             <Stack.Screen options={{ headerShown: false }} name="note" component={NoteScreen} />
-//         </Stack.Navigator>
-//     );
-// }
 
 function StockStack() {
     return (
@@ -68,7 +58,7 @@ function HomeStack() {
 function PillStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarMedicationScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarComponent} />
             <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreateMedicationScreen} />
             <Stack.Screen options={{ headerShown: false }} name="editMedication" component={UpdateMedicationScreen} />
         </Stack.Navigator>
@@ -143,14 +133,6 @@ export default function AppTab() {
                         gestureEnabled: false,
                     })}
             />
-            {/*<Tab.Screen*/}
-            {/*        name="Notes"*/}
-            {/*        component={NotesStack}*/}
-            {/*        options={{*/}
-            {/*            headerShown: false,*/}
-            {/*            gestureEnabled: false,*/}
-            {/*        }}*/}
-            {/*/>*/}
             <Tab.Screen
                 name="Analytics"
                 component={StockStack}

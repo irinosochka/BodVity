@@ -1,5 +1,6 @@
-import { Text, View,
-    StyleSheet
+import {
+    Text, View,
+    StyleSheet,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import {auth, db} from '../../../firebase';
@@ -23,53 +24,13 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: '95%',
     },
-    writeTodoWrapper: {
-        position: 'absolute',
-        padding: 10,
-        bottom: 40,
-        width: '100%',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        marginTop: 'auto',
-    },
-    input: {
-        paddingVertical: 15,
-        paddingHorizontal: 15,
-        backgroundColor: '#FFF',
-        width: 250,
-        borderRadius: 60,
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-    },
-    addWrapper: {
-        width: 50,
-        height: 50,
-        backgroundColor: '#FFF',
-        borderRadius: 60,
-        justifyContent: 'center',
-        alignItems: 'center',
-        borderColor: '#C0C0C0',
-        borderWidth: 1,
-        marginBottom: 2.5,
-    },
-    newPill: {
-        backgroundColor: colors.lightBlue,
-        width: '50%',
-        padding: 10,
-        borderRadius: 20,
-        alignItems: 'center',
-        position: 'absolute',
-        marginBottom: 30,
-        bottom: 0,
-        marginLeft: 100,
-    },
-    calendar: {
-        //paddingTop: 25,
+    journalText: {
+        fontWeight: '700',
+        fontSize: 14
     }
 });
 
-function CalendarMedicationScreen() {
+function CalendarComponent() {
     const isFocused = useIsFocused();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [medications, setMedications] = useState([])
@@ -116,21 +77,21 @@ function CalendarMedicationScreen() {
             <CalendarStrip
                 calendarAnimation={{type: 'sequence', duration: 20}}
                 daySelectionAnimation={{type: 'border', duration: 200, borderWidth: 1, borderHighlightColor: 'white'}}
-                style={{height: 110, display: 'flex'}}
-                dateNumberStyle={{color: colors.black, fontSize: 22}}
-                dateNameStyle={{color: colors.black, }}
-                highlightDateNumberStyle={{color: colors.primary, fontSize: 20}}
+                style={{height: 90, display: 'flex'}}
+                dateNumberStyle={{color: colors.black, fontSize: 18, fontWeight: '400' }}
+                dateNameStyle={{color: colors.black, fontSize: 9}}
+                highlightDateNumberStyle={{color: colors.primary, fontSize: 20, fontWeight: '600'}}
                 highlightDateNameStyle={{color: colors.primary, fontSize: 9}}
                 onDateSelected={(date)=>setSelectedDate(date)}
                 scrollable
-                calendarHeaderStyle={{color: colors.gray3, alignSelf: 'flex-end', paddingRight: 20}}
+                calendarHeaderStyle={{color: colors.gray3, alignSelf: 'flex-end', paddingRight: 20, fontWeight: '400', fontSize: 14}}
                 selectedDate={selectedDate}
-                // dayContainerStyle={{backgroundColor: colors.lightBlue, height: 45, borderRadius: 5}}
             />
             {
                 medicationOfDay.length > 0 ?
 
                     <View style={styles.pillsWrapper}>
+                        <Text style={styles.journalText}>Upcoming Doses</Text>
                         <MedicationOfDay medicationOfDay={medicationOfDay}/>
                     </View>
 
@@ -144,4 +105,4 @@ function CalendarMedicationScreen() {
     );
 }
 
-export default CalendarMedicationScreen;
+export default CalendarComponent;

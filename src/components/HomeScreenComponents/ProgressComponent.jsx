@@ -40,11 +40,6 @@ const styles = StyleSheet.create({
 });
 
 function ProgressComponents({ isCompleted }) {
-    // const allPill = medicationOfDay.length;
-
-    //const completedPill = medicationOfDay.map(medication => medication.reminders).flat(1).filter(medItem => medItem.isConfirmed).length
-
-    // const completedPill = medicationOfDay.filter(pillItem => pillItem.isConfirmed).length;
 
     return (
         <View>

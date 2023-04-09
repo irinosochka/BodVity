@@ -6,10 +6,10 @@ import Icon from 'react-native-vector-icons/Feather';
 
 export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
 
-    const handleCompleteAndClose = async() => {
-        // handleComplete();
-        setIsShowMedInfo(!isShowMedInfo);
-    }
+    // const handleCompleteAndClose = async() => {
+    //     // handleComplete();
+    //     setIsShowMedInfo(!isShowMedInfo);
+    // }
 
     return (
         <Modal transparent={true} visible={isShowMedInfo} animationType='fade'>
@@ -46,20 +46,6 @@ export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
 
                         </View>
                     </View>
-
-                    {/*<View style={styles.btnContainer}>*/}
-                    {/*    <TouchableOpacity style={styles.btn} onPress={handleCompleteAndClose}>*/}
-                    {/*        {*/}
-                    {/*            isCompleted ?  <Text style={styles.btnText}>Incomplete</Text>*/}
-                    {/*                :*/}
-                    {/*                <Text style={styles.btnText}>Complete</Text>*/}
-                    {/*        }*/}
-                    {/*    </TouchableOpacity>*/}
-                    {/*    <View style={styles.verticalLine}></View>*/}
-                    {/*    <TouchableOpacity style={styles.btn}>*/}
-                    {/*        <Text style={styles.btnText}>Reschedule</Text>*/}
-                    {/*    </TouchableOpacity>*/}
-                    {/*</View>*/}
                 </View>
             </View>
         </Modal>
@@ -68,13 +54,13 @@ export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
 
 
 const styles = StyleSheet.create({
-    modal : {
+    modal: {
         backgroundColor: 'rgba(52, 52, 52, 0.8)',
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
     },
-    modalContainer : {
+    modalContainer: {
         position: 'absolute',
         top: '30%',
         width: '90%',
@@ -125,38 +111,4 @@ const styles = StyleSheet.create({
         fontSize: 17,
         marginLeft: 7,
     },
-    btnText: {
-        color: colors.white,
-        fontWeight: '500',
-        fontSize: 17
-    },
-    modalFooter: {
-        height: 70,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: colors.primary,
-        padding: 10,
-        borderBottomLeftRadius: 14,
-        borderBottomRightRadius: 14,
-    },
-    btn: {
-        height: '100%',
-        flexDirection: "row",
-        alignItems: 'center',
-    },
-    btnContainer: {
-        height: 70,
-        flexDirection: "row",
-        justifyContent: 'space-evenly',
-        backgroundColor: colors.primary,
-        alignItems: 'center',
-        borderBottomLeftRadius: 14,
-        borderBottomRightRadius: 14,
-    },
-    verticalLine: {
-        height: '80%',
-        width: 1,
-        backgroundColor: colors.white,
-    }
 })

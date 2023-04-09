@@ -10,10 +10,10 @@ export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowRemi
         setIsShowReminderInfo(!isShowReminderInfo);
     }
 
-    const navigateToUpdatePill = async () => {
-        setIsShowReminderInfo(!isShowReminderInfo);
-        navigation.navigate('editMedication')
-    }
+    // const navigateToUpdatePill = async () => {
+    //     setIsShowReminderInfo(!isShowReminderInfo);
+    //     navigation.navigate('editMedication')
+    // }
 
     return (
         <Modal transparent={true} visible={isShowReminderInfo} animationType='fade'>
@@ -153,16 +153,6 @@ const styles = StyleSheet.create({
         color: colors.white,
         fontWeight: '500',
         fontSize: 17
-    },
-    modalFooter: {
-        height: 70,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-        backgroundColor: colors.primary,
-        padding: 10,
-        borderBottomLeftRadius: 14,
-        borderBottomRightRadius: 14,
     },
     btn: {
         height: '100%',

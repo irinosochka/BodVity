@@ -9,7 +9,7 @@ export const colors = {
     primary: "#547DE5",
     secondary: "#2BDA8E",
     tertiary: "#FFE358",
-    black: "#323643",
+    black: "#000000",
     white: "#FFFFFF",
     gray: "#9DA3B4",
     gray2: "#4E515A",
@@ -48,12 +48,18 @@ export const FormStyles = StyleSheet.create({
     },
     title: {
         //textAlign: 'center',
-        marginBottom: sizes.padding / 2,
+        //marginBottom: sizes.padding / 2,
         //fontFamily: 'Palatino-Bold',
         fontSize: sizes.h1,
         fontWeight: "bold",
         color: colors.black,
         //textTransform: 'uppercase',
+    },
+    subtitle: {
+        marginBottom: sizes.padding / 2,
+        fontSize: sizes.h3,
+        fontWeight: "bold",
+        color: colors.black,
     },
     textInput: {
         borderBottomWidth: StyleSheet.hairlineWidth,

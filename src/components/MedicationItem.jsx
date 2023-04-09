@@ -17,7 +17,7 @@ import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
 const styles = StyleSheet.create({
     container: {
         flexDirection: 'column',
-        backgroundColor: colors.lightBlue,
+        //backgroundColor: colors.lightBlue,
         paddingTop: 20,
         paddingBottom: 20,
         paddingLeft: 20,
@@ -32,17 +32,17 @@ const styles = StyleSheet.create({
         alignItems: "center"
     },
     square: {
-        width: 23,
-        height: 23,
+        width: 30,
+        height: 30,
         borderWidth: 1,
         borderColor: colors.primary,
         opacity: 0.8,
-        borderRadius: 5,
+        borderRadius: 15,
         marginRight: 15,
     },
     squareComplete: {
-        width: 23,
-        height: 23,
+        width: 30,
+        height: 30,
         backgroundColor: colors.primary,
         opacity: 0.8,
         borderRadius: 5,
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     verticalLine: {
         height: '100%',
         width: 1,
-        backgroundColor: colors.gray3,
+        backgroundColor: colors.gray,
     }
 });
 
@@ -112,24 +112,26 @@ function MedicationItem({navigator, reminder}) {
 
     return (
         <>
-        <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)} style={styles.container}>
+        <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)} style={[styles.container, medicationCompleted ? {backgroundColor: colors.primary} : {backgroundColor: colors.lightBlue}]} >
             <View style={styles.item}>
                 <View style={styles.timeWrapper}>
                     <Text
-                        style={styles.txtPillTitle}
+                        style={[styles.txtPillTitle, medicationCompleted ? {color: colors.white} : {color: colors.black}]}
                     >
                         {moment.unix(reminder.timestamp).format('HH:mm')}
                     </Text>
                 </View>
                 <View style={styles.verticalLine}></View>
                 <View style={styles.pillInfoWrapper}>
-                    <Text style={styles.txtPillTitle}>
+                    <Text style={[styles.txtPillTitle, medicationCompleted ? {color: colors.white} : {color: colors.black}]}>
                         {medication.title}
                     </Text>
                     {
-                        parseInt(reminder.quantity) > 1 ? <Text style={styles.txtPillInfo}>{reminder.quantity} pills </Text>
+                        parseInt(reminder.quantity) > 1 ? <Text style={[styles.txtPillInfo, medicationCompleted ? {color: colors.white} : {color: colors.black}]}
+                            >{reminder.quantity} pills </Text>
                             :
-                            <Text style={styles.txtPillInfo}>{reminder.quantity} pill</Text>
+                            <Text style={[styles.txtPillInfo, medicationCompleted ? {color: colors.white} : {color: colors.black}]}
+                            >{reminder.quantity} pill</Text>
                     }
                 </View>
                 <TouchableOpacity

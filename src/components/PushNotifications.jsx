@@ -53,6 +53,22 @@ export async function schedulePushNotification(h, m, quantity, pillTitle) {
     })
 }
 
+export async function scheduleOneTimePushNotification(h, m, pillTitle) {
+    await Notifications.scheduleNotificationAsync({
+        content: {
+            sound: 'default',
+            title: "BodVity",
+            body: 'Time to take ' + pillTitle + '.',
+            data: { data: 'goes here' },
+        },
+        trigger: {
+            hour: h,
+            minute: m,
+            repeats: false,
+        },
+    })
+}
+
 export async function confirmPushNotification() {
     await Notifications.scheduleNotificationAsync({
         content: {

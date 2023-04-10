@@ -14,6 +14,9 @@ const styles = StyleSheet.create({
     subtitle: {
         paddingTop: 3,
         color: colors.gray3
+    },
+    icon:{
+        paddingTop: 10
     }
 });
 
@@ -27,8 +30,8 @@ function TopBarHome({ navigation }) {
                 <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
                 <Text style={styles.subtitle}>Let's check your plan</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('stock')}>
-                <Icon name="bell" size={23} color={colors.gray3} />
+            <TouchableOpacity onPress={() => navigation.navigate('stock')} style={styles.icon}>
+                <Icon name="bell" size={27} color={colors.gray3} />
             </TouchableOpacity>
         </View>
     );

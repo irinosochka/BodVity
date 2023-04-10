@@ -12,9 +12,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#ffffff',
     },
-    notesWrapper: {
+    stockWrapper: {
         flex: 1,
-        paddingTop: 80,
+        paddingTop: 60,
         paddingHorizontal: 20,
     },
     items: {
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
     },
 });
 
-function StockScreen({ navigation }) {
+function StockScreen({}) {
     const [medicationItems, setMedicationItems] = useState([]);
     const isFocused = useIsFocused();
 
@@ -38,7 +38,7 @@ function StockScreen({ navigation }) {
 
     return (
         <View style={styles.container}>
-            <View style={styles.notesWrapper}>
+            <View style={styles.stockWrapper}>
                 <Text>Your medications in stock</Text>
 
                 <ScrollView style={styles.items}>

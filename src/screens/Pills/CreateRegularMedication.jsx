@@ -166,6 +166,7 @@ function CreateMedicationScreen({ navigation }) {
 
             const medicationDocument = {
                 createdAt: serverTimestamp(),
+                plan: 'regular',
                 title: title,
                 pillsInStock: parseInt(pillsInStock),
                 startDate: Timestamp.fromDate(startDate),
@@ -213,91 +214,26 @@ function CreateMedicationScreen({ navigation }) {
         }
     }
 
-    // TODO: delete create medication with reminders in array
-
-    // const createMedication = async () => {
-    //     const createMedicationPlan = async () => {
-    //         const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
-    //
-    //         const plans = setUpReminders(startDate, endDate)
-    //         let array = []
-    //
-    //         for(let plan of plans) {
-    //             const reminderDocument = {
-    //                 ...plan,
-    //                 timestamp: Timestamp.fromDate(plan.timestamp),
-    //                 updatedAt: Timestamp.fromDate(plan.updatedAt),
-    //             }
-    //             console.log('ReminderDocument:', reminderDocument);
-    //             array.push(reminderDocument);
-    //         }
-    //
-    //         const medicationDocument = {
-    //             createdAt: serverTimestamp(),
-    //             title: title,
-    //             pillsInStock: parseInt(pillsInStock),
-    //             startDate: Timestamp.fromDate(startDate),
-    //             endDate: endDate ? Timestamp.fromDate(endDate) : null,
-    //             updatedAt: serverTimestamp(),
-    //             reminders: array
-    //         }
-    //         try{
-    //             await addDoc(userMedicationsRef, medicationDocument)
-    //         }catch (error) {
-    //             console.log('Error in inserting a new medication plan:', error.message);
-    //         }
-    //     }
-    //     createMedicationPlan()
-
-    //     await confirmPushNotification()
-    //         for (let reminder of reminders)
-    //         {
-    //             await schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock))
-    //         }
-    // }
-
     const  setUpReminders = (startDate, endDate) => {
         let res = []
 
-        if (endDate) {
-            let date = new Date(startDate)
+        let date = new Date(startDate)
 
-            while(date <= endDate) {
-                reminders.forEach( plan => {
-                    date.setHours(plan.hour, plan.minute, 0)
-                    res = [...res, {
-                        timestamp: new Date(date),
-                        quantity: plan.quantity,
-                        isConfirmed: false,
-                        isMissed: true,
-                        note: plan.note,
-                        updatedAt: new Date(date)
-                    }]
-                })
-
+        while(date <= endDate) {
+            reminders.forEach( plan => {
+                date.setHours(plan.hour, plan.minute, 0)
+                res = [...res, {
+                    plan: 'regular',
+                    timestamp: new Date(date),
+                    quantity: plan.quantity,
+                    isConfirmed: false,
+                    isMissed: true,
+                    note: plan.note,
+                    updatedAt: new Date(date)
+                }]
+            })
                 date.setDate(date.getDate() + parseInt(interval))
             }
-        } else {
-            let date = new Date(startDate)
-            let count = parseInt(pillsInStock)
-            while (count > 0) {
-                reminders.forEach( plan => {
-                    if (count >= plan.quantity) {
-                        date.setHours(plan.hour, plan.minute, 0)
-                        res = [...res, {
-                            timestamp: new Date(date),
-                            quantity: plan.quantity,
-                            isConfirmed: false,
-                            isMissed: false,
-                            note: plan.note,
-                            updatedAt: new Date(date)
-                        }]
-                        count -= plan.quantity
-                    } else count = 0
-                })
-                date.setDate(date.getDate() + parseInt(interval))
-            }
-        }
         return res
     }
 

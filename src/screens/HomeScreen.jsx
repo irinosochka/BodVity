@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     homeWrapper: {
         // flex: 1,
-        paddingTop: 80,
+        paddingTop: 60,
         paddingHorizontal: 20,
     },
     topWrapper: {

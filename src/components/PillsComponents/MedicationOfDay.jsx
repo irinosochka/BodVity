@@ -8,7 +8,7 @@ import MedicationItem from "../MedicationItem";
 
 const styles = StyleSheet.create({
     items: {
-        marginTop: 20,
+        marginTop: 10,
         height: '95%',
     }
 });

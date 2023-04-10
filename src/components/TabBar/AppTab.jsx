@@ -6,10 +6,10 @@ import {StyleSheet, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import {colors} from "../../styles/Styles";
-import CreateMedicationScreen from "../../screens/Pills/CreateMedication";
-import CalendarComponent from "../../screens/Pills/CalendarComponent";
+import CreateMedicationScreen from "../../screens/Pills/CreateRegularMedication";
 import StockScreen from "../../screens/Stock/StockScreen";
-import UpdateMedicationScreen from "../../screens/Pills/UpdateMedicationScreen";
+import VariantOfMedsForAdded from "../PillsComponents/VariantOfMedsForAdded";
+import CreateOneTimeMedComponent from "../PillsComponents/CreateOneTimeMedComponent";
 
 const styles = StyleSheet.create({
     container: {
@@ -55,12 +55,24 @@ function HomeStack() {
     );
 }
 
-function PillStack() {
+// function PillStack() {
+//     return (
+//         <Stack.Navigator>
+//             <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarComponent} />
+//             <Stack.Screen options={{ headerShown: false }} name="createPill" component={ChooseAddedPill} />
+//             <Stack.Screen options={{ headerShown: false }} name="editMedication" component={UpdateMedicationScreen} />
+//         </Stack.Navigator>
+//     );
+// }
+
+function CreateMedsStack() {
     return (
         <Stack.Navigator>
-            <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarComponent} />
-            <Stack.Screen options={{ headerShown: false }} name="createPill" component={CreateMedicationScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="editMedication" component={UpdateMedicationScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="createVariants" component={VariantOfMedsForAdded} />
+            <Stack.Screen options={{ headerShown: false }} name="createRegularMed" component={CreateMedicationScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="createOneTimeMed" component={CreateOneTimeMedComponent}/>
+            <Stack.Screen options={{ headerShown: false }} name="addMedToStock" component={CreateMedicationScreen}/>
+            <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
         </Stack.Navigator>
     );
 }
@@ -112,7 +124,7 @@ export default function AppTab() {
             />
             <Tab.Screen
                 name="Pill"
-                component={PillStack}
+                component={CreateMedsStack}
                 options={{
                     headerShown: false,
                     gestureEnabled: false,
@@ -120,8 +132,9 @@ export default function AppTab() {
             />
             <Tab.Screen
                     name="CreatePill"
-                    component={CreateMedicationScreen}
+                    component={CreateMedsStack}
                     options={() => ({
+                        unmountOnBlur: true,
                         tabBarIcon: ({}) => (
                             <View>
                                 <View style={styles.iconTabRound}>

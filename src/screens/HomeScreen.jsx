@@ -120,12 +120,6 @@ function HomeScreen({ navigation }) {
             <View style={styles.homeWrapper}>
                 <TopBarHome navigation={navigation}/>
             </View>
-            {/*<View style={styles.upcomingWrapper}>*/}
-            {/*    <Text style={styles.txtTitle}>Upcoming Doses</Text>*/}
-            {/*    <TouchableOpacity onPress={() => navigation.navigate('Pill')}>*/}
-            {/*        <Text style={styles.txtButton}>See all</Text>*/}
-            {/*    </TouchableOpacity>*/}
-            {/*</View>*/}
             <View style={styles.journalTextContainer}>
                 <Text style={styles.journalText}>Journal</Text>
             </View>

@@ -8,17 +8,14 @@ import {
     View
 } from "react-native";
 import DateTimePicker from "react-native-modal-datetime-picker";
-import {addDoc, collection, serverTimestamp, Timestamp} from "firebase/firestore";
-import {auth, db} from "../../../firebase";
 import {colors} from "../../styles/Styles";
 
 import {
-    confirmPushNotification,
-    scheduleOneTimePushNotification,
     Scheduling
 } from "../PushNotifications";
 import {ButtonCustom} from "../../common/Button";
 import {SetDoseAndTimeModal} from "./SetDoseAndTimeModal";
+import {createMedication} from "./createPill/functionsForCreateMeds";
 
 
 function CreateOneTimeMedComponent({ navigation }) {
@@ -57,7 +54,7 @@ function CreateOneTimeMedComponent({ navigation }) {
     const handleAddMedication = (event:React.FormEvent<EventTarget>) => {
         event.preventDefault();
         if(title.length !== 0 && pillsInStock.length !== 0){
-            createMedication();
+            createMedication('one-time', title, pillsInStock, startDate, startDate, reminders);
             Keyboard.dismiss();
             setTitle('');
             setPillsInStock('0');
@@ -75,79 +72,6 @@ function CreateOneTimeMedComponent({ navigation }) {
         } else {
             console.log('empty error')
         }
-    }
-
-
-    const createMedication = async () => {
-        const createMedicationPlan = async () => {
-            const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
-
-            const medicationDocument = {
-                createdAt: serverTimestamp(),
-                title: title,
-                pillsInStock: parseInt(pillsInStock),
-                startDate: Timestamp.fromDate(startDate),
-                endDate: Timestamp.fromDate(startDate),
-                updatedAt: serverTimestamp()
-            }
-
-            try {
-                await addDoc(userMedicationsRef, medicationDocument).then( medicationDoc => {
-
-                    const userMedicationRemindersRef = collection(db, 'users', auth.currentUser.uid, 'medications', medicationDoc.id.toString(), 'reminders')
-
-                    const createMedicationReminders = async () => {
-                        const plans = setUpReminders(startDate)
-                        let array = []
-
-                        for(let plan of plans) {
-                            const reminderDocument = {
-                                ...plan,
-                                timestamp: Timestamp.fromDate(plan.timestamp),
-                                updatedAt: Timestamp.fromDate(plan.updatedAt),
-                                medicationId: medicationDoc.id.toString(),
-                            }
-                            console.log('ReminderDocument:', reminderDocument);
-
-                            await addDoc(userMedicationRemindersRef, reminderDocument).then(reminderDoc => {
-                                array.push({...plan, timestamp: plan.timestamp, updatedAt: plan.updatedAt, id: reminderDoc.id})
-                            }).catch(e => console.log('Error in adding reminders to a medication:', e.message))
-                        }
-                    }
-                    createMedicationReminders()
-                })
-
-            } catch (error) {
-                console.log('Error in inserting a new medication plan:', error.message);
-            }
-        }
-        await createMedicationPlan()
-
-        await confirmPushNotification()
-
-        for(let reminder of reminders)
-        {
-            await scheduleOneTimePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), title)
-        }
-    }
-
-    const  setUpReminders = (startDate) => {
-        let res = []
-        let date = new Date(startDate)
-
-        reminders.forEach( plan => {
-            date.setHours(plan.hour, plan.minute, 0)
-            res = [...res, {
-                plan: 'one-time',
-                timestamp: new Date(date),
-                quantity: plan.quantity,
-                isConfirmed: false,
-                isMissed: true,
-                note: plan.note,
-                updatedAt: new Date(date)
-            }]
-        })
-        return res
     }
 
     Scheduling();

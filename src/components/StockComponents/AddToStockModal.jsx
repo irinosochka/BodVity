@@ -1,12 +1,26 @@
 import {Modal, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {colors} from "../../styles/Styles";
-import React from "react";
+import React, {useState} from "react";
+import {UpdateMedicationForUser} from "../../services/collections";
+import {auth} from "../../../firebase";
 
-export function AddToStockModal({isShowAddModal, setIsShowAddModal, quantityToAdd, setQuantityToAdd, handleSave}) {
+export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication}) {
+
+    const [medInStock, setMedInStock] = useState(parseInt(medication.pillsInStock))
+    const [quantityToAdd, setQuantityToAdd] = useState();
+
+    const handleSave = async() => {
+        let number = parseInt(quantityToAdd);
+        const docID = medication.id;
+        setMedInStock(medInStock + number);
+        UpdateMedicationForUser(auth.currentUser.uid, docID, {
+            pillsInStock: medication.pillsInStock+=number,
+        }).catch(console.error);
+    }
 
     const handleSaveAndClose = async() => {
         if(!isNaN(Number(quantityToAdd)) && parseInt(quantityToAdd) !== 0 && quantityToAdd.length !== 0)
-            handleSave();
+            await handleSave();
         setQuantityToAdd('');
         setIsShowAddModal(!isShowAddModal);
     }

@@ -1,11 +1,11 @@
 import {
-    StyleSheet, View, Text, ScrollView,
+    StyleSheet, View, Text,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {retrieveMedicationsForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
-import StockItem from "../../components/StockComponents/StockItem";
 import {useIsFocused} from "@react-navigation/native";
+import Search from "../../common/Search";
 
 const styles = StyleSheet.create({
     container: {
@@ -21,9 +21,14 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: '95%',
     },
+    title: {
+        marginBottom: 15,
+        fontWeight: '700',
+        fontSize: 18
+    }
 });
 
-function StockScreen({}) {
+function StockScreen() {
     const [medicationItems, setMedicationItems] = useState([]);
     const isFocused = useIsFocused();
 
@@ -39,15 +44,8 @@ function StockScreen({}) {
     return (
         <View style={styles.container}>
             <View style={styles.stockWrapper}>
-                <Text>Your medications in stock</Text>
-
-                <ScrollView style={styles.items}>
-                    {
-                        medicationItems.map(medItem => (
-                            <StockItem medication={medItem} key={medItem.id}/>
-                        ))
-                    }
-                </ScrollView>
+                <Text style={styles.title}>Your medications in stock</Text>
+                <Search />
             </View>
         </View>
     );

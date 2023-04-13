@@ -6,8 +6,6 @@ import {colors} from "../../styles/Styles";
 import {StockItemModal} from "./StockItemModal";
 import Icon from "react-native-vector-icons/Feather";
 import {AddToStockModal} from "./AddToStockModal";
-import {UpdateMedicationForUser} from "../../services/collections";
-import {auth} from "../../../firebase";
 import {useIsFocused} from "@react-navigation/native";
 
 
@@ -43,8 +41,6 @@ const styles = StyleSheet.create({
 function StockItem({medication}) {
     const [isShowMedInfo, setIsShowMedInfo ] = useState(false);
     const [isShowAddModal, setIsShowAddModal] = useState(false);
-    const [medInStock, setMedInStock] = useState(parseInt(medication.pillsInStock))
-    const [quantityToAdd, setQuantityToAdd] = useState();
     const isFocused = useIsFocused();
 
     useEffect(() => {
@@ -54,24 +50,15 @@ function StockItem({medication}) {
             .catch(console.error)
     }, [isFocused]);
 
-    const handleSave = async() => {
-        let number = parseInt(quantityToAdd);
-        const docID = medication.id;
-        setMedInStock(medInStock + number);
-        UpdateMedicationForUser(auth.currentUser.uid, docID, {
-            pillsInStock: medication.pillsInStock+=number,
-        }).catch(console.error);
-    }
-
     return (
         <>
             <TouchableOpacity style={styles.container}>
                 <Text>{medication.title}</Text>
                 <View style={styles.quantityContainer}>
                     {
-                        medication.pillsInStock > 1 ? <Text style={styles.quantityTxt}>{medInStock} meds </Text>
+                        medication.pillsInStock > 1 ? <Text style={styles.quantityTxt}>{medication.pillsInStock} meds </Text>
                             :
-                            <Text style={styles.quantityTxt}>{medInStock} med</Text>
+                            <Text style={styles.quantityTxt}>{medication.pillsInStock} med</Text>
                     }
                     <TouchableOpacity onPress={() => setIsShowAddModal(!isShowAddModal)}>
                         <Icon name="plus" size={30} color= {colors.primary} style={styles.icon}/>
@@ -80,7 +67,7 @@ function StockItem({medication}) {
             </TouchableOpacity>
 
             <StockItemModal isShowMedInfo={isShowMedInfo} setIsShowMedInfo={setIsShowMedInfo} medication={medication}/>
-            <AddToStockModal setIsShowAddModal={setIsShowAddModal} isShowAddModal={isShowAddModal} quantityToAdd={quantityToAdd} setQuantityToAdd={setQuantityToAdd} handleSave={handleSave} />
+            <AddToStockModal setIsShowAddModal={setIsShowAddModal} isShowAddModal={isShowAddModal} medication={medication}/>
         </>
     );
 }

@@ -8,28 +8,6 @@ import {UserDataContext} from "../../context/UserDataContext";
 import {Restart} from "../../utils/Restart";
 import {colors} from "../../styles/Styles";
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#ffffff',
-    },
-    buttonContainer: {
-        width: '60%',
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    button: {
-        backgroundColor: colors.lightBlue,
-        width: '100%',
-        padding: 15,
-        borderRadius: 20,
-        alignItems: 'center',
-        marginVertical: 10,
-    },
-});
-
 function ProfileScreen() {
     const { userData, setUserData } = useContext(UserDataContext)
 
@@ -62,3 +40,25 @@ function ProfileScreen() {
 }
 
 export default ProfileScreen;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#ffffff',
+    },
+    buttonContainer: {
+        width: '60%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    button: {
+        backgroundColor: colors.lightBlue,
+        width: '100%',
+        padding: 15,
+        borderRadius: 20,
+        alignItems: 'center',
+        marginVertical: 10,
+    },
+});

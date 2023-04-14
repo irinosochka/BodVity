@@ -11,6 +11,7 @@ const CreateHowLong = ({startDate, setStartDate, endDate, setEndDate}) => {
     const [howLong, setHowLong] = useState(0)
     const [isStartDatePickerVisible, setStartDatePickerVisibility] = useState(false);
     const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false);
+    const [error, setError] = useState(false);
     const today = new Date();
 
     const showStartDatePicker = () => {
@@ -40,9 +41,18 @@ const CreateHowLong = ({startDate, setStartDate, endDate, setEndDate}) => {
         // if (day <= startDate) {
         //     //setErrorMessage('Your medication should be ended after the start day.')
         // } else setEndDate(day)
-
-        setEndDate(day)
-        howLongDays(day);
+        if(day < startDate){
+            setEndDate(startDate)
+            howLongDays(startDate);
+            setError(true);
+            console.log("not correct end date")
+        }
+        else {
+            setError(false);
+            setEndDate(day)
+            howLongDays(day);
+        }
+        // howLongDays(day);
         setEndDatePickerVisibility(false);
     };
 
@@ -68,7 +78,7 @@ const CreateHowLong = ({startDate, setStartDate, endDate, setEndDate}) => {
     return (
         <View style={styles.howLongContainer}>
             <View>
-                <Text>From</Text>
+                <Text style={styles.title}>From</Text>
                 <View style={styles.timeContainer}>
                     <Text>{startDateString}</Text>
                     <TouchableOpacity onPress={showStartDatePicker}>
@@ -83,11 +93,15 @@ const CreateHowLong = ({startDate, setStartDate, endDate, setEndDate}) => {
                 </View>
             </View>
             <View>
-                <Text>How long</Text>
+                <Text style={styles.title}>How long</Text>
                 <View style={styles.timeContainer}>
                     <Text>{howLong}{howLong > 1 ? ' days' : ' day'}</Text>
                     <TouchableOpacity onPress={showEndDatePicker}>
-                        <Icon name="calendar" size={20} color= {colors.gray3}/>
+                        {error ?
+                            <Icon name="calendar" size={20} color= {colors.accent}/>
+                            :
+                            <Icon name="calendar" size={20} color= {colors.gray3}/>
+                        }
                     </TouchableOpacity>
                     <DateTimePicker
                         isVisible={isEndDatePickerVisible}
@@ -118,7 +132,11 @@ const styles = StyleSheet.create({
         height: 48,
         marginBottom: 15,
         backgroundColor: colors.lightBlue,
-        borderRadius: 14,
+        borderRadius: 10,
         paddingHorizontal: 10,
+    },
+    title:{
+        fontSize: 15,
+        marginBottom: 5,
     },
 })

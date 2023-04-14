@@ -13,63 +13,6 @@ import {
 import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
 
-
-const styles = StyleSheet.create({
-    container: {
-        flexDirection: 'column',
-        //backgroundColor: colors.lightBlue,
-        paddingTop: 20,
-        paddingBottom: 20,
-        paddingLeft: 20,
-        paddingRight: 10,
-        borderRadius: 10,
-        justifyContent: 'space-between',
-        marginBottom: 5,
-    },
-    item: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: "center"
-    },
-    square: {
-        width: 30,
-        height: 30,
-        borderWidth: 1,
-        borderColor: colors.primary,
-        opacity: 0.8,
-        borderRadius: 15,
-        marginRight: 15,
-    },
-    squareComplete: {
-        width: 30,
-        height: 30,
-        backgroundColor: colors.primary,
-        opacity: 0.8,
-        borderRadius: 5,
-        marginRight: 15,
-        alignItems: 'center',
-    },
-    txtPillTitle: {
-        fontWeight: "500",
-    },
-    pillInfoWrapper: {
-        width: "60%",
-    },
-    txtPillInfo: {
-        color: colors.gray2,
-        paddingTop: 4,
-        fontSize: 12,
-    },
-    timeWrapper: {
-
-    },
-    verticalLine: {
-        height: '100%',
-        width: 1,
-        backgroundColor: colors.gray,
-    }
-});
-
 function MedicationItem({navigator, reminder}) {
 
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
@@ -162,3 +105,60 @@ function MedicationItem({navigator, reminder}) {
 }
 
 export default MedicationItem;
+
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: 'column',
+        //backgroundColor: colors.lightBlue,
+        paddingTop: 20,
+        paddingBottom: 20,
+        paddingLeft: 20,
+        paddingRight: 10,
+        borderRadius: 10,
+        justifyContent: 'space-between',
+        marginBottom: 5,
+    },
+    item: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: "center"
+    },
+    square: {
+        width: 30,
+        height: 30,
+        borderWidth: 1,
+        borderColor: colors.primary,
+        opacity: 0.8,
+        borderRadius: 15,
+        marginRight: 15,
+    },
+    squareComplete: {
+        width: 30,
+        height: 30,
+        backgroundColor: colors.primary,
+        opacity: 0.8,
+        borderRadius: 5,
+        marginRight: 15,
+        alignItems: 'center',
+    },
+    txtPillTitle: {
+        fontWeight: "500",
+    },
+    pillInfoWrapper: {
+        width: "60%",
+    },
+    txtPillInfo: {
+        color: colors.gray2,
+        paddingTop: 4,
+        fontSize: 12,
+    },
+    timeWrapper: {
+
+    },
+    verticalLine: {
+        height: '100%',
+        width: 1,
+        backgroundColor: colors.gray,
+    }
+});

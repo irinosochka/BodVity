@@ -3,7 +3,7 @@ import {ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "r
 import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 
-const CreateTitle = ({ medicationItems, onSelectItem, title, setTitle}) => {
+const CreateTitle = ({ medicationItems, onSelectItem, title, setTitle, }) => {
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         height: 48,
         marginBottom: 15,
         backgroundColor: colors.lightBlue,
-        borderRadius: 14,
+        borderRadius: 10,
         paddingHorizontal: 10,
     },
     input:{

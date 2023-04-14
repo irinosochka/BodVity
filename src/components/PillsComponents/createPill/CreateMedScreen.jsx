@@ -6,14 +6,18 @@ import {useIsFocused} from "@react-navigation/native";
 import CreateTitle from "./CreateTitle";
 import CreateQuantity from "./CreateQuantity";
 import CreateHowLong from "./CreateHowLong";
+import CreateAlternativeDays from "./CreateAlternativeDays";
 
 const CreateMedScreen = () => {
-    const [title, setTitle] = useState('');
-    const [pillsInStock, setPillsInStock] = useState('')
-    const [startDate, setStartDate] = useState(new Date())
-    const [endDate, setEndDate] = useState(null)
     const [selectedMedication, setSelectedMedication] = useState(null);
     const [medicationItems, setMedicationItems] = useState([]);
+    const [title, setTitle] = useState('');
+    const [errorTitle, setErrorTitle] = useState(false);
+    const [pillsInStock, setPillsInStock] = useState('');
+    const [errorStock, setErrorStock] = useState(false);
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(null);
+    const [isAlternative, setAlternative] = useState(false);
 
 
     const isFocused = useIsFocused();
@@ -37,13 +41,13 @@ const CreateMedScreen = () => {
     return (
         <View style={styles.container}>
             <View>
-                <Text style={styles.title}>Add new plan</Text>
+                <Text style={styles.highTitle}>Add new plan</Text>
             </View>
-            <Text>Medicine name</Text>
+            <Text style={styles.title}>Medicine name</Text>
             <View style={styles.zIndex}>
                 <CreateTitle medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle}/>
             </View>
-            <Text>Quantity in stock</Text>
+            <Text style={styles.title}>Quantity in stock</Text>
             {selectedMedication?.title === title
                 ?
                 <CreateQuantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} />
@@ -51,7 +55,7 @@ const CreateMedScreen = () => {
                 <CreateQuantity medication={false} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock}/>
             }
             <CreateHowLong startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-
+            <CreateAlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} />
         </View>
     );
 };
@@ -68,9 +72,13 @@ const styles = StyleSheet.create({
     zIndex:{
         zIndex: 99
     },
-    title: {
+    highTitle: {
         marginBottom: 15,
         fontWeight: '700',
         fontSize: 18
+    },
+    title:{
+        fontSize: 15,
+        marginBottom: 5,
     },
 })

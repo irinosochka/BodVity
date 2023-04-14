@@ -10,7 +10,7 @@ import CreateMedicationScreen from "../../screens/Pills/CreateRegularMedication"
 import StockScreen from "../../screens/Stock/StockScreen";
 import VariantOfMedsForAdded from "../PillsComponents/VariantOfMedsForAdded";
 import CreateOneTimeMedComponent from "../PillsComponents/CreateOneTimeMedComponent";
-import CreateMedFirstPage from "../PillsComponents/createPill/CreateMedFirstPage";
+import CreateMedScreen from "../PillsComponents/createPill/CreateMedScreen";
 
 const styles = StyleSheet.create({
     container: {
@@ -125,7 +125,7 @@ export default function AppTab() {
             />
             <Tab.Screen
                 name="Pill"
-                component={CreateMedFirstPage}
+                component={CreateMedScreen}
                 options={{
                     headerShown: false,
                     gestureEnabled: false,

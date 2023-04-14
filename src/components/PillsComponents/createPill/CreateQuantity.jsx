@@ -8,27 +8,24 @@ const CreateQuantity = ({ medication, pillsInStock, setPillsInStock }) => {
     const [isShowAddModal, setIsShowAddModal] = useState(false);
 
     return (
-        <>
-            <Text>Quantity in stock</Text>
-            <View style={styles.inputContainer}>
-                {medication ?
-                    <>
-                        <Text style={styles.input}>{medication.pillsInStock}</Text>
-                        <TouchableOpacity onPress={() => setIsShowAddModal(!isShowAddModal)}>
-                            <Icon name="plus" size={25} color= {colors.gray3}/>
-                        </TouchableOpacity>
-                        <AddToStockModal setIsShowAddModal={setIsShowAddModal} isShowAddModal={isShowAddModal} medication={medication}/>
-                    </>
-                    :
-                    <TextInput style={styles.input}
-                               placeholder='Ex: 10'
-                               onChangeText={setPillsInStock}
-                               keyboardType='numeric'
-                               value={pillsInStock}
-                    />
-                }
-            </View>
-        </>
+        <View style={styles.inputContainer}>
+            {medication ?
+                <>
+                    <Text style={styles.input}>{medication.pillsInStock}</Text>
+                    <TouchableOpacity onPress={() => setIsShowAddModal(!isShowAddModal)}>
+                        <Icon name="plus" size={25} color= {colors.gray3}/>
+                    </TouchableOpacity>
+                    <AddToStockModal setIsShowAddModal={setIsShowAddModal} isShowAddModal={isShowAddModal} medication={medication}/>
+                </>
+                :
+                <TextInput style={styles.input}
+                           placeholder='Ex: 10'
+                           onChangeText={setPillsInStock}
+                           keyboardType='numeric'
+                           value={pillsInStock}
+                />
+            }
+        </View>
     );
 };
 

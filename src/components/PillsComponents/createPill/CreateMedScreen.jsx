@@ -5,12 +5,16 @@ import {auth} from "../../../../firebase";
 import {useIsFocused} from "@react-navigation/native";
 import CreateTitle from "./CreateTitle";
 import CreateQuantity from "./CreateQuantity";
+import CreateHowLong from "./CreateHowLong";
 
 const CreateMedScreen = () => {
     const [title, setTitle] = useState('');
+    const [pillsInStock, setPillsInStock] = useState('')
+    const [startDate, setStartDate] = useState(new Date())
+    const [endDate, setEndDate] = useState(null)
     const [selectedMedication, setSelectedMedication] = useState(null);
     const [medicationItems, setMedicationItems] = useState([]);
-    const [pillsInStock, setPillsInStock] = useState('')
+
 
     const isFocused = useIsFocused();
 
@@ -35,15 +39,19 @@ const CreateMedScreen = () => {
             <View>
                 <Text style={styles.title}>Add new plan</Text>
             </View>
+            <Text>Medicine name</Text>
             <View style={styles.zIndex}>
                 <CreateTitle medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle}/>
             </View>
+            <Text>Quantity in stock</Text>
             {selectedMedication?.title === title
                 ?
                 <CreateQuantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} />
                 :
                 <CreateQuantity medication={false} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock}/>
             }
+            <CreateHowLong startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+
         </View>
     );
 };

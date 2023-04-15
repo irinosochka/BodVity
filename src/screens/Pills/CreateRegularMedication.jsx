@@ -120,18 +120,6 @@ function CreateMedicationScreen({ navigation }) {
         setEndDatePickerVisibility(false);
     };
 
-    //pill in stock
-    const handleCheckPillsInStock = (text) => {
-        let minAmount = 0
-        reminders.forEach( item => minAmount += item.quantity)
-
-        if (text === '' ||  parseInt(text) < minAmount) {
-            //setErrorMessage(`You should have at least ${minAmount} pills`)
-        } else {
-            setPillsInStock(prev => text)
-        }
-    }
-
     //add pill
     const handleAddMedication = (event:React.FormEvent<EventTarget>) => {
         event.preventDefault();

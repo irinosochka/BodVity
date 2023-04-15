@@ -6,7 +6,6 @@ import {StyleSheet, View} from "react-native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import {colors} from "../../styles/Styles";
-import CreateMedicationScreen from "../../screens/Pills/CreateRegularMedication";
 import StockScreen from "../../screens/Stock/StockScreen";
 import VariantOfMedsForAdded from "../PillsComponents/VariantOfMedsForAdded";
 import CreateOneTimeMedComponent from "../PillsComponents/CreateOneTimeMedComponent";
@@ -70,9 +69,10 @@ function CreateMedsStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="createVariants" component={VariantOfMedsForAdded} />
-            <Stack.Screen options={{ headerShown: false }} name="createRegularMed" component={CreateMedicationScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="createOneTimeMed" component={CreateOneTimeMedComponent}/>
-            <Stack.Screen options={{ headerShown: false }} name="addMedToStock" component={CreateMedicationScreen}/>
+
+            <Stack.Screen options={{ headerShown: false }} name="createRegularMed" component={CreateMedScreen}  initialParams={{ frequency: 'regular' }}/>
+            <Stack.Screen options={{ headerShown: false }} name="createOneTimeMed" component={CreateMedScreen}  initialParams={{ frequency: 'one-time' }}/>
+            <Stack.Screen options={{ headerShown: false }} name="addMedToStock" component={CreateOneTimeMedComponent}/>
             <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
         </Stack.Navigator>
     );
@@ -126,6 +126,7 @@ export default function AppTab() {
             <Tab.Screen
                 name="Pill"
                 component={CreateMedScreen}
+                initialParams={{ frequency: 'one-time' }}
                 options={{
                     headerShown: false,
                     gestureEnabled: false,

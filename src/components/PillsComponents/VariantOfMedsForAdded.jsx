@@ -79,7 +79,7 @@ function VariantOfMedsForAdded({navigation}) {
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.variantContainer}>
+                <TouchableOpacity style={styles.variantContainer} onPress={() => navigation.navigate('addMedToStock')}>
                     <View style={styles.textWrapper}>
                         <Text style={styles.titleVariant}>Medication to stock</Text>
                         <Text style={styles.infoVariant}>Add new medicine to stock. You can always check the availability of medicines, when you need them</Text>

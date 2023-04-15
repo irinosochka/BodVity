@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 14,
-        marginTop: 138
     },
     txtBtnDone:{
         fontSize: 17,

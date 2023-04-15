@@ -67,18 +67,6 @@ const DoseAndTime = ({reminders, setReminders, reminder}) => {
             {/*{timeContainers}*/}
             <View style={CreateStyles.doseAndTimeContainer}>
                 <View style={CreateStyles.timeContainerRegular}>
-                    <Text>{getTime(time)}</Text>
-                    <TouchableOpacity onPress={() => setDatePickerVisibility(true)}>
-                        <Icon name="clock" size={20} color= {colors.gray3}/>
-                    </TouchableOpacity>
-                    <DateTimePicker
-                        isVisible={isDatePickerVisible}
-                        mode={'time'}
-                        onConfirm={handleConfirm}
-                        onCancel={() => setDatePickerVisibility(false)}
-                    />
-                </View>
-                <View style={CreateStyles.timeContainerRegular}>
                     <TouchableOpacity onPress={() => minusQuantity()}>
                         <Icon name="minus" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>
@@ -91,6 +79,18 @@ const DoseAndTime = ({reminders, setReminders, reminder}) => {
                     <TouchableOpacity onPress={() => setQuantity(quantity+1)}>
                         <Icon name="plus" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>
+                </View>
+                <View style={CreateStyles.timeContainerRegular}>
+                    <Text>{getTime(time)}</Text>
+                    <TouchableOpacity onPress={() => setDatePickerVisibility(true)}>
+                        <Icon name="clock" size={20} color= {colors.gray3}/>
+                    </TouchableOpacity>
+                    <DateTimePicker
+                        isVisible={isDatePickerVisible}
+                        mode={'time'}
+                        onConfirm={handleConfirm}
+                        onCancel={() => setDatePickerVisibility(false)}
+                    />
                 </View>
             </View>
         </View>

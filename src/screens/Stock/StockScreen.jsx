@@ -9,28 +9,6 @@ import Search from "../../common/Search";
 import {colors, FormStyles} from "../../styles/Styles";
 import Icon from "react-native-vector-icons/Feather";
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#ffffff',
-    },
-    stockWrapper: {
-        flex: 1,
-        paddingTop: 60,
-        paddingHorizontal: 20,
-    },
-    items: {
-        marginTop: 20,
-        height: '95%',
-    },
-    header:{
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        marginBottom: 10,
-    },
-});
-
 function StockScreen({navigation}) {
     const [medicationItems, setMedicationItems] = useState([]);
     const isFocused = useIsFocused();
@@ -56,7 +34,8 @@ function StockScreen({navigation}) {
     }, [isFocused]);
 
     return (
-        <View style={styles.container}>
+        <View style={{...styles.container}}>
+
             <View style={styles.stockWrapper}>
                 <View style={styles.header}>
                     <Text style={{...FormStyles.title}}>Medications in stock</Text>
@@ -65,9 +44,53 @@ function StockScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <Search />
+                {/*<View style={styles.shadowForContainer}>*/}
+                {/*    <View style={{backgroundColor: 'white', padding: 10, borderRadius: 5}}>*/}
+                {/*        <Search />*/}
+                {/*    </View>*/}
+                {/*</View>*/}
+
             </View>
         </View>
     );
 }
 
 export default StockScreen;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#ffffff',
+    },
+    stockWrapper: {
+        flex: 1,
+        paddingTop: 60,
+        // paddingHorizontal: 10,
+        paddingHorizontal: 15,
+    },
+    items: {
+        marginTop: 20,
+        height: '95%',
+    },
+    header:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    shadowForContainer:{
+        shadowColor: colors.gray2,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    createContainer: {
+        backgroundColor: colors.white,
+        padding: 10,
+        borderRadius: 10
+    },
+});

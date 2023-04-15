@@ -4,6 +4,7 @@ import {retrieveMedicationsForUser} from "../services/collections";
 import {auth} from "../../firebase";
 import {ScrollView, StyleSheet, TextInput} from "react-native";
 import StockItem from "../components/StockComponents/StockItem";
+import {colors} from "../styles/Styles";
 
 function Search() {
 
@@ -52,12 +53,11 @@ export default Search;
 const styles = StyleSheet.create({
     input:{
         fontSize: 15,
-        color: '#9B9B9B',
+        color: colors.gray3,
         height: 48,
         marginBottom: 15,
-        backgroundColor: '#F8F8F6',
+        backgroundColor: colors.lightBlue,
         borderRadius: 14,
         paddingLeft: 10,
-        //marginTop: 10,
     },
 })

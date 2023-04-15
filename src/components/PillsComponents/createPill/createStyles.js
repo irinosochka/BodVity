@@ -54,7 +54,7 @@ export const CreateStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: 180,
+        width: 175,
         height: 48,
         marginBottom: 15,
         backgroundColor: colors.lightBlue,
@@ -78,9 +78,9 @@ export const CreateStyles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: colors.white,
         paddingTop: 60,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
     },
     header:{
         flexDirection: 'row',
@@ -102,11 +102,6 @@ export const CreateStyles = StyleSheet.create({
     },
     icon:{
         marginRight: 5
-    },
-    button:{
-        alignItems: 'center',
-        bottom: 40,
-        paddingVertical: 10,
     },
     alternativeContainer: {
         flexDirection: 'row',
@@ -166,5 +161,33 @@ export const CreateStyles = StyleSheet.create({
     checkText: {
         fontSize: 15,
         letterSpacing: 1,
+    },
+    shadowForContainer:{
+        shadowColor: colors.gray2,
+        shadowOffset: {
+            width: 0,
+            height: 2,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 5,
+    },
+    createContainer: {
+        backgroundColor: colors.white,
+        padding: 10,
+        borderRadius: 10
+    },
+    buttonContainer: {
+        position: 'absolute',
+        bottom: 35,
+        left: 0,
+        width: '100%',
+        alignItems: 'center',
+    },
+    button: {
+        width: '75%'
+    },
+    scrollContainer:{
+        height: 60,
     },
 })

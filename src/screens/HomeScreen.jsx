@@ -124,7 +124,6 @@ function HomeScreen({ navigation }) {
                 <Text style={styles.journalText}>Journal</Text>
             </View>
             <CalendarComponent />
-
         </View>
     );
 }

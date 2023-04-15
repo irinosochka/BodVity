@@ -9,10 +9,10 @@ import HowLong from "./HowLong";
 import AlternativeDays from "./AlternativeDays";
 import DoseAndTime from "./DoseAndTime";
 import Icon from "react-native-vector-icons/Feather";
-import {colors} from "../../../styles/Styles";
-import Alarm from "./Alarm";
+import {colors, FormStyles} from "../../../styles/Styles";
 import {ButtonCustom} from "../../../common/Button";
 import {CreateStyles} from "./createStyles";
+import Alarm from "./Alarm";
 
 const CreateMedScreen = ({navigation, route}) => {
     const { frequency } = route.params;
@@ -68,16 +68,16 @@ const CreateMedScreen = ({navigation, route}) => {
     return (
         <View style={CreateStyles.container}>
             <View style={CreateStyles.header}>
-                <Text style={CreateStyles.highTitle}>Add new plan</Text>
+                <Text style={FormStyles.title}>Add new plan</Text>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon name="x" size={25} color= {colors.black}/>
+                    <Icon name="x" size={27} color= {colors.black}/>
                 </TouchableOpacity>
             </View>
             <Text style={CreateStyles.title}>Medicine name</Text>
             <View style={CreateStyles.zIndex}>
                 <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle}/>
             </View>
-            <Text style={CreateStyles.title}>Quantity in stock</Text>
+            <Text style={{...CreateStyles.title, marginBottom: 5}}>Quantity in stock</Text>
             {selectedMedication?.title === title
                 ?
                 <Quantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} />
@@ -89,7 +89,7 @@ const CreateMedScreen = ({navigation, route}) => {
             {
                 frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} />
             }
-            <View style={[CreateStyles.doseAndTimeContainer, { marginBottom: 5 }]}>
+            <View style={CreateStyles.doseAndTimeContainer}>
                 <Text style={CreateStyles.title}>Dosage & Time</Text>
                 <TouchableOpacity >
                     <Icon style={CreateStyles.icon} name="plus" size={25} color={colors.gray3} />
@@ -98,11 +98,11 @@ const CreateMedScreen = ({navigation, route}) => {
             {/*<ScrollView style={CreateStyles.scrollContainer}>*/}
                 { reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}
             {/*</ScrollView>*/}
-            <Alarm isAlarm={isAlarm} setIsAlarm={setIsAlarm}/>
+            <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} />
 
-            <View style={CreateStyles.button}>
-                <ButtonCustom buttonText={'Done'}  />
-            </View>
+            {/*<View style={CreateStyles.button}>*/}
+            {/*    <ButtonCustom buttonText={'Done'}  />*/}
+            {/*</View>*/}
 
         </View>
     );

@@ -1,11 +1,13 @@
 import {
-    StyleSheet, View, Text,
+    StyleSheet, View, Text, TouchableOpacity, BackHandler,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {retrieveMedicationsForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
 import {useIsFocused} from "@react-navigation/native";
 import Search from "../../common/Search";
+import {colors, FormStyles} from "../../styles/Styles";
+import Icon from "react-native-vector-icons/Feather";
 
 const styles = StyleSheet.create({
     container: {
@@ -21,16 +23,28 @@ const styles = StyleSheet.create({
         marginTop: 20,
         height: '95%',
     },
-    title: {
-        marginBottom: 15,
-        fontWeight: '700',
-        fontSize: 18
-    }
+    header:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
 });
 
-function StockScreen() {
+function StockScreen({navigation}) {
     const [medicationItems, setMedicationItems] = useState([]);
     const isFocused = useIsFocused();
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            () => {
+                navigation.goBack();
+                return true;
+            }
+        );
+        return () => backHandler.remove();
+    }, [navigation]);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -44,7 +58,12 @@ function StockScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.stockWrapper}>
-                <Text style={styles.title}>Your medications in stock</Text>
+                <View style={styles.header}>
+                    <Text style={{...FormStyles.title}}>Medications in stock</Text>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icon name="x" size={27} color= {colors.black}/>
+                    </TouchableOpacity>
+                </View>
                 <Search />
             </View>
         </View>

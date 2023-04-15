@@ -10,13 +10,14 @@ const styles = StyleSheet.create({
     topWrapper: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center',
     },
     subtitle: {
         paddingTop: 3,
         color: colors.gray3
     },
     icon:{
-        paddingTop: 10
+       // paddingTop: 10
     }
 });
 
@@ -31,7 +32,7 @@ function TopBarHome({ navigation }) {
                 <Text style={styles.subtitle}>Let's check your plan</Text>
             </View>
             <TouchableOpacity onPress={() => navigation.navigate('stock')} style={styles.icon}>
-                <Icon name="bell" size={27} color={colors.gray3} />
+                <Icon name="archive" size={27} color={colors.gray3} />
             </TouchableOpacity>
         </View>
     );

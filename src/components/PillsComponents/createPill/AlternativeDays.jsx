@@ -2,6 +2,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import React, {useState} from "react";
 import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
+import {CreateStyles} from "./createStyles";
 
 const AlternativeDays = ({isAlternative, setAlternative}) => {
 
@@ -24,7 +25,7 @@ const AlternativeDays = ({isAlternative, setAlternative}) => {
                         {isAlternative ? <Icon name="check" size={23} color="white" /> : null}
                     </View>
                 </TouchableOpacity>
-                <Text style={{fontSize: 15}}>Alternative days</Text>
+                <Text style={CreateStyles.checkText}>Alternative days</Text>
             </View>
             {
                 isAlternative &&

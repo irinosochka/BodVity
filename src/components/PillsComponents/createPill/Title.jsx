@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 import {CreateStyles} from "./createStyles";
@@ -86,52 +86,3 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, }) => {
 }
 
 export default Title;
-
-//
-// const CreateStyles = StyleSheet.create({
-//     dropdownContainer: {
-//         position: 'absolute',
-//         top: 37,
-//         width: '100%',
-//         backgroundColor: colors.lightBlue,
-//         shadowColor: '#000',
-//         shadowOffset: {
-//             width: 0,
-//             height: 2,
-//         },
-//         zIndex: 99,
-//         shadowOpacity: 0.25,
-//         shadowRadius: 3.84,
-//         elevation: 5,
-//         maxHeight: 150,
-//     },
-//     dropdown: {
-//         flex: 1,
-//     },
-//     dropdownItem: {
-//         padding: 10,
-//         borderBottomWidth: 1,
-//         borderBottomColor: '#ccc',
-//     },
-//     dropdownText: {
-//         fontSize: 14,
-//         color: colors.gray3
-//     },
-//     inputContainer:{
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//         height: 48,
-//         marginBottom: 15,
-//         backgroundColor: colors.lightBlue,
-//         borderRadius: 10,
-//         paddingHorizontal: 10,
-//     },
-//     input:{
-//         width: '90%',
-//         fontSize: 15,
-//         color: colors.gray3,
-//     },
-// })
-//
-//

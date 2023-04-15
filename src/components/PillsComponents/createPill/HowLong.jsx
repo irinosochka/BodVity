@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../../styles/Styles";
 import Icon from "react-native-vector-icons/Feather";
 import DateTimePicker from "react-native-modal-datetime-picker";
@@ -136,36 +136,3 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
 };
 
 export default HowLong;
-//
-// const CreateStyles = StyleSheet.create({
-//     howLongContainer:{
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//     },
-//     timeContainerRegular:{
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//         width: 180,
-//         height: 48,
-//         marginBottom: 15,
-//         backgroundColor: colors.lightBlue,
-//         borderRadius: 10,
-//         paddingHorizontal: 10,
-//     },
-//     timeContainerOneTime:{
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//         height: 48,
-//         marginBottom: 15,
-//         backgroundColor: colors.lightBlue,
-//         borderRadius: 10,
-//         paddingHorizontal: 10,
-//     },
-//     title:{
-//         fontSize: 15,
-//         marginBottom: 5,
-//     },
-// })

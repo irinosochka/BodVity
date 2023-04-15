@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {StyleSheet, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Text, TextInput, TouchableOpacity, View} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 import {AddToStockModal} from "../../StockComponents/AddToStockModal";
@@ -31,21 +31,3 @@ const Quantity = ({ medication, pillsInStock, setPillsInStock }) => {
 };
 
 export default Quantity;
-
-// const CreateStyles = StyleSheet.create({
-//     inputContainer:{
-//         flexDirection: 'row',
-//         justifyContent: 'space-between',
-//         alignItems: 'center',
-//         height: 48,
-//         marginBottom: 15,
-//         backgroundColor: colors.lightBlue,
-//         borderRadius: 10,
-//         paddingHorizontal: 10,
-//     },
-//     input:{
-//         width: '90%',
-//         fontSize: 15,
-//         color: colors.gray3,
-//     },
-// })

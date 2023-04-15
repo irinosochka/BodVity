@@ -84,6 +84,7 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                                 mode={'date'}
                                 onCancel={() => setStartDatePickerVisibility(false)}
                                 onConfirm={handleConfirmStartDate}
+                                date={startDate}
                             />
                         </View>
                     </View>
@@ -103,6 +104,7 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                                 mode={'date'}
                                 onCancel={() => setEndDatePickerVisibility(false)}
                                 onConfirm={handleConfirmEndDate}
+                                date={endDate}
                             />
                         </View>
                     </View>
@@ -123,6 +125,7 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                             mode={'date'}
                             onCancel={() => setStartDatePickerVisibility(false)}
                             onConfirm={handleConfirmDateForOneTimeMed}
+                            date={startDate}
                         />
                     </View>
                 </View>

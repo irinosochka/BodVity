@@ -9,7 +9,9 @@ const DoseAndTime = ({reminders, setReminders, reminder}) => {
     const [numTimeContainers, setNumTimeContainers] = useState(1);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [time, setTime] = useState(reminder);
-    const [quantity, setQuantity] = useState(2)
+    const [quantity, setQuantity] = useState(2);
+
+    const now = new Date();
 
     const getTime = (item) => {
         const h = item.hour;
@@ -90,6 +92,7 @@ const DoseAndTime = ({reminders, setReminders, reminder}) => {
                         mode={'time'}
                         onConfirm={handleConfirm}
                         onCancel={() => setDatePickerVisibility(false)}
+                        date={new Date(now.getFullYear(), now.getMonth(), now.getDate(), time.hour, time.minute, 0, 0)}
                     />
                 </View>
             </View>

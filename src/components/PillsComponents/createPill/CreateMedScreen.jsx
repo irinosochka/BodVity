@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BackHandler, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import {BackHandler, Keyboard, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {retrieveMedicationsForUser} from "../../../services/collections";
 import {auth} from "../../../../firebase";
 import {useIsFocused} from "@react-navigation/native";
@@ -13,6 +13,8 @@ import {colors, FormStyles} from "../../../styles/Styles";
 import {ButtonCustom} from "../../../common/Button";
 import {CreateStyles} from "./createStyles";
 import Alarm from "./Alarm";
+import {createMedication} from "./functionsForCreateMeds";
+import {Scheduling} from "../../PushNotifications";
 
 const CreateMedScreen = ({navigation, route}) => {
     const { frequency } = route.params;
@@ -64,6 +66,31 @@ const CreateMedScreen = ({navigation, route}) => {
     const handleMedicationSelect = (medication) => {
         setSelectedMedication(medication);
     };
+
+    const handleAddMedication = (event:React.FormEvent<EventTarget>) => {
+        event.preventDefault();
+        if(title.length !== 0 && pillsInStock.length !== 0  ){
+            createMedication('one-time', title, pillsInStock, startDate, startDate, reminders);
+            Keyboard.dismiss();
+            setTitle('');
+            setPillsInStock('0');
+            setStartDate(new Date());
+            setReminders([
+                {
+                    hour: 9,
+                    minute: 0,
+                    quantity: 1,
+                    note: ''
+                }
+            ])
+            setTitle(1)
+            navigation.navigate('Home');
+        } else {
+            console.log('empty error')
+        }
+    }
+
+    Scheduling();
 
     return (
         <View style={CreateStyles.container}>

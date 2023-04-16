@@ -40,6 +40,10 @@ export const CreateStyles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 10,
     },
+    errorInput:{
+        borderWidth: 1,
+        borderColor: colors.accent,
+    },
     input:{
         width: '90%',
         fontSize: 15,

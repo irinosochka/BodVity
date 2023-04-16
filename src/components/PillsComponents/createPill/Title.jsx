@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 import {CreateStyles} from "./createStyles";
 
-const Title = ({ medicationItems, onSelectItem, title, setTitle, }) => {
+const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, setErrorTitle, setErrorStock}) => {
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -26,6 +26,8 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, }) => {
         setSelectedItem(item);
         setVisibleDropdown(false);
         onSelectItem(item);
+        setErrorTitle(false);
+        setErrorStock(false);
     };
 
     const filterMedicationItems = () => {
@@ -46,11 +48,16 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, }) => {
 
     return (
         <>
-            <View style={CreateStyles.inputContainer}>
+            <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
                 <TextInput
                     style={CreateStyles.input}
                     placeholder="Ex: Ibuprofen"
-                    onChangeText={setTitle}
+                    onChangeText={(text) => {
+                        setTitle(text);
+                        if (text.length > 0) {
+                            setErrorTitle(false);
+                        }
+                    }}
                     value={title}
                     onFocus={handleFocus}
                 />

@@ -7,7 +7,7 @@ import {
     schedulePushNotification
 } from "../../PushNotifications";
 
-export const createMedication = async (frequency, title, pillsInStock, startDate, endDate, reminders) => {
+export const createMedication = async (frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm) => {
 
     const createMedicationPlan = async () => {
         const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
@@ -23,15 +23,15 @@ export const createMedication = async (frequency, title, pillsInStock, startDate
 
         try{
             await addDoc(userMedicationsRef, medicationDocument).then( medicationDoc => {
-
                 const userMedicationRemindersRef = collection(db, 'users', auth.currentUser.uid, 'medications', medicationDoc.id.toString(), 'reminders')
 
                 const createMedicationReminders = async () => {
                     let plans;
-                    if(frequency === 'regular')
+                    if(frequency === 'regular'){
                         plans = setUpRemindersRegular(reminders, startDate, endDate)
-                    else if(frequency === 'one-time')
+                    } else if(frequency === 'one-time'){
                         plans = setUpRemindersOneTime(reminders, startDate)
+                    }
 
                     let array = []
 
@@ -60,12 +60,14 @@ export const createMedication = async (frequency, title, pillsInStock, startDate
 
     await confirmPushNotification()
 
-    for(let reminder of reminders)
-    {
-        if(frequency === 'regular')
-            await schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock), title)
-        else if(frequency === 'one-time')
-            await scheduleOneTimePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), title)
+    if(isAlarm){
+        for(let reminder of reminders)
+        {
+            if(frequency === 'regular')
+                await schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock), title)
+            else if(frequency === 'one-time')
+                await scheduleOneTimePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), title)
+        }
     }
 }
 
@@ -81,7 +83,6 @@ const  setUpRemindersOneTime = (reminders, startDate) => {
             quantity: plan.quantity,
             isConfirmed: false,
             isMissed: true,
-            note: plan.note,
             updatedAt: new Date(date)
         }]
     })
@@ -92,8 +93,10 @@ const  setUpRemindersRegular = (reminders, startDate, endDate) => {
     let res = []
 
     let date = new Date(startDate)
+    let end = new Date(endDate)
+    end.setDate(end.getDate() + parseInt(1))
 
-    while(date <= endDate) {
+    while(date <= end) {
         reminders.forEach( plan => {
             date.setHours(plan.hour, plan.minute, 0)
             res = [...res, {
@@ -102,7 +105,6 @@ const  setUpRemindersRegular = (reminders, startDate, endDate) => {
                 quantity: plan.quantity,
                 isConfirmed: false,
                 isMissed: true,
-                note: plan.note,
                 updatedAt: new Date(date)
             }]
         })

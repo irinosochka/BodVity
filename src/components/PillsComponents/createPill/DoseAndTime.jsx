@@ -5,11 +5,11 @@ import Icon from "react-native-vector-icons/Feather";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import {CreateStyles} from "./createStyles";
 
-const DoseAndTime = ({reminders, setReminders, reminder}) => {
+const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
     const [numTimeContainers, setNumTimeContainers] = useState(1);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [time, setTime] = useState(reminder);
-    const [quantity, setQuantity] = useState(2);
+    // const [quantity, setQuantity] = useState(1);
 
     const now = new Date();
 
@@ -26,7 +26,6 @@ const DoseAndTime = ({reminders, setReminders, reminder}) => {
         return str;
     }
 
-
     const addTimeContainer = () => {
         setNumTimeContainers(numTimeContainers + 1);
     };
@@ -38,15 +37,23 @@ const DoseAndTime = ({reminders, setReminders, reminder}) => {
             minute: day.getMinutes()
         }))
 
+        setReminders( reminders.map( (reminder, index) => (index === idx ? time : reminder)))
         setDatePickerVisibility(false);
     };
 
     const minusQuantity = () => {
-        if(quantity === 1)
-            setQuantity(quantity)
-        else{
-            setQuantity(quantity-1)
+        if(time.quantity !== 1){
+            setTime( prevTime => ({...prevTime, quantity: prevTime.quantity - 1}))
+            setReminders( reminders.map( (reminder, index) => (index === idx ? time : reminder)))
         }
+        else{
+
+        }
+    }
+
+    const plusQuantity = () => {
+        setTime( prevTime => ({...prevTime, quantity: prevTime.quantity + 1}))
+        setReminders( reminders.map( (reminder, index) => (index === idx ? time : reminder)))
     }
 
     // const timeContainers = [];
@@ -73,12 +80,12 @@ const DoseAndTime = ({reminders, setReminders, reminder}) => {
                         <Icon name="minus" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>
                     {
-                        parseInt(quantity) > 1 ? <Text>
-                            {quantity} pills </Text>
+                        parseInt(time.quantity) > 1 ? <Text>
+                            {time.quantity} pills </Text>
                             :
-                            <Text>{quantity} pill</Text>
+                            <Text>{time.quantity} pill</Text>
                     }
-                    <TouchableOpacity onPress={() => setQuantity(quantity+1)}>
+                    <TouchableOpacity onPress={() => plusQuantity()}>
                         <Icon name="plus" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>
                 </View>

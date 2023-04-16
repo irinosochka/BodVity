@@ -35,7 +35,6 @@ export function SetDoseAndTimeModal({reminders, setReminders, reminder, idx}) {
     };
 
     const handleConfirm = (day) => {
-
         setTime( prevTime => ({
             ...prevTime,
             hour: day.getHours(),

@@ -26,7 +26,7 @@ const CreateMedScreen = ({navigation, route}) => {
     const [pillsInStock, setPillsInStock] = useState('');
     const [errorStock, setErrorStock] = useState(false);
     const [startDate, setStartDate] = useState(new Date());
-    const [endDate, setEndDate] = useState(null);
+    const [endDate, setEndDate] = useState(new Date());
     const [isAlternative, setAlternative] = useState(false);
     const [reminders, setReminders] = useState([
         {
@@ -67,23 +67,27 @@ const CreateMedScreen = ({navigation, route}) => {
         setSelectedMedication(medication);
     };
 
-    const handleAddMedication = (event:React.FormEvent<EventTarget>) => {
-        event.preventDefault();
+    const checkError = () => {
+        setErrorTitle(title.length === 0)
+        setErrorStock(pillsInStock.length === 0)
+    }
+
+    const handleAddMedication = () => {
+        checkError()
+
         if(title.length !== 0 && pillsInStock.length !== 0  ){
-            createMedication('one-time', title, pillsInStock, startDate, startDate, reminders);
+            createMedication(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm);
             Keyboard.dismiss();
             setTitle('');
-            setPillsInStock('0');
+            setPillsInStock('');
             setStartDate(new Date());
             setReminders([
                 {
                     hour: 9,
                     minute: 0,
                     quantity: 1,
-                    note: ''
                 }
             ])
-            setTitle(1)
             navigation.navigate('Home');
         } else {
             console.log('empty error')
@@ -105,14 +109,14 @@ const CreateMedScreen = ({navigation, route}) => {
                 <View style={CreateStyles.createContainer}>
                     <Text style={CreateStyles.title}>Medicine name</Text>
                     <View style={CreateStyles.zIndex}>
-                        <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle}/>
+                        <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle} errorTitle={errorTitle} setErrorTitle={setErrorTitle} setErrorStock={setErrorStock}/>
                     </View>
                     <Text style={{...CreateStyles.title, marginBottom: 5}}>Quantity in stock</Text>
                     {selectedMedication?.title === title
                         ?
-                        <Quantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} />
+                        <Quantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock} />
                         :
-                        <Quantity medication={false} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock}/>
+                        <Quantity medication={false} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock}/>
                     }
                 </View>
                 <View style={{...CreateStyles.createContainer, marginTop: 10}}>
@@ -128,7 +132,7 @@ const CreateMedScreen = ({navigation, route}) => {
                         </TouchableOpacity>
                     </View>
                 <ScrollView style={CreateStyles.scrollContainer}>
-                    { reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}
+                    { reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} idx={idx} />)}
                     {/*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*/}
                     {/*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*/}
                 </ScrollView>
@@ -137,7 +141,7 @@ const CreateMedScreen = ({navigation, route}) => {
             </View>
             <View style={CreateStyles.buttonContainer}>
                 <View style={CreateStyles.button}>
-                    <ButtonCustom buttonText={'Done'}  />
+                    <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
                 </View>
             </View>
         </View>

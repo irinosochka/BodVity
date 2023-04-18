@@ -7,7 +7,7 @@ import {
     schedulePushNotification
 } from "../../PushNotifications";
 
-export const createMedication = async (frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm) => {
+export const createMedication = async (frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek) => {
 
     const createMedicationPlan = async () => {
         const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
@@ -28,7 +28,7 @@ export const createMedication = async (frequency, title, pillsInStock, startDate
                 const createMedicationReminders = async () => {
                     let plans;
                     if(frequency === 'regular'){
-                        plans = setUpRemindersRegular(reminders, startDate, endDate)
+                        plans = setUpRemindersRegular(reminders, startDate, endDate, selectedDaysOfWeek)
                     } else if(frequency === 'one-time'){
                         plans = setUpRemindersOneTime(reminders, startDate)
                     }
@@ -58,7 +58,7 @@ export const createMedication = async (frequency, title, pillsInStock, startDate
     }
     await createMedicationPlan()
 
-    await confirmPushNotification()
+    // await confirmPushNotification()
 
     if(isAlarm){
         for(let reminder of reminders)
@@ -89,26 +89,55 @@ const  setUpRemindersOneTime = (reminders, startDate) => {
     return res
 }
 
-const  setUpRemindersRegular = (reminders, startDate, endDate) => {
+// const  setUpRemindersRegular = (reminders, startDate, endDate, selectedDaysOfWeek) => {
+//     let res = []
+//
+//     let date = new Date(startDate)
+//     let end = new Date(endDate)
+//     end.setDate(end.getDate() + parseInt(1))
+//
+//     while (date <= end)
+//     {
+//         reminders.forEach( plan => {
+//             date.setHours(plan.hour, plan.minute, 0)
+//             res = [...res, {
+//                 plan: 'regular',
+//                 timestamp: new Date(date),
+//                 quantity: plan.quantity,
+//                 isConfirmed: false,
+//                 isMissed: true,
+//                 updatedAt: new Date(date)
+//             }]
+//         })
+//             date.setDate(date.getDate() + parseInt(1))
+//         }
+//     return res
+// }
+
+const setUpRemindersRegular = (reminders, startDate, endDate, selectedDaysOfWeek) => {
     let res = []
-
-    let date = new Date(startDate)
+    let start = new Date(startDate)
     let end = new Date(endDate)
-    end.setDate(end.getDate() + parseInt(1))
+    end.setDate(end.getDate() + 1)
 
-    while(date <= end) {
-        reminders.forEach( plan => {
-            date.setHours(plan.hour, plan.minute, 0)
-            res = [...res, {
-                plan: 'regular',
-                timestamp: new Date(date),
-                quantity: plan.quantity,
-                isConfirmed: false,
-                isMissed: true,
-                updatedAt: new Date(date)
-            }]
-        })
-            date.setDate(date.getDate() + parseInt(1))
+    while (start <= endDate) {
+        const dayOfWeek = start.getDay()
+        if (selectedDaysOfWeek[dayOfWeek]) {
+            reminders.forEach( plan => {
+                const reminderDate = new Date(start)
+                reminderDate.setHours(plan.hour, plan.minute, 0)
+                res = [...res, {
+                    plan: 'one-time',
+                    timestamp: reminderDate,
+                    quantity: plan.quantity,
+                    isConfirmed: false,
+                    isMissed: true,
+                    updatedAt: reminderDate
+                }]
+            })
         }
+        start.setDate(start.getDate() + 1)
+    }
+
     return res
 }

@@ -35,6 +35,9 @@ const CreateMedScreen = ({navigation, route}) => {
             quantity: 1,
         }
     ])
+
+    const[selectedDaysOfWeek, setSelectedDaysOfWeek] = useState([1, 1, 1, 1, 1, 1, 1]) //sun, mon, tue, wed, thu, fri, sat,
+
     const [isAlarm, setIsAlarm] = useState(true);
 
     const isFocused = useIsFocused();
@@ -74,13 +77,16 @@ const CreateMedScreen = ({navigation, route}) => {
 
     const handleAddMedication = () => {
         checkError()
+        console.log(selectedDaysOfWeek)
 
         if(title.length !== 0 && pillsInStock.length !== 0  ){
-            createMedication(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm);
+
+            createMedication(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek);
             Keyboard.dismiss();
             setTitle('');
             setPillsInStock('');
             setStartDate(new Date());
+            setSelectedDaysOfWeek([1, 1, 1, 1, 1, 1, 1]);
             setReminders([
                 {
                     hour: 9,
@@ -121,9 +127,8 @@ const CreateMedScreen = ({navigation, route}) => {
                 </View>
                 <View style={{...CreateStyles.createContainer, marginTop: 10}}>
                     <HowLong frequency={frequency} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-                    {/*<CreateHowLong frequency={'one-time'} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />*/}
                     {
-                        frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} />
+                        frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} selectedDaysOfWeek={selectedDaysOfWeek} setSelectedDaysOfWeek={setSelectedDaysOfWeek}/>
                     }
                     <View style={{...CreateStyles.doseAndTimeContainer, marginBottom: 5}}>
                         <Text style={CreateStyles.title}>Dosage & Time</Text>

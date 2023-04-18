@@ -6,10 +6,8 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 import {CreateStyles} from "./createStyles";
 
 const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
-    const [numTimeContainers, setNumTimeContainers] = useState(1);
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [time, setTime] = useState(reminder);
-    // const [quantity, setQuantity] = useState(1);
 
     const now = new Date();
 
@@ -25,10 +23,6 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
         );
         return str;
     }
-
-    const addTimeContainer = () => {
-        setNumTimeContainers(numTimeContainers + 1);
-    };
 
     const handleConfirm = (day) => {
         setTime( prevTime => ({
@@ -47,7 +41,7 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
             setReminders( reminders.map( (reminder, index) => (index === idx ? time : reminder)))
         }
         else{
-
+            //nothing
         }
     }
 
@@ -56,24 +50,8 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
         setReminders( reminders.map( (reminder, index) => (index === idx ? time : reminder)))
     }
 
-    // const timeContainers = [];
-    // for (let i = 0; i < numTimeContainers; i++) {
-    //     timeContainers.push(
-    //         <View key={i} style={CreateStyles.timeContainerRegular}>
-    //             {/* Add content of timeContainerRegular here */}
-    //         </View>
-    //     );
-    // }
-
     return (
         <View>
-            {/*<View style={[CreateStyles.doseAndTimeContainer, { marginBottom: 5 }]}>*/}
-            {/*    <Text style={CreateStyles.title}>Plan</Text>*/}
-            {/*    <TouchableOpacity onPress={addTimeContainer}>*/}
-            {/*        <Icon style={CreateStyles.icon} name="plus" size={25} color={colors.gray3} />*/}
-            {/*    </TouchableOpacity>*/}
-            {/*</View>*/}
-            {/*{timeContainers}*/}
             <View style={CreateStyles.doseAndTimeContainer}>
                 <View style={CreateStyles.timeContainerRegular}>
                     <TouchableOpacity onPress={() => minusQuantity()}>

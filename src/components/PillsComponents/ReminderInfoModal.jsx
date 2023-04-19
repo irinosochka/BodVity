@@ -20,9 +20,9 @@ export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowRemi
             <View style={styles.modal}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>
-                        <TouchableOpacity style={{marginTop: 6, marginRight: 15}} onPress={() => navigation.navigate('editMedication')}>
-                            <Icon name="edit-2" size={27} color= {colors.primary} />
-                        </TouchableOpacity>
+                        {/*<TouchableOpacity style={{marginTop: 6, marginRight: 15}} onPress={() => navigation.navigate('editMedication')}>*/}
+                        {/*    <Icon name="edit-2" size={27} color= {colors.primary} />*/}
+                        {/*</TouchableOpacity>*/}
                         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)}>
                             <Icon name="x" size={40} color= {colors.primary} />
                         </TouchableOpacity>
@@ -81,7 +81,7 @@ export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowRemi
                         </TouchableOpacity>
                         <View style={styles.verticalLine}></View>
                         <TouchableOpacity style={styles.btn}>
-                            <Text style={styles.btnText}>Reschedule</Text>
+                            <Text style={styles.btnText}>{'  '} Delete {'  '}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '30%',
         width: '90%',
-        height: '30%',
+        height: '28%',
         backgroundColor: 'white',
         borderRadius: 14,
     },
@@ -117,7 +117,8 @@ const styles = StyleSheet.create({
     },
     modalMedInfo: {
         flex: 1,
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
+        marginTop: -10,
     },
     titleText: {
         fontSize: 20,

@@ -77,7 +77,6 @@ const CreateMedScreen = ({navigation, route}) => {
 
     const handleAddMedication = () => {
         checkError()
-        console.log(selectedDaysOfWeek)
 
         if(title.length !== 0 && pillsInStock.length !== 0  ){
 
@@ -87,14 +86,20 @@ const CreateMedScreen = ({navigation, route}) => {
             setPillsInStock('');
             setStartDate(new Date());
             setSelectedDaysOfWeek([1, 1, 1, 1, 1, 1, 1]);
+            setAlternative(false);
             setReminders([
                 {
                     hour: 9,
                     minute: 0,
                     quantity: 1,
                 }
-            ])
-            navigation.navigate('Home');
+            ]);
+
+            // navigation.navigate('Home');
+            navigation.reset({
+                index: 0,
+                routes: [{ name: 'Home', key: Date.now() }],
+            });
         } else {
             console.log('empty error')
         }

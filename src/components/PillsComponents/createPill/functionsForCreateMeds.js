@@ -3,8 +3,7 @@ import {addDoc, collection, serverTimestamp, Timestamp} from "firebase/firestore
 import {auth, db} from "../../../../firebase";
 import {
     confirmPushNotification,
-    scheduleOneTimePushNotification,
-    schedulePushNotification
+    schedulePushNotification,
 } from "../../PushNotifications";
 
 export const createMedication = async (frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek) => {
@@ -22,72 +21,84 @@ export const createMedication = async (frequency, title, pillsInStock, startDate
         }
 
         try{
-            await addDoc(userMedicationsRef, medicationDocument).then( medicationDoc => {
-                const userMedicationRemindersRef = collection(db, 'users', auth.currentUser.uid, 'medications', medicationDoc.id.toString(), 'reminders')
+            const medicationDoc = await addDoc(userMedicationsRef, medicationDocument)
+            const userMedicationRemindersRef = collection(db, 'users', auth.currentUser.uid, 'medications', medicationDoc.id.toString(), 'reminders')
 
-                const createMedicationReminders = async () => {
-                    let plans;
-                    if(frequency === 'regular'){
-                        plans = setUpRemindersRegular(reminders, startDate, endDate, selectedDaysOfWeek)
-                    } else if(frequency === 'one-time'){
-                        plans = setUpRemindersOneTime(reminders, startDate)
+            const createMedicationReminders = async () => {
+                let plans;
+
+                plans = await setUpReminder(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek);
+                // plans = await setUpRemindersRegular(reminders, startDate, endDate, selectedDaysOfWeek, title)
+                let array = []
+
+                for(let plan of plans) {
+                    const reminderDocument = {
+                        ...plan,
+                        timestamp: Timestamp.fromDate(plan.timestamp),
+                        updatedAt: Timestamp.fromDate(plan.updatedAt),
+                        medicationId: medicationDoc.id.toString(),
                     }
+                    console.log('ReminderDocument:', reminderDocument);
 
-                    let array = []
-
-                    for(let plan of plans) {
-                        const reminderDocument = {
-                            ...plan,
-                            timestamp: Timestamp.fromDate(plan.timestamp),
-                            updatedAt: Timestamp.fromDate(plan.updatedAt),
-                            medicationId: medicationDoc.id.toString(),
-                        }
-                        console.log('ReminderDocument:', reminderDocument);
-
-                        await addDoc(userMedicationRemindersRef, reminderDocument).then(reminderDoc => {
-                            array.push({...plan, timestamp: plan.timestamp, updatedAt: plan.updatedAt, id: reminderDoc.id})
-                        }).catch(e => console.log('Error in adding reminders to a medication:', e.message))
-                    }
+                    const reminderDoc = await addDoc(userMedicationRemindersRef, reminderDocument)
+                    array.push({...plan, timestamp: plan.timestamp, updatedAt: plan.updatedAt, id: reminderDoc.id})
                 }
-                createMedicationReminders()
-            })
+                return array
+            }
+            return createMedicationReminders()
 
         } catch (error) {
             console.log('Error in inserting a new medication plan:', error.message);
         }
     }
-    await createMedicationPlan()
-
-    // await confirmPushNotification()
-
-    if(isAlarm){
-        for(let reminder of reminders)
-        {
-            if(frequency === 'regular')
-                await schedulePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), parseInt(pillsInStock), title)
-            else if(frequency === 'one-time')
-                await scheduleOneTimePushNotification(parseInt(reminder.hour), parseInt(reminder.minute), title)
-        }
-    }
+    return createMedicationPlan();
 }
 
-const  setUpRemindersOneTime = (reminders, startDate) => {
-    let res = []
-    let date = new Date(startDate)
-
-    reminders.forEach( plan => {
-        date.setHours(plan.hour, plan.minute, 0)
-        res = [...res, {
-            plan: 'one-time',
-            timestamp: new Date(date),
-            quantity: plan.quantity,
-            isConfirmed: false,
-            isMissed: true,
-            updatedAt: new Date(date)
-        }]
-    })
-    return res
-}
+// const  setUpRemindersOneTime = (reminders, startDate) => {
+//     let res = []
+//     let date = new Date(startDate)
+//
+//     reminders.forEach( plan => {
+//         date.setHours(plan.hour, plan.minute, 0)
+//         res = [...res, {
+//             plan: 'one-time',
+//             timestamp: new Date(date),
+//             quantity: plan.quantity,
+//             isConfirmed: false,
+//             isMissed: true,
+//             updatedAt: new Date(date)
+//         }]
+//     })
+//     return res
+// }
+//
+// const setUpReminders = async (reminders, startDate, title, isAlarm) => {
+//     let res = []
+//     let date = new Date(startDate)
+//
+//     for (const plan of reminders) {
+//         date.setHours(plan.hour, plan.minute, 0)
+//         const scheduledDate = new Date(date)
+//         let notificationId = null;
+//
+//         if(isAlarm && scheduledDate > new Date()){
+//             notificationId = await schedulePushNotification(scheduledDate, title)
+//         }else{
+//             //do nothing
+//         }
+//
+//         res.push({
+//             plan: 'one-time',
+//             timestamp: scheduledDate,
+//             quantity: plan.quantity,
+//             isConfirmed: false,
+//             isMissed: true,
+//             updatedAt: new Date(date),
+//             notificationId: notificationId
+//         })
+//     }
+//     return res
+// }
 
 // const  setUpRemindersRegular = (reminders, startDate, endDate, selectedDaysOfWeek) => {
 //     let res = []
@@ -114,30 +125,223 @@ const  setUpRemindersOneTime = (reminders, startDate) => {
 //     return res
 // }
 
-const setUpRemindersRegular = (reminders, startDate, endDate, selectedDaysOfWeek) => {
+// працює але не асинхронно
+// const setUpRemindersRegular = (reminders, startDate, endDate, selectedDaysOfWeek) => {
+//     let res = []
+//     let start = new Date(startDate)
+//     let end = new Date(endDate)
+//     end.setDate(end.getDate() + 1)
+//
+//     while (start <= endDate) {
+//         const dayOfWeek = start.getDay()
+//         if (selectedDaysOfWeek[dayOfWeek]) {
+//             reminders.forEach( plan => {
+//                 const reminderDate = new Date(start)
+//                 reminderDate.setHours(plan.hour, plan.minute, 0)
+//                 res = [...res, {
+//                     plan: 'one-time',
+//                     timestamp: reminderDate,
+//                     quantity: plan.quantity,
+//                     isConfirmed: false,
+//                     isMissed: true,
+//                     updatedAt: reminderDate
+//                 }]
+//             })
+//         }
+//         start.setDate(start.getDate() + 1)
+//     }
+//     return res;
+// }
+
+//встановлює всі нагадування на 1 день
+// const setUpRemindersRegular = async (reminders, startDate, endDate, selectedDaysOfWeek, title) => {
+//     let res = []
+//     let date = new Date(startDate)
+//     let start = new Date(startDate)
+//     let end = new Date(endDate)
+//     end.setDate(end.getDate() + 1)
+//
+//     while (start <= end) {
+//         const dayOfWeek = start.getDay()
+//
+//         if (selectedDaysOfWeek[dayOfWeek]) {
+//             for (const plan of reminders) {
+//                 date.setHours(plan.hour, plan.minute, 0)
+//                 let notificationId = null;
+//                 const scheduledDate = new Date(date)
+//                 notificationId = await schedulePushNotification(scheduledDate, title);
+//
+//                 res.push({
+//                     plan: 'regular',
+//                     timestamp: scheduledDate,
+//                     quantity: plan.quantity,
+//                     isConfirmed: false,
+//                     isMissed: true,
+//                     updatedAt: new Date(date),
+//                     notificationId: notificationId
+//                 })
+//             }}
+//         start.setDate(start.getDate() + 1)
+//     }
+//     return res
+// }
+
+// const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek) => {
+//     let res = []
+//     let date = new Date(startDate)
+//     let start = new Date(startDate)
+//     let end = new Date(endDate)
+//     end.setHours(23, 59, 59, 999)
+//
+//     if(frequency === 'one-time'){
+//         for (const plan of reminders) {
+//             date.setHours(plan.hour, plan.minute, 0)
+//             const scheduledDate = new Date(date)
+//             let notificationId = null;
+//
+//             if(isAlarm && scheduledDate > new Date()){
+//                 notificationId = await schedulePushNotification(scheduledDate, title)
+//             }
+//             res.push({
+//                 plan: frequency,
+//                 timestamp: scheduledDate,
+//                 quantity: plan.quantity,
+//                 isConfirmed: false,
+//                 isMissed: true,
+//                 updatedAt: new Date(date),
+//                 notificationId: notificationId
+//             })
+//         }
+//     }else {
+//         while (start <= end) {
+//             const dayOfWeek = start.getDay()
+//
+//             if (selectedDaysOfWeek[dayOfWeek]) {
+//                 for (const plan of reminders) {
+//                     const reminderDate = new Date(start);
+//                     reminderDate.setHours(plan.hour, plan.minute, 0)
+//                     let notificationId = null;
+//                     const scheduledDate = new Date(reminderDate)
+//                     notificationId = await schedulePushNotification(scheduledDate, title);
+//                     res.push({
+//                         plan: frequency,
+//                         timestamp: scheduledDate,
+//                         quantity: plan.quantity,
+//                         isConfirmed: false,
+//                         isMissed: true,
+//                         updatedAt: new Date(date),
+//                         notificationId: notificationId
+//                     })
+//                 }}
+//             start.setDate(start.getDate() + 1)
+//         }
+//     }
+//     await confirmPushNotification();
+//     return res
+// }
+
+
+const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek) => {
     let res = []
     let start = new Date(startDate)
     let end = new Date(endDate)
-    end.setDate(end.getDate() + 1)
+    end.setHours(23, 59, 59, 999)
 
-    while (start <= endDate) {
-        const dayOfWeek = start.getDay()
-        if (selectedDaysOfWeek[dayOfWeek]) {
-            reminders.forEach( plan => {
-                const reminderDate = new Date(start)
-                reminderDate.setHours(plan.hour, plan.minute, 0)
-                res = [...res, {
-                    plan: 'one-time',
-                    timestamp: reminderDate,
-                    quantity: plan.quantity,
-                    isConfirmed: false,
-                    isMissed: true,
-                    updatedAt: reminderDate
-                }]
-            })
+    const setReminder = async (plan, date) => {
+        date.setHours(plan.hour, plan.minute, 0)
+        const scheduledDate = new Date(date)
+        let notificationId = null;
+        if(isAlarm && scheduledDate > new Date()){
+            notificationId = await schedulePushNotification(scheduledDate, title)
         }
-        start.setDate(start.getDate() + 1)
+        res.push({
+            plan: frequency,
+            timestamp: scheduledDate,
+            quantity: plan.quantity,
+            isConfirmed: false,
+            isMissed: true,
+            updatedAt: new Date(date),
+            notificationId: notificationId
+        })
     }
 
+    if (startDate === endDate) {
+        for (const plan of reminders) {
+            await setReminder(plan, new Date(startDate))
+        }
+    } else {
+        while (start <= end) {
+            const dayOfWeek = start.getDay()
+
+            if (selectedDaysOfWeek[dayOfWeek]) {
+                for (const plan of reminders) {
+                    await setReminder(plan, new Date(start))
+                }
+            }
+
+            start.setDate(start.getDate() + 1)
+        }
+    }
+    isAlarm && await confirmPushNotification();
     return res
 }
+
+
+// const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek) => {
+//     const res = []
+//     let date = new Date(startDate)
+//     const start = new Date(startDate)
+//     const end = new Date(endDate)
+//
+//     if (frequency === 'one-time') {
+//         for (const plan of reminders) {
+//             date.setHours(plan.hour, plan.minute, 0)
+//             const scheduledDate = new Date(date)
+//
+//             if (isAlarm && scheduledDate > new Date()) {
+//                 const notificationId = await schedulePushNotification(scheduledDate, title)
+//                 res.push({
+//                     plan: frequency,
+//                     timestamp: scheduledDate,
+//                     quantity: plan.quantity,
+//                     isConfirmed: false,
+//                     isMissed: true,
+//                     updatedAt: new Date(date),
+//                     notificationId
+//                 })
+//             }
+//         }
+//     } else {
+//         const promises = []
+//         while (start <= end) {
+//             const dayOfWeek = start.getDay()
+//             if (selectedDaysOfWeek[dayOfWeek]) {
+//                 for (const plan of reminders) {
+//                     date.setHours(plan.hour, plan.minute, 0)
+//                     const scheduledDate = new Date(date)
+//
+//                     if (isAlarm && scheduledDate > new Date()) {
+//                         const promise = schedulePushNotification(scheduledDate, title)
+//                             .then(notificationId => {
+//                                 res.push({
+//                                     plan: frequency,
+//                                     timestamp: scheduledDate,
+//                                     quantity: plan.quantity,
+//                                     isConfirmed: false,
+//                                     isMissed: true,
+//                                     updatedAt: new Date(date),
+//                                     notificationId
+//                                 })
+//                             })
+//                         promises.push(promise)
+//                     }
+//                 }
+//             }
+//             start.setDate(start.getDate() + 1)
+//         }
+//         await Promise.all(promises)
+//     }
+//
+//     await confirmPushNotification()
+//     return res
+// }

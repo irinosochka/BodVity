@@ -1,7 +1,7 @@
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
-import React, { useState, useEffect, useRef } from 'react';
-import { Platform } from 'react-native';
+import React, {useEffect, useRef, useState} from 'react';
+import {Platform} from 'react-native';
 
 
 Notifications.setNotificationHandler({
@@ -36,38 +36,30 @@ export function Scheduling() {
     }, []);
 }
 
+export async function schedulePushNotification(date, pillTitle) {
+    const now = new Date();
+    const scheduledDate = new Date(date);
+    scheduledDate.setSeconds(0);
 
-export async function schedulePushNotification(h, m, quantity, pillTitle) {
-    await Notifications.scheduleNotificationAsync({
-        content: {
-            sound: 'default',
-            title: "BodVity",
-            body: 'Time to take ' + pillTitle + '.',
-            data: { data: 'goes here' },
-        },
-        trigger: {
-            hour: h,
-            minute: m,
-            repeats: quantity,
-        },
-    })
+    if (scheduledDate > now) {
+        return await Notifications.scheduleNotificationAsync({
+            content: {
+                sound: 'default',
+                title: "BodVity",
+                body: 'Time to take ' + pillTitle + '.',
+                data: {data: 'goes here'},
+            },
+            trigger: {
+                date: scheduledDate,
+                repeats: false,
+            },
+        });
+    } else {
+        console.log('Invalid date/time for notification');
+        return null;
+    }
 }
 
-export async function scheduleOneTimePushNotification(h, m, pillTitle) {
-    await Notifications.scheduleNotificationAsync({
-        content: {
-            sound: 'default',
-            title: "BodVity",
-            body: 'Time to take ' + pillTitle + '.',
-            data: { data: 'goes here' },
-        },
-        trigger: {
-            hour: h,
-            minute: m,
-            repeats: false,
-        },
-    })
-}
 
 export async function confirmPushNotification() {
     await Notifications.scheduleNotificationAsync({

@@ -25,13 +25,12 @@ const styles = StyleSheet.create({
         height: '95%',
     },
     journalText: {
-        paddingHorizontal: 20,
         fontWeight: '700',
         fontSize: 14
     }
 });
 
-function CalendarComponent() {
+function CalendarComponent({navigation}) {
     const isFocused = useIsFocused();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [medications, setMedications] = useState([])
@@ -88,13 +87,12 @@ function CalendarComponent() {
                 calendarHeaderStyle={{color: colors.gray3, alignSelf: 'flex-end', paddingRight: 20, fontWeight: '400', fontSize: 14}}
                 selectedDate={selectedDate}
             />
-
-            <Text style={styles.journalText}>Upcoming Doses</Text>
             {
                 medicationOfDay.length > 0 ?
 
                     <View style={styles.pillsWrapper}>
-                        <MedicationOfDay medicationOfDay={medicationOfDay}/>
+                        <Text style={styles.journalText}>Upcoming Doses</Text>
+                        <MedicationOfDay medicationOfDay={medicationOfDay} navigation={navigation}/>
                     </View>
 
                     :

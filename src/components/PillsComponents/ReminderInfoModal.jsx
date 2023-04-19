@@ -4,7 +4,7 @@ import moment from "moment";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication, setShowDeleteModal}) {
+export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication, setShowDeleteModal}) {
     const handleCompleteAndClose = async() => {
         handleComplete();
         setIsShowReminderInfo(!isShowReminderInfo);
@@ -14,11 +14,6 @@ export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowRemi
         setIsShowReminderInfo(false);
         setShowDeleteModal(true);
     }
-
-    // const navigateToUpdatePill = async () => {
-    //     setIsShowReminderInfo(!isShowReminderInfo);
-    //     navigation.navigate('editMedication')
-    // }
 
     return (
         <Modal transparent={true} visible={isShowReminderInfo} animationType='fade'>

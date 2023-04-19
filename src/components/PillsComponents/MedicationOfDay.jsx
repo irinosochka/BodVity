@@ -27,6 +27,13 @@ function MedicationOfDay({navigation, medicationOfDay}) {
     //             .catch(console.error)
     // }, []);
 
+    // const handleDeleteOneReminder = async (reminderId, medicationId, index) => {
+    //     const itemsCopy = [...medicationOfDay];
+    //     await deleteOneReminder(auth.currentUser.uid, medicationId, reminderId);
+    //     itemsCopy.splice(index, 1);
+    //     setMedicationsOfDay(itemsCopy);
+    // }
+
     // const deletePill = async (docID, index) => {
     //     const itemsCopy = [...pillItems];
     //     await DeletePillForUser(auth.currentUser.uid, docID);
@@ -61,7 +68,7 @@ function MedicationOfDay({navigation, medicationOfDay}) {
                     <TouchableOpacity
                         key={medItem.id}
                     >
-                        <MedicationItem navigator={navigation} reminder={medItem}/>
+                        <MedicationItem navigation={navigation} reminder={medItem}/>
                     </TouchableOpacity>
                 ))
             }

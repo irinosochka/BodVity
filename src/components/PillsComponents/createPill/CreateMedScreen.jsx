@@ -13,7 +13,7 @@ import {colors, FormStyles} from "../../../styles/Styles";
 import {ButtonCustom} from "../../../common/Button";
 import {CreateStyles} from "./createStyles";
 import Alarm from "./Alarm";
-import {createMedication} from "./functionsForCreateMeds";
+import {createMedication, createMedicationReminders} from "./functionsForCreateMeds";
 import {Scheduling} from "../../PushNotifications";
 
 const CreateMedScreen = ({navigation, route}) => {
@@ -72,35 +72,40 @@ const CreateMedScreen = ({navigation, route}) => {
 
     const checkError = () => {
         setErrorTitle(title.length === 0)
-        setErrorStock(pillsInStock.length === 0)
+        selectedMedication ? setErrorStock(false) : setErrorStock(pillsInStock.length === 0)
+    }
+
+    const reset = () => {
+        Keyboard.dismiss();
+        setTitle('');
+        setPillsInStock('');
+        setStartDate(new Date());
+        setSelectedDaysOfWeek([1, 1, 1, 1, 1, 1, 1]);
+        setAlternative(false);
+        setReminders([
+            {
+                hour: 9,
+                minute: 0,
+                quantity: 1,
+            }
+        ]);
+
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home', key: Date.now() }],
+        });
     }
 
     const handleAddMedication = () => {
         checkError()
 
-        if(title.length !== 0 && pillsInStock.length !== 0  ){
-
+        if(selectedMedication){
+            createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, selectedMedication.id);
+            reset();
+        } else if(title.length !== 0 && pillsInStock.length !== 0  ){
             createMedication(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek);
-            Keyboard.dismiss();
-            setTitle('');
-            setPillsInStock('');
-            setStartDate(new Date());
-            setSelectedDaysOfWeek([1, 1, 1, 1, 1, 1, 1]);
-            setAlternative(false);
-            setReminders([
-                {
-                    hour: 9,
-                    minute: 0,
-                    quantity: 1,
-                }
-            ]);
-
-            // navigation.navigate('Home');
-            navigation.reset({
-                index: 0,
-                routes: [{ name: 'Home', key: Date.now() }],
-            });
-        } else {
+            reset();
+        }else {
             console.log('empty error')
         }
     }

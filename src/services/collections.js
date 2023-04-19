@@ -7,7 +7,7 @@ import {
     getDocs,
     updateDoc,
 } from 'firebase/firestore';
-import {db} from '../../firebase';
+import {auth, db} from '../../firebase';
 
 class Medication {
     constructor (title, pillsInStock, createdAt, startDate, endDate, updatedAt) {
@@ -108,3 +108,8 @@ export const DeleteNoteForUser = async (userID, docID) => {
     const docRef = doc(db, 'users', userID, 'notes', docID);
     await deleteDoc(docRef);
 };
+
+export const deleteOneReminder = async (userID, medicationID, reminderID) => {
+    const reminderDocRef = doc(db, 'users', auth.currentUser.uid, 'medications', medicationID.toString(), 'reminders', reminderID);
+    await deleteDoc(reminderDocRef);
+}

@@ -8,13 +8,13 @@ import moment from "moment";
 import {
     getMedicationByID,
     UpdateMedicationForUser,
-    UpdateMedicationReminderForUser
+    UpdateMedicationReminderForUser, deleteOneReminder
 } from "../services/collections";
 import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
 import {DeleteReminderModal} from "./PillsComponents/DeleteReminderModal";
 
-function MedicationItem({navigator, reminder}) {
+function MedicationItem({navigation, reminder}) {
 
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setShowReminderInfo ] = useState(false);
@@ -53,6 +53,15 @@ function MedicationItem({navigator, reminder}) {
             pillsInStock: medication.pillsInStock+=reminder.quantity
         })
         setMedicationCompleted(false);
+    }
+
+    const handleDeleteOneReminder = async () => {
+        await deleteOneReminder(auth.currentUser.uid, reminder.medicationId, reminder.id);
+        setShowDeleteModal(false);
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home', key: Date.now() }],
+        });
     }
 
     return (
@@ -99,7 +108,6 @@ function MedicationItem({navigator, reminder}) {
                     reminder={reminder}
                     handleComplete={handleComplete}
                     isCompleted={medicationCompleted}
-                    navigation={navigator}
                     setShowDeleteModal={setShowDeleteModal}
                 />
             }
@@ -109,9 +117,7 @@ function MedicationItem({navigator, reminder}) {
                 <DeleteReminderModal
                     isShowDeleteModal={isShowDeleteModal}
                     setShowDeleteModal={setShowDeleteModal}
-                    medication={medication}
-                    reminder={reminder}
-                    navigation={navigator}
+                    handleDeleteOneReminder={handleDeleteOneReminder}
                 />
             }
         </>

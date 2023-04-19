@@ -99,11 +99,6 @@ function HomeScreen({ navigation }) {
         .flat(1).filter(medItem =>
             (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === today));
 
-
-    // const completed = medicationOfDay.length ===
-    //     medicationOfDay.map(med => med.isConfirmed).filter(med => (med === true)).length;
-
-
     return (
         <View style={styles.container}>
             {/*<View style={styles.homeWrapper}>*/}
@@ -123,7 +118,7 @@ function HomeScreen({ navigation }) {
             <View style={styles.journalTextContainer}>
                 <Text style={styles.journalText}>Journal</Text>
             </View>
-            <CalendarComponent />
+            <CalendarComponent navigation={navigation} />
         </View>
     );
 }

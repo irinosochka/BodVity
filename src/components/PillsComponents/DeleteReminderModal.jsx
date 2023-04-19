@@ -1,17 +1,12 @@
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
-import {colors, FormStyles, sizes} from "../../styles/Styles";
+import {colors} from "../../styles/Styles";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function DeleteReminderModal({navigation, isShowDeleteModal, setShowDeleteModal, reminder, medication}) {
+export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, handleDeleteOneReminder}) {
     const handleClose = async() => {
         setShowDeleteModal(!isShowDeleteModal);
     }
-
-    // const navigateToUpdatePill = async () => {
-    //     setIsShowReminderInfo(!isShowReminderInfo);
-    //     navigation.navigate('editMedication')
-    // }
 
     return (
         <Modal transparent={true} visible={isShowDeleteModal} animationType='fade'>
@@ -31,7 +26,7 @@ export function DeleteReminderModal({navigation, isShowDeleteModal, setShowDelet
                             <Text style={styles.btnText}>Delete all</Text>
                         </TouchableOpacity>
                         <View style={styles.verticalLine}></View>
-                        <TouchableOpacity style={styles.btn}>
+                        <TouchableOpacity style={styles.btn} onPress={handleDeleteOneReminder}>
                             <Text style={styles.btnText}>Delete one</Text>
                         </TouchableOpacity>
                     </View>

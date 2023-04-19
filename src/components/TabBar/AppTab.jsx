@@ -69,7 +69,6 @@ function CreateMedsStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="createVariants" component={VariantOfMedsForAdded} />
-
             <Stack.Screen options={{ headerShown: false }} name="createRegularMed" component={CreateMedScreen}  initialParams={{ frequency: 'regular' }}/>
             <Stack.Screen options={{ headerShown: false }} name="createOneTimeMed" component={CreateMedScreen}  initialParams={{ frequency: 'one-time' }}/>
             <Stack.Screen options={{ headerShown: false }} name="addMedToStock" component={CreateOneTimeMedComponent}/>
@@ -100,9 +99,6 @@ export default function AppTab() {
                                        case 'Analytics':
                                             iconName = 'insights';
                                             break;
-                                       // case 'Notes':
-                                       //     iconName = 'list';
-                                       //     break;
                                        default:
                                            iconName = 'circle';
                                            break;

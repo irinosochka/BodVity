@@ -4,10 +4,15 @@ import moment from "moment";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication}) {
+export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication, setShowDeleteModal}) {
     const handleCompleteAndClose = async() => {
         handleComplete();
         setIsShowReminderInfo(!isShowReminderInfo);
+    }
+
+    const showDelete = () => {
+        setIsShowReminderInfo(false);
+        setShowDeleteModal(true);
     }
 
     // const navigateToUpdatePill = async () => {
@@ -80,7 +85,7 @@ export function ReminderInfoModal({navigation, isShowReminderInfo, setIsShowRemi
                             }
                         </TouchableOpacity>
                         <View style={styles.verticalLine}></View>
-                        <TouchableOpacity style={styles.btn}>
+                        <TouchableOpacity style={styles.btn} onPress={showDelete}>
                             <Text style={styles.btnText}>{'  '} Delete {'  '}</Text>
                         </TouchableOpacity>
                     </View>

@@ -12,11 +12,13 @@ import {
 } from "../services/collections";
 import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
+import {DeleteReminderModal} from "./PillsComponents/DeleteReminderModal";
 
 function MedicationItem({navigator, reminder}) {
 
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
-    const [isShowReminderInfo, setIsShowReminderInfo ] = useState(false);
+    const [isShowReminderInfo, setShowReminderInfo ] = useState(false);
+    const [isShowDeleteModal, setShowDeleteModal ] = useState(false);
     const [medication, setMedication] = useState(getMedicationByID(auth.currentUser.uid, reminder.medicationId));
 
     useEffect(() => {
@@ -55,7 +57,7 @@ function MedicationItem({navigator, reminder}) {
 
     return (
         <>
-        <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)} style={[styles.container, medicationCompleted ? {backgroundColor: colors.primary} : {backgroundColor: colors.lightBlue}]} >
+        <TouchableOpacity onPress={() => setShowReminderInfo(!isShowReminderInfo)} style={[styles.container, medicationCompleted ? {backgroundColor: colors.primary} : {backgroundColor: colors.lightBlue}]} >
             <View style={styles.item}>
                 <View style={styles.timeWrapper}>
                     <Text
@@ -92,11 +94,23 @@ function MedicationItem({navigator, reminder}) {
 
                 <ReminderInfoModal
                     isShowReminderInfo={isShowReminderInfo}
-                    setIsShowReminderInfo={setIsShowReminderInfo}
+                    setIsShowReminderInfo={setShowReminderInfo}
                     medication={medication}
                     reminder={reminder}
                     handleComplete={handleComplete}
                     isCompleted={medicationCompleted}
+                    navigation={navigator}
+                    setShowDeleteModal={setShowDeleteModal}
+                />
+            }
+            {
+                isShowDeleteModal &&
+
+                <DeleteReminderModal
+                    isShowDeleteModal={isShowDeleteModal}
+                    setShowDeleteModal={setShowDeleteModal}
+                    medication={medication}
+                    reminder={reminder}
                     navigation={navigator}
                 />
             }

@@ -61,10 +61,12 @@ function MedicationOfDay({navigation, medicationOfDay}) {
     // const rr = medicationOfDay.map(medItem => medItem).map(med => med.timestamp.seconds)
     // const kk = medicationOfDay.map(medItem => medItem).map(med => med.timestamp.seconds)
 
+    const sortedMedicationOfDay = medicationOfDay.sort((a, b) => a.timestamp - b.timestamp);
+
     return (
         <ScrollView style={styles.items}>
             {
-                medicationOfDay.map(medItem => (
+                sortedMedicationOfDay.map(medItem => (
                     <TouchableOpacity
                         key={medItem.id}
                     >

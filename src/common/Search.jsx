@@ -22,6 +22,8 @@ function Search() {
             .catch(console.error)
     }, [isFocused]);
 
+    const sortedMedication = medicationItems.sort((a, b) => b.updatedAt - a.updatedAt);
+
     return (
         <>
             <TextInput style={styles.input}
@@ -30,7 +32,7 @@ function Search() {
                    value={title}
             />
             <ScrollView>
-                {medicationItems?.filter(unit => {
+                {sortedMedication?.filter(unit => {
                     if(title === ''){
                         return unit;
                     }

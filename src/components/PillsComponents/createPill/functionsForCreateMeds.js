@@ -6,31 +6,39 @@ import {
     schedulePushNotification,
 } from "../../PushNotifications";
 
-export const createMedication = async (frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek) => {
+export const createMedicationPlan = async (frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek) => {
+    const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
 
-    const createMedicationPlan = async () => {
-        const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
-
-        const medicationDocument = {
-            createdAt: serverTimestamp(),
-            title: title,
-            pillsInStock: parseInt(pillsInStock),
-            startDate: Timestamp.fromDate(startDate),
-            endDate: Timestamp.fromDate(endDate),
-            updatedAt: serverTimestamp()
-        }
-
-        try{
-            const medicationDoc = await addDoc(userMedicationsRef, medicationDocument)
-            const docID = medicationDoc.id.toString();
-
-            createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID)
-
-        } catch (error) {
-            console.log('Error in inserting a new medication plan:', error.message);
-        }
+    const medicationDocument = {
+        createdAt: serverTimestamp(),
+        title: title,
+        pillsInStock: parseInt(pillsInStock),
+        startDate: Timestamp.fromDate(startDate),
+        endDate: Timestamp.fromDate(endDate),
+        updatedAt: serverTimestamp()
     }
-    return createMedicationPlan();
+    try{
+        const medicationDoc = await addDoc(userMedicationsRef, medicationDocument)
+        const docID = medicationDoc.id.toString();
+
+        createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID)
+
+    } catch (error) {
+        console.log('Error in inserting a new medication plan:', error.message);
+    }
+}
+
+export const createMed = async (title, pillsInStock, startDate, endDate ) => {
+    const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
+    const medicationDocument = {
+        createdAt: serverTimestamp(),
+        title: title,
+        pillsInStock: parseInt(pillsInStock),
+        startDate: Timestamp.fromDate(startDate),
+        endDate: Timestamp.fromDate(endDate),
+        updatedAt: serverTimestamp()
+    }
+    return await addDoc(userMedicationsRef, medicationDocument);
 }
 
 export const createMedicationReminders = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID) => {
@@ -40,6 +48,7 @@ export const createMedicationReminders = async (frequency, reminders, startDate,
     plans = await setUpReminder(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek);
 
     let array = []
+    const now = new Date();
 
     for(let plan of plans) {
         const reminderDocument = {
@@ -47,13 +56,16 @@ export const createMedicationReminders = async (frequency, reminders, startDate,
             timestamp: Timestamp.fromDate(plan.timestamp),
             updatedAt: Timestamp.fromDate(plan.updatedAt),
             medicationId: docID.toString(),
+            startDate: Timestamp.fromDate(startDate),
+            endDate: Timestamp.fromDate(endDate),
+            createdAt: now,
         }
         console.log('ReminderDocument:', reminderDocument);
 
         const reminderDoc = await addDoc(userMedicationRemindersRef, reminderDocument)
         array.push({...plan, timestamp: plan.timestamp, updatedAt: plan.updatedAt, id: reminderDoc.id})
     }
-    return array
+    return array;
 }
 
 const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek) => {

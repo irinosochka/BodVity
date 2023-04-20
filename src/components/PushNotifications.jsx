@@ -75,6 +75,14 @@ export async function confirmPushNotification() {
     });
 }
 
+export async function deletePushNotification(notificationId) {
+    await Notifications.cancelScheduledNotificationAsync(notificationId);
+}
+
+export async function cancelAllPushNotification() {
+    await Notifications.cancelAllScheduledNotificationsAsync();
+}
+
 export async function refillNotification() {
     await Notifications.scheduleNotificationAsync({
         content: {

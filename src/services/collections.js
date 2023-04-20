@@ -8,6 +8,8 @@ import {
     updateDoc,
 } from 'firebase/firestore';
 import {auth, db} from '../../firebase';
+import {deletePushNotification} from "../components/PushNotifications";
+import moment from "moment";
 
 class Medication {
     constructor (title, pillsInStock, createdAt, startDate, endDate, updatedAt) {
@@ -66,16 +68,6 @@ export const UpdateMedicationForUser = async (userID, medicationID, updateData) 
     await updateDoc(docRef, updateData);
 };
 
-export const UpdateMedicationReminderForUser = async (userID, medicationID, reminderID, updateData) => {
-    const docRef = doc(db, 'users', userID, 'medications', medicationID, 'reminders', reminderID);
-    await updateDoc(docRef, updateData);
-};
-
-export const DeletePillForUser = async (userID, docID) => {
-    const docRef = doc(db, 'users', userID, 'pills', docID);
-    await deleteDoc(docRef);
-};
-
 export const DeleteMedicationsForUser = async (userID, medicationID) => {
     const docRef = doc(db, 'users', userID, 'medications', medicationID);
     await deleteDoc(docRef);
@@ -109,7 +101,35 @@ export const DeleteNoteForUser = async (userID, docID) => {
     await deleteDoc(docRef);
 };
 
-export const deleteOneReminder = async (userID, medicationID, reminderID) => {
+//Reminders
+
+export const UpdateMedicationReminderForUser = async (userID, medicationID, reminderID, updateData) => {
+    const docRef = doc(db, 'users', userID, 'medications', medicationID, 'reminders', reminderID);
+    await updateDoc(docRef, updateData);
+};
+
+export const deleteOneReminder = async (userID, medicationID, reminderID, notificationID) => {
     const reminderDocRef = doc(db, 'users', auth.currentUser.uid, 'medications', medicationID.toString(), 'reminders', reminderID);
+    await deletePushNotification(notificationID);
     await deleteDoc(reminderDocRef);
 }
+
+export const deleteReminders = async (userID, medicationID, date) => {
+    const seconds = moment().unix();
+    const nanoseconds = moment().millisecond() * 1000000;
+    const now = { seconds, nanoseconds };
+
+    const remindersRef = collection(db, 'users', userID, 'medications', medicationID, 'reminders');
+    const querySnapshot = await getDocs(remindersRef);
+
+    for (let i = 0; i < querySnapshot.docs.length; i++) {
+        const doc = querySnapshot.docs[i];
+        const reminderData = doc.data();
+        if (reminderData.createdAt.seconds === date.seconds && reminderData.timestamp.seconds > now.seconds) {
+            await deletePushNotification(reminderData.notificationId);
+            await deleteDoc(doc.ref);
+        }
+    }
+}
+
+

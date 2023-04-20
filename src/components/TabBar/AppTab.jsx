@@ -8,7 +8,6 @@ import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import {colors} from "../../styles/Styles";
 import StockScreen from "../../screens/Stock/StockScreen";
 import VariantOfMedsForAdded from "../PillsComponents/VariantOfMedsForAdded";
-import CreateOneTimeMedComponent from "../PillsComponents/CreateOneTimeMedComponent";
 import CreateMedScreen from "../PillsComponents/createPill/CreateMedScreen";
 
 const styles = StyleSheet.create({
@@ -71,7 +70,7 @@ function CreateMedsStack() {
             <Stack.Screen options={{ headerShown: false }} name="createVariants" component={VariantOfMedsForAdded} />
             <Stack.Screen options={{ headerShown: false }} name="createRegularMed" component={CreateMedScreen}  initialParams={{ frequency: 'regular' }}/>
             <Stack.Screen options={{ headerShown: false }} name="createOneTimeMed" component={CreateMedScreen}  initialParams={{ frequency: 'one-time' }}/>
-            <Stack.Screen options={{ headerShown: false }} name="addMedToStock" component={CreateOneTimeMedComponent}/>
+            <Stack.Screen options={{ headerShown: false }} name="addMedToStock" component={CreateMedScreen}  initialParams={{ frequency: 'withoutReminders' }}/>
             <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
         </Stack.Navigator>
     );

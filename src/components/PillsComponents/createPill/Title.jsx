@@ -4,7 +4,7 @@ import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 import {CreateStyles} from "./createStyles";
 
-const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, setErrorTitle, setErrorStock}) => {
+const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, setErrorTitle, setErrorStock, frequency}) => {
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -48,25 +48,61 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, set
 
     return (
         <>
-            <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
-                <TextInput
-                    style={CreateStyles.input}
-                    placeholder="Ex: Ibuprofen"
-                    onChangeText={(text) => {
-                        setTitle(text);
-                        if (text.length > 0) {
-                            setErrorTitle(false);
-                        }
-                    }}
-                    value={title}
-                    onFocus={handleFocus}
-                />
-                <TouchableOpacity onPress={() => setVisibleDropdown(!visibleDropdown)}>
-                    <Icon name={visibleDropdown ? 'chevron-up' : 'chevron-down'} size={27} color={colors.gray3} />
-                </TouchableOpacity>
-            </View>
+            {
+                frequency === 'withoutReminders' ?
+                    <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
+                        <TextInput
+                            style={CreateStyles.input}
+                            placeholder="Ex: Ibuprofen"
+                            onChangeText={(text) => {
+                                setTitle(text);
+                                if (text.length > 0) {
+                                    setErrorTitle(false);
+                                }
+                            }}
+                            value={title}
+                        />
+                    </View>
 
-            {visibleDropdown && (
+                    :
+
+                    <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
+                        <TextInput
+                            style={CreateStyles.input}
+                            placeholder="Ex: Ibuprofen"
+                            onChangeText={(text) => {
+                                setTitle(text);
+                                if (text.length > 0) {
+                                    setErrorTitle(false);
+                                }
+                            }}
+                            value={title}
+                            onFocus={handleFocus}
+                        />
+                        <TouchableOpacity onPress={() => setVisibleDropdown(!visibleDropdown)}>
+                            <Icon name={visibleDropdown ? 'chevron-up' : 'chevron-down'} size={27} color={colors.gray3} />
+                        </TouchableOpacity>
+                    </View>
+            }
+            {/*<View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>*/}
+            {/*    <TextInput*/}
+            {/*        style={CreateStyles.input}*/}
+            {/*        placeholder="Ex: Ibuprofen"*/}
+            {/*        onChangeText={(text) => {*/}
+            {/*            setTitle(text);*/}
+            {/*            if (text.length > 0) {*/}
+            {/*                setErrorTitle(false);*/}
+            {/*            }*/}
+            {/*        }}*/}
+            {/*        value={title}*/}
+            {/*        onFocus={handleFocus}*/}
+            {/*    />*/}
+            {/*    <TouchableOpacity onPress={() => setVisibleDropdown(!visibleDropdown)}>*/}
+            {/*        <Icon name={visibleDropdown ? 'chevron-up' : 'chevron-down'} size={27} color={colors.gray3} />*/}
+            {/*    </TouchableOpacity>*/}
+            {/*</View>*/}
+
+            {visibleDropdown && frequency !== 'withoutReminders' && (
                 <ScrollView style={CreateStyles.dropdownContainer}>
                     <View style={CreateStyles.dropdown}>
                         {filterMedicationItems()?.map((unit) => {

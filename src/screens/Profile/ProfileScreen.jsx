@@ -7,6 +7,7 @@ import { auth } from '../../../firebase';
 import {UserDataContext} from "../../context/UserDataContext";
 import {Restart} from "../../utils/Restart";
 import {colors} from "../../styles/Styles";
+import {cancelAllPushNotification} from "../../components/PushNotifications";
 
 function ProfileScreen() {
     const { userData, setUserData } = useContext(UserDataContext)
@@ -22,12 +23,22 @@ function ProfileScreen() {
             });
     };
 
+    const handleCancelAllNotification = async () => {
+        await cancelAllPushNotification();
+    }
+
     return (
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
                 {/*{console.log({userData})}*/}
                 <Text>Hey {userData.name}</Text>
                 <Text>Email: {userData.email}</Text>
+                <TouchableOpacity
+                    onPress={handleCancelAllNotification}
+                    style={styles.button}
+                >
+                    <Text>Cancel all notifications</Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     onPress={handleSignOut}
                     style={styles.button}

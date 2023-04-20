@@ -17,6 +17,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
 
     return (
         <Modal transparent={true} visible={isShowReminderInfo} animationType='fade'>
+            {/*{console.log(moment.unix(reminder.timestamp.seconds).toDate())}*/}
             <View style={styles.modal}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>

@@ -8,7 +8,7 @@ import moment from "moment";
 import {
     getMedicationByID,
     UpdateMedicationForUser,
-    UpdateMedicationReminderForUser, deleteOneReminder
+    UpdateMedicationReminderForUser, deleteOneReminder, deleteReminders
 } from "../services/collections";
 import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
@@ -56,7 +56,16 @@ function MedicationItem({navigation, reminder}) {
     }
 
     const handleDeleteOneReminder = async () => {
-        await deleteOneReminder(auth.currentUser.uid, reminder.medicationId, reminder.id);
+        await deleteOneReminder(auth.currentUser.uid, reminder.medicationId, reminder.id, reminder.notificationId);
+        setShowDeleteModal(false);
+        navigation.reset({
+            index: 0,
+            routes: [{ name: 'Home', key: Date.now() }],
+        });
+    }
+
+    const handleDeleteAllReminders = async () => {
+        await deleteReminders(auth.currentUser.uid, reminder.medicationId, reminder.createdAt);
         setShowDeleteModal(false);
         navigation.reset({
             index: 0,
@@ -118,6 +127,7 @@ function MedicationItem({navigation, reminder}) {
                     isShowDeleteModal={isShowDeleteModal}
                     setShowDeleteModal={setShowDeleteModal}
                     handleDeleteOneReminder={handleDeleteOneReminder}
+                    handleDeleteAllReminders={handleDeleteAllReminders}
                 />
             }
         </>

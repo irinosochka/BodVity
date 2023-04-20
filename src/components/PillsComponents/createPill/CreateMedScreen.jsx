@@ -13,7 +13,7 @@ import {colors, FormStyles} from "../../../styles/Styles";
 import {ButtonCustom} from "../../../common/Button";
 import {CreateStyles} from "./createStyles";
 import Alarm from "./Alarm";
-import {createMedication, createMedicationReminders} from "./functionsForCreateMeds";
+import {createMed, createMedicationPlan, createMedicationReminders} from "./functionsForCreateMeds";
 import {Scheduling} from "../../PushNotifications";
 
 const CreateMedScreen = ({navigation, route}) => {
@@ -102,8 +102,12 @@ const CreateMedScreen = ({navigation, route}) => {
         if(selectedMedication){
             createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, selectedMedication.id);
             reset();
-        } else if(title.length !== 0 && pillsInStock.length !== 0  ){
-            createMedication(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek);
+        } else if(title.length !== 0 && pillsInStock.length !== 0){
+            frequency === 'withoutReminders'
+                ?
+                createMed(title, pillsInStock, startDate, endDate)
+                :
+                createMedicationPlan(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek);
             reset();
         }else {
             console.log('empty error')
@@ -125,7 +129,7 @@ const CreateMedScreen = ({navigation, route}) => {
                 <View style={CreateStyles.createContainer}>
                     <Text style={CreateStyles.title}>Medicine name</Text>
                     <View style={CreateStyles.zIndex}>
-                        <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle} errorTitle={errorTitle} setErrorTitle={setErrorTitle} setErrorStock={setErrorStock}/>
+                        <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle} errorTitle={errorTitle} setErrorTitle={setErrorTitle} setErrorStock={setErrorStock} frequency={frequency}/>
                     </View>
                     <Text style={{...CreateStyles.title, marginBottom: 5}}>Quantity in stock</Text>
                     {selectedMedication?.title === title
@@ -135,24 +139,45 @@ const CreateMedScreen = ({navigation, route}) => {
                         <Quantity medication={false} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock}/>
                     }
                 </View>
-                <View style={{...CreateStyles.createContainer, marginTop: 10}}>
-                    <HowLong frequency={frequency} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-                    {
-                        frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} selectedDaysOfWeek={selectedDaysOfWeek} setSelectedDaysOfWeek={setSelectedDaysOfWeek}/>
-                    }
-                    <View style={{...CreateStyles.doseAndTimeContainer, marginBottom: 5}}>
-                        <Text style={CreateStyles.title}>Dosage & Time</Text>
-                        <TouchableOpacity >
-                            <Icon style={CreateStyles.icon} name="plus" size={22} color={colors.gray3} />
-                        </TouchableOpacity>
+                {
+                    frequency !== 'withoutReminders' &&
+                    <View style={{...CreateStyles.createContainer, marginTop: 10}}>
+                        <HowLong frequency={frequency} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+                        {
+                            frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} selectedDaysOfWeek={selectedDaysOfWeek} setSelectedDaysOfWeek={setSelectedDaysOfWeek}/>
+                        }
+                        <View style={{...CreateStyles.doseAndTimeContainer, marginBottom: 5}}>
+                            <Text style={CreateStyles.title}>Dosage & Time</Text>
+                            <TouchableOpacity >
+                                <Icon style={CreateStyles.icon} name="plus" size={22} color={colors.gray3} />
+                            </TouchableOpacity>
+                        </View>
+                        <ScrollView style={CreateStyles.scrollContainer}>
+                            { reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} idx={idx} />)}
+                            {/*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*/}
+                            {/*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*/}
+                        </ScrollView>
+                        <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} />
                     </View>
-                <ScrollView style={CreateStyles.scrollContainer}>
-                    { reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} idx={idx} />)}
-                    {/*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*/}
-                    {/*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*/}
-                </ScrollView>
-                    <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} />
-                </View>
+                }
+                {/*<View style={{...CreateStyles.createContainer, marginTop: 10}}>*/}
+                {/*    <HowLong frequency={frequency} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />*/}
+                {/*    {*/}
+                {/*        frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} selectedDaysOfWeek={selectedDaysOfWeek} setSelectedDaysOfWeek={setSelectedDaysOfWeek}/>*/}
+                {/*    }*/}
+                {/*    <View style={{...CreateStyles.doseAndTimeContainer, marginBottom: 5}}>*/}
+                {/*        <Text style={CreateStyles.title}>Dosage & Time</Text>*/}
+                {/*        <TouchableOpacity >*/}
+                {/*            <Icon style={CreateStyles.icon} name="plus" size={22} color={colors.gray3} />*/}
+                {/*        </TouchableOpacity>*/}
+                {/*    </View>*/}
+                {/*    <ScrollView style={CreateStyles.scrollContainer}>*/}
+                {/*        { reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} idx={idx} />)}*/}
+                {/*        /!*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*!/*/}
+                {/*        /!*{ reminders.map( (reminder, idx) => <DoseAndTime key={idx} reminders={reminders} setReminders={setReminders} reminder={reminder} />)}*!/*/}
+                {/*    </ScrollView>*/}
+                {/*    <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} />*/}
+                {/*</View>*/}
             </View>
             <View style={CreateStyles.buttonContainer}>
                 <View style={CreateStyles.button}>

@@ -3,11 +3,7 @@ import {colors} from "../../styles/Styles";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
 
-export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, handleDeleteOneReminder}) {
-    const handleClose = async() => {
-        setShowDeleteModal(!isShowDeleteModal);
-    }
-
+export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, handleDeleteOneReminder, handleDeleteAllReminders}) {
     return (
         <Modal transparent={true} visible={isShowDeleteModal} animationType='fade'>
             <View style={styles.modal}>
@@ -22,7 +18,7 @@ export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, hand
                     </View>
 
                     <View style={styles.btnContainer}>
-                        <TouchableOpacity style={styles.btn}>
+                        <TouchableOpacity style={styles.btn} onPress={handleDeleteAllReminders}>
                             <Text style={styles.btnText}>Delete all</Text>
                         </TouchableOpacity>
                         <View style={styles.verticalLine}></View>

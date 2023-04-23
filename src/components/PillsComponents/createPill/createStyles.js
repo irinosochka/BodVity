@@ -186,6 +186,7 @@ export const CreateStyles = StyleSheet.create({
     buttonContainer: {
         alignItems: 'center',
         marginTop: 20,
+        paddingBottom: 80,
     },
     scrollContainer:{
         height: 60,

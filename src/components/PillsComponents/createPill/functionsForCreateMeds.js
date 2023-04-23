@@ -69,6 +69,7 @@ export const createMedicationReminders = async (frequency, reminders, startDate,
 }
 
 const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek) => {
+    const now = new Date();
     let res = []
     let start = new Date(startDate)
     let end = new Date(endDate)
@@ -87,7 +88,7 @@ const setUpReminder = async (frequency, reminders, startDate, endDate, title, is
             quantity: plan.quantity,
             isConfirmed: false,
             isMissed: true,
-            updatedAt: new Date(date),
+            updatedAt: now,
             notificationId: notificationId
         })
     }

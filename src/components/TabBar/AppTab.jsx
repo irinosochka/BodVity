@@ -7,8 +7,8 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import ProfileScreen from "../../screens/Profile/ProfileScreen";
 import {colors} from "../../styles/Styles";
 import StockScreen from "../../screens/Stock/StockScreen";
-import VariantOfMedsForAdded from "../PillsComponents/VariantOfMedsForAdded";
-import CreateMedScreen from "../PillsComponents/createPill/CreateMedScreen";
+import VariantOfMedsForAdded from "../MedsComponents/VariantOfMedsForAdded";
+import CreateMedScreen from "../MedsComponents/createPill/CreateMedScreen";
 
 const styles = StyleSheet.create({
     container: {

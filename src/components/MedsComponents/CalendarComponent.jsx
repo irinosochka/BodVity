@@ -8,7 +8,7 @@ import {useIsFocused} from "@react-navigation/native";
 import {colors} from "../../styles/Styles";
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from "moment";
-import MedicationOfDay from "../../components/PillsComponents/MedicationOfDay";
+import MedicationOfDay from "../../components/MedsComponents/MedicationOfDay";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
 
 const styles = StyleSheet.create({

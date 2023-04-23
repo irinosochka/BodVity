@@ -11,8 +11,8 @@ import {
     UpdateMedicationReminderForUser, deleteOneReminder, deleteReminders
 } from "../services/collections";
 import {auth} from "../../firebase";
-import {ReminderInfoModal} from "./PillsComponents/ReminderInfoModal";
-import {DeleteReminderModal} from "./PillsComponents/DeleteReminderModal";
+import {ReminderInfoModal} from "./MedsComponents/ReminderInfoModal";
+import {DeleteReminderModal} from "./MedsComponents/DeleteReminderModal";
 
 function MedicationItem({navigation, reminder}) {
 

@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import AppTab from "../components/TabBar/AppTab";
 import {UserDataContext} from "../context/UserDataContext";
 import AuthStack from "./AuthStack";
-import {Scheduling} from "../components/PushNotifications";
+import {Scheduling} from "../services/pushNotifications";
 
 const Stack = createNativeStackNavigator();
 

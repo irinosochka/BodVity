@@ -1,10 +1,8 @@
 import React from "react";
 import {addDoc, collection, serverTimestamp, Timestamp} from "firebase/firestore";
-import {auth, db} from "../../../../firebase";
-import {
-    confirmPushNotification,
-    schedulePushNotification,
-} from "../../PushNotifications";
+import {auth, db} from "../../firebase";
+import {confirmPushNotification, schedulePushNotification} from "./pushNotifications";
+
 
 export const createMedicationPlan = async (frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek) => {
     const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
@@ -21,7 +19,7 @@ export const createMedicationPlan = async (frequency, title, pillsInStock, start
         const medicationDoc = await addDoc(userMedicationsRef, medicationDocument)
         const docID = medicationDoc.id.toString();
 
-        createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID)
+        await createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID)
 
     } catch (error) {
         console.log('Error in inserting a new medication plan:', error.message);

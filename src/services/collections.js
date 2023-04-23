@@ -8,8 +8,8 @@ import {
     updateDoc,
 } from 'firebase/firestore';
 import {auth, db} from '../../firebase';
-import {deletePushNotification} from "../components/PushNotifications";
 import moment from "moment";
+import {deletePushNotification} from "./pushNotifications";
 
 class Medication {
     constructor (title, pillsInStock, createdAt, startDate, endDate, updatedAt) {

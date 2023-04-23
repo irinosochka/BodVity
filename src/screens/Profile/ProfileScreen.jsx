@@ -7,7 +7,7 @@ import { auth } from '../../../firebase';
 import {UserDataContext} from "../../context/UserDataContext";
 import {Restart} from "../../utils/Restart";
 import {colors} from "../../styles/Styles";
-import {cancelAllPushNotification} from "../../components/PushNotifications";
+import {cancelAllPushNotification} from "../../services/pushNotifications";
 
 function ProfileScreen() {
     const { userData, setUserData } = useContext(UserDataContext)

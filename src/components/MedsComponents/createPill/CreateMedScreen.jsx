@@ -13,8 +13,8 @@ import {colors, FormStyles} from "../../../styles/Styles";
 import {ButtonCustom} from "../../../common/Button";
 import {CreateStyles} from "./createStyles";
 import Alarm from "./Alarm";
-import {createMed, createMedicationPlan, createMedicationReminders} from "./functionsForCreateMeds";
-import {Scheduling} from "../../PushNotifications";
+import {createMed, createMedicationPlan, createMedicationReminders} from "../../../services/functionsForCreateMeds";
+import {Scheduling} from "../../../services/pushNotifications";
 
 const CreateMedScreen = ({navigation, route}) => {
     const { frequency } = route.params;

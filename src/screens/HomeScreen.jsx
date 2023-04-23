@@ -8,7 +8,7 @@ import moment from "moment";
 import {useIsFocused} from "@react-navigation/native";
 import {auth, db} from "../../firebase";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
-import CalendarComponent from "./Pills/CalendarComponent";
+import CalendarComponent from "../components/MedsComponents/CalendarComponent";
 
 const styles = StyleSheet.create({
     container: {

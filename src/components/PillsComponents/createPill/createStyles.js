@@ -15,7 +15,7 @@ export const CreateStyles = StyleSheet.create({
         zIndex: 99,
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
+        elevation: 1,
         maxHeight: 150,
     },
     dropdown: {
@@ -58,7 +58,7 @@ export const CreateStyles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: 175,
+        width: '100%',
         height: 48,
         marginBottom: 15,
         backgroundColor: colors.lightBlue,
@@ -83,7 +83,7 @@ export const CreateStyles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: colors.white,
-        paddingTop: 60,
+        paddingTop: 42,
         paddingHorizontal: 15,
     },
     header:{
@@ -154,10 +154,12 @@ export const CreateStyles = StyleSheet.create({
         justifyContent: 'center',
     },
     dayOfWeekTitle: {
-        color: colors.black
+        color: colors.black,
+        fontSize: 13,
     },
     dayOfWeekTitleSelected: {
-        color: colors.white
+        color: colors.white,
+        fontSize: 13,
     },
     iconDayOfWeek: {
         marginTop: 5,
@@ -174,22 +176,16 @@ export const CreateStyles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-        elevation: 5,
     },
     createContainer: {
         backgroundColor: colors.white,
         padding: 10,
-        borderRadius: 10
+        borderRadius: 10,
+        elevation: 5,
     },
     buttonContainer: {
-        position: 'absolute',
-        bottom: 35,
-        left: 0,
-        width: '100%',
         alignItems: 'center',
-    },
-    button: {
-        width: '75%'
+        marginTop: 20,
     },
     scrollContainer:{
         height: 60,

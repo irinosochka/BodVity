@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
     },
     homeWrapper: {
         // flex: 1,
-        paddingTop: 60,
+        paddingTop: 42,
         paddingHorizontal: 15,
     },
     topWrapper: {
@@ -38,11 +38,11 @@ const styles = StyleSheet.create({
         color: colors.primary
     },
     journalTextContainer: {
-        position: 'sticky',
+        // position: "sticky",
         top: 25,
         left: 20,
         right: 0,
-        zIndex: '99',
+        zIndex: 99,
     },
     journalText: {
         fontWeight: '700',

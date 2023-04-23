@@ -63,7 +63,7 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
     return (
         <View>
             <View style={CreateStyles.doseAndTimeContainer}>
-                <View style={CreateStyles.timeContainerRegular}>
+                <View style={[CreateStyles.timeContainerRegular, {width: '49%'}]}>
                     <TouchableOpacity onPress={() => minusQuantity()}>
                         <Icon name="minus" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>
@@ -77,7 +77,7 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
                         <Icon name="plus" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>
                 </View>
-                <View style={CreateStyles.timeContainerRegular}>
+                <View style={[CreateStyles.timeContainerRegular, {width: '49%'}]}>
                     <Text>{getTime(time)}</Text>
                     <TouchableOpacity onPress={() => setDatePickerVisibility(true)}>
                         <Icon name="clock" size={20} color= {colors.gray3}/>

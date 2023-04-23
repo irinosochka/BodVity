@@ -119,7 +119,7 @@ const CreateMedScreen = ({navigation, route}) => {
     return (
         <View style={CreateStyles.container}>
             <View style={CreateStyles.header}>
-                <Text style={FormStyles.title}>Add new plan</Text>
+                <Text style={FormStyles.title}>Create a new plan</Text>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icon name="x" size={27} color= {colors.black}/>
                 </TouchableOpacity>
@@ -180,9 +180,7 @@ const CreateMedScreen = ({navigation, route}) => {
                 {/*</View>*/}
             </View>
             <View style={CreateStyles.buttonContainer}>
-                <View style={CreateStyles.button}>
-                    <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
-                </View>
+                <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
             </View>
         </View>
     );

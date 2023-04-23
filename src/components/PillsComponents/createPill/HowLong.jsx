@@ -68,11 +68,47 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
     }
 
     return (
-        <>
+            <View style={CreateStyles.howLongContainer}>
+                {/*<View style={{width: '49%'}}>*/}
+                {/*    <Text style={CreateStyles.title}>From</Text>*/}
+                {/*    <View style={CreateStyles.timeContainerRegular}>*/}
+                {/*        <Text>{startDateString}</Text>*/}
+                {/*        <TouchableOpacity onPress={() => setStartDatePickerVisibility(true)}>*/}
+                {/*            <Icon name="calendar" size={20} color= {colors.gray3}/>*/}
+                {/*        </TouchableOpacity>*/}
+                {/*        <DateTimePicker*/}
+                {/*            isVisible={isStartDatePickerVisible}*/}
+                {/*            mode={'date'}*/}
+                {/*            onCancel={() => setStartDatePickerVisibility(false)}*/}
+                {/*            onConfirm={handleConfirmStartDate}*/}
+                {/*            date={startDate}*/}
+                {/*        />*/}
+                {/*    </View>*/}
+                {/*</View>*/}
+                {/*<View style={{width: '49%'}}>*/}
+                {/*    <Text style={CreateStyles.title}>How long</Text>*/}
+                {/*    <View style={CreateStyles.timeContainerRegular}>*/}
+                {/*        <Text>{howLong}{howLong > 1 ? ' days' : ' day'}</Text>*/}
+                {/*        <TouchableOpacity onPress={() => setEndDatePickerVisibility(true)}>*/}
+                {/*            {error ?*/}
+                {/*                <Icon name="calendar" size={20} color= {colors.accent}/>*/}
+                {/*                :*/}
+                {/*                <Icon name="calendar" size={20} color= {colors.gray3}/>*/}
+                {/*            }*/}
+                {/*        </TouchableOpacity>*/}
+                {/*        <DateTimePicker*/}
+                {/*            isVisible={isEndDatePickerVisible}*/}
+                {/*            mode={'date'}*/}
+                {/*            onCancel={() => setEndDatePickerVisibility(false)}*/}
+                {/*            onConfirm={handleConfirmEndDate}*/}
+                {/*            date={endDate}*/}
+                {/*        />*/}
+                {/*    </View>*/}
+                {/*</View>*/}
             {
                 frequency==='regular' &&
-                <View style={CreateStyles.howLongContainer}>
-                    <View>
+                <>
+                    <View style={{width: '49%'}}>
                         <Text style={CreateStyles.title}>From</Text>
                         <View style={CreateStyles.timeContainerRegular}>
                             <Text>{startDateString}</Text>
@@ -88,7 +124,7 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                             />
                         </View>
                     </View>
-                    <View>
+                    <View style={{width: '49%'}}>
                         <Text style={CreateStyles.title}>How long</Text>
                         <View style={CreateStyles.timeContainerRegular}>
                             <Text>{howLong}{howLong > 1 ? ' days' : ' day'}</Text>
@@ -108,12 +144,11 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                             />
                         </View>
                     </View>
-                </View>
-
+                </>
             }
             {
                 frequency === 'one-time' &&
-                <View>
+                <View style={{width: '100%'}}>
                     <Text style={CreateStyles.title}>Date</Text>
                     <View style={CreateStyles.timeContainerOneTime}>
                         <Text>{startDateString}</Text>
@@ -130,8 +165,8 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                     </View>
                 </View>
             }
+            </View>
 
-        </>
     );
 };
 

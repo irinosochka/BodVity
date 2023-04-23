@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     },
     stockWrapper: {
         flex: 1,
-        paddingTop: 60,
+        paddingTop: 42,
         // paddingHorizontal: 10,
         paddingHorizontal: 15,
     },

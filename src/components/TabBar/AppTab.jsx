@@ -9,6 +9,8 @@ import {colors} from "../../styles/Styles";
 import StockScreen from "../../screens/Stock/StockScreen";
 import VariantOfMedsForAdded from "../MedsComponents/VariantOfMedsForAdded";
 import CreateMedScreen from "../MedsComponents/createPill/CreateMedScreen";
+import StatisticsScreen from "../../screens/Statistics/StatisticsScreen";
+import StatisticsScreen2 from "../../screens/Statistics/StatisticsScreen2";
 
 const styles = StyleSheet.create({
     container: {
@@ -145,7 +147,7 @@ export default function AppTab() {
             />
             <Tab.Screen
                 name="Analytics"
-                component={StockStack}
+                component={StatisticsScreen2}
                 options={{
                     headerShown: false,
                     gestureEnabled: false,

@@ -2,13 +2,13 @@ import {
     StyleSheet, Text, TouchableOpacity, View,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
-import MainStatistics from "../../components/StatisticsComponent/MainStatistics";
 import {CreateStyles} from "../../components/MedsComponents/createPill/createStyles";
 import {colors, FormStyles} from "../../styles/Styles";
 import {auth, db} from "../../../firebase";
-import {collection, getDocs, orderBy, query, where} from "firebase/firestore";
+import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import {useIsFocused} from "@react-navigation/native";
 import moment from "moment";
+import MainStatistics from "../../components/StatisticsComponent/MainStatistics";
 
 function StatisticsScreen() {
     const today = moment().startOf('day');
@@ -18,13 +18,7 @@ function StatisticsScreen() {
     const [medications, setMedications] = useState([]);
     const isFocused = useIsFocused();
     const [showContent, setShowContent] = useState(false);
-    const [selectedWeek, setSelectedWeek] = useState(false);
-    const [selectedMonths, setSelectedMonths] = useState(true);
-    const [selectedYear, setSelectedYear] = useState(false);
-    const [remindersInRange, setRemindersInRange] = useState([]);
-    const [completedReminders, setCompletedReminders] = useState([]);
-    const [missedReminders, setMissedReminders] = useState([]);
-    const [percentCompleted, setPercentCompleted] = useState(0);
+    const [selectedRange, setSelectedRange] = useState('month');
 
     useEffect(() => {
         setTimeout(() => {
@@ -35,8 +29,7 @@ function StatisticsScreen() {
     useEffect(() => {
         const fetchData = async () => {
             if (isFocused) {
-                await getRemind(auth.currentUser)
-                await getRemindersInRange(medications, startDate, endDate);
+                await getRemind(auth.currentUser);
             }
         }
         fetchData()
@@ -65,56 +58,20 @@ function StatisticsScreen() {
         })
     }
 
-    const getRemindersInRange = async (medications, startDate, endDate) => {
-        const reminders = [];
-        medications.forEach(medication => {
-            medication.reminders.forEach(reminder => {
-                const reminderDate = moment.unix(reminder.timestamp.seconds);
-                if (reminderDate.isBetween(startDate, endDate, null, '[]')) {
-                    reminders.push(reminder);
-                }
-            });
-        });
-        setRemindersInRange(reminders);
-        const completed = reminders.filter(medItem => medItem.isConfirmed === true)
-        setCompletedReminders(completed);
-        const missed = reminders.filter(medItem => medItem.isConfirmed === false);
-        setMissedReminders(missed);
-        if (reminders.length > 0) {
-            setPercentCompleted(completed.length / reminders.length * 100);
-        }else {
-            setPercentCompleted(0);
+    const handleSelectRange = async(range) => {
+        if(range === 'week'){
+            setSelectedRange('week');
+            const weekAgo = moment().subtract(1, 'week').startOf('day');
+            setStartDate(weekAgo);
+        } else if(range === 'month'){
+            setSelectedRange('month');
+            const monthAgo = moment().subtract(1, 'month').startOf('day');
+            setStartDate(monthAgo);
+        } else if(range === 'year'){
+            setSelectedRange('year');
+            const yearAgo = moment().subtract(1, 'year').startOf('day');
+            setStartDate(yearAgo);
         }
-    }
-
-    const handleSelectWeek = async () => {
-        setSelectedYear(false);
-        setSelectedMonths(false);
-        setSelectedWeek(true);
-        const weekAgo = moment().subtract(1, 'week').startOf('day');
-        setEndDate(weekAgo);
-        await getRemindersInRange(medications, startDate, weekAgo);
-        console.log(remindersInRange)
-    }
-
-    const handleSelectMonths = async () => {
-        setSelectedYear(false);
-        setSelectedMonths(true);
-        setSelectedWeek(false);
-        const monthAgo = moment().subtract(1, 'month').startOf('day');
-        setEndDate(monthAgo);
-        await getRemindersInRange(medications, startDate, monthAgo);
-        console.log(remindersInRange)
-    }
-
-    const handleSelectYear = async () => {
-        setSelectedYear(true);
-        setSelectedMonths(false);
-        setSelectedWeek(false);
-        const yearAgo = moment().subtract(1, 'year').startOf('day');
-        setEndDate(yearAgo);
-        await getRemindersInRange(medications, startDate, yearAgo);
-        console.log(remindersInRange)
     }
 
     return (
@@ -125,17 +82,20 @@ function StatisticsScreen() {
                         <Text style={FormStyles.title}>Progress</Text>
                     </View>
                     <View style={styles.chooseTimeRange}>
-                        <TouchableOpacity style={[styles.buttonTimeRange, selectedWeek ? styles.activeButton : styles.notActiveButton]} onPress={handleSelectWeek}>
-                            <Text>Week</Text>
+                        <TouchableOpacity style={[styles.buttonTimeRange,  selectedRange === "week" ? styles.activeButton : styles.notActiveButton,]}
+                            onPress={() => handleSelectRange("week")}>
+                            <Text style={[selectedRange === "week" && styles.activeText]}>Week</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonTimeRange, selectedMonths ? styles.activeButton : styles.notActiveButton]} onPress={handleSelectMonths}>
-                            <Text>Months</Text>
+                        <TouchableOpacity style={[styles.buttonTimeRange, selectedRange === "month" ? styles.activeButton : styles.notActiveButton,]}
+                            onPress={() => handleSelectRange("month")}>
+                            <Text style={[selectedRange === "month" && styles.activeText]}>Months</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonTimeRange, selectedYear ? styles.activeButton : styles.notActiveButton]} onPress={handleSelectYear}>
-                            <Text>Year</Text>
+                        <TouchableOpacity style={[styles.buttonTimeRange, selectedRange === "year" ? styles.activeButton : styles.notActiveButton,]}
+                            onPress={() => handleSelectRange("year")}>
+                            <Text style={[selectedRange === "year" && styles.activeText]}>Year</Text>
                         </TouchableOpacity>
                     </View>
-                    <MainStatistics reminders={remindersInRange} completedReminders={completedReminders} missedReminders={missedReminders} percentCompleted={percentCompleted}/>
+                    <MainStatistics medications={medications} startDate={startDate} endDate={endDate}/>
                 </View>
             }
         </View>
@@ -183,5 +143,11 @@ const styles = StyleSheet.create({
     },
     notActiveButton:{
         backgroundColor: colors.lightBlue,
+    },
+    activeText:{
+        fontWeight: '600'
+    },
+    notActiveText:{
+
     },
 });

@@ -1,12 +1,45 @@
 import {
     StyleSheet, Text, View,
 } from 'react-native';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {colors} from "../../styles/Styles";
-import ProgressCircle from 'progress-circle-react-native';
+import moment from "moment";
+import ProgressCircle from "progress-circle-react-native";
+
+function MainStatistics({medications, startDate, endDate}) {
+    const [remindersInRange, setRemindersInRange] = useState([]);
+    const [completedReminders, setCompletedReminders] = useState([]);
+    const [missedReminders, setMissedReminders] = useState([]);
+    const [percentCompleted, setPercentCompleted] = useState(0);
+
+    useEffect(() => {
+        const reminders = getRemindersInRange(medications, startDate, endDate);
+        setRemindersInRange(reminders);
+        const completed = reminders.filter(medItem => medItem.isConfirmed === true);
+        setCompletedReminders(completed);
+        const missed = reminders.filter(medItem => medItem.isConfirmed === false);
+        setMissedReminders(missed);
+        if (reminders.length > 0) {
+            setPercentCompleted(completed.length / reminders.length * 100);
+        } else {
+            setPercentCompleted(0);
+        }
+    }, [medications, startDate, endDate]);
 
 
-function MainStatistics({reminders, completedReminders, missedReminders, percentCompleted}) {
+
+    const getRemindersInRange = (medications, startDate, endDate) => {
+        const remindersInRange = [];
+        medications.forEach(medication => {
+            medication.reminders.forEach(reminder => {
+                const reminderDate = moment.unix(reminder.timestamp.seconds);
+                if (reminderDate.isBetween(startDate, endDate, null, '[]')) {
+                    remindersInRange.push(reminder);
+                }
+            });
+        });
+        return remindersInRange;
+    }
 
     return (
         <View style={styles.shadowForContainer}>
@@ -26,7 +59,7 @@ function MainStatistics({reminders, completedReminders, missedReminders, percent
                 <View style={styles.medsItemWrapper}>
                     <View style={styles.medItemWrapper}>
                         <Text style={styles.quantityMedTitle}>All</Text>
-                        <Text style={styles.quantityMedText}>{reminders.length + ' meds'}</Text>
+                        <Text style={styles.quantityMedText}>{remindersInRange.length + ' meds'}</Text>
                     </View>
                     <View style={styles.medItemWrapper}>
                         <Text style={styles.quantityMedTitle}>Taken</Text>
@@ -44,6 +77,7 @@ function MainStatistics({reminders, completedReminders, missedReminders, percent
 }
 
 export default MainStatistics;
+
 
 const styles = StyleSheet.create({
     shadowForContainer:{

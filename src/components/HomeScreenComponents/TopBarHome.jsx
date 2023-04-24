@@ -31,7 +31,7 @@ function TopBarHome({ navigation }) {
                 <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
                 <Text style={styles.subtitle}>Let's check your plan</Text>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('stock')} style={styles.icon}>
+            <TouchableOpacity onPress={() => navigation.navigate('Stock')} style={styles.icon}>
                 <Icon name="archive" size={27} color={colors.gray3} />
             </TouchableOpacity>
         </View>

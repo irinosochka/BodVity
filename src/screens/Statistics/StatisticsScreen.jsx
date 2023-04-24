@@ -5,10 +5,11 @@ import React, {useEffect, useState} from 'react';
 import {CreateStyles} from "../../components/MedsComponents/createPill/createStyles";
 import {colors, FormStyles} from "../../styles/Styles";
 import {auth, db} from "../../../firebase";
-import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import {useIsFocused} from "@react-navigation/native";
 import moment from "moment";
 import MainStatistics from "../../components/StatisticsComponent/MainStatistics";
+import {getReminders} from "../../services/collections";
+import TopOneTimeMeds from "../../components/StatisticsComponent/TopOneTimeMeds";
 
 function StatisticsScreen() {
     const today = moment().startOf('day');
@@ -21,6 +22,7 @@ function StatisticsScreen() {
     const [showContent, setShowContent] = useState(false);
     const [selectedRange, setSelectedRange] = useState('month');
 
+
     useEffect(() => {
         setTimeout(() => {
             setShowContent(true);
@@ -30,7 +32,8 @@ function StatisticsScreen() {
     useEffect(() => {
         const fetchData = async () => {
             if (isFocused) {
-                await getRemind(auth.currentUser);
+                const medications = await getReminders(auth.currentUser);
+                setMedications(medications);
             }
         }
         fetchData()
@@ -41,28 +44,6 @@ function StatisticsScreen() {
         const reminders = getRemindersInRange(medications, startDate, endDate);
         setRemindersInRange(reminders);
     }, [medications, startDate, endDate]);
-
-
-    const getRemind = async (user) => {
-        setMedications(prev => [])
-
-        const medicationsRef = collection(db, 'users', user.uid, 'medications')
-        const medicationsDocs = await getDocs(medicationsRef)
-
-        medicationsDocs.docs.map( (medication) => {
-            const getReminders = async () => {
-                const remindersRef = query(collection(db, 'users', user.uid, 'medications', medication.id, 'reminders'), orderBy('timestamp'))
-                const remindersDocs = await getDocs(remindersRef)
-
-                return {...medication.data(), id: medication.id, reminders: remindersDocs.docs.map(reminder => ({...reminder.data(), id: reminder.id, timestamp: reminder.data().timestamp}))}
-            }
-
-            getReminders()
-                .then( medication => {
-                    setMedications(prev => [...prev, medication])
-                }).catch(e => console.log(e))
-        })
-    }
 
     const getRemindersInRange = (medications, startDate, endDate) => {
         const remindersInRange = [];
@@ -77,21 +58,21 @@ function StatisticsScreen() {
         return remindersInRange;
     }
 
-    const handleSelectRange = async(range) => {
-        if(range === 'week'){
+    const handleSelectRange = (range) => {
+        let newStartDate;
+        if (range === 'week') {
             setSelectedRange('week');
-            const weekAgo = moment().subtract(1, 'week').startOf('day');
-            setStartDate(weekAgo);
-        } else if(range === 'month'){
-            setSelectedRange('month');
-            const monthAgo = moment().subtract(1, 'month').startOf('day');
-            setStartDate(monthAgo);
-        } else if(range === 'year'){
+            newStartDate = moment().subtract(1, 'week').startOf('day');
+        } else if (range === 'year') {
             setSelectedRange('year');
-            const yearAgo = moment().subtract(1, 'year').startOf('day');
-            setStartDate(yearAgo);
+            newStartDate = moment().subtract(1, 'year').startOf('day');
+        } else {
+            setSelectedRange('month');
+            newStartDate = moment().subtract(1, 'month').startOf('day');
         }
-    }
+        setStartDate(newStartDate);
+        setEndDate(moment().startOf('day'));
+    };
 
     return (
         <View style={styles.container}>
@@ -115,6 +96,8 @@ function StatisticsScreen() {
                         </TouchableOpacity>
                     </View>
                     <MainStatistics remindersInRange={remindersInRange}/>
+                    <View style={{marginBottom: 10}} />
+                    <TopOneTimeMeds remindersInRange={remindersInRange}/>
                 </View>
             }
         </View>
@@ -131,7 +114,6 @@ const styles = StyleSheet.create({
     statsWrapper: {
         flex: 1,
         paddingTop: 42,
-        // paddingHorizontal: 10,
         paddingHorizontal: 15,
     },
     header:{

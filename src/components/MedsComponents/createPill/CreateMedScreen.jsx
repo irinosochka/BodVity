@@ -152,8 +152,9 @@ const CreateMedScreen = ({navigation, route}) => {
                     <Icon name="x" size={27} color= {colors.black}/>
                 </TouchableOpacity>
             </View>
-            <ScrollView>
-                <View style={CreateStyles.shadowForContainer}>
+
+            <View style={CreateStyles.shadowForContainer}>
+                <ScrollView >
                     <View style={CreateStyles.createContainer}>
                         <Text style={CreateStyles.title}>Medicine name</Text>
                         <View style={CreateStyles.zIndex}>
@@ -210,11 +211,11 @@ const CreateMedScreen = ({navigation, route}) => {
                             <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} />
                         </View>
                     }
-                </View>
+                </ScrollView>
+            </View>
                 <View style={CreateStyles.buttonContainer}>
                     <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
                 </View>
-            </ScrollView>
         </View>
     );
 };

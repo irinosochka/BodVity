@@ -3,13 +3,13 @@ import {
     StyleSheet,
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
-import {auth, db} from '../../../firebase';
+import {auth} from '../../../firebase';
 import {useIsFocused} from "@react-navigation/native";
 import {colors} from "../../styles/Styles";
 import CalendarStrip from 'react-native-calendar-strip';
 import moment from "moment";
 import MedicationOfDay from "../../components/MedsComponents/MedicationOfDay";
-import {collection, getDocs, orderBy, query} from "firebase/firestore";
+import {getReminders} from "../../services/collections";
 
 const styles = StyleSheet.create({
     container: {
@@ -39,38 +39,17 @@ function CalendarComponent({navigation}) {
         setSelectedDate(new Date());
         const fetchData = async () => {
             if (isFocused) {
-                await getRemind(auth.currentUser)
+                const medications = await getReminders(auth.currentUser);
+                setMedications(medications);
             }
         }
         fetchData()
             .catch(console.error)
     }, [isFocused]);
 
-    const getRemind = async (user) => {
-        setMedications(prev => [])
-
-        const medicationsRef = collection(db, 'users', user.uid, 'medications')
-        const medicationsDocs = await getDocs(medicationsRef)
-
-        medicationsDocs.docs.map( (medication) => {
-            const getReminders = async () => {
-                const remindersRef = query(collection(db, 'users', user.uid, 'medications', medication.id, 'reminders'), orderBy('timestamp'))
-                const remindersDocs = await getDocs(remindersRef)
-
-                return {...medication.data(), id: medication.id, reminders: remindersDocs.docs.map(reminder => ({...reminder.data(), id: reminder.id, timestamp: reminder.data().timestamp}))}
-            }
-
-            getReminders()
-                .then( medication => {
-                    setMedications(prev => [...prev, medication])
-                }).catch(e => console.log(e))
-        })
-    }
-
     const medicationOfDay = medications.map(medication => medication.reminders)
         .flat(1).filter(medItem =>
             (moment.unix(medItem.timestamp.seconds).format('DD-MMM-YYYY') === moment(selectedDate).format('DD-MMM-YYYY')));
-
 
     return (
         <View style={styles.container}>

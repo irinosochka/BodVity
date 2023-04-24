@@ -45,7 +45,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>start:</Text>
                                     </View>
-                                    <Text style={styles.modalText}>{moment.unix(medication.startDate.seconds).format('D MMM YY')}</Text>
+                                    <Text style={styles.modalText}>{moment.unix(reminder.startDate.seconds).format('D MMM YY')}</Text>
                                 </View>
                             </View>
 
@@ -65,7 +65,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>end:</Text>
                                     </View>
-                                    <Text style={styles.modalText}>{moment.unix(medication.endDate.seconds).format('D MMM YY')}</Text>
+                                    <Text style={styles.modalText}>{moment.unix(reminder.endDate.seconds).format('D MMM YY')}</Text>
                                 </View>
                             </View>
 

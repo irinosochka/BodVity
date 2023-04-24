@@ -32,7 +32,7 @@ function MainStatistics({remindersInRange}) {
                         borderWidth={22}
                         color={colors.primary}
                         shadowColor={colors.lightBlue}
-                        bgColor="#fff"
+                        bgColor={colors.white}
                     >
                         <Text style={{fontSize: 30, fontWeight: '500'}}>{parseInt(percentCompleted) + '%'}</Text>
                     </ProgressCircle>
@@ -51,7 +51,6 @@ function MainStatistics({remindersInRange}) {
                         <Text style={styles.quantityMedText}>{missedReminders.length + ' meds'}</Text>
                     </View>
                 </View>
-
             </View>
         </View>
     );

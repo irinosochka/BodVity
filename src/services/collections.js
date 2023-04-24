@@ -4,7 +4,7 @@ import {
     deleteDoc,
     doc,
     getDoc,
-    getDocs,
+    getDocs, orderBy, query,
     updateDoc,
 } from 'firebase/firestore';
 import {auth, db} from '../../firebase';
@@ -132,4 +132,60 @@ export const deleteReminders = async (userID, medicationID, date) => {
     }
 }
 
+export const getReminders = async (user) => {
+    const medications = [];
+    const medicationsRef = collection(db, 'users', user.uid, 'medications');
+    const medicationsDocs = await getDocs(medicationsRef);
+
+    await Promise.all(medicationsDocs.docs.map(async (medication) => {
+        const remindersRef = query(collection(db, 'users', user.uid, 'medications', medication.id, 'reminders'), orderBy('timestamp'));
+        const remindersDocs = await getDocs(remindersRef);
+
+        const medicationData = {...medication.data(), id: medication.id, reminders: remindersDocs.docs.map(reminder => ({...reminder.data(), id: reminder.id, timestamp: reminder.data().timestamp}))};
+        medications.push(medicationData);
+    }));
+
+    return medications;
+};
+
+export const getMedicationIdsWithMostOneTimePlans = async (reminders) => {
+    const medicationsWithOneTimePlans = reminders.reduce((accumulator, reminder) => {
+        if (reminder.plan === 'one-time') {
+            if (accumulator[reminder.medicationId]) {
+                accumulator[reminder.medicationId].count += 1;
+            } else {
+                accumulator[reminder.medicationId] = {
+                    count: 1,
+                    reminders: [],
+                };
+            }
+        }
+        return accumulator;
+    }, {});
+
+    reminders.forEach((reminder) => {
+        if (medicationsWithOneTimePlans[reminder.medicationId]) {
+            if (reminder.plan === 'one-time') {
+                medicationsWithOneTimePlans[reminder.medicationId].reminders.push(reminder);
+            }
+        }
+    });
+
+    const sortedMedicationIds = Object.keys(medicationsWithOneTimePlans).sort(
+        (a, b) => {
+            return (
+                medicationsWithOneTimePlans[b].count -
+                medicationsWithOneTimePlans[a].count
+            );
+        }
+    );
+
+    return sortedMedicationIds.map((medicationId) => {
+        return {
+            id: medicationId,
+            count: medicationsWithOneTimePlans[medicationId].count,
+            reminders: medicationsWithOneTimePlans[medicationId].reminders,
+        };
+    });
+};
 

@@ -42,7 +42,7 @@ function HomeStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="home" component={HomeScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="stock" component={StockScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Stock" component={StockScreen} />
         </Stack.Navigator>
     );
 }
@@ -107,6 +107,7 @@ export default function AppTab() {
                 name="Home"
                 component={HomeStack}
                 options={{
+                    unmountOnBlur: true,
                     headerShown: false,
                     gestureEnabled: false,
                 }}

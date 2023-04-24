@@ -11,8 +11,6 @@ export const createMedicationPlan = async (frequency, title, pillsInStock, start
         createdAt: serverTimestamp(),
         title: title,
         pillsInStock: parseInt(pillsInStock),
-        startDate: Timestamp.fromDate(startDate),
-        endDate: Timestamp.fromDate(endDate),
         updatedAt: serverTimestamp()
     }
     try{

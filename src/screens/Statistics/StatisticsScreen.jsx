@@ -16,6 +16,7 @@ function StatisticsScreen() {
     const [startDate, setStartDate] = useState(monthAgo);
     const [endDate, setEndDate] = useState(today);
     const [medications, setMedications] = useState([]);
+    const [remindersInRange, setRemindersInRange] = useState([]);
     const isFocused = useIsFocused();
     const [showContent, setShowContent] = useState(false);
     const [selectedRange, setSelectedRange] = useState('month');
@@ -35,6 +36,11 @@ function StatisticsScreen() {
         fetchData()
             .catch(console.error)
     }, [isFocused]);
+
+    useEffect(() => {
+        const reminders = getRemindersInRange(medications, startDate, endDate);
+        setRemindersInRange(reminders);
+    }, [medications, startDate, endDate]);
 
 
     const getRemind = async (user) => {
@@ -56,6 +62,19 @@ function StatisticsScreen() {
                     setMedications(prev => [...prev, medication])
                 }).catch(e => console.log(e))
         })
+    }
+
+    const getRemindersInRange = (medications, startDate, endDate) => {
+        const remindersInRange = [];
+        medications.forEach(medication => {
+            medication.reminders.forEach(reminder => {
+                const reminderDate = moment.unix(reminder.timestamp.seconds);
+                if (reminderDate.isBetween(startDate, endDate, null, '[]')) {
+                    remindersInRange.push(reminder);
+                }
+            });
+        });
+        return remindersInRange;
     }
 
     const handleSelectRange = async(range) => {
@@ -95,7 +114,7 @@ function StatisticsScreen() {
                             <Text style={[selectedRange === "year" && styles.activeText]}>Year</Text>
                         </TouchableOpacity>
                     </View>
-                    <MainStatistics medications={medications} startDate={startDate} endDate={endDate}/>
+                    <MainStatistics remindersInRange={remindersInRange}/>
                 </View>
             }
         </View>

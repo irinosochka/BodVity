@@ -3,43 +3,24 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {colors} from "../../styles/Styles";
-import moment from "moment";
 import ProgressCircle from "progress-circle-react-native";
 
-function MainStatistics({medications, startDate, endDate}) {
-    const [remindersInRange, setRemindersInRange] = useState([]);
+function MainStatistics({remindersInRange}) {
     const [completedReminders, setCompletedReminders] = useState([]);
     const [missedReminders, setMissedReminders] = useState([]);
     const [percentCompleted, setPercentCompleted] = useState(0);
 
     useEffect(() => {
-        const reminders = getRemindersInRange(medications, startDate, endDate);
-        setRemindersInRange(reminders);
-        const completed = reminders.filter(medItem => medItem.isConfirmed === true);
+        const completed = remindersInRange.filter(medItem => medItem.isConfirmed === true);
         setCompletedReminders(completed);
-        const missed = reminders.filter(medItem => medItem.isConfirmed === false);
+        const missed = remindersInRange.filter(medItem => medItem.isConfirmed === false);
         setMissedReminders(missed);
-        if (reminders.length > 0) {
-            setPercentCompleted(completed.length / reminders.length * 100);
+        if (remindersInRange.length > 0) {
+            setPercentCompleted(completed.length / remindersInRange.length * 100);
         } else {
             setPercentCompleted(0);
         }
-    }, [medications, startDate, endDate]);
-
-
-
-    const getRemindersInRange = (medications, startDate, endDate) => {
-        const remindersInRange = [];
-        medications.forEach(medication => {
-            medication.reminders.forEach(reminder => {
-                const reminderDate = moment.unix(reminder.timestamp.seconds);
-                if (reminderDate.isBetween(startDate, endDate, null, '[]')) {
-                    remindersInRange.push(reminder);
-                }
-            });
-        });
-        return remindersInRange;
-    }
+    }, [remindersInRange]);
 
     return (
         <View style={styles.shadowForContainer}>

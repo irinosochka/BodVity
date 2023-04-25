@@ -88,11 +88,11 @@ function StatisticsScreen() {
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.buttonTimeRange, selectedRange === "month" ? styles.activeButton : styles.notActiveButton,]}
                             onPress={() => handleSelectRange("month")}>
-                            <Text style={[selectedRange === "month" && styles.activeText]}>Months</Text>
+                            <Text style={[styles.textBtn, selectedRange === "month" && styles.activeText]}>Months</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.buttonTimeRange, selectedRange === "year" ? styles.activeButton : styles.notActiveButton,]}
                             onPress={() => handleSelectRange("year")}>
-                            <Text style={[selectedRange === "year" && styles.activeText]}>Year</Text>
+                            <Text style={[styles.textBtn, selectedRange === "year" && styles.activeText]}>Year</Text>
                         </TouchableOpacity>
                     </View>
                     <MainStatistics remindersInRange={remindersInRange}/>

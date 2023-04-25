@@ -5,7 +5,7 @@ const fullWidth = Dimensions.get('window').width; //full width
 
 export const colors = {
     accent: "#F3534A",
-    primary: "#547DE5",
+    primary: "#3879E9",
     secondary: "#2BDA8E",
     tertiary: "#FFE358",
     pink: '#EE9CDA',
@@ -15,8 +15,8 @@ export const colors = {
     gray: "#9DA3B4",
     gray2: "#4E515A",
     gray3: "#909090",
-    lightBlue: "#e8effe",
-    lightGray: "#F8F8F6",
+    lightBlue: "#EBF1FC",
+    lightGray: '#F7F9FB',
 };
 
 export const sizes = {

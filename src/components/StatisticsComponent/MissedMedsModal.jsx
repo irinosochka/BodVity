@@ -1,13 +1,11 @@
 import {Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../styles/Styles";
-import React from "react";
-import Icon from 'react-native-vector-icons/Feather';
 import moment from "moment";
+import React from "react";
+
 
 export function MissedMedsModal({isShowMissedMedsModal, setIsShowMissedMedsModal, reminders, title}) {
-    const tableHead = ['Date', 'Time', 'Quantity'];
-    const tableData = reminders.map(({ timestamp, quantity }) => [new Date(timestamp.seconds * 1000).toLocaleDateString(), new Date(timestamp.seconds * 1000).toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: false}), quantity]);
-
     return (
         <Modal transparent={true} visible={isShowMissedMedsModal} animationType='fade'>
             <View style={styles.modal}>
@@ -17,39 +15,25 @@ export function MissedMedsModal({isShowMissedMedsModal, setIsShowMissedMedsModal
                             <Icon name="x" size={40} color= {colors.primary} />
                         </TouchableOpacity>
                     </View>
+                    <View style={{alignItems: 'center'}}>
+                        <Text style={styles.titleText}>{title}</Text>
+                    </View>
                     <View style={styles.modalMedInfo}>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={styles.titleText}>{title}</Text>
+                        <View style={styles.headerRow}>
+                            <Text style={styles.headerText}>Date</Text>
+                            <Text style={styles.headerText}>Time</Text>
+                            <Text style={styles.headerText}>Quantity</Text>
                         </View>
                         <ScrollView>
-                            {/*<Table>*/}
-                            {/*    <Row*/}
-                            {/*        data={tableHead}*/}
-                            {/*        flexArr={[1, 2, 1]}*/}
-                            {/*        style={styles.head}*/}
-                            {/*        textStyle={styles.text}*/}
-                            {/*    />*/}
-                            {/*    <Rows*/}
-                            {/*        data={tableData}*/}
-                            {/*        flexArr={[1, 1, 1]}*/}
-                            {/*        style={styles.row}*/}
-                            {/*        textStyle={styles.text}*/}
-                            {/*    />*/}
-                            {/*</Table>*/}
-                            <View style={styles.container}>
-                                <View style={styles.headerRow}>
-                                    <Text style={styles.headerText}>Date</Text>
-                                    <Text style={styles.headerText}>Time</Text>
-                                    <Text style={styles.headerText}>Quantity</Text>
+                        <View style={styles.table}>
+                            {reminders.map((reminder, index) => (
+                                <View key={index} style={styles.row}>
+                                    <Text style={styles.rowText}>{moment(reminder.timestamp.seconds * 1000).format('DD.MM.YY')}</Text>
+                                    <Text style={styles.rowText}>{moment(reminder.timestamp.seconds * 1000).format('HH:mm')}</Text>
+                                    <Text style={styles.rowText}>{reminder.quantity}</Text>
                                 </View>
-                                {reminders.map((reminder) => (
-                                    <View style={styles.row}>
-                                        <Text style={styles.rowText}>{new Date(reminder.timestamp.seconds * 1000).toLocaleDateString()}</Text>
-                                        <Text style={styles.rowText}>{moment(reminder.timestamp.seconds * 1000).format('HH:mm')}</Text>
-                                        <Text style={styles.rowText}>{reminder.quantity}</Text>
-                                    </View>
-                                ))}
-                            </View>
+                            ))}
+                        </View>
                         </ScrollView>
                     </View>
                 </View>
@@ -57,7 +41,6 @@ export function MissedMedsModal({isShowMissedMedsModal, setIsShowMissedMedsModal
         </Modal>
     )
 }
-
 
 const styles = StyleSheet.create({
     modal : {
@@ -70,7 +53,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '30%',
         width: '90%',
-        height: '28%',
+        // height: '28%',
         backgroundColor: 'white',
         borderRadius: 14,
     },
@@ -83,59 +66,49 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 14,
         borderTopRightRadius: 14,
     },
-    // container: {
-    //     flex: 1,
-    //     padding: 15,
-    //     backgroundColor: colors.white,
-    // },
-    // head: {
-    //     height: 35,
-    //     backgroundColor: colors.lightBlue,
-    //     borderRadius: 15
-    // },
-    // title: {
-    //     flex: 1,
-    // },
-    // row: {
-    //     height: 28
-    // },
-    // text: {
-    //     textAlign: 'center'
-    // },
     modalMedInfo: {
         flex: 1,
         paddingHorizontal: 10,
-        marginTop: -10,
+        marginTop: 15,
+        marginBottom: 20,
     },
     titleText: {
         fontSize: 20,
         fontWeight: '600',
-        marginBottom: 10,
+        marginTop: -29,
     },
-
-    container: {
+    table: {
         flex: 1,
         flexDirection: 'column',
-        backgroundColor: '#fff',
-        padding: 10,
+        borderWidth: 2,
+        borderBottomRightRadius: 10,
+        borderBottomLeftRadius: 10,
+        borderColor: colors.lightBlue,
+        marginTop: -5,
+        paddingTop: 5,
     },
     headerRow: {
         flexDirection: 'row',
-        borderBottomWidth: 1,
+        padding: 10,
         borderBottomColor: '#ccc',
         paddingBottom: 5,
+        backgroundColor: colors.lightBlue,
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
     },
     headerText: {
         flex: 1,
-        fontWeight: 'bold',
+        fontWeight: '500',
         fontSize: 16,
         textAlign: 'center',
     },
     row: {
         flexDirection: 'row',
         borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
-        paddingBottom: 5,
+        borderBottomColor: colors.lightBlue,
+        paddingVertical: 5,
+        height: 30,
+        alignItems: 'center',
     },
     rowText: {
         flex: 1,

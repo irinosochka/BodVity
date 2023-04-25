@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         height: '15%',
         backgroundColor: 'white',
         borderRadius: 14,
+        marginHorizontal: 15,
     },
     title: {
         fontSize: 17,
@@ -72,7 +73,7 @@ const styles = StyleSheet.create({
     input:{
         fontSize: 15,
         color: '#9B9B9B',
-        width: 290,
+        width: 275,
         height: 48,
         backgroundColor: '#F8F8F6',
         borderBottomLeftRadius: 14,
@@ -82,6 +83,7 @@ const styles = StyleSheet.create({
     inputWithButton: {
         flexDirection: 'row',
         alignItems: "center",
+        // width: '90%',
     },
     btnSave: {
         width: 65,

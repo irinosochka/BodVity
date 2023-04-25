@@ -28,10 +28,10 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
                             <Icon name="x" size={40} color= {colors.primary} />
                         </TouchableOpacity>
                     </View>
+                    <View style={{alignItems: 'center'}}>
+                        <Text style={styles.titleText}>{medication.title}</Text>
+                    </View>
                     <View style={styles.modalMedInfo}>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={styles.titleText}>{medication.title}</Text>
-                        </View>
                         <View style={styles.rowContainer}>
                             <View>
                                 <View style={styles.itemContainer}>
@@ -103,7 +103,6 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '30%',
         width: '90%',
-        height: '28%',
         backgroundColor: 'white',
         borderRadius: 14,
     },
@@ -119,12 +118,12 @@ const styles = StyleSheet.create({
     modalMedInfo: {
         flex: 1,
         paddingHorizontal: 10,
-        marginTop: -10,
+        marginBottom: 10,
     },
     titleText: {
         fontSize: 20,
         fontWeight: '600',
-        marginBottom: 8,
+        marginTop: -29,
     },
     rowContainer: {
         flexDirection: 'row',

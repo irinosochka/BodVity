@@ -7,6 +7,7 @@ import {StockItemModal} from "./StockItemModal";
 import Icon from "react-native-vector-icons/Feather";
 import {AddToStockModal} from "./AddToStockModal";
 import {useIsFocused} from "@react-navigation/native";
+import {CreateStyles} from "../MedsComponents/createPill/createStyles";
 
 
 const styles = StyleSheet.create({
@@ -53,7 +54,7 @@ function StockItem({medication}) {
     return (
         <>
             <TouchableOpacity style={styles.container}>
-                <Text>{medication.title}</Text>
+                <Text style={{color: colors.black}}>{medication.title}</Text>
                 <View style={styles.quantityContainer}>
                     {
                         medication.pillsInStock > 1 ? <Text style={styles.quantityTxt}>{medication.pillsInStock} meds </Text>

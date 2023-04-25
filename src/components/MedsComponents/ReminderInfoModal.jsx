@@ -25,7 +25,7 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
                         {/*    <Icon name="edit-2" size={27} color= {colors.primary} />*/}
                         {/*</TouchableOpacity>*/}
                         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)}>
-                            <Icon name="x" size={40} color= {colors.primary} />
+                            <Icon name="x" size={40} color= {colors.black} />
                         </TouchableOpacity>
                     </View>
                     <View style={{alignItems: 'center'}}>
@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '600',
         marginTop: -29,
+        color: colors.black,
     },
     rowContainer: {
         flexDirection: 'row',
@@ -144,11 +145,12 @@ const styles = StyleSheet.create({
         borderRadius: 5,
     },
     iconText: {
-        color: colors.gray2
+        color: colors.gray2,
     },
     modalText: {
         fontSize: 17,
         marginLeft: 7,
+        color: colors.black,
     },
     btnText: {
         color: colors.white,

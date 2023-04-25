@@ -34,7 +34,7 @@ function MainStatistics({remindersInRange}) {
                         shadowColor={colors.lightBlue}
                         bgColor={colors.white}
                     >
-                        <Text style={{fontSize: 30, fontWeight: '500'}}>{parseInt(percentCompleted) + '%'}</Text>
+                        <Text style={styles.percentText}>{parseInt(percentCompleted) + '%'}</Text>
                     </ProgressCircle>
                 </View>
                 <View style={styles.medsItemWrapper}>
@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     quantityMedText: {
         marginTop: 7,
         fontWeight: '600',
+        color: colors.black,
     },
     medsItemWrapper: {
         flexDirection: 'row',
@@ -101,4 +102,9 @@ const styles = StyleSheet.create({
     medItemWrapper:{
         alignItems: 'center',
     },
+    percentText: {
+        fontSize: 30,
+        fontWeight: '500',
+        color: colors.black,
+    }
 });

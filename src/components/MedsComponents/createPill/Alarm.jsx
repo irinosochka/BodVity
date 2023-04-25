@@ -16,7 +16,7 @@ const Alarm = ({isAlarm, setIsAlarm}) => {
                         {isAlarm ? <Icon name="check" size={23} color="white" /> : null}
                     </View>
                 </TouchableOpacity>
-                <Text style={CreateStyles.checkText}>Alarm</Text>
+                <Text style={CreateStyles.checkText}>Notification</Text>
             </View>
         </View>
     );

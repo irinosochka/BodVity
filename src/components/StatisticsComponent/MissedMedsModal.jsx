@@ -14,7 +14,7 @@ export function MissedMedsModal({isShowMissedMedsModal, setIsShowMissedMedsModal
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>
                         <TouchableOpacity onPress={() => setIsShowMissedMedsModal(!isShowMissedMedsModal)}>
-                            <Icon name="x" size={40} color= {colors.primary} />
+                            <Icon name="x" size={40} color= {colors.black} />
                         </TouchableOpacity>
                     </View>
                     <View style={{alignItems: 'center'}}>
@@ -78,6 +78,7 @@ const styles = StyleSheet.create({
         fontSize: 20,
         fontWeight: '600',
         marginTop: -29,
+        color: colors.black,
     },
     table: {
         flex: 1,
@@ -104,6 +105,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: 16,
         textAlign: 'center',
+        color: colors.black,
     },
     row: {
         flexDirection: 'row',
@@ -117,6 +119,7 @@ const styles = StyleSheet.create({
         flex: 1,
         fontSize: 16,
         textAlign: 'center',
+        color: colors.black,
     },
 })
 

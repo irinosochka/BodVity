@@ -71,14 +71,14 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
                         parseInt(time.quantity) > 1 ? <Text>
                             {time.quantity} pills </Text>
                             :
-                            <Text>{time.quantity} pill</Text>
+                            <Text style={CreateStyles.timeContainerText}>{time.quantity} pill</Text>
                     }
                     <TouchableOpacity onPress={() => plusQuantity()}>
                         <Icon name="plus" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>
                 </View>
                 <View style={[CreateStyles.timeContainerRegular, {width: '49%'}]}>
-                    <Text>{getTime(time)}</Text>
+                    <Text style={CreateStyles.timeContainerText}>{getTime(time)}</Text>
                     <TouchableOpacity onPress={() => setDatePickerVisibility(true)}>
                         <Icon name="clock" size={20} color= {colors.gray3}/>
                     </TouchableOpacity>

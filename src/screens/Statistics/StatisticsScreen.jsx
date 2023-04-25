@@ -84,7 +84,7 @@ function StatisticsScreen() {
                     <View style={styles.chooseTimeRange}>
                         <TouchableOpacity style={[styles.buttonTimeRange,  selectedRange === "week" ? styles.activeButton : styles.notActiveButton,]}
                             onPress={() => handleSelectRange("week")}>
-                            <Text style={[selectedRange === "week" && styles.activeText]}>Week</Text>
+                            <Text style={[styles.textBtn, selectedRange === "week" && styles.activeText]}>Week</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={[styles.buttonTimeRange, selectedRange === "month" ? styles.activeButton : styles.notActiveButton,]}
                             onPress={() => handleSelectRange("month")}>
@@ -146,9 +146,9 @@ const styles = StyleSheet.create({
         backgroundColor: colors.lightBlue,
     },
     activeText:{
-        fontWeight: '600'
+        fontWeight: '600',
     },
-    notActiveText:{
-
+    textBtn: {
+        color: colors.black,
     },
 });

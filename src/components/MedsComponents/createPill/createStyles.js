@@ -75,6 +75,9 @@ export const CreateStyles = StyleSheet.create({
         borderRadius: 10,
         paddingHorizontal: 10,
     },
+    timeContainerText:{
+        color: colors.black,
+    },
     doseAndTimeContainer:{
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -103,6 +106,7 @@ export const CreateStyles = StyleSheet.create({
         fontSize: 15,
         marginBottom: 5,
         letterSpacing: 1,
+        color: colors.black,
     },
     icon:{
         marginRight: 5
@@ -167,6 +171,7 @@ export const CreateStyles = StyleSheet.create({
     checkText: {
         fontSize: 15,
         letterSpacing: 1,
+        color: colors.black
     },
     shadowForContainer:{
         shadowColor: colors.gray2,

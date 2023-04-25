@@ -87,7 +87,7 @@ function TopOneTimeMeds({remindersInRange}) {
             <View style={styles.statsContainer}>
                 <Text style={styles.headerTitle}>Top of the most irregular medications:</Text>
                 <ScrollView>
-                    {sortedMedicationIds.length > 0 ? OneTimeMedItems : <Text>No medication found.</Text>}
+                    {sortedMedicationIds.length > 0 ? OneTimeMedItems : <Text style={{color: colors.black}}>No medication found.</Text>}
                 </ScrollView>
             </View>
         </View>
@@ -120,5 +120,6 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         textAlign: 'center',
         marginBottom: 10,
+        color: colors.black,
     },
 });

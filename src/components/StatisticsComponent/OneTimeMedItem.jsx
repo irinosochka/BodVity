@@ -23,7 +23,7 @@ function OneTimeMedItem({idx, medID, reminders, count}) {
     return (
         <>
             <TouchableOpacity style={styles.medContainer} onPress={() => setIsShowMissedMedsModal(!isShowMissedMedsModal)}>
-                <Text>{idx+1 + '. ' + medication.title}</Text>
+                <Text style={styles.medTitle}>{idx+1 + '. ' + medication.title}</Text>
                 <Text style={styles.countText}>{count}</Text>
             </TouchableOpacity>
             {isShowMissedMedsModal && <MissedMedsModal isShowMissedMedsModal={isShowMissedMedsModal} setIsShowMissedMedsModal={setIsShowMissedMedsModal} reminders={reminders} title={medication.title} />}
@@ -49,5 +49,9 @@ const styles = StyleSheet.create({
     },
     countText:{
         fontWeight: '600',
+        color: colors.black,
+    },
+    medTitle:{
+        color: colors.black,
     },
 });

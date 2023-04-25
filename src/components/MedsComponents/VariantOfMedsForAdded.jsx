@@ -9,7 +9,7 @@ import {colors, FormStyles} from "../../styles/Styles";
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff',
+        backgroundColor: colors.white,
     },
     variantsWrapper: {
         flex: 1,
@@ -35,6 +35,7 @@ const styles = StyleSheet.create({
     titleVariant:{
         fontSize: 21,
         fontWeight: '400',
+        color: colors.black,
     },
     infoVariant:{
         marginTop: 5,

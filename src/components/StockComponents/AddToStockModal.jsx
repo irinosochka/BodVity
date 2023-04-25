@@ -37,7 +37,7 @@ export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication})
                                    value={quantityToAdd}
                         />
                         <TouchableOpacity style={styles.btnSave} onPress={handleSaveAndClose}>
-                            <Text>Save</Text>
+                            <Text style={{color: colors.white}}>Save</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -69,6 +69,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 17,
         marginBottom: 12,
+        color: colors.black,
     },
     input:{
         fontSize: 15,

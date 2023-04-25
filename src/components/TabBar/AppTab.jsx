@@ -43,19 +43,10 @@ function HomeStack() {
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="home" component={HomeScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Stock" component={StockScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileScreen} />
         </Stack.Navigator>
     );
 }
-
-// function PillStack() {
-//     return (
-//         <Stack.Navigator>
-//             <Stack.Screen options={{ headerShown: false }} name="allPills" component={CalendarComponent} />
-//             <Stack.Screen options={{ headerShown: false }} name="createPill" component={ChooseAddedPill} />
-//             <Stack.Screen options={{ headerShown: false }} name="editMedication" component={UpdateMedicationScreen} />
-//         </Stack.Navigator>
-//     );
-// }
 
 function CreateMedsStack() {
     return (
@@ -112,15 +103,15 @@ export default function AppTab() {
                     gestureEnabled: false,
                 }}
             />
-            <Tab.Screen
-                name="Pill"
-                component={CreateMedScreen}
-                initialParams={{ frequency: 'one-time' }}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false,
-                }}
-            />
+            {/*<Tab.Screen*/}
+            {/*    name="Pill"*/}
+            {/*    component={CreateMedScreen}*/}
+            {/*    initialParams={{ frequency: 'one-time' }}*/}
+            {/*    options={{*/}
+            {/*        headerShown: false,*/}
+            {/*        gestureEnabled: false,*/}
+            {/*    }}*/}
+            {/*/>*/}
             <Tab.Screen
                     name="CreatePill"
                     component={CreateMedsStack}
@@ -145,14 +136,14 @@ export default function AppTab() {
                     gestureEnabled: false,
                 }}
             />
-            <Tab.Screen
-                name="Profile"
-                component={ProfileScreen}
-                options={{
-                    headerShown: false,
-                    gestureEnabled: false,
-                }}
-            />
+            {/*<Tab.Screen*/}
+            {/*    name="Profile"*/}
+            {/*    component={ProfileScreen}*/}
+            {/*    options={{*/}
+            {/*        headerShown: false,*/}
+            {/*        gestureEnabled: false,*/}
+            {/*    }}*/}
+            {/*/>*/}
             </Tab.Navigator>
     );
 }

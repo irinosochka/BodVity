@@ -1,33 +1,24 @@
 import {
-    StyleSheet, Text, TouchableOpacity
+    Text, TouchableOpacity
 } from 'react-native';
 import React from 'react';
-import {colors} from "../styles/Styles";
+import {colors, FormStyles} from "../styles/Styles";
 
-export function ButtonCustom({onPress, buttonText}) {
+export function ButtonCustom({onPress, buttonText, isShadow = false}) {
     return (
-        <TouchableOpacity style={styles.btnDone} onPress={onPress}>
-            <Text style={styles.txtBtnDone}>
-                {buttonText}
-            </Text>
-        </TouchableOpacity>
+        <>
+            {
+                <TouchableOpacity
+                    style={isShadow ? {...FormStyles.btn, ...FormStyles.btnShadow} : FormStyles.btn}
+                    onPress={onPress}
+                >
+                    <Text
+                        style={isShadow ? {...FormStyles.btnText, color: colors.black} : FormStyles.btnText}>
+                        {buttonText}
+                    </Text>
+                </TouchableOpacity>
+            }
+        </>
     );
 }
-
-const styles = StyleSheet.create({
-    btnDone:{
-        width: 319,
-        height: 56,
-        backgroundColor: colors.primary,
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 14,
-    },
-    txtBtnDone:{
-        fontSize: 17,
-        color:'#FFF'
-    },
-})
-
-
 

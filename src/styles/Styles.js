@@ -3,7 +3,6 @@ import {Dimensions} from 'react-native';
 
 const fullWidth = Dimensions.get('window').width; //full width
 
-//export const errorIconColor = '#30d0fe';
 export const colors = {
     accent: "#F3534A",
     primary: "#547DE5",
@@ -44,17 +43,12 @@ export const FormStyles = StyleSheet.create({
         backgroundColor: colors.white,
     },
     containerSub: {
-        //alignItems: 'flex-start',
         width: '80%'
     },
     title: {
-        //textAlign: 'center',
-        //marginBottom: sizes.padding / 2,
-        //fontFamily: 'Palatino-Bold',
         fontSize: sizes.h1,
         fontWeight: "bold",
         color: colors.black,
-        //textTransform: 'uppercase',
     },
     subtitle: {
         marginBottom: sizes.padding / 2,
@@ -72,27 +66,27 @@ export const FormStyles = StyleSheet.create({
         color: colors.black,
         height: sizes.base * 3,
     },
-    btn: {
-        opacity: 0.8,
-        backgroundColor: colors.primary,
-        borderRadius: sizes.radius,
-        height: sizes.base * 3,
-        //width: '80%',
-        justifyContent: 'center',
-        marginVertical: sizes.padding,
-    },
     btnShadow: {
         backgroundColor: colors.white,
         shadowColor: colors.black,
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.1,
         shadowRadius: 10,
+        elevation: 5,
     },
-    btnText: {
-        fontSize: sizes.font,
+    btn:{
+        opacity: 0.9,
+        width: 319,
+        height: sizes.base * 3.5,
+        backgroundColor: colors.primary,
+        justifyContent: 'center',
+        borderRadius: 14,
+    },
+    btnText:{
+        fontSize: 16,
+        color:'#FFF',
         textAlign: "center",
         fontWeight: "500",
-        color: colors.white
     },
     error: {
         color: colors.accent,

@@ -39,6 +39,7 @@ const SignUpScreen = ({ navigation }) => {
                     id: uid,
                     email,
                     name,
+                    avatar: 9,
                 };
                 const usersRef = doc(db, 'users', uid);
                 await setDoc(usersRef, data);

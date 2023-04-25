@@ -5,6 +5,7 @@ import {
     TouchableOpacity } from 'react-native';
 
 import {FormStyles, colors, sizes} from '../../styles/Styles';
+import {ButtonCustom} from "../../common/Button";
 
 const { width, height } = Dimensions.get('window');
 const defaultProps = {
@@ -148,18 +149,9 @@ export default function WelcomeScreen( {navigation} ) {
             </View>
 
             <View style={styles.container3}>
-                <TouchableOpacity
-                    style={[FormStyles.btn, {width: '80%', marginVertical: sizes.padding / 3}]}
-                    onPress={() => navigation.navigate('SignIn')}
-                >
-                    <Text style={FormStyles.btnText}>Sign In </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[FormStyles.btn, FormStyles.btnShadow, {width: '80%', marginVertical: sizes.padding / 3}]}
-                    onPress={() => navigation.navigate('Registration')}
-                >
-                    <Text style={[FormStyles.btnText, {color: colors.black}]}>Sign Up </Text>
-                </TouchableOpacity>
+                <ButtonCustom buttonText={'Sign In'} onPress={() => navigation.navigate('SignIn')} />
+                <View style={{marginBottom: 10}} />
+                <ButtonCustom buttonText={'Sign Up'} onPress={() => navigation.navigate('Registration')} isShadow={true} />
                 <TouchableOpacity onPress={() => setShowTerms(true)}>
                     <Text style={styles.txtTerms}>Terms of Service </Text>
                 </TouchableOpacity>
@@ -172,7 +164,7 @@ export default function WelcomeScreen( {navigation} ) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: "#FFFFFF",
+        backgroundColor: colors.white,
     },
     container1: {
         flex: 0.4,
@@ -188,7 +180,6 @@ const styles = StyleSheet.create({
         flex: 0.5,
         alignItems: 'center',
         justifyContent: 'flex-start',
-        //backgroundColor: "#123456" // debug
     },
     containerToS: {
         flex: 1,
@@ -227,5 +218,17 @@ const styles = StyleSheet.create({
         color: colors.gray,
         lineHeight: 24,
         marginBottom: 16,
+    },
+    btnDone:{
+        width: 319,
+        height: 56,
+        backgroundColor: colors.primary,
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 14,
+    },
+    txtBtnDone:{
+        fontSize: 17,
+        color:'#FFF'
     },
 });

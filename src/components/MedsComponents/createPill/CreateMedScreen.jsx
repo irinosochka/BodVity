@@ -211,11 +211,13 @@ const CreateMedScreen = ({navigation, route}) => {
                             <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} />
                         </View>
                     }
+
+                    <View style={CreateStyles.buttonContainer}>
+                        <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
+                    </View>
+
                 </ScrollView>
             </View>
-                <View style={CreateStyles.buttonContainer}>
-                    <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
-                </View>
         </View>
     );
 };

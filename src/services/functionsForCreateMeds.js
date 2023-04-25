@@ -83,7 +83,7 @@ const setUpReminder = async (frequency, reminders, startDate, endDate, title, is
             timestamp: scheduledDate,
             quantity: plan.quantity,
             isConfirmed: false,
-            isMissed: true,
+            // isMissed: true,
             updatedAt: now,
             notificationId: notificationId
         })

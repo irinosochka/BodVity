@@ -36,7 +36,7 @@ function MedicationItem({navigation, reminder}) {
     const medComplete = async () => {
         await UpdateMedicationReminderForUser(auth.currentUser.uid, reminder.medicationId, reminder.id, {
             isConfirmed: true,
-            isMissed: false,
+            // isMissed: false,
             updatedAt: new Date(),
         })
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
@@ -48,7 +48,7 @@ function MedicationItem({navigation, reminder}) {
     const medIncomplete = async () => {
         await UpdateMedicationReminderForUser(auth.currentUser.uid, reminder.medicationId, reminder.id, {
             isConfirmed: false,
-            isMissed: true,
+            // isMissed: true,
             updatedAt: new Date(),
         })
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {

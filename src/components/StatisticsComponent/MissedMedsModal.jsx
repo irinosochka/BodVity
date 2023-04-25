@@ -6,6 +6,8 @@ import React from "react";
 
 
 export function MissedMedsModal({isShowMissedMedsModal, setIsShowMissedMedsModal, reminders, title}) {
+    const sortedReminders = reminders.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
+
     return (
         <Modal transparent={true} visible={isShowMissedMedsModal} animationType='fade'>
             <View style={styles.modal}>
@@ -26,7 +28,7 @@ export function MissedMedsModal({isShowMissedMedsModal, setIsShowMissedMedsModal
                         </View>
                         <ScrollView>
                         <View style={styles.table}>
-                            {reminders.map((reminder, index) => (
+                            {sortedReminders.map((reminder, index) => (
                                 <View key={index} style={styles.row}>
                                     <Text style={styles.rowText}>{moment(reminder.timestamp.seconds * 1000).format('DD.MM.YY')}</Text>
                                     <Text style={styles.rowText}>{moment(reminder.timestamp.seconds * 1000).format('HH:mm')}</Text>
@@ -53,7 +55,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '30%',
         width: '90%',
-        // height: '28%',
+        height: '40%',
         backgroundColor: 'white',
         borderRadius: 14,
     },
@@ -86,6 +88,7 @@ const styles = StyleSheet.create({
         borderColor: colors.lightBlue,
         marginTop: -5,
         paddingTop: 5,
+        // height: 200,
     },
     headerRow: {
         flexDirection: 'row',

@@ -41,7 +41,6 @@ function HomeStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="home" component={HomeScreen} />
-            {/*<Stack.Screen options={{ headerShown: false }} name="Stock" component={StockScreen} />*/}
             <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileStack} />
         </Stack.Navigator>
     );

@@ -23,7 +23,7 @@ function StockItem(props) {
 
     return (
         <>
-            <TouchableOpacity style={styles.container}>
+            <TouchableOpacity style={styles.container} onPress={() => setIsShowMedInfo(!isShowMedInfo)}>
                 <Text style={{color: colors.black}}>{medication.title}</Text>
                 <View style={styles.quantityContainer}>
                     {

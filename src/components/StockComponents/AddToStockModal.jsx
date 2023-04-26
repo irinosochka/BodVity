@@ -7,7 +7,7 @@ import {auth} from "../../../firebase";
 export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication}) {
 
     const [medInStock, setMedInStock] = useState(parseInt(medication.pillsInStock))
-    const [quantityToAdd, setQuantityToAdd] = useState();
+    const [quantityToAdd, setQuantityToAdd] = useState('');
 
     const handleSave = async() => {
         let number = parseInt(quantityToAdd);
@@ -27,21 +27,23 @@ export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication})
 
     return (
         <Modal transparent={true} visible={isShowAddModal} animationType='fade'>
-            <View style={styles.modal}>
-                <View style={styles.modalContainer}>
-                    <Text style={styles.title}>How medications you want to add? </Text>
-                    <View style={styles.inputWithButton}>
-                        <TextInput style={styles.input}
-                                   placeholder='Ex: 10'
-                                   onChangeText={setQuantityToAdd}
-                                   value={quantityToAdd}
-                        />
-                        <TouchableOpacity style={styles.btnSave} onPress={handleSaveAndClose}>
-                            <Text style={{color: colors.white}}>Save</Text>
-                        </TouchableOpacity>
+            <TouchableOpacity style={styles.modalBackground} onPress={() => setIsShowAddModal(false)}>
+                <View style={styles.modal}>
+                    <View style={styles.modalContainer}>
+                        <Text style={styles.title}>How medications you want to add? </Text>
+                        <View style={styles.inputWithButton}>
+                            <TextInput style={styles.input}
+                                       placeholder='Ex: 10'
+                                       onChangeText={setQuantityToAdd}
+                                       value={quantityToAdd}
+                            />
+                            <TouchableOpacity style={styles.btnSave} onPress={handleSaveAndClose}>
+                                <Text style={{color: colors.white}}>Save</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         </Modal>
     )
 }
@@ -70,6 +72,7 @@ const styles = StyleSheet.create({
         fontSize: 17,
         marginBottom: 12,
         color: colors.black,
+        fontWeight: '500',
     },
     input:{
         fontSize: 15,
@@ -84,7 +87,6 @@ const styles = StyleSheet.create({
     inputWithButton: {
         flexDirection: 'row',
         alignItems: "center",
-        // width: '90%',
     },
     btnSave: {
         width: 65,
@@ -94,5 +96,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         borderBottomRightRadius: 14,
         borderTopRightRadius: 14,
-    }
+    },
+    modalBackground: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 })

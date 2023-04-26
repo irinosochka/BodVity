@@ -11,7 +11,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader }) => {
     const [ageString, setAgeString] = useState(null);
     const [day, setDay] = useState(birthday.format('DD'));
     const [month, setMonth] = useState(monthNames[birthday.month()]);
-    const [year, setYear] = useState(birthday.subtract(30, 'years').format('YYYY'));
+    const [year, setYear] = useState(birthday.format('YYYY'));
 
     const handleNext = () => {
         const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-MMM-DD');

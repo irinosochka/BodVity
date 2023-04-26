@@ -7,6 +7,7 @@ import {colors, FormStyles} from "../../styles/Styles";
 import Gender from "../../components/Registration/Gender";
 import Age from "../../components/Registration/Age";
 import moment from "moment";
+import BloodGroup from "../../components/Registration/BloodGroup";
 
 const RegistrationLoader = ({completed}) => (
     <>
@@ -24,6 +25,7 @@ const RegistrationScreen = ({ navigation }) => {
     const [page, setPage] = useState(1);
     const [selectedGender, setSelectedGender] = useState('');
     const [birthday, setBirthday] = useState(now);
+    const [bloodGroup, setBloodGroup] = useState('');
 
     return (
         <View style={FormStyles.container}>
@@ -40,6 +42,9 @@ const RegistrationScreen = ({ navigation }) => {
             }
             {
                 page === 3 && <Age birthday={birthday} setBirthday={setBirthday} setPage={setPage} RegistrationLoader={RegistrationLoader} />
+            }
+            {
+                page === 4 && <BloodGroup bloodGroup={bloodGroup} setBloodGroup={setBloodGroup} setPage={setPage} RegistrationLoader={RegistrationLoader} />
             }
             </View>
         </View>

@@ -150,7 +150,7 @@ const CreateMedScreen = ({navigation, route}) => {
             <View style={CreateStyles.header}>
                 <Text style={FormStyles.title}>Create a new plan</Text>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon name="x" size={27} color= {colors.black}/>
+                    <Icon name="x" size={35} color= {colors.gray}/>
                 </TouchableOpacity>
             </View>
 

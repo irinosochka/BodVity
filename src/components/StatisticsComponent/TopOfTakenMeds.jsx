@@ -4,7 +4,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {colors} from "../../styles/Styles";
-import OneTimeMedItem from "./OneTimeMedItem";
+import TakenMedItem from "./TakenMedItem";
 import {
     getTakenMedicationIdsWithReminders
 } from "../../services/collections";
@@ -22,7 +22,7 @@ function TopOfTakenMeds({remindersInRange}) {
     },[remindersInRange])
 
     const OneTimeMedItems = sortedMedicationIds.map((medItem, idx) => (
-        <OneTimeMedItem medID={medItem.id} reminders={medItem.reminders} key={idx} idx={idx} count={medItem.count} />
+        <TakenMedItem medID={medItem.id} reminders={medItem.reminders} key={idx} idx={idx} count={medItem.count} />
     ));
 
     return (

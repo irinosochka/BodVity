@@ -37,20 +37,28 @@ function PersonalInfo({ navigation }) {
     }
 
     const handleUpdateUser = async () => {
-        await UpdateUser(auth.currentUser.uid, {
-            name: name,
-            gender: gender,
-            birthday: new Date(birthday),
-            avatar: avatarNumber
-        })
-        navigation.navigate('profile')
+        setErrorName(name.length === 0);
+        if(name.length !== 0 && age >= 11){
+            await UpdateUser(auth.currentUser.uid, {
+                name: name,
+                gender: gender,
+                birthday: new Date(birthday),
+                avatar: avatarNumber
+            })
+            navigation.navigate('profile')
+        }
+        else if(age < 0){
+            alert("Please select a past date.");
+        }else if(age < 11){
+            alert("You must be at least 11 years old to use this program.");
+        }
     }
 
     return (
         <View style={FormStyles.container}>
             <View style={FormStyles.containerSub}>
-                <TouchableOpacity onPress={() => navigation.navigate('profile')}>
-                    <Icon name="arrow-left" size={35} color={colors.gray} />
+                <TouchableOpacity onPress={() => navigation.navigate('profile')} style={{alignItems: 'flex-end'}}>
+                    <Icon name="x" size={35} color={colors.gray} />
                 </TouchableOpacity>
                 <View style={{marginTop: '10%' }}>
                     <Text style={FormStyles.title}>Personal Info</Text>

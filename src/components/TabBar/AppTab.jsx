@@ -41,7 +41,7 @@ function HomeStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="home" component={HomeScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="Stock" component={StockScreen} />
+            {/*<Stack.Screen options={{ headerShown: false }} name="Stock" component={StockScreen} />*/}
             <Stack.Screen options={{ headerShown: false }} name="Profile" component={ProfileStack} />
         </Stack.Navigator>
     );
@@ -52,7 +52,7 @@ function ProfileStack() {
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="profile" component={ProfileScreen} />
             <Stack.Screen options={{ headerShown: false }} name="personalInfo" component={PersonalInfo}/>
-            <Stack.Screen options={{ headerShown: false }} name="yourMedications" component={ProfileScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="yourMedications" component={StockScreen} />
             <Stack.Screen options={{ headerShown: false }} name="yourAppointments" component={ProfileScreen} />
         </Stack.Navigator>
     );

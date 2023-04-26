@@ -5,16 +5,16 @@ import moment from "moment";
 import React from "react";
 
 
-export function MissedMedsModal({isShowMissedMedsModal, setIsShowMissedMedsModal, reminders, title}) {
+export function TakenMedsModal({isShowTakenMedsModal, setIsShowTakenMedsModal, reminders, title}) {
     const sortedReminders = reminders.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
 
     return (
-        <Modal transparent={true} visible={isShowMissedMedsModal} animationType='fade'>
+        <Modal transparent={true} visible={isShowTakenMedsModal} animationType='fade'>
             <View style={styles.modal}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>
-                        <TouchableOpacity onPress={() => setIsShowMissedMedsModal(!isShowMissedMedsModal)}>
-                            <Icon name="x" size={40} color= {colors.black} />
+                        <TouchableOpacity onPress={() => setIsShowTakenMedsModal(!isShowTakenMedsModal)}>
+                            <Icon name="x" size={40} color= {colors.gray} />
                         </TouchableOpacity>
                     </View>
                     <View style={{alignItems: 'center'}}>

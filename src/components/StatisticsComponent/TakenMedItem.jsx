@@ -1,15 +1,15 @@
 import {
-    StyleSheet, Text, TouchableOpacity, View,
+    StyleSheet, Text, TouchableOpacity,
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {colors} from "../../styles/Styles";
 import {getMedicationByID} from "../../services/collections";
 import {auth} from "../../../firebase";
-import {MissedMedsModal} from "./MissedMedsModal";
+import {TakenMedsModal} from "./TakenMedsModal";
 
-function OneTimeMedItem({idx, medID, reminders, count}) {
+function TakenMedItem({idx, medID, reminders, count}) {
     const [medication, setMedication] = useState(getMedicationByID(auth.currentUser.uid, medID));
-    const [isShowMissedMedsModal, setIsShowMissedMedsModal] = useState(false);
+    const [isShowTakenMedsModal, setIsShowTakenMedsModal] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -22,16 +22,16 @@ function OneTimeMedItem({idx, medID, reminders, count}) {
 
     return (
         <>
-            <TouchableOpacity style={styles.medContainer} onPress={() => setIsShowMissedMedsModal(!isShowMissedMedsModal)}>
+            <TouchableOpacity style={styles.medContainer} onPress={() => setIsShowTakenMedsModal(!isShowTakenMedsModal)}>
                 <Text style={styles.medTitle}>{idx+1 + '. ' + medication.title}</Text>
                 <Text style={styles.countText}>{count}</Text>
             </TouchableOpacity>
-            {isShowMissedMedsModal && <MissedMedsModal isShowMissedMedsModal={isShowMissedMedsModal} setIsShowMissedMedsModal={setIsShowMissedMedsModal} reminders={reminders} title={medication.title} />}
+            {isShowTakenMedsModal && <TakenMedsModal isShowTakenMedsModal={isShowTakenMedsModal} setIsShowTakenMedsModal={setIsShowTakenMedsModal} reminders={reminders} title={medication.title} />}
         </>
     );
 }
 
-export default OneTimeMedItem;
+export default TakenMedItem;
 
 
 const styles = StyleSheet.create({

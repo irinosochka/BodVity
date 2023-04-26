@@ -1,10 +1,9 @@
 import {
-    StyleSheet, Text, View, TouchableOpacity,
+    StyleSheet, Text, View,
 } from 'react-native';
 import React, {useContext} from 'react';
 import {colors, FormStyles} from "../../styles/Styles";
 import {UserDataContext} from "../../context/UserDataContext";
-import Icon from "react-native-vector-icons/Feather";
 import Avatar from "../../common/Avatar";
 
 
@@ -20,14 +19,11 @@ function TopBarHome({ navigation }) {
         <View style={styles.topWrapper}>
             <View style={styles.userInfo}>
                 <Avatar radius={75} onPress={handleNavigateToProfile}/>
-                <View style={{marginLeft: 5}}>
+                <View style={{marginLeft: 10}}>
                     <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
                     <Text style={styles.subtitle}>Let's check your plan</Text>
                 </View>
             </View>
-            <TouchableOpacity onPress={() => navigation.navigate('Stock')}>
-                <Icon name="archive" size={30} color={colors.gray3} />
-            </TouchableOpacity>
         </View>
     );
 }

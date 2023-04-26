@@ -11,18 +11,22 @@ const BloodGroup = ({bloodGroup, setBloodGroup, setPage, RegistrationLoader}) =>
         setBloodGroup(group);
     };
 
+    const handleNext = () => {
+        bloodGroup.length !== 0 ? setPage(5) : alert("Please choose your Blood Group.");
+    }
+
     return (
         <>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <TouchableOpacity onPress={() => setPage(3)} style={{padding: 10}}>
                     <Icon name="arrow-left" size={35} color={colors.gray} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => setPage(5)} style={{padding: 10}}>
+                <TouchableOpacity onPress={handleNext} style={{padding: 10}}>
                     <Icon name="arrow-right" size={35} color={colors.gray} />
                 </TouchableOpacity>
             </View>
 
-            <RegistrationLoader completed={'30%'} />
+            <RegistrationLoader completed={'60%'} />
 
             <View style={{marginTop: 40}}>
                 <Text style={{...FormStyles.title, textAlign: 'center'}}>Select your Blood Group</Text>

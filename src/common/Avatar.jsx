@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { UserDataContext } from "../context/UserDataContext";
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
+import {colors} from "../styles/Styles";
 
 function Avatar({ navigation }) {
     const { userData, setUserData } = useContext(UserDataContext);
@@ -9,34 +10,22 @@ function Avatar({ navigation }) {
 
     switch(userData.avatar) {
         case 1:
-            imageSource = require('../../assets/avatar/avatar1.png');
+            imageSource = require('../../assets/avatars/avatar1.png');
             break;
         case 2:
-            imageSource = require('../../assets/avatar/avatar2.png');
+            imageSource = require('../../assets/avatars/avatar2.png');
             break;
         case 3:
-            imageSource = require('../../assets/avatar/avatar3.png');
+            imageSource = require('../../assets/avatars/avatar3.png');
             break;
         case 4:
-            imageSource = require('../../assets/avatar/avatar4.png');
+            imageSource = require('../../assets/avatars/avatar4.png');
             break;
         case 5:
-            imageSource = require('../../assets/avatar/avatar5.png');
+            imageSource = require('../../assets/avatars/avatar5.png');
             break;
         case 6:
-            imageSource = require('../../assets/avatar/avatar6.png');
-            break;
-        case 7:
-            imageSource = require('../../assets/avatar/avatar7.png');
-            break;
-        case 8:
-            imageSource = require('../../assets/avatar/avatar8.png');
-            break;
-        case 9:
-            imageSource = require('../../assets/avatar/avatar9.png');
-            break;
-        default:
-            imageSource = require('../../assets/avatar/avatar9.png');
+            imageSource = require('../../assets/avatars/avatar6.png');
             break;
     }
 
@@ -56,6 +45,7 @@ const styles = StyleSheet.create({
         height: 60,
         borderRadius: 30,
         overflow: "hidden",
+        backgroundColor: colors.lightBlue
     },
     image: {
         width: "100%",

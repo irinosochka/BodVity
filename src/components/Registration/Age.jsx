@@ -7,8 +7,7 @@ import moment from "moment";
 
 const monthNames = [  "Jan",  "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug",  "Sep",  "Oct",  "Nov",  "Dec",];
 
-const Age = ({ birthday, setBirthday, setPage, RegistrationLoader }) => {
-    const [ageString, setAgeString] = useState(null);
+const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, setAgeString }) => {
     const [day, setDay] = useState(birthday.format('DD'));
     const [month, setMonth] = useState(monthNames[birthday.month()]);
     const [year, setYear] = useState(birthday.format('YYYY'));
@@ -60,7 +59,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader }) => {
                     <Icon name="arrow-right" size={35} color={colors.gray} />
                 </TouchableOpacity>
             </View>
-            <RegistrationLoader completed={"45%"} />
+            <RegistrationLoader completed={"40%"} />
 
             <View style={{marginTop: 40}}>
                 <Text style={{...FormStyles.title, textAlign: 'center'}}>How old are you?</Text>
@@ -74,19 +73,17 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader }) => {
                     <Picker
                         style={{width: '30%'}}
                         selectedValue={day}
-                        onValueChange={(value, itemIndex) =>
-                            setDay(value)
-                        }>
+                        onValueChange={(value) => setDay(value)}
+                    >
                         {Array.from({ length: 31 }, (_, i) => i + 1).map((d) => (
                             <Picker.Item key={d} label={`${d}`} value={`${d < 10 ? "0" + d : d}`} />
                         ))}
                     </Picker>
                     <Picker
-                        style={{width: '30%'}}
+                        style={{ width: '30%' }}
                         selectedValue={month}
-                        onValueChange={(value, itemIndex) =>
-                            setMonth(value)
-                        }>
+                        onValueChange={(value) => setMonth(value)}
+                    >
                         {monthNames.map((m) => (
                             <Picker.Item key={m} label={`${m}`} value={`${m}`} />
                         ))}
@@ -94,9 +91,8 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader }) => {
                     <Picker
                         style={{width: '30%'}}
                         selectedValue={year}
-                        onValueChange={(value, itemIndex) =>
-                            setYear(value)
-                    }>
+                        onValueChange={(value) => setYear(value)}
+                    >
                         {Array.from({ length: 121 }, (_, i) => i + new Date().getFullYear() - 120).map((y) => (
                             <Picker.Item key={y} label={`${y}`} value={`${y}`} />
                         ))}

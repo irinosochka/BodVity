@@ -17,18 +17,20 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
     const [errorConfirmPassword, setErrorConfirmPassword] = useState(false);
 
     const checkError = () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
         setErrorName(name.length === 0);
-        setErrorEmail(email.length === 0);
+        setErrorEmail(email.length === 0 || !emailRegex.test(email));
         setErrorPassword(password.length < 8);
         setErrorConfirmPassword(confirmPassword.length < 8 || password !== confirmPassword);
-        return name.length !== 0 && email.length !== 0 && password.length !== 0 && confirmPassword.length !== 0 && password === confirmPassword;
-    }
 
-    const signUpUser = async() => {
-        const error = checkError();
-        if(!error) {
+        return name.length !== 0 && email.length !== 0 && password.length !== 0 && confirmPassword.length !== 0 && password === confirmPassword && emailRegex.test(email);
+    };
+
+    const signUpUser = async () => {
+        const noError = checkError();
+        if (noError) {
             setPage(2);
-            // await createUser(email,password,name,9)
         }
     };
 

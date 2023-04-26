@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     TouchableOpacity, StyleSheet, Text, View
 } from 'react-native';
@@ -7,12 +7,15 @@ import Icon from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
 const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}) => {
-    const [errorGender, setErrorGender] = useState(false);
     const colorActive = colors.primary;
     const noActive = "#d7e4fa";
 
-    const handleChooseGender = () => {
-        selectedGender !== ''? setPage(3) : setErrorGender(true);
+    const handleNext = () => {
+        selectedGender !== ''? setPage(3) : alert("Please choose your Gender.");
+    }
+
+    const handleSelectGender = (gender) => {
+        setSelectedGender(gender);
     }
 
     return (
@@ -21,12 +24,12 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
                 <TouchableOpacity onPress={() => setPage(1)} style={{padding: 10}}>
                     <Icon name="arrow-left" size={35} color={colors.gray} />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={handleChooseGender} style={{padding: 10}}>
+                <TouchableOpacity onPress={handleNext} style={{padding: 10}}>
                     <Icon name="arrow-right" size={35} color={colors.gray} />
                 </TouchableOpacity>
             </View>
 
-            <RegistrationLoader completed={'30%'} />
+            <RegistrationLoader completed={'20%'} />
 
             <View style={{marginTop: 40}}>
                 <Text style={{...FormStyles.title, textAlign: 'center'}}>What's your gender?</Text>
@@ -39,7 +42,7 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
                     <TouchableOpacity
                         style={[styles.genderCircle,
                             selectedGender === 'male' ? {borderColor: colorActive} : {borderColor: noActive}]}
-                        onPress={() => setSelectedGender('male')}
+                        onPress={() => handleSelectGender('male')}
                     >
                         <Ionicons name="male" size={100} color={selectedGender === 'male' ? colorActive : noActive} />
                         <Text style={[styles.genderName,
@@ -49,7 +52,7 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
                     <TouchableOpacity
                         style={[styles.genderCircle,
                             selectedGender === 'female' ? {borderColor: colorActive} : {borderColor: noActive}]}
-                        onPress={() => setSelectedGender('female')}
+                        onPress={() => handleSelectGender('female')}
                     >
                         <Ionicons name="female" size={100} color={selectedGender === 'female' ? colorActive : noActive} />
                         <Text style={[styles.genderName,
@@ -60,7 +63,7 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
                 <TouchableOpacity
                     style={[styles.genderCircle,
                         selectedGender === 'transgender' ? {borderColor: colorActive} : {borderColor: noActive}]}
-                    onPress={() => setSelectedGender('transgender')}
+                    onPress={() => handleSelectGender('transgender')}
                 >
                     <Ionicons name="transgender-outline" size={100} color={selectedGender === 'transgender' ? colorActive : noActive} />
                     <Text style={[styles.genderName,

@@ -37,7 +37,7 @@ export default function WelcomeScreen( {navigation} ) {
                 snapToAlignment="center"
                 data={illustrations}
                 extraDate={state}
-                keyExtractor={(item, index) => `${item.id}`}
+                keyExtractor={(item) => `${item.id}`}
                 renderItem={({ item }) => (
                     <Image
                         source={item.source}
@@ -151,7 +151,7 @@ export default function WelcomeScreen( {navigation} ) {
             <View style={styles.container3}>
                 <ButtonCustom buttonText={'Sign In'} onPress={() => navigation.navigate('SignIn')} />
                 <View style={{marginBottom: 10}} />
-                <ButtonCustom buttonText={'Sign Up'} onPress={() => navigation.navigate('Registration')} isShadow={true} />
+                <ButtonCustom buttonText={'Registration'} onPress={() => navigation.navigate('Registration')} isShadow={true} />
                 <TouchableOpacity onPress={() => setShowTerms(true)}>
                     <Text style={styles.txtTerms}>Terms of Service </Text>
                 </TouchableOpacity>

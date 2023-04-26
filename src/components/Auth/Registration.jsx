@@ -36,7 +36,7 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
 
     return (
         <>
-           <TouchableOpacity onPress={() => setPage(1)}>
+           <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
                <Icon name="arrow-left" size={35} color={colors.gray} />
            </TouchableOpacity>
            <View style={{marginTop: '30%' }}>

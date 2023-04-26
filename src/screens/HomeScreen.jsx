@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from "react-native";
 import {colors} from "../styles/Styles";
 import {useIsFocused} from "@react-navigation/native";
 import moment from "moment";
-import {auth, db} from "../../firebase";
+import {auth} from "../../firebase";
 import TopBarHome from "../components/HomeScreenComponents/TopBarHome";
 import CalendarComponent from "../components/MedsComponents/CalendarComponent";
 import {getReminders} from "../services/collections";

@@ -3,6 +3,7 @@ import {Text, TouchableOpacity, View, StyleSheet} from "react-native";
 import {colors, FormStyles} from "../../styles/Styles";
 import Icon from "react-native-vector-icons/Feather";
 import {Picker} from '@react-native-picker/picker';
+import moment from "moment";
 
 const monthNames = [  "Jan",  "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug",  "Sep",  "Oct",  "Nov",  "Dec",];
 
@@ -13,7 +14,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader }) => {
     const [year, setYear] = useState(birthday.subtract(30, 'years').format('YYYY'));
 
     const handleNext = () => {
-        const selectedDate = new Date(`${month} ${day}, ${year}`);
+        const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-MMM-DD');
         const currentDate = new Date();
         const minDate = new Date(currentDate.getFullYear() - 11, currentDate.getMonth(), currentDate.getDate());
         if (selectedDate > currentDate) {
@@ -28,7 +29,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader }) => {
     };
 
     const handlePrevious = () => {
-        const selectedDate = new Date(`${month} ${day}, ${year}`);
+        const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-MMM-DD');
         setBirthday(selectedDate);
         setPage(2);
     };

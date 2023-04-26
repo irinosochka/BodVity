@@ -76,14 +76,14 @@ const SignInScreen = ({ navigation }) => {
                     </TouchableOpacity>
                     {error && <Text style={FormStyles.error}>{error}</Text>}
                 </View>
-                <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
-                    <TouchableOpacity
-                        style={{ marginLeft: 4 }}
-                        onPress={() => navigation.navigate('ForgotPassword')}
-                    >
-                        <Text style={{ color: colors.gray2, fontSize: sizes.body }}>Forgot or Reset Password?</Text>
-                    </TouchableOpacity>
-                </View>
+                {/*<View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>*/}
+                {/*    <TouchableOpacity*/}
+                {/*        style={{ marginLeft: 4 }}*/}
+                {/*        onPress={() => navigation.navigate('ForgotPassword')}*/}
+                {/*    >*/}
+                {/*        <Text style={{ color: colors.gray2, fontSize: sizes.body }}>Forgot or Reset Password?</Text>*/}
+                {/*    </TouchableOpacity>*/}
+                {/*</View>*/}
                 <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
                     <TouchableOpacity
                         style={{ marginLeft: 4 }}

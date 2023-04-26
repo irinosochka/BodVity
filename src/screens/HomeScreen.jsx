@@ -4,9 +4,9 @@ import {colors} from "../styles/Styles";
 import {useIsFocused} from "@react-navigation/native";
 import moment from "moment";
 import {auth, db} from "../../firebase";
-import {collection, getDocs, orderBy, query} from "firebase/firestore";
 import TopBarHome from "../components/HomeScreenComponents/TopBarHome";
 import CalendarComponent from "../components/MedsComponents/CalendarComponent";
+import {getReminders} from "../services/collections";
 
 const styles = StyleSheet.create({
     container: {
@@ -56,7 +56,10 @@ function HomeScreen({ navigation }) {
 
     useEffect(() => {
         const fetchData = async () => {
-            await getRemind(auth.currentUser.uid)
+            if (isFocused) {
+                const medications = await getReminders(auth.currentUser);
+                setMedications(medications);
+            }
         }
         fetchData()
             .catch(console.error)
@@ -70,28 +73,6 @@ function HomeScreen({ navigation }) {
         fetchData()
             .catch(console.error)
     }, [isFocused]);
-
-
-    const getRemind = async (userID) => {
-        setMedications(prev => [])
-
-        const medicationsRef = collection(db, 'users', userID, 'medications')
-        const medicationsDocs = await getDocs(medicationsRef)
-
-        medicationsDocs.docs.map( (medication) => {
-            const getReminders = async () => {
-                const remindersRef = query(collection(db, 'users', userID, 'medications', medication.id, 'reminders'), orderBy('timestamp'))
-                const remindersDocs = await getDocs(remindersRef)
-
-                return {...medication.data(), id: medication.id, reminders: remindersDocs.docs.map(reminder => ({...reminder.data(), id: reminder.id, timestamp: reminder.data().timestamp}))}
-            }
-
-            getReminders()
-                .then( medication => {
-                    setMedications(prev => [...prev, medication])
-                }).catch(e => console.log(e))
-        })
-    }
 
     const medicationOfDay = medications.map(medication => medication.reminders)
         .flat(1).filter(medItem =>

@@ -4,12 +4,12 @@ import {
 import React, {useEffect, useState} from 'react';
 import {CreateStyles} from "../../components/MedsComponents/createPill/createStyles";
 import {colors, FormStyles} from "../../styles/Styles";
-import {auth, db} from "../../../firebase";
+import {auth} from "../../../firebase";
 import {useIsFocused} from "@react-navigation/native";
 import moment from "moment";
 import MainStatistics from "../../components/StatisticsComponent/MainStatistics";
 import {getReminders} from "../../services/collections";
-import TopOneTimeMeds from "../../components/StatisticsComponent/TopOneTimeMeds";
+import TopOfTakenMeds from "../../components/StatisticsComponent/TopOfTakenMeds";
 
 function StatisticsScreen() {
     const today = moment().startOf('day');
@@ -97,7 +97,7 @@ function StatisticsScreen() {
                     </View>
                     <MainStatistics remindersInRange={remindersInRange}/>
                     <View style={{marginBottom: 10}} />
-                    <TopOneTimeMeds remindersInRange={remindersInRange}/>
+                    <TopOfTakenMeds remindersInRange={remindersInRange}/>
                 </View>
             }
         </View>

@@ -39,7 +39,6 @@ const medConverter = {
     },
 };
 
-
 /// Medications
 
 export const retrieveMedicationsForUser = async (userID) => {
@@ -148,6 +147,40 @@ export const getReminders = async (user) => {
     return medications;
 };
 
+export const getTakenMedicationIdsWithReminders = async (reminders) => {
+    const medicationsWithOneTimePlans = reminders.reduce((accumulator, reminder) => {
+        if (reminder.isConfirmed) {
+            if (accumulator[reminder.medicationId]) {
+                accumulator[reminder.medicationId].count += 1;
+            } else {
+                accumulator[reminder.medicationId] = {
+                    count: 1,
+                    reminders: [],
+                };
+            }
+            accumulator[reminder.medicationId].reminders.push(reminder);
+        }
+        return accumulator;
+    }, {});
+
+    const sortedMedicationIds = Object.keys(medicationsWithOneTimePlans).sort(
+        (a, b) => {
+            return (
+                medicationsWithOneTimePlans[b].count -
+                medicationsWithOneTimePlans[a].count
+            );
+        }
+    );
+
+    return sortedMedicationIds.map((medicationId) => {
+        return {
+            id: medicationId,
+            count: medicationsWithOneTimePlans[medicationId].count,
+            reminders: medicationsWithOneTimePlans[medicationId].reminders,
+        };
+    });
+};
+
 export const getMedicationIdsWithMostOneTimePlans = async (reminders) => {
     const medicationsWithOneTimePlans = reminders.reduce((accumulator, reminder) => {
         if (reminder.plan === 'one-time') {
@@ -188,4 +221,3 @@ export const getMedicationIdsWithMostOneTimePlans = async (reminders) => {
         };
     });
 };
-

@@ -91,25 +91,28 @@ const CreateMedScreen = ({navigation, route}) => {
             }
         ]);
 
-        navigation.reset({
-            index: 0,
-            routes: [{ name: 'Home', key: Date.now() }],
-        });
+        // navigation.reset({
+        //     index: 0,
+        //     routes: [{ name: 'Home', key: Date.now() }],
+        // });
     }
 
-    const handleAddMedication = () => {
+    const handleAddMedication = async() => {
         checkError()
+        if(selectedMedication || title.length !== 0 && pillsInStock.length !== 0){
+            if(selectedMedication){
+                createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, selectedMedication.id);
+                reset();
+            } else if(title.length !== 0 && pillsInStock.length !== 0){
+                frequency === 'withoutReminders'
+                    ?
+                    createMed(title, pillsInStock, startDate, endDate)
+                    :
+                    createMedicationPlan(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek);
+                reset();
+            }
+            navigation.navigate('Home');
 
-        if(selectedMedication){
-            createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, selectedMedication.id);
-            reset();
-        } else if(title.length !== 0 && pillsInStock.length !== 0){
-            frequency === 'withoutReminders'
-                ?
-                createMed(title, pillsInStock, startDate, endDate)
-                :
-                createMedicationPlan(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek);
-            reset();
         }else {
             console.log('empty error')
         }

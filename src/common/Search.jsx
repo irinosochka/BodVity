@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useIsFocused} from "@react-navigation/native";
-import {retrieveMedicationsForUser} from "../services/collections";
+import {DeleteMedicationsForUser, retrieveMedicationsForUser} from "../services/collections";
 import {auth} from "../../firebase";
 import {ScrollView, StyleSheet, TextInput} from "react-native";
 import StockItem from "../components/StockComponents/StockItem";
@@ -12,6 +12,13 @@ function Search() {
 
     const [medicationItems, setMedicationItems] = useState([]);
     const isFocused = useIsFocused();
+
+    const deleteMed = async (docID, index) => {
+        const itemsCopy = [...medicationItems];
+        await DeleteMedicationsForUser(auth.currentUser.uid, docID);
+        itemsCopy.splice(index, 1);
+        setMedicationItems(itemsCopy);
+    };
 
     useEffect(() => {
         const fetchData = async () => {
@@ -39,12 +46,15 @@ function Search() {
                     else if(unit?.title?.toLowerCase().includes(title.toLowerCase())){
                         return unit;
                     }
-                }).map(unit => {
+                }).map((unit, index) => {
                     return(
-                        <StockItem medication={unit} key={unit.id} />
+                        <StockItem
+                            medication={unit}
+                            key={unit.id}
+                            deleteAction={() => deleteMed(unit.id, index)}
+                        />
                     )
-                })
-                }
+                })}
             </ScrollView>
         </>
     )

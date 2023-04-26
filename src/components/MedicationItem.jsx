@@ -14,7 +14,8 @@ import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./MedsComponents/ReminderInfoModal";
 import {DeleteReminderModal} from "./MedsComponents/DeleteReminderModal";
 
-function MedicationItem({navigation, reminder}) {
+function MedicationItem(props) {
+    const { reminder, navigation, deleteAction } = props;
 
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setShowReminderInfo ] = useState(false);
@@ -36,7 +37,6 @@ function MedicationItem({navigation, reminder}) {
     const medComplete = async () => {
         await UpdateMedicationReminderForUser(auth.currentUser.uid, reminder.medicationId, reminder.id, {
             isConfirmed: true,
-            // isMissed: false,
             updatedAt: new Date(),
         })
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
@@ -48,7 +48,6 @@ function MedicationItem({navigation, reminder}) {
     const medIncomplete = async () => {
         await UpdateMedicationReminderForUser(auth.currentUser.uid, reminder.medicationId, reminder.id, {
             isConfirmed: false,
-            // isMissed: true,
             updatedAt: new Date(),
         })
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
@@ -64,6 +63,7 @@ function MedicationItem({navigation, reminder}) {
             index: 0,
             routes: [{ name: 'Home', key: Date.now() }],
         });
+        deleteAction();
     }
 
     const handleDeleteAllReminders = async () => {
@@ -73,6 +73,7 @@ function MedicationItem({navigation, reminder}) {
             index: 0,
             routes: [{ name: 'Home', key: Date.now() }],
         });
+        deleteAction();
     }
 
     return (

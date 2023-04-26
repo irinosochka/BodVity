@@ -6,6 +6,7 @@ import {colors, FormStyles} from "../../styles/Styles";
 import Avatar from "../../common/Avatar";
 import moment from "moment";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {genderIconFunc} from "../../services/auth";
 
 
 function HeaderProfile({ user }) {
@@ -13,12 +14,7 @@ function HeaderProfile({ user }) {
     const birthdayMoment = moment.unix(birthdaySeconds);
     const age = moment().diff(birthdayMoment, 'years');
 
-    const genderIconFunc = () => {
-        if(user.gender === 'female' || user.gender === 'male')
-            return user.gender;
-        return 'transgender-outline';
-    }
-    const genderIcon = genderIconFunc();
+    const genderIcon = genderIconFunc(user.gender);
 
     return (
         <>

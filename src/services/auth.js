@@ -1,8 +1,8 @@
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth, db} from "../../firebase";
-import {doc, setDoc} from "firebase/firestore";
+import {doc, setDoc, updateDoc} from "firebase/firestore";
 
-export const createUser = async (email, password, name, avatarNumber, gender, birthday, bloodGroup) => {
+export const CreateUser = async (email, password, name, avatarNumber, gender, birthday, bloodGroup) => {
     try{
         const response = await createUserWithEmailAndPassword(auth, email, password)
         const uid = response.user.uid
@@ -18,6 +18,15 @@ export const createUser = async (email, password, name, avatarNumber, gender, bi
         const usersRef = doc(db, 'users', uid);
         await setDoc(usersRef, data);
         console.log('Registered with:', email);
+    } catch(error) {
+        alert(error.message)
+    }
+}
+
+export const UpdateUser = async (userID, updateData) => {
+    try{
+        const docRef = doc(db, 'users', userID);
+        await updateDoc(docRef, updateData);
     } catch(error) {
         alert(error.message)
     }
@@ -40,3 +49,10 @@ export const getAvatar = (avatarNumber) => {
             return require('../../assets/avatars/avatar6.png');
     }
 }
+
+export const genderIconFunc = (gender) => {
+    if(gender === 'female' || gender === 'male')
+        return gender;
+    return 'transgender-outline';
+}
+

@@ -12,10 +12,14 @@ function TopBarHome({ navigation }) {
 
     const { userData, setUserData } = useContext(UserDataContext)
 
+    const handleNavigateToProfile = () => {
+        navigation.navigate('Profile')
+    }
+
     return (
         <View style={styles.topWrapper}>
             <View style={styles.userInfo}>
-                <Avatar navigation={navigation} radius={75}/>
+                <Avatar radius={75} onPress={handleNavigateToProfile}/>
                 <View style={{marginLeft: 5}}>
                     <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
                     <Text style={styles.subtitle}>Let's check your plan</Text>

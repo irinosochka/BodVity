@@ -45,26 +45,26 @@ const ChooseAvatar = ({avatarNumber, setAvatarNumber, setPage, RegistrationLoade
 
             <View style={{...styles.registrationContainer, alignItems: 'center', marginBottom: 250}}>
                 <View style={styles.avatarContainer}>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 1 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(1)}>
+                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 0 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(0)}>
                         <Image source={imageSources[0]} style={styles.image} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 2 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(2)}>
+                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 1 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(1)}>
                         <Image source={imageSources[1]} style={styles.image} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.avatarContainer}>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 3 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(3)}>
+                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 2 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(2)}>
                         <Image source={imageSources[2]} style={styles.image} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 4 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(4)}>
+                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 3 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(3)}>
                         <Image source={imageSources[3]} style={styles.image} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.avatarContainer}>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 5 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(5)}>
+                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 4 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(4)}>
                         <Image source={imageSources[4]} style={styles.image} />
                     </TouchableOpacity>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 6 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(6)}>
+                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 5 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(5)}>
                         <Image source={imageSources[5]} style={styles.image} />
                     </TouchableOpacity>
                 </View>

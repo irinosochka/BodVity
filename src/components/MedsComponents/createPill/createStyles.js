@@ -196,4 +196,33 @@ export const CreateStyles = StyleSheet.create({
     scrollContainer:{
         height: 60,
     },
+    chooseTimeRange:{
+        height: 55,
+        width: '100%',
+        backgroundColor: colors.lightBlue,
+        marginBottom: 15,
+        borderRadius: 15,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    buttonTimeRange: {
+        height: 40,
+        width: '30%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        borderRadius: 12,
+    },
+    activeButton:{
+        backgroundColor: colors.white,
+    },
+    notActiveButton:{
+        backgroundColor: colors.lightBlue,
+    },
+    activeText:{
+        fontWeight: '600',
+    },
+    textBtn: {
+        color: colors.black,
+    },
 })

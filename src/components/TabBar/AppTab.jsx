@@ -37,8 +37,6 @@ const styles = StyleSheet.create({
 
 const Stack = createNativeStackNavigator();
 
-
-
 function HomeStack() {
     return (
         <Stack.Navigator>
@@ -53,7 +51,7 @@ function ProfileStack() {
     return (
         <Stack.Navigator>
             <Stack.Screen options={{ headerShown: false }} name="profile" component={ProfileScreen} />
-            <Stack.Screen options={{ headerShown: false }} name="personalInfo" component={PersonalInfo} />
+            <Stack.Screen options={{ headerShown: false }} name="personalInfo" component={PersonalInfo}/>
             <Stack.Screen options={{ headerShown: false }} name="yourMedications" component={ProfileScreen} />
             <Stack.Screen options={{ headerShown: false }} name="yourAppointments" component={ProfileScreen} />
         </Stack.Navigator>

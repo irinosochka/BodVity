@@ -3,7 +3,7 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import {CreateStyles} from "../../components/MedsComponents/createPill/createStyles";
-import {colors, FormStyles} from "../../styles/Styles";
+import {FormStyles} from "../../styles/Styles";
 import {auth} from "../../../firebase";
 import {useIsFocused} from "@react-navigation/native";
 import moment from "moment";
@@ -81,18 +81,18 @@ function StatisticsScreen() {
                     <View style={CreateStyles.header}>
                         <Text style={FormStyles.title}>Progress</Text>
                     </View>
-                    <View style={styles.chooseTimeRange}>
-                        <TouchableOpacity style={[styles.buttonTimeRange,  selectedRange === "week" ? styles.activeButton : styles.notActiveButton,]}
+                    <View style={CreateStyles.chooseTimeRange}>
+                        <TouchableOpacity style={[CreateStyles.buttonTimeRange,  selectedRange === "week" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
                             onPress={() => handleSelectRange("week")}>
-                            <Text style={[styles.textBtn, selectedRange === "week" && styles.activeText]}>Week</Text>
+                            <Text style={[CreateStyles.textBtn, selectedRange === "week" && CreateStyles.activeText]}>Week</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonTimeRange, selectedRange === "month" ? styles.activeButton : styles.notActiveButton,]}
+                        <TouchableOpacity style={[CreateStyles.buttonTimeRange, selectedRange === "month" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
                             onPress={() => handleSelectRange("month")}>
-                            <Text style={[styles.textBtn, selectedRange === "month" && styles.activeText]}>Months</Text>
+                            <Text style={[CreateStyles.textBtn, selectedRange === "month" && CreateStyles.activeText]}>Months</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.buttonTimeRange, selectedRange === "year" ? styles.activeButton : styles.notActiveButton,]}
+                        <TouchableOpacity style={[CreateStyles.buttonTimeRange, selectedRange === "year" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
                             onPress={() => handleSelectRange("year")}>
-                            <Text style={[styles.textBtn, selectedRange === "year" && styles.activeText]}>Year</Text>
+                            <Text style={[CreateStyles.textBtn, selectedRange === "year" && CreateStyles.activeText]}>Year</Text>
                         </TouchableOpacity>
                     </View>
                     <MainStatistics remindersInRange={remindersInRange}/>
@@ -122,33 +122,33 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 15,
     },
-    chooseTimeRange:{
-        height: 55,
-        width: '100%',
-        backgroundColor: colors.lightBlue,
-        marginBottom: 15,
-        borderRadius: 15,
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
-    },
-    buttonTimeRange: {
-        height: 40,
-        width: '30%',
-        alignItems: 'center',
-        justifyContent: 'center',
-        borderRadius: 12,
-    },
-    activeButton:{
-        backgroundColor: colors.white,
-    },
-    notActiveButton:{
-        backgroundColor: colors.lightBlue,
-    },
-    activeText:{
-        fontWeight: '600',
-    },
-    textBtn: {
-        color: colors.black,
-    },
+    // chooseTimeRange:{
+    //     height: 55,
+    //     width: '100%',
+    //     backgroundColor: colors.lightBlue,
+    //     marginBottom: 15,
+    //     borderRadius: 15,
+    //     flexDirection: 'row',
+    //     justifyContent: 'space-around',
+    //     alignItems: 'center',
+    // },
+    // buttonTimeRange: {
+    //     height: 40,
+    //     width: '30%',
+    //     alignItems: 'center',
+    //     justifyContent: 'center',
+    //     borderRadius: 12,
+    // },
+    // activeButton:{
+    //     backgroundColor: colors.white,
+    // },
+    // notActiveButton:{
+    //     backgroundColor: colors.lightBlue,
+    // },
+    // activeText:{
+    //     fontWeight: '600',
+    // },
+    // textBtn: {
+    //     color: colors.black,
+    // },
 });

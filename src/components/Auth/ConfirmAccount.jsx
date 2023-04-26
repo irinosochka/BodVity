@@ -6,16 +6,18 @@ import {colors, FormStyles} from '../../styles/Styles';
 import Icon from "react-native-vector-icons/Feather";
 import {ButtonCustom} from "../../common/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import {getAvatar} from "../../services/auth";
+import {genderIconFunc, getAvatar} from "../../services/auth";
 
 const ConfirmAccount = ({setPage, RegistrationLoader, gender, name, avatarNumber, bloodGroup, ageString, handleCreateUser}) => {
     const avatarFile = getAvatar(avatarNumber);
-    const genderIconFunc = () => {
-       if(gender === 'female' || gender === 'male')
-           return gender;
-       return 'transgender-outline';
-    }
-    const genderIcon = genderIconFunc();
+
+    // const genderIconFunc = () => {
+    //    if(gender === 'female' || gender === 'male')
+    //        return gender;
+    //    return 'transgender-outline';
+    // }
+
+    const genderIcon = genderIconFunc(gender);
 
     return (
         <>

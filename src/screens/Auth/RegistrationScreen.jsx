@@ -3,7 +3,7 @@ import {
     View
 } from 'react-native';
 import moment from "moment";
-import {createUser} from "../../services/auth";
+import {CreateUser} from "../../services/auth";
 import Registration from "../../components/Auth/Registration";
 import {colors, FormStyles} from "../../styles/Styles";
 import Gender from "../../components/Auth/Gender";
@@ -47,7 +47,7 @@ const RegistrationScreen = ({ navigation }) => {
 
     const handleCreateUser = async () => {
         try {
-            await createUser(email, password, name, avatarNumber, selectedGender, birthday, bloodGroup);
+            await CreateUser(email, password, name, avatarNumber, selectedGender, birthday, bloodGroup);
             reset();
         }catch (error){
             console.log('Error creating user:', error.message);

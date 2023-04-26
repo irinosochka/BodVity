@@ -1,13 +1,11 @@
-import {
-    StyleSheet, Text, View
-} from 'react-native';
 import React, {useEffect, useState} from 'react';
-import TopBarHome from "../components/HomeScreenComponents/TopBarHome";
+import {StyleSheet, Text, View} from "react-native";
 import {colors} from "../styles/Styles";
-import moment from "moment";
 import {useIsFocused} from "@react-navigation/native";
+import moment from "moment";
 import {auth, db} from "../../firebase";
 import {collection, getDocs, orderBy, query} from "firebase/firestore";
+import TopBarHome from "../components/HomeScreenComponents/TopBarHome";
 import CalendarComponent from "../components/MedsComponents/CalendarComponent";
 
 const styles = StyleSheet.create({
@@ -124,3 +122,4 @@ function HomeScreen({ navigation }) {
 }
 
 export default HomeScreen;
+

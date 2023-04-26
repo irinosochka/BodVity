@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {ScrollView, Text, TextInput, TouchableOpacity, View} from "react-native";
+import {Keyboard, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View} from "react-native";
 import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 import {CreateStyles} from "./createStyles";
@@ -46,8 +46,13 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, set
         return selectedItem && selectedItem.title.toLowerCase() === title.toLowerCase();
     }
 
+    const dismissKeyboard = () => {
+        Keyboard.dismiss();
+    }
+
     return (
-        <>
+        <TouchableWithoutFeedback onPress={dismissKeyboard}>
+            <>
             {
                 frequency === 'withoutReminders' ?
                     <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
@@ -124,7 +129,8 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, set
                     </View>
                 </ScrollView>
             )}
-        </>
+            </>
+        </TouchableWithoutFeedback>
     );
 }
 

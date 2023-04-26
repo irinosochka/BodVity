@@ -2,7 +2,7 @@ import React from "react";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import WelcomeScreen from "../screens/Auth/WelcomeScreen";
 import SignInScreen from "../screens/Auth/SignInScreen";
-import SignUpScreen from "../screens/Auth/SignUpScreen";
+import RegistrationScreen from "../screens/Auth/RegistrationScreen";
 
 const Stack = createNativeStackNavigator();
 
@@ -22,7 +22,7 @@ export default function AuthStack() {
                               gestureEnabled: false,
                           }}
             />
-            <Stack.Screen name="Registration" component={SignUpScreen}
+            <Stack.Screen name="Registration" component={RegistrationScreen}
                           options={{
                               headerShown: false,
                               gestureEnabled: false,

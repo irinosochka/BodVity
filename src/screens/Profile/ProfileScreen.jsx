@@ -1,5 +1,5 @@
 import {
-    StyleSheet, Text, View, TouchableOpacity,
+    StyleSheet, Text, View, TouchableOpacity, ScrollView,
 } from 'react-native';
 import React, {useContext} from 'react';
 import { signOut } from 'firebase/auth';
@@ -30,6 +30,14 @@ function ProfileScreen() {
     return (
         <View style={styles.container}>
             <View style={styles.buttonContainer}>
+                <ScrollView horizontal={true} >
+                    <Text style={styles.item}>Item 1</Text>
+                    <Text style={styles.item}>Item 2</Text>
+                    <Text style={styles.item}>Item 3</Text>
+                    <Text style={styles.item}>Item 4</Text>
+                    <Text style={styles.item}>Item 5</Text>
+                    <Text style={styles.item}>Item 6</Text>
+                </ScrollView>
                 {/*{console.log({userData})}*/}
                 <Text>Hey {userData.name}</Text>
                 <Text>Email: {userData.email}</Text>

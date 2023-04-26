@@ -17,6 +17,7 @@ export const colors = {
     gray3: "#909090",
     lightBlue: "#EBF1FC",
     lightGray: '#F7F9FB',
+    softPink: '#F4A4A4',
 };
 
 export const sizes = {
@@ -39,13 +40,12 @@ export const sizes = {
 export const FormStyles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: fullWidth,
         backgroundColor: colors.white,
     },
     containerSub: {
-        width: '80%'
+        marginTop: 42,
+        width: fullWidth,
+        paddingHorizontal: 15,
     },
     title: {
         fontSize: sizes.h1,
@@ -78,7 +78,7 @@ export const FormStyles = StyleSheet.create({
     },
     btn:{
         opacity: 0.9,
-        width: 319,
+        // width: 319,
         height: sizes.base * 3.5,
         backgroundColor: colors.primary,
         justifyContent: 'center',
@@ -94,5 +94,24 @@ export const FormStyles = StyleSheet.create({
         color: colors.accent,
         fontWeight: '500',
         fontSize: sizes.body,
+    },
+    inputContainer:{
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        height: 48,
+        marginBottom: 15,
+        backgroundColor: colors.lightBlue,
+        borderRadius: 10,
+        paddingHorizontal: 10,
+    },
+    input:{
+        width: '90%',
+        fontSize: 15,
+        color: colors.gray3,
+    },
+    errorInput:{
+        borderWidth: 1,
+        borderColor: colors.accent,
     },
 });

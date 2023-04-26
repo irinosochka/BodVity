@@ -142,6 +142,7 @@ const CreateMedScreen = ({navigation, route}) => {
         console.log(reminderTime)
     }
 
+
     Scheduling();
 
     return (
@@ -154,7 +155,7 @@ const CreateMedScreen = ({navigation, route}) => {
             </View>
 
             <View style={CreateStyles.shadowForContainer}>
-                <ScrollView >
+                <ScrollView>
                     <View style={CreateStyles.createContainer}>
                         <Text style={CreateStyles.title}>Medicine name</Text>
                         <View style={CreateStyles.zIndex}>
@@ -215,7 +216,6 @@ const CreateMedScreen = ({navigation, route}) => {
                     <View style={CreateStyles.buttonContainer}>
                         <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
                     </View>
-
                 </ScrollView>
             </View>
         </View>

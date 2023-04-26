@@ -3,7 +3,7 @@ import { UserDataContext } from "../context/UserDataContext";
 import { StyleSheet, TouchableOpacity, Image } from "react-native";
 import {colors} from "../styles/Styles";
 
-function Avatar({ navigation }) {
+function Avatar({ navigation, radius}) {
     const { userData, setUserData } = useContext(UserDataContext);
 
     let imageSource;
@@ -30,7 +30,7 @@ function Avatar({ navigation }) {
     }
 
     return (
-        <TouchableOpacity style={styles.avatar} onPress={() => navigation.navigate('Profile')}>
+        <TouchableOpacity style={{...styles.avatar, width: radius, height: radius, borderRadius: radius/2}} onPress={() => navigation.navigate('Profile')}>
             <Image source={imageSource} style={styles.image} />
         </TouchableOpacity>
     );
@@ -41,9 +41,9 @@ export default Avatar;
 
 const styles = StyleSheet.create({
     avatar: {
-        width: 60,
-        height: 60,
-        borderRadius: 30,
+        // width: 80,
+        // height: 80,
+        // borderRadius: 40,
         overflow: "hidden",
         backgroundColor: colors.lightBlue
     },

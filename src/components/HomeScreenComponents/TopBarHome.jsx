@@ -15,7 +15,7 @@ function TopBarHome({ navigation }) {
     return (
         <View style={styles.topWrapper}>
             <View style={styles.userInfo}>
-                <Avatar navigation={navigation} />
+                <Avatar navigation={navigation} radius={75}/>
                 <View style={{marginLeft: 5}}>
                     <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
                     <Text style={styles.subtitle}>Let's check your plan</Text>

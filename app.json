@@ -4,7 +4,7 @@
     "slug": "BodVity",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/iconHart.png",
+    "icon": "./assets/iconApp.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -23,7 +23,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/iconHart.png",
+        "foregroundImage": "./assets/iconApp.png",
         "backgroundColor": "#FFFFFF"
       },
       "package": "BodVity.apk"

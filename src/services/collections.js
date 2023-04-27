@@ -4,12 +4,15 @@ import {
     deleteDoc,
     doc,
     getDoc,
-    getDocs, orderBy, query,
+    getDocs, orderBy, query, serverTimestamp, Timestamp,
     updateDoc,
 } from 'firebase/firestore';
 import {auth, db} from '../../firebase';
 import moment from "moment";
-import {deletePushNotification} from "./pushNotifications";
+import {
+    deletePushNotification,
+    schedulePushNotificationAppointment
+} from "./pushNotifications";
 
 class Medication {
     constructor (title, pillsInStock, createdAt, startDate, endDate, updatedAt) {
@@ -221,3 +224,22 @@ export const getMedicationIdsWithMostOneTimePlans = async (reminders) => {
         };
     });
 };
+
+//appointments
+
+export const createAppointment = async (userID, title, note, dateAppointment, dateNotification ) => {
+    const userMedicationsRef = collection(db, 'users', userID, 'appointments')
+    let notificationId = null;
+    if(dateNotification > new Date()){
+        notificationId = await schedulePushNotificationAppointment(dateNotification, title)
+    }
+    const medicationDocument = {
+        createdAt: serverTimestamp(),
+        title: title,
+        note: note,
+        appointmentDate: Timestamp.fromDate(dateAppointment),
+        notificationDate: Timestamp.fromDate(dateNotification),
+        notificationId: notificationId
+    }
+    return await addDoc(userMedicationsRef, medicationDocument);
+}

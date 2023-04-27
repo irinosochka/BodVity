@@ -11,6 +11,7 @@ import VariantOfMedsForAdded from "../MedsComponents/VariantOfMedsForAdded";
 import CreateMedScreen from "../MedsComponents/createPill/CreateMedScreen";
 import StatisticsScreen from "../../screens/Statistics/StatisticsScreen";
 import PersonalInfo from "../Profile/PersonalInfo";
+import CreateAppointmentScreen from "../MedsComponents/createAppointment/CreateAppointmentScreen";
 
 const styles = StyleSheet.create({
     container: {
@@ -64,6 +65,7 @@ function CreateMedsStack() {
             <Stack.Screen options={{ headerShown: false }} name="createRegularMed" component={CreateMedScreen}  initialParams={{ frequency: 'regular' }}/>
             <Stack.Screen options={{ headerShown: false }} name="createOneTimeMed" component={CreateMedScreen}  initialParams={{ frequency: 'one-time' }}/>
             <Stack.Screen options={{ headerShown: false }} name="addMedToStock" component={CreateMedScreen}  initialParams={{ frequency: 'withoutReminders' }}/>
+            <Stack.Screen options={{ headerShown: false }} name="createAppointment" component={CreateAppointmentScreen} />
             <Stack.Screen options={{ headerShown: false }} name="Home" component={HomeScreen} />
         </Stack.Navigator>
     );

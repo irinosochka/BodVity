@@ -97,36 +97,24 @@ export async function refillNotification() {
     });
 }
 
-// export async function registerForPushNotificationsAsync() {
-//     let token;
-//     if (Constants.isDevice) {
-//         const { status: existingStatus } = await Notifications.getPermissionsAsync();
-//         let finalStatus = existingStatus;
-//         if (existingStatus !== 'granted') {
-//             const { status } = await Notifications.requestPermissionsAsync();
-//             finalStatus = status;
-//         }
-//         if (finalStatus !== 'granted') {
-//             alert('Please turn on notification!')
-//             return;
-//         }
-//         token = (await Notifications.getExpoPushTokenAsync()).data;
-//         console.log(token);
-//     } else {
-//         alert('Push notifications don\'t work on simulators/emulators. Please use physical device');
-//     }
-//
-//     if (Platform.OS === 'android') {
-//         await Notifications.setNotificationChannelAsync('default', {
-//             pill: 'default',
-//             importance: Notifications.AndroidImportance.MAX,
-//             vibrationPattern: [0, 250, 250, 250],
-//             lightColor: '#FF231F7C',
-//         });
-//     }
-//
-//     return token;
-// }
+export async function schedulePushNotificationAppointment(date, appointmentTitle) {
+
+    const scheduledDate = new Date(date);
+    scheduledDate.setSeconds(0);
+
+    return await Notifications.scheduleNotificationAsync({
+        content: {
+            sound: 'default',
+            title: "BodVity",
+            body: 'Just a reminder that your appointment ' + appointmentTitle + ' is coming up soon.',
+            data: {data: 'goes here'},
+        },
+        trigger: {
+            date: scheduledDate,
+            repeats: false,
+        },
+    });
+}
 
 export const registerForPushNotificationsAsync = async () => {
     let token;

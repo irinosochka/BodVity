@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "react-native-vector-icons/Feather";
 import {CreateStyles} from "./createStyles";
 
-const Alarm = ({isAlarm, setIsAlarm}) => {
+const Alarm = ({isAlarm, setIsAlarm, text = 'Notification'}) => {
 
     return (
         <View style={{marginBottom: 10}}>
@@ -16,7 +16,7 @@ const Alarm = ({isAlarm, setIsAlarm}) => {
                         {isAlarm ? <Icon name="check" size={23} color="white" /> : null}
                     </View>
                 </TouchableOpacity>
-                <Text style={CreateStyles.checkText}>Notification</Text>
+                <Text style={CreateStyles.checkText}>{text}</Text>
             </View>
         </View>
     );

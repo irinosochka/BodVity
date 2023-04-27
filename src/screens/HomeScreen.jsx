@@ -48,7 +48,6 @@ const styles = StyleSheet.create({
         color: colors.primary
     },
     journalTextContainer: {
-        // position: "sticky",
         top: 25,
         left: 20,
         right: 0,
@@ -56,6 +55,7 @@ const styles = StyleSheet.create({
     },
     journalText: {
         fontWeight: '700',
-        fontSize: 14
+        fontSize: 14,
+        color: colors.black,
     }
 });

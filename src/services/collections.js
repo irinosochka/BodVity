@@ -239,7 +239,24 @@ export const createAppointment = async (userID, title, note, dateAppointment, da
         note: note,
         appointmentDate: Timestamp.fromDate(dateAppointment),
         notificationDate: Timestamp.fromDate(dateNotification),
-        notificationId: notificationId
+        notificationId: notificationId,
+        isConfirmed: false,
     }
     return await addDoc(userMedicationsRef, medicationDocument);
 }
+
+export const retrieveAppointmentsForUser = async (user) => {
+    const collectionRef = collection(db, 'users', user.uid, 'appointments');
+    const allAppointmentsSnapshot = await getDocs(collectionRef);
+    const data = allAppointmentsSnapshot.docs.map((appointmentDoc) => {
+        const dataItem = appointmentDoc.data();
+        dataItem.id = appointmentDoc.id;
+        return dataItem;
+    });
+    return data;
+};
+
+export const UpdateAppointmentForUser = async (userID, appointmentID, updateData) => {
+    const docRef = doc(db, 'users', userID, 'appointments', appointmentID);
+    await updateDoc(docRef, updateData);
+};

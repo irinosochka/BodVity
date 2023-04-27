@@ -11,11 +11,11 @@ import {auth} from "../../../firebase";
 const styles = StyleSheet.create({
     items: {
         marginTop: 10,
-        height: '95%',
     }
 });
 
 function MedicationOfDay({navigation, medicationsOfDay, setMedicationsOfDay}) {
+
 
     const deleteReminder = async (docID, index) => {
         const itemsCopy = [...medicationsOfDay];

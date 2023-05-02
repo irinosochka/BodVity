@@ -5,13 +5,15 @@ import {
 import {colors, FormStyles} from '../../styles/Styles';
 import Icon from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {useTranslation} from "react-i18next";
 
 const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}) => {
+    const { t } = useTranslation();
     const colorActive = colors.primary;
     const noActive = "#d7e4fa";
 
     const handleNext = () => {
-        selectedGender !== ''? setPage(3) : alert("Please choose your Gender.");
+        selectedGender !== ''? setPage(3) : alert(t('alarmNotSelectedGender'));
     }
 
     const handleSelectGender = (gender) => {
@@ -32,8 +34,8 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
             <RegistrationLoader completed={'20%'} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>What's your gender?</Text>
-                <Text style={styles.subtitle}>To give you a better experiences we need to know your Gender</Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourGender')}</Text>
+                <Text style={styles.subtitle}>{t('genderInfo')}</Text>
             </View>
 
 
@@ -47,7 +49,7 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
                         <Ionicons name="male" size={100} color={selectedGender === 'male' ? colorActive : noActive} />
                         <Text style={[styles.genderName,
                             selectedGender === 'male' ? {color: colorActive} : {color: noActive}]}
-                        >Male</Text>
+                        >{t('male')}</Text>
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={[styles.genderCircle,
@@ -57,7 +59,7 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
                         <Ionicons name="female" size={100} color={selectedGender === 'female' ? colorActive : noActive} />
                         <Text style={[styles.genderName,
                             selectedGender === 'female' ? {color: colorActive} : {color: noActive}]}
-                        >Female</Text>
+                        >{t('female')}</Text>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity
@@ -68,7 +70,7 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
                     <Ionicons name="transgender-outline" size={100} color={selectedGender === 'transgender' ? colorActive : noActive} />
                     <Text style={[styles.genderName,
                         selectedGender === 'transgender' ? {color: colorActive} : {color: noActive}]}
-                    >Transgender</Text>
+                    >{t('transgender')}</Text>
                 </TouchableOpacity>
             </View>
         </>

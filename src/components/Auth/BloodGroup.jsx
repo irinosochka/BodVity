@@ -4,15 +4,16 @@ import {
 } from 'react-native';
 import {colors, FormStyles} from '../../styles/Styles';
 import Icon from "react-native-vector-icons/Feather";
+import {useTranslation} from "react-i18next";
 
 const BloodGroup = ({bloodGroup, setBloodGroup, setPage, RegistrationLoader}) => {
-
+    const { t } = useTranslation();
     const handleSelectBloodGroup = (group) => {
         setBloodGroup(group);
     };
 
     const handleNext = () => {
-        bloodGroup.length !== 0 ? setPage(5) : alert("Please choose your Blood Group.");
+        bloodGroup.length !== 0 ? setPage(5) : alert(t('AlarmBloodGroup'));
     }
 
     return (
@@ -29,8 +30,8 @@ const BloodGroup = ({bloodGroup, setBloodGroup, setPage, RegistrationLoader}) =>
             <RegistrationLoader completed={'60%'} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>Select your Blood Group</Text>
-                <Text style={styles.subtitle}>Blood groups play an important role in healthcare and medical treatment. </Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourBloodGroup')}</Text>
+                <Text style={styles.subtitle}>{t('bloodGroupInfo')}</Text>
             </View>
 
 

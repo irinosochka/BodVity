@@ -7,15 +7,11 @@ import Icon from "react-native-vector-icons/Feather";
 import {ButtonCustom} from "../../common/Button";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {genderIconFunc, getAvatar} from "../../services/auth";
+import {useTranslation} from "react-i18next";
 
 const ConfirmAccount = ({setPage, RegistrationLoader, gender, name, avatarNumber, bloodGroup, ageString, handleCreateUser}) => {
+    const { t } = useTranslation();
     const avatarFile = getAvatar(avatarNumber);
-
-    // const genderIconFunc = () => {
-    //    if(gender === 'female' || gender === 'male')
-    //        return gender;
-    //    return 'transgender-outline';
-    // }
 
     const genderIcon = genderIconFunc(gender);
 
@@ -30,8 +26,8 @@ const ConfirmAccount = ({setPage, RegistrationLoader, gender, name, avatarNumber
             <RegistrationLoader completed={'100%'} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>Confirm your user card</Text>
-                <Text style={styles.subtitle}>By clicking the button below, you agree with Terms of Service.</Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('confirmUserCard')}</Text>
+                <Text style={styles.subtitle}>{t('userCardInfo')}</Text>
             </View>
 
             <View style={{alignItems: 'center', marginTop: 40}}>
@@ -45,17 +41,17 @@ const ConfirmAccount = ({setPage, RegistrationLoader, gender, name, avatarNumber
                     </View>
                     <View style={styles.rowContainer}>
                         <View style={{alignItems: 'center'}}>
-                            <Text style={styles.title}>Blood Type:</Text>
+                            <Text style={styles.title}>{t('bloodGroup') + ":"}</Text>
                             <Text style={styles.valueText}>{bloodGroup}</Text>
                         </View>
                         <View style={{alignItems: 'center'}}>
-                            <Text style={styles.title}>Age:</Text>
-                            <Text style={styles.valueText}>{ageString + ' years'}</Text>
+                            <Text style={styles.title}>{t('age') + ':'}</Text>
+                            <Text style={styles.valueText}>{ageString + ' ' + t('years')}</Text>
                         </View>
                     </View>
                 </View>
 
-                <ButtonCustom buttonText={'Create Account'} width={'80%'} onPress={handleCreateUser}/>
+                <ButtonCustom buttonText={t('createAccountBtn')} width={'80%'} onPress={handleCreateUser}/>
             </View>
         </>
     );

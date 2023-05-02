@@ -1,0 +1,60 @@
+{
+  "welcome": "Take care of your health",
+  "YourHealth." : "Your Health.",
+  "login" : "Sign in",
+  "loginBtn": "Log in",
+  "registration" : "Registration",
+  "loginInfo": "Please enter email and password for login",
+  "registrationInfo": "Please enter your name and email for verification.",
+  "registrationInfo2": "Password must be at least 8 characters",
+  "email": "Email",
+  "password": "Password",
+  "newInApp": "New to BodVity? Register",
+  "confirmPassword": "Confirm Password",
+  "name": "Name",
+  "haveAccount": "Join us before? Login",
+  "yourGender": "What's your gender?",
+  "genderInfo": "To give you a better experiences we need to know your Gender",
+  "male": "Male",
+  "female": "Female",
+  "transgender": "Transgender",
+  "alarmFutureBirthday": "Please select a past date.",
+  "AlarmLessThan11": "You must be at least 11 years old to use this program.",
+  "alarmNotSelectedGender": "Please choose your Gender.",
+  "yourAge": "How old are you?",
+  "ageInfo": "Some notifications depend on it",
+  "years": "years",
+  "jan": "Jan",
+  "feb": "Feb",
+  "mar": "Mar",
+  "apr": "Apr",
+  "may": "May",
+  "jun": "Jun",
+  "jul": "Jul",
+  "aug": "Aug",
+  "sep": "Sep",
+  "oct": "Oct",
+  "nov": "Nov",
+  "dec": "Dec",
+  "AlarmBloodGroup": "Please choose your Blood Group.",
+  "yourBloodGroup": "Select your Blood Group",
+  "bloodGroupInfo": "Blood groups play an important role in healthcare and medical treatment.",
+  "alarmAvatar": "Please choose your avatar.",
+  "yourAvatar": "Choose your avatar",
+  "avatarInfo": "Select the most similar avatar for your profile",
+  "confirmUserCard": "Confirm your user card",
+  "userCardInfo": "By clicking the button below, you agree with Terms of Service.",
+  "bloodGroup": "Blood Group",
+  "age": "Age",
+  "createAccountBtn": "Create Account",
+
+
+
+
+
+
+
+
+  "end": "end"
+
+}

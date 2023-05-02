@@ -8,9 +8,11 @@ import {
 import {colors, FormStyles, sizes} from '../../styles/Styles';
 import {ButtonCustom} from "../../common/Button";
 import Icon from "react-native-vector-icons/Feather";
+import {useTranslation} from "react-i18next";
 
 
 const Registration = ({ navigation, name, email, password, confirmPassword, setName, setEmail, setPassword, setConfirmPassword, setPage}) => {
+    const { t } = useTranslation();
     const [errorName, setErrorName] = useState(false);
     const [errorEmail, setErrorEmail] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
@@ -40,14 +42,14 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
                <Icon name="arrow-left" size={35} color={colors.gray} />
            </TouchableOpacity>
            <View style={{marginTop: '30%' }}>
-               <Text style={FormStyles.title}>Registration</Text>
-               <Text style={{...styles.registrationInfo, marginTop: 8}}>Please enter your name and email for verification.</Text>
-               <Text style={styles.registrationInfo}>Password must be at least 8 characters</Text>
+               <Text style={FormStyles.title}>{t('registration')}</Text>
+               <Text style={{...styles.registrationInfo, marginTop: 8}}>{t('registrationInfo')}</Text>
+               <Text style={styles.registrationInfo}>{t('registrationInfo2')}</Text>
                <View style={styles.inputsContainer}>
                    <View style={errorName ? {...FormStyles.inputContainer, ...FormStyles.errorInput} : FormStyles.inputContainer}>
                                 <TextInput
                                     style={FormStyles.input}
-                                    placeholder="Name"
+                                    placeholder={t('name')}
                                     onChangeText={(value) => {
                                         setName(value);
                                         if (value.length > 0) {
@@ -60,7 +62,7 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
                    <View style={errorEmail ? {...FormStyles.inputContainer, ...FormStyles.errorInput} : FormStyles.inputContainer}>
                                 <TextInput
                                     style={FormStyles.input}
-                                    placeholder="Email"
+                                    placeholder={t('email')}
                                     onChangeText={(value) => {
                                         setEmail(value);
                                         if (value.length > 0) {
@@ -77,7 +79,7 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
                    <View style={errorPassword ? {...FormStyles.inputContainer, ...FormStyles.errorInput} : FormStyles.inputContainer}>
                                 <TextInput
                                     style={FormStyles.input}
-                                    placeholder="Password"
+                                    placeholder={t('password')}
                                     onChangeText={(value) => {
                                         setPassword(value);
                                         if (value.length > 0) {
@@ -95,7 +97,7 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
                    <View style={errorConfirmPassword ? {...FormStyles.inputContainer, ...FormStyles.errorInput} : FormStyles.inputContainer}>
                                 <TextInput
                                     style={FormStyles.input}
-                                    placeholder="Confirm Password"
+                                    placeholder={t('confirmPassword')}
                                     onChangeText={(value) => {
                                         setConfirmPassword(value);
                                         if (value.length > 0) {
@@ -112,13 +114,13 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
                             </View>
                </View>
                <View style={styles.container3}>
-                   <ButtonCustom buttonText={'Proceed'} onPress={signUpUser} width={'100%'}/>
+                   <ButtonCustom buttonText={t('registrationBtn')} onPress={signUpUser} width={'100%'}/>
                    <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
                        <TouchableOpacity
                            style={{ marginLeft: 4 }}
                            onPress={() => navigation.navigate('Welcome')}
                        >
-                           <Text style={styles.btnLogin}>Join us before? Login</Text>
+                           <Text style={styles.btnLogin}>{t('haveAccount')}</Text>
                        </TouchableOpacity>
                    </View>
                </View>

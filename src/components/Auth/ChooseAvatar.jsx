@@ -4,14 +4,16 @@ import {
 } from 'react-native';
 import {colors, FormStyles} from '../../styles/Styles';
 import Icon from "react-native-vector-icons/Feather";
+import {useTranslation} from "react-i18next";
 const ChooseAvatar = ({avatarNumber, setAvatarNumber, setPage, RegistrationLoader, }) => {
+    const { t } = useTranslation();
 
     const handleSelectAvatarNumber = (number) => {
         setAvatarNumber(number);
     };
 
     const handleNext = () => {
-        avatarNumber.length !== 0 ? setPage(6) : alert("Please choose your avatar.");
+        avatarNumber.length !== 0 ? setPage(6) : alert(t('alarmAvatar'));
     }
 
     let imageSources = [
@@ -38,8 +40,8 @@ const ChooseAvatar = ({avatarNumber, setAvatarNumber, setPage, RegistrationLoade
             <RegistrationLoader completed={'80%'} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>Choose your avatar</Text>
-                <Text style={styles.subtitle}>Select the most similar avatar for your profile</Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAvatar')}</Text>
+                <Text style={styles.subtitle}>{t('avatarInfo')}</Text>
             </View>
 
 

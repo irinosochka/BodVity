@@ -8,9 +8,11 @@ import {
 import {colors, FormStyles, sizes} from '../../styles/Styles';
 import {ButtonCustom} from "../../common/Button";
 import Icon from "react-native-vector-icons/Feather";
+import {useTranslation} from "react-i18next";
 
 
 const SignIn = ({ navigation, email, password, setEmail, setPassword, handleSignIn}) => {
+    const { t } = useTranslation();
     const [errorEmail, setErrorEmail] = useState(false);
     const [errorPassword, setErrorPassword] = useState(false);
 
@@ -35,13 +37,13 @@ const SignIn = ({ navigation, email, password, setEmail, setPassword, handleSign
                 <Icon name="arrow-left" size={35} color={colors.gray} />
             </TouchableOpacity>
             <View style={{marginTop: '30%' }}>
-                <Text style={FormStyles.title}>Sign In</Text>
-                <Text style={{...styles.registrationInfo, marginTop: 8, marginBottom: 20}}>Please enter email and password for login</Text>
+                <Text style={FormStyles.title}>{t('login')}</Text>
+                <Text style={{...styles.registrationInfo, marginTop: 8, marginBottom: 20}}>{t('loginInfo')}</Text>
                 <View style={styles.inputsContainer}>
                     <View style={errorEmail ? {...FormStyles.inputContainer, ...FormStyles.errorInput} : FormStyles.inputContainer}>
                         <TextInput
                             style={FormStyles.input}
-                            placeholder="Email"
+                            placeholder={t('email')}
                             onChangeText={(value) => {
                                 setEmail(value);
                                 if (value.length > 0) {
@@ -58,7 +60,7 @@ const SignIn = ({ navigation, email, password, setEmail, setPassword, handleSign
                     <View style={errorPassword ? {...FormStyles.inputContainer, ...FormStyles.errorInput} : FormStyles.inputContainer}>
                         <TextInput
                             style={FormStyles.input}
-                            placeholder="Password"
+                            placeholder={t('password')}
                             onChangeText={(value) => {
                                 setPassword(value);
                                 if (value.length > 0) {
@@ -75,13 +77,13 @@ const SignIn = ({ navigation, email, password, setEmail, setPassword, handleSign
                     </View>
                 </View>
                 <View style={styles.container3}>
-                    <ButtonCustom buttonText={'Proceed'} onPress={signInUser} width={'100%'}/>
+                    <ButtonCustom buttonText={t('loginBtn')} onPress={signInUser} width={'100%'}/>
                     <View style={{flexDirection: 'row', justifyContent: 'center', alignItems: 'center', marginVertical: 10}}>
                         <TouchableOpacity
                             style={{ marginLeft: 4 }}
                             onPress={() => navigation.navigate('Welcome')}
                         >
-                            <Text style={styles.btnLogin}>New to BodVity? Register</Text>
+                            <Text style={styles.btnLogin}>{t('newInApp')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

@@ -6,6 +6,7 @@ import {
 
 import {FormStyles, colors, sizes} from '../../styles/Styles';
 import {ButtonCustom} from "../../common/Button";
+import {useTranslation} from "react-i18next";
 
 const { width, height } = Dimensions.get('window');
 const defaultProps = {
@@ -17,6 +18,7 @@ const defaultProps = {
 };
 
 export default function WelcomeScreen( {navigation} ) {
+    const { t } = useTranslation();
 
     const [showTerms, setShowTerms] = useState(false);
 
@@ -135,11 +137,12 @@ export default function WelcomeScreen( {navigation} ) {
         <View style={styles.container}>
             <View style={styles.container1}>
                 <Text style={{fontSize: sizes.h1, textAlign: "center", fontWeight: "bold"}}>
-                    Your Health.
+                    {t('YourHealth.')}
                     <Text style={{fontSize: sizes.h1, color: colors.primary}}> BodVity. </Text>
                 </Text>
                 <Text style={{fontSize: sizes.h3, color: colors.gray2, marginTop: sizes.padding / 2}}>
-                    Take care of your health
+                    {/*Take care of your health*/}
+                    {t('welcome')}
                 </Text>
             </View>
 
@@ -149,9 +152,9 @@ export default function WelcomeScreen( {navigation} ) {
             </View>
 
             <View style={styles.container3}>
-                <ButtonCustom buttonText={'Sign In'} onPress={() => navigation.navigate('SignIn')} />
+                <ButtonCustom buttonText={t('login')} onPress={() => navigation.navigate('SignIn')} />
                 <View style={{marginBottom: 10}} />
-                <ButtonCustom buttonText={'Registration'} onPress={() => navigation.navigate('Registration')} isShadow={true} />
+                <ButtonCustom buttonText={t('registration')} onPress={() => navigation.navigate('Registration')} isShadow={true} />
                 <TouchableOpacity onPress={() => setShowTerms(true)}>
                     <Text style={styles.txtTerms}>Terms of Service </Text>
                 </TouchableOpacity>

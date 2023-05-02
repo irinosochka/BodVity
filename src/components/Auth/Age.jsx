@@ -4,23 +4,28 @@ import {colors, FormStyles} from "../../styles/Styles";
 import Icon from "react-native-vector-icons/Feather";
 import {Picker} from '@react-native-picker/picker';
 import moment from "moment";
+import {useTranslation} from "react-i18next";
 
-const monthNames = [  "Jan",  "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug",  "Sep",  "Oct",  "Nov",  "Dec",];
+//const monthNames = [  "Jan",  "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug",  "Sep",  "Oct",  "Nov",  "Dec",];
+//const monthNames = [ t('jan'), t('feb'), t('mar'), t('apr'), t('may'), t('jun'), t('jul'), t('aug'), t('sep'), t('oct'), t('nov'), t('dec'),];
 
 const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, setAgeString }) => {
+    const { t } = useTranslation();
+    const monthNames = [ t('jan'), t('feb'), t('mar'), t('apr'), t('may'), t('jun'), t('jul'), t('aug'), t('sep'), t('oct'), t('nov'), t('dec'),];
+
     const [day, setDay] = useState(birthday.format('DD'));
-    const [month, setMonth] = useState(monthNames[birthday.month()]);
+    const [month, setMonth] = useState(birthday.month());
     const [year, setYear] = useState(birthday.format('YYYY'));
 
     const handleNext = () => {
-        const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-MMM-DD');
+        const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-M-D');
         const currentDate = new Date();
         const minDate = new Date(currentDate.getFullYear() - 11, currentDate.getMonth(), currentDate.getDate());
         if (selectedDate > currentDate) {
-            alert("Please select a past date.");
+            alert(t('alarmFutureBirthday'));
             return;
         } else if (selectedDate > minDate) {
-            alert("You must be at least 11 years old to use this program.");
+            alert(t('AlarmLessThan11'));
             return;
         }
         setBirthday(selectedDate);
@@ -28,15 +33,15 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
     };
 
     const handlePrevious = () => {
-        const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-MMM-DD');
+        const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-M-D');
         setBirthday(selectedDate);
         setPage(2);
     };
 
     useEffect(() => {
-        const ageDiff = moment().diff(moment(`${month} ${day}, ${year}`, 'MMM DD, YYYY'), 'years')
+        const ageDiff = moment().diff(moment(`${year}-${month}-${day}`, 'YYYY-M-D'), 'years')
         setAgeString(ageDiff);
-        const lastDay = new Date(year, new Date(month + " 1, " + year).getMonth() + 1, 0).getDate();
+        const lastDay = new Date(year, month + 1, 0).getDate();
         if (lastDay < Number(day)) {
             setDay(String(lastDay));
         }
@@ -60,14 +65,12 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
             <RegistrationLoader completed={"40%"} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>How old are you?</Text>
-                <Text style={styles.subtitle}>Some notifications depend on it</Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAge')}</Text>
+                <Text style={styles.subtitle}>{t('ageInfo')}</Text>
             </View>
 
             <View style={styles.registrationContainer}>
-                <Text style={styles.ageText}>{ageString + ' years'}</Text>
-                {/*<Text style={styles.ageText}>{age + ' years'}</Text>*/}
-
+                <Text style={styles.ageText}>{ageString + ' ' + t('years')}</Text>
                 <View style={styles.pickersContainer}>
                     <Picker
                         style={{width: '25%'}}

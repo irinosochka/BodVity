@@ -35,17 +35,17 @@ export const UpdateUser = async (userID, updateData) => {
 export const getAvatar = (avatarNumber) => {
 
     switch(avatarNumber) {
-        case 1:
+        case 0:
             return require('../../assets/avatars/avatar1.png');
-        case 2:
+        case 1:
             return require('../../assets/avatars/avatar2.png');
-        case 3:
+        case 2:
             return require('../../assets/avatars/avatar3.png');
-        case 4:
+        case 3:
             return require('../../assets/avatars/avatar4.png');
-        case 5:
+        case 4:
             return require('../../assets/avatars/avatar5.png');
-        case 6:
+        case 5:
             return require('../../assets/avatars/avatar6.png');
     }
 }

@@ -112,7 +112,9 @@ export const UpdateMedicationReminderForUser = async (userID, medicationID, remi
 
 export const deleteOneReminder = async (userID, medicationID, reminderID, notificationID) => {
     const reminderDocRef = doc(db, 'users', auth.currentUser.uid, 'medications', medicationID.toString(), 'reminders', reminderID);
-    await deletePushNotification(notificationID);
+    if(notificationID !== null){
+        await deletePushNotification(notificationID);
+    }
     await deleteDoc(reminderDocRef);
 }
 
@@ -128,7 +130,9 @@ export const deleteReminders = async (userID, medicationID, date) => {
         const doc = querySnapshot.docs[i];
         const reminderData = doc.data();
         if (reminderData.createdAt.seconds === date.seconds && reminderData.timestamp.seconds > now.seconds) {
-            await deletePushNotification(reminderData.notificationId);
+            if(reminderData.notificationId !== null){
+                await deletePushNotification(reminderData.notificationId);
+            }
             await deleteDoc(doc.ref);
         }
     }

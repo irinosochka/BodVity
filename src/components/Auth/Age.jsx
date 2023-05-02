@@ -34,10 +34,8 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
     };
 
     useEffect(() => {
-        const birthDate = new Date(`${month} ${day}, ${year}`);
-        const ageDiff = Date.now() - birthDate.getTime();
-        const ageDate = new Date(ageDiff);
-        setAgeString(Math.abs(ageDate.getUTCFullYear() - 1970));
+        const ageDiff = moment().diff(moment(`${month} ${day}, ${year}`, 'MMM DD, YYYY'), 'years')
+        setAgeString(ageDiff);
         const lastDay = new Date(year, new Date(month + " 1, " + year).getMonth() + 1, 0).getDate();
         if (lastDay < Number(day)) {
             setDay(String(lastDay));
@@ -68,10 +66,11 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
 
             <View style={styles.registrationContainer}>
                 <Text style={styles.ageText}>{ageString + ' years'}</Text>
+                {/*<Text style={styles.ageText}>{age + ' years'}</Text>*/}
 
                 <View style={styles.pickersContainer}>
                     <Picker
-                        style={{width: '30%'}}
+                        style={{width: '25%'}}
                         selectedValue={day}
                         onValueChange={(value) => setDay(value)}
                     >
@@ -80,7 +79,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
                         ))}
                     </Picker>
                     <Picker
-                        style={{ width: '30%' }}
+                        style={{ width: '32%' }}
                         selectedValue={month}
                         onValueChange={(value) => setMonth(value)}
                     >
@@ -89,7 +88,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
                         ))}
                     </Picker>
                     <Picker
-                        style={{width: '30%'}}
+                        style={{width: '32%'}}
                         selectedValue={year}
                         onValueChange={(value) => setYear(value)}
                     >

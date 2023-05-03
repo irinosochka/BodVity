@@ -33,7 +33,7 @@ function HeaderProfile({ user }) {
             <View style={{...styles.userInfoContainer, justifyContent: 'space-between',}}>
                 <View style={styles.infoItem}>
                     <Text style={styles.infoTitle}>{t('age')}</Text>
-                    <Text style={styles.infoValue}>{age+ ' years'}</Text>
+                    <Text style={styles.infoValue}>{age+ ' ' + t('years')}</Text>
                 </View>
                 <View style={styles.infoItem}>
                     <Text style={styles.infoTitle}>{t('bloodGroup')}</Text>

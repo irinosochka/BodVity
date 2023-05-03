@@ -65,6 +65,12 @@ function ProfileScreen({navigation}) {
                         </View>
                         <Icon name="chevron-right" size={20} color={colors.primary} />
                     </TouchableOpacity>
+                    <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('changeLanguage')}>
+                        <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                            <Ionicons name="language-outline" size={20} color={colors.primary} />
+                            <Text style={styles.textBtnMenu}>{t('changeLanguage')}</Text>
+                        </View>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.itemMenu} onPress={handleCancelAllNotification}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Ionicons name="notifications-off-outline" size={20} color={colors.primary} />

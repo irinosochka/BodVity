@@ -12,6 +12,7 @@ import CreateMedScreen from "../MedsComponents/createPill/CreateMedScreen";
 import StatisticsScreen from "../../screens/Statistics/StatisticsScreen";
 import PersonalInfo from "../Profile/PersonalInfo";
 import CreateAppointmentScreen from "../MedsComponents/createAppointment/CreateAppointmentScreen";
+import ChangeLanguage from "../Profile/ChangeLanguage";
 
 const styles = StyleSheet.create({
     container: {
@@ -54,6 +55,7 @@ function ProfileStack() {
             <Stack.Screen options={{ headerShown: false }} name="personalInfo" component={PersonalInfo}/>
             <Stack.Screen options={{ headerShown: false }} name="yourMedications" component={StockScreen} />
             <Stack.Screen options={{ headerShown: false }} name="yourAppointments" component={ProfileScreen} />
+            <Stack.Screen options={{ headerShown: false }} name="changeLanguage" component={ChangeLanguage} />
         </Stack.Navigator>
     );
 }

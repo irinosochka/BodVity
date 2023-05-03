@@ -130,5 +130,7 @@
   "timeSmall": "time",
   "deleteOneBtn": "Delete one",
   "deleteAllBtn": "Delete all",
-  "deleteQuestion": "Do you want delete all plan of this medication or only this one reminder?"
+  "deleteQuestion": "Do you want delete all plan of this medication or only this one reminder?",
+  "changeLanguage": "Change Language",
+  "changeLanguageInfo": "Select your preferred language from the options below to use the app in a language you're most comfortable with."
 }

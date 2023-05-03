@@ -130,5 +130,7 @@
   "timeSmall": "czas",
   "deleteOneBtn": "Usuń jedno",
   "deleteAllBtn": "Usuń wszystkie",
-  "deleteQuestion": "Czy chcesz usunąć wszystkie przypomnienia tego leku czy tylko jedno?"
+  "deleteQuestion": "Czy chcesz usunąć wszystkie przypomnienia tego leku czy tylko jedno?",
+  "changeLanguage": "Zmień język aplikacji",
+  "changeLanguageInfo": "Wybierz preferowany język z poniższych opcji, aby korzystać z aplikacji w języku, w którym jest Ci najwygodniej."
 }

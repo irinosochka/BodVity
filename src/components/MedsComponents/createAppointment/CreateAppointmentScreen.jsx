@@ -10,8 +10,10 @@ import DataAndTime from "./DataAndTime";
 import Alarm from "../createPill/Alarm";
 import {createAppointment} from "../../../services/collections";
 import {auth} from "../../../../firebase";
+import {useTranslation} from "react-i18next";
 
 const CreateAppointmentScreen = ({navigation}) => {
+    const { t } = useTranslation();
     const [title, setTitle] = useState('');
     const [errorTitle, setErrorTitle] = useState(false);
     const [note, setNote] = useState('');
@@ -52,6 +54,8 @@ const CreateAppointmentScreen = ({navigation}) => {
     }
 
     const handleAddAppointment = async() => {
+        if(!isNotification)
+            setDateNotification(dateAppointment);
         checkError()
         if(title.length !== 0){
             await createAppointment(auth.currentUser.uid, title, note, dateAppointment, dateNotification);
@@ -67,7 +71,7 @@ const CreateAppointmentScreen = ({navigation}) => {
     return (
         <View style={CreateStyles.container}>
             <View style={CreateStyles.header}>
-                <Text style={FormStyles.title}>Create a new appointment</Text>
+                <Text style={FormStyles.title}>{t('createNewAppointment')}</Text>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icon name="x" size={35} color= {colors.gray}/>
                 </TouchableOpacity>
@@ -76,12 +80,12 @@ const CreateAppointmentScreen = ({navigation}) => {
             <View style={CreateStyles.shadowForContainer}>
                 <ScrollView>
                     <View style={CreateStyles.createContainer}>
-                        <Text style={CreateStyles.title}>Appointment name</Text>
+                        <Text style={CreateStyles.title}>{t('appointmentName')}</Text>
                         <View style={CreateStyles.zIndex}>
                             <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
                                 <TextInput
                                     style={CreateStyles.input}
-                                    placeholder="Ex: Cardiologist visit"
+                                    placeholder={t('exampleAppointment')}
                                     onChangeText={(text) => {
                                         setTitle(text);
                                         if (text.length > 0) {
@@ -95,14 +99,14 @@ const CreateAppointmentScreen = ({navigation}) => {
                         <DataAndTime setDateAppointment={setDateAppointment} dateAppointment={dateAppointment}/>
                     </View>
                     <View style={{...CreateStyles.createContainer, marginTop: 10, paddingTop: 15,}}>
-                        <Alarm setIsAlarm={setNotification} isAlarm={isNotification} text={'Different time for notification?'} />
+                        <Alarm setIsAlarm={setNotification} isAlarm={isNotification} text={t('differentTimeQuestion')} />
                         {isNotification && <DataAndTime setDateAppointment={setDateNotification} dateAppointment={dateNotification}/>}
-                        <Text style={CreateStyles.title}>Note for appointment</Text>
+                        <Text style={CreateStyles.title}>{t('noteForAppointment')}</Text>
                         <View style={CreateStyles.zIndex}>
                             <View style={CreateStyles.inputContainer}>
                                 <TextInput
                                     style={CreateStyles.input}
-                                    placeholder="Ex: Get results from blood test"
+                                    placeholder={t('exampleNoteForAppointment')}
                                     onChangeText={(text) => {
                                         setNote(text);
                                     }}
@@ -113,7 +117,7 @@ const CreateAppointmentScreen = ({navigation}) => {
                     </View>
 
                     <View style={CreateStyles.buttonContainer}>
-                        <ButtonCustom buttonText={'Done'} onPress={handleAddAppointment} />
+                        <ButtonCustom buttonText={t('createBtn')} onPress={handleAddAppointment} />
                     </View>
                 </ScrollView>
             </View>

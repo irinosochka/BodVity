@@ -7,9 +7,11 @@ import Avatar from "../../common/Avatar";
 import moment from "moment";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {genderIconFunc} from "../../services/auth";
+import {useTranslation} from "react-i18next";
 
 
 function HeaderProfile({ user }) {
+    const { t } = useTranslation();
     const birthdaySeconds = user.birthday.seconds;
     const birthdayMoment = moment.unix(birthdaySeconds);
     const age = moment().diff(birthdayMoment, 'years');
@@ -30,11 +32,11 @@ function HeaderProfile({ user }) {
             </View>
             <View style={{...styles.userInfoContainer, justifyContent: 'space-between',}}>
                 <View style={styles.infoItem}>
-                    <Text style={styles.infoTitle}>Age</Text>
+                    <Text style={styles.infoTitle}>{t('age')}</Text>
                     <Text style={styles.infoValue}>{age+ ' years'}</Text>
                 </View>
                 <View style={styles.infoItem}>
-                    <Text style={styles.infoTitle}>Blood Group</Text>
+                    <Text style={styles.infoTitle}>{t('bloodGroup')}</Text>
                     <Text style={styles.infoValue}>{user.bloodGroup}</Text>
                 </View>
             </View>

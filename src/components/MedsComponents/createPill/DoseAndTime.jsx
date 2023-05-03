@@ -4,8 +4,11 @@ import {colors} from "../../../styles/Styles";
 import Icon from "react-native-vector-icons/Feather";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import {CreateStyles} from "./createStyles";
+import {useTranslation} from "react-i18next";
+import moment from "moment";
 
 const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
+    const { t } = useTranslation();
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [time, setTime] = useState(reminder);
 
@@ -21,16 +24,8 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
     const now = new Date();
 
     const getTime = (item) => {
-        const h = item.hour;
-        const m = item.minute;
-        const str = (
-            (h < 10 ? '0' : '') +
-            h.toString() +
-            ':' +
-            (m < 10 ? '0' : '') +
-            m.toString()
-        );
-        return str;
+        const time = moment({ hour: item.hour, minute: item.minute });
+        return time.format('HH:mm');
     }
 
     const saveReminder = () => {
@@ -69,9 +64,9 @@ const DoseAndTime = ({reminders, setReminders, reminder, idx}) => {
                     </TouchableOpacity>
                     {
                         parseInt(time.quantity) > 1 ? <Text>
-                            {time.quantity} pills </Text>
+                            {time.quantity} {t('medicationShortPlural')} </Text>
                             :
-                            <Text style={CreateStyles.timeContainerText}>{time.quantity} pill</Text>
+                            <Text style={CreateStyles.timeContainerText}>{time.quantity} {t('medicationShortSingle')}</Text>
                     }
                     <TouchableOpacity onPress={() => plusQuantity()}>
                         <Icon name="plus" size={20} color= {colors.gray3}/>

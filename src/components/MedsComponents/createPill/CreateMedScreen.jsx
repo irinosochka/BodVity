@@ -15,9 +15,11 @@ import {CreateStyles} from "./createStyles";
 import Alarm from "./Alarm";
 import {createMed, createMedicationPlan, createMedicationReminders} from "../../../services/functionsForCreateMeds";
 import {Scheduling} from "../../../services/pushNotifications";
+import {useTranslation} from "react-i18next";
 
 const CreateMedScreen = ({navigation, route}) => {
     const { frequency } = route.params;
+    const { t } = useTranslation();
 
     const [selectedMedication, setSelectedMedication] = useState(null);
     const [medicationItems, setMedicationItems] = useState([]);
@@ -151,7 +153,7 @@ const CreateMedScreen = ({navigation, route}) => {
     return (
         <View style={CreateStyles.container}>
             <View style={CreateStyles.header}>
-                <Text style={FormStyles.title}>Create a new plan</Text>
+                <Text style={FormStyles.title}>{t('createNewPlan')}</Text>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icon name="x" size={35} color= {colors.gray}/>
                 </TouchableOpacity>
@@ -160,11 +162,11 @@ const CreateMedScreen = ({navigation, route}) => {
             <View style={CreateStyles.shadowForContainer}>
                 <ScrollView>
                     <View style={CreateStyles.createContainer}>
-                        <Text style={CreateStyles.title}>Medicine name</Text>
+                        <Text style={CreateStyles.title}>{t('medicineName')}</Text>
                         <View style={CreateStyles.zIndex}>
                             <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle} errorTitle={errorTitle} setErrorTitle={setErrorTitle} setErrorStock={setErrorStock} frequency={frequency}/>
                         </View>
-                        <Text style={{...CreateStyles.title, marginBottom: 5}}>Quantity in stock</Text>
+                        <Text style={{...CreateStyles.title, marginBottom: 5}}>{t('quantityInStock')}</Text>
                         {selectedMedication?.title === title
                             ?
                             <Quantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock} />
@@ -180,7 +182,7 @@ const CreateMedScreen = ({navigation, route}) => {
                                 frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} selectedDaysOfWeek={selectedDaysOfWeek} setSelectedDaysOfWeek={setSelectedDaysOfWeek}/>
                             }
                             <View style={{...CreateStyles.doseAndTimeContainer, marginBottom: 5}}>
-                                <Text style={CreateStyles.title}>Dosage & Time</Text>
+                                <Text style={CreateStyles.title}>{t('dosageAndTime')}</Text>
                                 <View style={{flexDirection: 'row',}}>
                                     <TouchableOpacity style={{paddingRight: 5}} onPress={minusReminderTimes}>
                                         <Icon style={CreateStyles.icon} name="minus" size={22} color={colors.gray3} />
@@ -199,25 +201,12 @@ const CreateMedScreen = ({navigation, route}) => {
                                     idx={idx}
                                 />
                             ))}
-                            {/*<DoseAndTime key={0} reminders={reminders} setReminders={setReminders} reminder={reminders[0]} idx={0} />*/}
-                            {/*{*/}
-                            {/*    reminderTime > 1 && <DoseAndTime key={1} reminders={reminders} setReminders={setReminders} reminder={reminders[1]} idx={1} />*/}
-                            {/*}*/}
-                            {/*{*/}
-                            {/*    reminderTime > 2 && <DoseAndTime key={2} reminders={reminders} setReminders={setReminders} reminder={reminders[2]} idx={2} />*/}
-                            {/*}*/}
-                            {/*{*/}
-                            {/*    reminderTime > 3 && <DoseAndTime key={3} reminders={reminders} setReminders={setReminders} reminder={reminders[2]} idx={3} />*/}
-                            {/*}*/}
-                            {/*{*/}
-                            {/*    reminderTime > 4 && <DoseAndTime key={4} reminders={reminders} setReminders={setReminders} reminder={reminders[2]} idx={4} />*/}
-                            {/*}*/}
-                            <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} />
+                            <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} text={t('notification')}/>
                         </View>
                     }
 
                     <View style={CreateStyles.buttonContainer}>
-                        <ButtonCustom buttonText={'Done'} onPress={handleAddMedication} />
+                        <ButtonCustom buttonText={t('createBtn')} onPress={handleAddMedication} />
                     </View>
                 </ScrollView>
             </View>

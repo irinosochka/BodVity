@@ -3,8 +3,10 @@ import {Keyboard, ScrollView, Text, TextInput, TouchableOpacity, TouchableWithou
 import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 import {CreateStyles} from "./createStyles";
+import {useTranslation} from "react-i18next";
 
 const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, setErrorTitle, setErrorStock, frequency}) => {
+    const { t } = useTranslation();
     const [visibleDropdown, setVisibleDropdown] = useState(false);
     const [selectedItem, setSelectedItem] = useState(null);
 
@@ -58,7 +60,7 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, set
                     <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
                         <TextInput
                             style={CreateStyles.input}
-                            placeholder="Ex: Ibuprofen"
+                            placeholder={t('exampleMed')}
                             onChangeText={(text) => {
                                 setTitle(text);
                                 if (text.length > 0) {
@@ -74,7 +76,7 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, set
                     <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>
                         <TextInput
                             style={CreateStyles.input}
-                            placeholder="Ex: Ibuprofen"
+                            placeholder={t('exampleMed')}
                             onChangeText={(text) => {
                                 setTitle(text);
                                 if (text.length > 0) {
@@ -89,23 +91,6 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, set
                         </TouchableOpacity>
                     </View>
             }
-            {/*<View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput} : CreateStyles.inputContainer}>*/}
-            {/*    <TextInput*/}
-            {/*        style={CreateStyles.input}*/}
-            {/*        placeholder="Ex: Ibuprofen"*/}
-            {/*        onChangeText={(text) => {*/}
-            {/*            setTitle(text);*/}
-            {/*            if (text.length > 0) {*/}
-            {/*                setErrorTitle(false);*/}
-            {/*            }*/}
-            {/*        }}*/}
-            {/*        value={title}*/}
-            {/*        onFocus={handleFocus}*/}
-            {/*    />*/}
-            {/*    <TouchableOpacity onPress={() => setVisibleDropdown(!visibleDropdown)}>*/}
-            {/*        <Icon name={visibleDropdown ? 'chevron-up' : 'chevron-down'} size={27} color={colors.gray3} />*/}
-            {/*    </TouchableOpacity>*/}
-            {/*</View>*/}
 
             {visibleDropdown && frequency !== 'withoutReminders' && (
                 <ScrollView style={CreateStyles.dropdownContainer}>
@@ -123,7 +108,7 @@ const Title = ({ medicationItems, onSelectItem, title, setTitle, errorTitle, set
                         })}
                         {!filterMedicationItems()?.length && (
                             <View style={CreateStyles.dropdownItem}>
-                                <Text style={CreateStyles.dropdownText}>No results found</Text>
+                                <Text style={CreateStyles.dropdownText}>{t('noMeds')}</Text>
                             </View>
                         )}
                     </View>

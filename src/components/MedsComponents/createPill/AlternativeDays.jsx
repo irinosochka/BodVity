@@ -2,8 +2,10 @@ import {Text, TouchableOpacity, View} from "react-native";
 import React, {useEffect, useState} from "react";
 import Icon from "react-native-vector-icons/Feather";
 import {CreateStyles} from "./createStyles";
+import {useTranslation} from "react-i18next";
 
 const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, setSelectedDaysOfWeek}) => {
+    const { t } = useTranslation();
 
     const [selectMon, setSelectMon] = useState(false);
     const [selectTue, setSelectTue] = useState(false);
@@ -69,14 +71,14 @@ const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, set
                         {isAlternative ? <Icon name="check" size={23} color="white" /> : null}
                     </View>
                 </TouchableOpacity>
-                <Text style={CreateStyles.checkText}>Alternative days</Text>
+                <Text style={CreateStyles.checkText}>{t('alternativeDays')}</Text>
             </View>
             {
                 isAlternative &&
                 <View style={CreateStyles.weekContainer}>
                     <TouchableOpacity style={selectMon ? CreateStyles.dayOfWeekContainerSelected : CreateStyles.dayOfWeekContainer}
                                       onPress={() => selectDayOfWeek(1, selectMon)}>
-                        <Text style={selectMon ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>Mon</Text>
+                        <Text style={selectMon ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>{t('mon')}</Text>
                         {
                             selectMon ?
                                 <Icon style={CreateStyles.iconDayOfWeek} name="check" size={20} color="white"/>
@@ -86,7 +88,7 @@ const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, set
                     </TouchableOpacity>
                     <TouchableOpacity style={selectTue ? CreateStyles.dayOfWeekContainerSelected : CreateStyles.dayOfWeekContainer}
                                       onPress={() => selectDayOfWeek(2, selectTue)}>
-                        <Text style={selectTue ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>Tue</Text>
+                        <Text style={selectTue ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>{t('tue')}</Text>
                         {
                             selectTue ?
                                 <Icon style={CreateStyles.iconDayOfWeek} name="check" size={20} color="white"/>
@@ -96,7 +98,7 @@ const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, set
                     </TouchableOpacity>
                     <TouchableOpacity style={selectWed ? CreateStyles.dayOfWeekContainerSelected : CreateStyles.dayOfWeekContainer}
                                       onPress={() => selectDayOfWeek(3, selectWed)}>
-                        <Text style={selectWed ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>Wed</Text>
+                        <Text style={selectWed ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>{t('wed')}</Text>
                         {
                             selectWed ?
                                 <Icon style={CreateStyles.iconDayOfWeek} name="check" size={20} color="white"/>
@@ -106,7 +108,7 @@ const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, set
                     </TouchableOpacity>
                     <TouchableOpacity style={selectThu ? CreateStyles.dayOfWeekContainerSelected : CreateStyles.dayOfWeekContainer}
                                       onPress={() => selectDayOfWeek(4, selectThu)}>
-                        <Text style={selectThu ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>Thu</Text>
+                        <Text style={selectThu ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>{t('thu')}</Text>
                         {
                             selectThu ?
                                 <Icon style={CreateStyles.iconDayOfWeek} name="check" size={20} color="white"/>
@@ -116,7 +118,7 @@ const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, set
                     </TouchableOpacity>
                     <TouchableOpacity style={selectFri ? CreateStyles.dayOfWeekContainerSelected : CreateStyles.dayOfWeekContainer}
                                       onPress={() => selectDayOfWeek(5, selectFri)}>
-                        <Text style={selectFri ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>Fri</Text>
+                        <Text style={selectFri ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>{t('fri')}</Text>
                         {
                             selectFri ?
                                 <Icon style={CreateStyles.iconDayOfWeek} name="check" size={20} color="white"/>
@@ -126,7 +128,7 @@ const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, set
                     </TouchableOpacity>
                     <TouchableOpacity style={selectSat ? CreateStyles.dayOfWeekContainerSelected : CreateStyles.dayOfWeekContainer}
                                       onPress={() => selectDayOfWeek(6, selectSat)}>
-                        <Text style={selectSat ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>Sat</Text>
+                        <Text style={selectSat ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>{t('sat')}</Text>
                         {
                             selectSat ?
                                 <Icon style={CreateStyles.iconDayOfWeek} name="check" size={20} color="white"/>
@@ -136,7 +138,7 @@ const AlternativeDays = ({isAlternative, setAlternative, selectedDaysOfWeek, set
                     </TouchableOpacity>
                     <TouchableOpacity style={selectSun ? CreateStyles.dayOfWeekContainerSelected : CreateStyles.dayOfWeekContainer}
                                       onPress={() => selectDayOfWeek(0, selectSun)}>
-                        <Text style={selectSun ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>Sun</Text>
+                        <Text style={selectSun ? CreateStyles.dayOfWeekTitleSelected : CreateStyles.dayOfWeekTitle}>{t('sun')}</Text>
                         {
                             selectSun ?
                                 <Icon style={CreateStyles.iconDayOfWeek} name="check" size={20} color="white"/>

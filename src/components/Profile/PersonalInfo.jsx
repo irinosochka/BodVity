@@ -12,9 +12,11 @@ import moment from "moment";
 import ChangeAvatar from "./ChangeAvatar";
 import {UpdateUser} from "../../services/auth";
 import {auth} from "../../../firebase";
+import {useTranslation} from "react-i18next";
 
 
 function PersonalInfo({ navigation }) {
+    const { t } = useTranslation();
     const {userData} = useContext(UserDataContext)
     const birthdaySeconds = userData.birthday.seconds;
     const birthdayMoment = moment.unix(birthdaySeconds);
@@ -48,9 +50,9 @@ function PersonalInfo({ navigation }) {
             navigation.navigate('profile')
         }
         else if(age < 0){
-            alert("Please select a past date.");
+            alert(t('alarmFutureBirthday'));
         }else if(age < 11){
-            alert("You must be at least 11 years old to use this program.");
+            alert(t('alarmLessThan11'));
         }
     }
 
@@ -61,14 +63,14 @@ function PersonalInfo({ navigation }) {
                     <Icon name="x" size={35} color={colors.gray} />
                 </TouchableOpacity>
                 <View style={{marginTop: '10%' }}>
-                    <Text style={FormStyles.title}>Personal Info</Text>
-                    <Text style={{...styles.registrationInfo, marginTop: 8}}>Change your date if you need it</Text>
+                    <Text style={FormStyles.title}>{t('personalInfo')}</Text>
+                    <Text style={{...styles.registrationInfo, marginTop: 8}}>{t('personalDataInfo')}</Text>
                     <View style={styles.inputsContainer}>
-                        <Text style={CreateStyles.title}>Your Name</Text>
+                        <Text style={CreateStyles.title}>{t('yourName')}</Text>
                         <View style={errorName ? {...FormStyles.inputContainer, ...FormStyles.errorInput} : FormStyles.inputContainer}>
                             <TextInput
                                 style={FormStyles.input}
-                                placeholder="Name"
+                                placeholder={t('name')}
                                 onChangeText={(value) => {
                                     setName(value);
                                     if (value.length > 0) {
@@ -80,24 +82,24 @@ function PersonalInfo({ navigation }) {
                         </View>
                     </View>
                     <>
-                        <Text style={CreateStyles.title}>Your Gender</Text>
+                        <Text style={CreateStyles.title}>{t('yourGender')}</Text>
                         <View style={CreateStyles.chooseTimeRange}>
                             <TouchableOpacity style={[CreateStyles.buttonTimeRange,  gender === "male" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
                                               onPress={() => handleSetGender("male")}>
-                                <Text style={[CreateStyles.textBtn, gender === "male" && CreateStyles.activeText]}>Male</Text>
+                                <Text style={[CreateStyles.textBtn, gender === "male" && CreateStyles.activeText]}>{t('male')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[CreateStyles.buttonTimeRange, gender === "female" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
                                               onPress={() => handleSetGender("female")}>
-                                <Text style={[CreateStyles.textBtn, gender === "female" && CreateStyles.activeText]}>Female</Text>
+                                <Text style={[CreateStyles.textBtn, gender === "female" && CreateStyles.activeText]}>{t('female')}</Text>
                             </TouchableOpacity>
                             <TouchableOpacity style={[CreateStyles.buttonTimeRange, gender === "transgender" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
                                               onPress={() => handleSetGender("transgender")}>
-                                <Text style={[CreateStyles.textBtn, gender === "transgender" && CreateStyles.activeText]}>Trans</Text>
+                                <Text style={[CreateStyles.textBtn, gender === "transgender" && CreateStyles.activeText]}>{t('transgender')}</Text>
                             </TouchableOpacity>
                         </View>
                     </>
                     <>
-                        <Text style={CreateStyles.title}>Your Age</Text>
+                        <Text style={CreateStyles.title}>{t('yourAge')}</Text>
                         <View style={CreateStyles.timeContainerOneTime}>
                             <Text style={{color: colors.gray3}}>{age}</Text>
                             <TouchableOpacity onPress={() => setDatePickerVisible(true)}>
@@ -118,7 +120,7 @@ function PersonalInfo({ navigation }) {
 
 
                     <View style={styles.container3}>
-                        <ButtonCustom buttonText={'Save'} width={'100%'} onPress={handleUpdateUser}/>
+                        <ButtonCustom buttonText={t('saveBtn')} width={'100%'} onPress={handleUpdateUser}/>
                     </View>
                 </View>
             </View>

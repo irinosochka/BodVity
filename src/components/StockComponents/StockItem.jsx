@@ -7,8 +7,10 @@ import {StockItemModal} from "./StockItemModal";
 import Icon from "react-native-vector-icons/Feather";
 import {AddToStockModal} from "./AddToStockModal";
 import {useIsFocused} from "@react-navigation/native";
+import {useTranslation} from "react-i18next";
 
 function StockItem(props) {
+    const { t } = useTranslation();
     const { medication, deleteAction } = props;
     const [isShowMedInfo, setIsShowMedInfo ] = useState(false);
     const [isShowAddModal, setIsShowAddModal] = useState(false);
@@ -27,9 +29,9 @@ function StockItem(props) {
                 <Text style={{color: colors.black}}>{medication.title}</Text>
                 <View style={styles.quantityContainer}>
                     {
-                        medication.pillsInStock > 1 ? <Text style={styles.quantityTxt}>{medication.pillsInStock} meds </Text>
+                        medication.pillsInStock > 1 ? <Text style={styles.quantityTxt}>{medication.pillsInStock} {t('medicationShortPlural')} </Text>
                             :
-                            <Text style={styles.quantityTxt}>{medication.pillsInStock} med</Text>
+                            <Text style={styles.quantityTxt}>{medication.pillsInStock} {t('medicationShortSingle')}</Text>
                     }
                     <TouchableOpacity onPress={() => setIsShowAddModal(!isShowAddModal)}>
                         <Icon name="plus" size={30} color= {colors.primary} style={styles.icon}/>

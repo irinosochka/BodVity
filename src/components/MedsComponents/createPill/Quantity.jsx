@@ -4,8 +4,10 @@ import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../../styles/Styles";
 import {AddToStockModal} from "../../StockComponents/AddToStockModal";
 import {CreateStyles} from "./createStyles";
+import {useTranslation} from "react-i18next";
 
 const Quantity = ({ medication, pillsInStock, setPillsInStock, errorStock, setErrorStock }) => {
+    const { t } = useTranslation();
     const [isShowAddModal, setIsShowAddModal] = useState(false);
 
     const dismissKeyboard = () => {
@@ -25,7 +27,7 @@ const Quantity = ({ medication, pillsInStock, setPillsInStock, errorStock, setEr
                 </>
                 :
                 <TextInput style={CreateStyles.input}
-                           placeholder='Ex: 10'
+                           placeholder={t('exampleShort') + ': 10'}
                            onChangeText={(text) => {
                                setPillsInStock(text);
                                if (text.length > 0) {

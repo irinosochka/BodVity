@@ -25,7 +25,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
             alert(t('alarmFutureBirthday'));
             return;
         } else if (selectedDate > minDate) {
-            alert(t('AlarmLessThan11'));
+            alert(t('alarmLessThan11'));
             return;
         }
         setBirthday(selectedDate);
@@ -65,7 +65,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
             <RegistrationLoader completed={"40%"} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAge')}</Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAgeQuestion')}</Text>
                 <Text style={styles.subtitle}>{t('ageInfo')}</Text>
             </View>
 

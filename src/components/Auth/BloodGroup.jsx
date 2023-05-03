@@ -30,7 +30,7 @@ const BloodGroup = ({bloodGroup, setBloodGroup, setPage, RegistrationLoader}) =>
             <RegistrationLoader completed={'60%'} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourBloodGroup')}</Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourBloodGroupQuestion')}</Text>
                 <Text style={styles.subtitle}>{t('bloodGroupInfo')}</Text>
             </View>
 

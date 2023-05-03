@@ -40,7 +40,7 @@ const ChooseAvatar = ({avatarNumber, setAvatarNumber, setPage, RegistrationLoade
             <RegistrationLoader completed={'80%'} />
 
             <View style={{marginTop: 40}}>
-                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAvatar')}</Text>
+                <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAvatarQuestion')}</Text>
                 <Text style={styles.subtitle}>{t('avatarInfo')}</Text>
             </View>
 

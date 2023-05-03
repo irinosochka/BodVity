@@ -4,8 +4,10 @@ import {
 import React, {useEffect, useState} from 'react';
 import {colors} from "../../styles/Styles";
 import ProgressCircle from "progress-circle-react-native";
+import {useTranslation} from "react-i18next";
 
 function MainStatistics({remindersInRange}) {
+    const { t } = useTranslation();
     const [completedReminders, setCompletedReminders] = useState([]);
     const [missedReminders, setMissedReminders] = useState([]);
     const [percentCompleted, setPercentCompleted] = useState(0);
@@ -40,15 +42,15 @@ function MainStatistics({remindersInRange}) {
                 <View style={styles.medsItemWrapper}>
                     <View style={styles.medItemWrapper}>
                         <Text style={styles.quantityMedTitle}>All</Text>
-                        <Text style={styles.quantityMedText}>{remindersInRange.length + ' meds'}</Text>
+                        <Text style={styles.quantityMedText}>{remindersInRange.length + ' ' + t('medicationShortSingle')}</Text>
                     </View>
                     <View style={styles.medItemWrapper}>
                         <Text style={styles.quantityMedTitle}>Taken</Text>
-                        <Text style={styles.quantityMedText}>{completedReminders.length + ' meds'}</Text>
+                        <Text style={styles.quantityMedText}>{completedReminders.length + ' ' + t('medicationShortPlural')}</Text>
                     </View>
                     <View style={styles.medItemWrapper}>
                         <Text style={styles.quantityMedTitle}>Missed</Text>
-                        <Text style={styles.quantityMedText}>{missedReminders.length + ' meds'}</Text>
+                        <Text style={styles.quantityMedText}>{missedReminders.length + ' ' + t('medicationShortPlural')}</Text>
                     </View>
                 </View>
             </View>

@@ -5,10 +5,12 @@ import Icon from "react-native-vector-icons/Feather";
 import DateTimePicker from "react-native-modal-datetime-picker";
 import moment from "moment";
 import {CreateStyles} from "./createStyles";
+import {useTranslation} from "react-i18next";
 
 const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
+    const { t } = useTranslation();
 
-    const [startDateString, setStartDateString] = useState('Today');
+    const [startDateString, setStartDateString] = useState(t('today'));
     const [howLong, setHowLong] = useState(0)
     const [isStartDatePickerVisible, setStartDatePickerVisibility] = useState(false);
     const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false);
@@ -20,11 +22,6 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
         setStartDatePickerVisibility(false);
         setStringStart(day);
     };
-
-    // const hideEndDatePicker = () => {
-    //     setEndDate(null)
-    //     setEndDatePickerVisibility(false);
-    // };
 
     const handleConfirmEndDate = (day) => {
         if(day < startDate){
@@ -50,11 +47,11 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
 
     const setStringStart = (day) => {
         if (day.toDateString() === today.toDateString()) {
-            setStartDateString("Today");
+            setStartDateString(t('today'));
         } else if (day.toDateString() === new Date(today.getTime() - 86400000).toDateString()) {
-            setStartDateString("Yesterday");
+            setStartDateString(t('yesterday'));
         } else if (day.toDateString() === new Date(today.getTime() + 86400000).toDateString()) {
-            setStartDateString("Tomorrow");
+            setStartDateString(t('tomorrow'));
         } else {
             setStartDateString(day.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }));
         }
@@ -73,7 +70,7 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                 frequency==='regular' &&
                 <>
                     <View style={{width: '49%'}}>
-                        <Text style={CreateStyles.title}>From</Text>
+                        <Text style={CreateStyles.title}>{t('from')}</Text>
                         <View style={CreateStyles.timeContainerRegular}>
                             <Text style={CreateStyles.timeContainerText}>{startDateString}</Text>
                             <TouchableOpacity onPress={() => setStartDatePickerVisibility(true)}>
@@ -89,9 +86,9 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
                         </View>
                     </View>
                     <View style={{width: '49%'}}>
-                        <Text style={CreateStyles.title}>How long</Text>
+                        <Text style={CreateStyles.title}>{t('howLong')}</Text>
                         <View style={CreateStyles.timeContainerRegular}>
-                            <Text>{howLong}{howLong > 1 ? ' days' : ' day'}</Text>
+                            <Text>{howLong + ' '}{howLong !== 1 ? t('dayPlural') : t('daySingle')}</Text>
                             <TouchableOpacity onPress={() => setEndDatePickerVisibility(true)}>
                                 {error ?
                                     <Icon name="calendar" size={20} color= {colors.accent}/>
@@ -113,7 +110,7 @@ const HowLong = ({frequency, startDate, setStartDate, endDate, setEndDate}) => {
             {
                 frequency === 'one-time' &&
                 <View style={{width: '100%'}}>
-                    <Text style={CreateStyles.title}>Date</Text>
+                    <Text style={CreateStyles.title}>{t('date')}</Text>
                     <View style={CreateStyles.timeContainerOneTime}>
                         <Text>{startDateString}</Text>
                         <TouchableOpacity onPress={() => setStartDatePickerVisibility(true)}>

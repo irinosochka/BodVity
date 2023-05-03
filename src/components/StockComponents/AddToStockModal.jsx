@@ -3,8 +3,10 @@ import {colors} from "../../styles/Styles";
 import React, {useState} from "react";
 import {UpdateMedicationForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
+import {useTranslation} from "react-i18next";
 
 export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication}) {
+    const { t } = useTranslation();
 
     const [medInStock, setMedInStock] = useState(parseInt(medication.pillsInStock))
     const [quantityToAdd, setQuantityToAdd] = useState('');
@@ -30,15 +32,15 @@ export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication})
             <TouchableOpacity style={styles.modalBackground} onPress={() => setIsShowAddModal(false)}>
                 <View style={styles.modal}>
                     <View style={styles.modalContainer}>
-                        <Text style={styles.title}>How medications you want to add? </Text>
+                        <Text style={styles.title}>{t('howManyMedsToAdd')}</Text>
                         <View style={styles.inputWithButton}>
                             <TextInput style={styles.input}
-                                       placeholder='Ex: 10'
+                                       placeholder={t('exampleShort') + ': 10'}
                                        onChangeText={setQuantityToAdd}
                                        value={quantityToAdd}
                             />
                             <TouchableOpacity style={styles.btnSave} onPress={handleSaveAndClose}>
-                                <Text style={{color: colors.white}}>Save</Text>
+                                <Text style={{color: colors.white}}>{t('saveBtn')}</Text>
                             </TouchableOpacity>
                         </View>
                     </View>

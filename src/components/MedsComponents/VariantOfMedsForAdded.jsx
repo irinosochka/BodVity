@@ -5,28 +5,31 @@ import {
 } from 'react-native';
 import React from 'react';
 import {colors, FormStyles} from "../../styles/Styles";
+import {useTranslation} from "react-i18next";
 
 function VariantOfMedsForAdded({navigation}) {
+    const { t } = useTranslation();
+
     return (
         <View style={styles.container}>
             <View style={styles.variantsWrapper}>
-                <Text style={FormStyles.title}>Choose your variant</Text>
+                <Text style={FormStyles.title}>{t('chooseVariant')}</Text>
                 <ScrollView style={{width: "100%"}}>
                     <TouchableOpacity style={styles.variantContainer} onPress={() => navigation.navigate('createRegularMed')}>
                         <View style={styles.textWrapper}>
-                            <Text style={styles.titleVariant}>Regular medications</Text>
-                            <Text style={styles.infoVariant}>Add medicine and time. And rest we will make sure to remind you about taking your pill on time</Text>
+                            <Text style={styles.titleVariant}>{t('regularMed')}</Text>
+                            <Text style={styles.infoVariant}>{t('regularMedInfo')}</Text>
                         </View>
                         <View style={styles.imgContainer}>
                             <Image style={styles.imgPill}
                                    source={require('../../../assets/bottle_with_pills.png')}
                             />
                         </View>
-                       </TouchableOpacity>
+                    </TouchableOpacity>
                     <TouchableOpacity style={styles.variantContainer} onPress={() => navigation.navigate('createOneTimeMed')}>
                         <View style={styles.textWrapper}>
-                            <Text style={styles.titleVariant}>One-time medication</Text>
-                            <Text style={styles.infoVariant}>Add a medicine which you drank once. This will help you monitor your statistics in the future</Text>
+                            <Text style={styles.titleVariant}>{t('oneTimeMed')}</Text>
+                            <Text style={styles.infoVariant}>{t('oneTimeMedInfo')}</Text>
                         </View>
                         <View style={styles.imgContainer}>
                             <Image style={styles.imgPill}
@@ -36,8 +39,8 @@ function VariantOfMedsForAdded({navigation}) {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.variantContainer} onPress={() => navigation.navigate('createAppointment')}>
                         <View style={styles.textWrapper}>
-                            <Text style={styles.titleVariant}>Appointment</Text>
-                            <Text style={styles.infoVariant}>Add new medicine to stock. You can always check the availability of medicines</Text>
+                            <Text style={styles.titleVariant}>{t('appointment')}</Text>
+                            <Text style={styles.infoVariant}>{t('appointmentInfo')}</Text>
                         </View>
                         <View style={styles.imgContainer}>
                             <Image style={styles.imgPill}
@@ -47,8 +50,8 @@ function VariantOfMedsForAdded({navigation}) {
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.variantContainer} onPress={() => navigation.navigate('addMedToStock')}>
                         <View style={styles.textWrapper}>
-                            <Text style={styles.titleVariant}>Medication to stock</Text>
-                            <Text style={styles.infoVariant}>Add new medicine to stock. You can always check the availability of medicines</Text>
+                            <Text style={styles.titleVariant}>{t('medToStock')}</Text>
+                            <Text style={styles.infoVariant}>{t('medToStockInfo')}</Text>
                         </View>
                         <View style={styles.imgContainer}>
                             <Image style={styles.imgPill}

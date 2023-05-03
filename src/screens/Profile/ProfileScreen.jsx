@@ -11,8 +11,10 @@ import {cancelAllPushNotification} from "../../services/pushNotifications";
 import HeaderProfile from "../../components/Profile/HeaderProfile";
 import Icon from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import {useTranslation} from "react-i18next";
 
 function ProfileScreen({navigation}) {
+    const { t } = useTranslation();
 
     const { userData, setUserData } = useContext(UserDataContext)
 
@@ -45,34 +47,34 @@ function ProfileScreen({navigation}) {
                     <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('personalInfo')}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Ionicons name='person-outline' size={20} color={colors.primary} />
-                            <Text style={styles.textBtnMenu}>Personal Info</Text>
+                            <Text style={styles.textBtnMenu}>{t('personalInfo')}</Text>
                         </View>
                         <Icon name="chevron-right" size={20} color={colors.primary} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('yourMedications')}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Ionicons name='bandage-outline' size={20} color={colors.primary} />
-                            <Text style={styles.textBtnMenu}>Your Medications</Text>
+                            <Text style={styles.textBtnMenu}>{t('yourMedications')}</Text>
                         </View>
                         <Icon name="chevron-right" size={20} color={colors.primary} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('yourAppointments')}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Ionicons name="alarm-outline" size={20} color={colors.primary} />
-                            <Text style={styles.textBtnMenu}>Your Appointments</Text>
+                            <Text style={styles.textBtnMenu}>{t('yourAppointments')}</Text>
                         </View>
                         <Icon name="chevron-right" size={20} color={colors.primary} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.itemMenu} onPress={handleCancelAllNotification}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Ionicons name="notifications-off-outline" size={20} color={colors.primary} />
-                            <Text style={styles.textBtnMenu}>Cancel All Notifications</Text>
+                            <Text style={styles.textBtnMenu}>{t('cancelAllNotifications')}</Text>
                         </View>
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.itemMenu} onPress={handleSignOut}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Ionicons name="log-out-outline" size={20} color={colors.primary} />
-                            <Text style={styles.textBtnMenu}>Logout</Text>
+                            <Text style={styles.textBtnMenu}>{t('logout')}</Text>
                         </View>
                     </TouchableOpacity>
                 </View>

@@ -5,9 +5,11 @@ import React, {useContext} from 'react';
 import {colors, FormStyles} from "../../styles/Styles";
 import {UserDataContext} from "../../context/UserDataContext";
 import Avatar from "../../common/Avatar";
+import {useTranslation} from "react-i18next";
 
 
 function TopBarHome({ navigation }) {
+    const { t } = useTranslation();
 
     const { userData, setUserData } = useContext(UserDataContext)
 
@@ -20,8 +22,8 @@ function TopBarHome({ navigation }) {
             <View style={styles.userInfo}>
                 <Avatar radius={75} onPress={handleNavigateToProfile}/>
                 <View style={{marginLeft: 10}}>
-                    <Text style={FormStyles.title}>Hello, {userData.name} &#128075; </Text>
-                    <Text style={styles.subtitle}>Let's check your plan</Text>
+                    <Text style={FormStyles.title}>{t('hello')}, {userData.name} &#128075; </Text>
+                    <Text style={styles.subtitle}>{t('checkPlanInfo')}</Text>
                 </View>
             </View>
         </View>

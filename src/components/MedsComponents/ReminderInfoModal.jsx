@@ -3,8 +3,11 @@ import {colors} from "../../styles/Styles";
 import moment from "moment";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
+import {useTranslation} from "react-i18next";
 
 export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication, setShowDeleteModal}) {
+    const { t } = useTranslation();
+
     const handleCompleteAndClose = async() => {
         handleComplete();
         setIsShowReminderInfo(!isShowReminderInfo);
@@ -17,13 +20,9 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
 
     return (
         <Modal transparent={true} visible={isShowReminderInfo} animationType='fade'>
-            {/*{console.log(moment.unix(reminder.timestamp.seconds).toDate())}*/}
             <View style={styles.modal}>
                 <View style={styles.modalContainer}>
                     <View style={styles.modalHeader}>
-                        {/*<TouchableOpacity style={{marginTop: 6, marginRight: 15}} onPress={() => navigation.navigate('editMedication')}>*/}
-                        {/*    <Icon name="edit-2" size={27} color= {colors.primary} />*/}
-                        {/*</TouchableOpacity>*/}
                         <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)}>
                             <Icon name="x" size={40} color= {colors.black} />
                         </TouchableOpacity>
@@ -36,14 +35,14 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
                             <View>
                                 <View style={styles.itemContainer}>
                                     <View style={styles.icon}>
-                                        <Text style={styles.iconText}>time:</Text>
+                                        <Text style={styles.iconText}>{t('timeSmall')}:</Text>
                                     </View>
                                     <Text style={styles.modalText}>{moment.unix(reminder.timestamp).format('HH:mm')}</Text>
                                 </View>
 
                                 <View style={styles.itemContainer}>
                                     <View style={styles.icon}>
-                                        <Text style={styles.iconText}>start:</Text>
+                                        <Text style={styles.iconText}>{t('start')}:</Text>
                                     </View>
                                     <Text style={styles.modalText}>{moment.unix(reminder.startDate.seconds).format('D MMM YY')}</Text>
                                 </View>
@@ -52,18 +51,18 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
                             <View>
                                 <View style={styles.itemContainer}>
                                     <View style={styles.icon}>
-                                        <Text style={styles.iconText}>dose:</Text>
+                                        <Text style={styles.iconText}>{t('dose')}:</Text>
                                     </View>
                                     {
-                                        parseInt(reminder.quantity) > 1 ? <Text style={styles.modalText}>{reminder.quantity} pills</Text>
+                                        parseInt(reminder.quantity) > 1 ? <Text style={styles.modalText}>{reminder.quantity} {t('medicationShortPlural')}</Text>
                                             :
-                                            <Text style={styles.modalText}>{reminder.quantity} pill</Text>
+                                            <Text style={styles.modalText}>{reminder.quantity} {t('medicationShortSingle')}</Text>
                                     }
                                 </View>
 
                                 <View style={styles.itemContainer}>
                                     <View style={styles.icon}>
-                                        <Text style={styles.iconText}>end:</Text>
+                                        <Text style={styles.iconText}>{t('end')}:</Text>
                                     </View>
                                     <Text style={styles.modalText}>{moment.unix(reminder.endDate.seconds).format('D MMM YY')}</Text>
                                 </View>
@@ -75,14 +74,14 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
                     <View style={styles.btnContainer}>
                         <TouchableOpacity style={styles.btn} onPress={handleCompleteAndClose}>
                             {
-                                isCompleted ?  <Text style={styles.btnText}>Incomplete</Text>
+                                isCompleted ?  <Text style={styles.btnText}>{t('incompleteBtn')}</Text>
                                     :
-                                    <Text style={styles.btnText}>Complete</Text>
+                                    <Text style={styles.btnText}>{t('completeBtn')}</Text>
                             }
                         </TouchableOpacity>
                         <View style={styles.verticalLine}></View>
                         <TouchableOpacity style={styles.btn} onPress={showDelete}>
-                            <Text style={styles.btnText}>{'  '} Delete {'  '}</Text>
+                            <Text style={styles.btnText}>{'  '} {t('deleteBtn')} {'  '}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -138,7 +137,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         height: 30,
-        width: 50,
+        width: 55,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.lightBlue,

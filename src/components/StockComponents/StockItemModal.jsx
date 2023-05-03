@@ -5,8 +5,10 @@ import React, {useState} from "react";
 import {CreateStyles} from "../MedsComponents/createPill/createStyles";
 import {UpdateMedicationForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
+import {useTranslation} from "react-i18next";
 
 export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
+    const { t } = useTranslation();
     const [title, setTitle] = useState(medication.title);
     const [errorTitle, setErrorTitle] = useState(false);
 
@@ -26,12 +28,12 @@ export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
             <TouchableOpacity style={styles.modalBackground} onPress={() => setIsShowMedInfo(false)}>
                 <View style={styles.modal}>
                     <View style={styles.modalContainer}>
-                        <Text style={styles.title}>Edit your medication</Text>
+                        <Text style={styles.title}>{t('editMedication')}</Text>
                         <View style={styles.modalMedInfo}>
                             <View style={errorTitle ? {...CreateStyles.inputContainer, ...CreateStyles.errorInput, width: '90%'} : {...CreateStyles.inputContainer, width: '90%'}}>
                                 <View style={styles.inputWithButton}>
                                     <TextInput style={styles.input}
-                                               placeholder='Ex: Ibuprofen'
+                                               placeholder={t('exampleMed')}
                                                onChangeText={(text) => {
                                                    setTitle(text);
                                                    if (text.length > 0) {
@@ -41,20 +43,20 @@ export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
                                                value={title}
                                     />
                                     <TouchableOpacity style={styles.btnSave} onPress={handleChangeAndClose}>
-                                        <Text style={{color: colors.white}}>Save</Text>
+                                        <Text style={{color: colors.white}}>{t('saveBtn')}</Text>
                                     </TouchableOpacity>
                                 </View>
                             </View>
                             <View style={styles.rowContainer}>
                                 <View style={styles.itemContainer}>
                                     <View style={styles.icon}>
-                                        <Text style={styles.iconText}>start:</Text>
+                                        <Text style={styles.iconText}>{t('start')}:</Text>
                                     </View>
                                     <Text style={styles.modalText}>{moment.unix(medication.createdAt).format('HH:mm')}</Text>
                                 </View>
                                 <View style={styles.itemContainer}>
                                     <View style={styles.icon}>
-                                        <Text style={styles.iconText}>update:</Text>
+                                        <Text style={styles.iconText}>{t('update')}:</Text>
                                     </View>
                                     <Text style={styles.modalText}>{moment.unix(medication.updatedAt).format('HH:mm')}</Text>
                                 </View>

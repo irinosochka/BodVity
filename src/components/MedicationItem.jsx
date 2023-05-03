@@ -13,9 +13,11 @@ import {
 import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./MedsComponents/ReminderInfoModal";
 import {DeleteReminderModal} from "./MedsComponents/DeleteReminderModal";
+import {useTranslation} from "react-i18next";
 
 function MedicationItem(props) {
     const { reminder, navigation, deleteAction } = props;
+    const { t } = useTranslation();
 
     const [medicationCompleted, setMedicationCompleted] = useState(reminder.isConfirmed);
     const [isShowReminderInfo, setShowReminderInfo ] = useState(false);
@@ -94,10 +96,10 @@ function MedicationItem(props) {
                     </Text>
                     {
                         parseInt(reminder.quantity) > 1 ? <Text style={[styles.txtPillInfo, medicationCompleted ? {color: colors.white} : {color: colors.black}]}
-                            >{reminder.quantity} pills </Text>
+                            >{reminder.quantity} {t('medicationShortPlural')} </Text>
                             :
                             <Text style={[styles.txtPillInfo, medicationCompleted ? {color: colors.white} : {color: colors.black}]}
-                            >{reminder.quantity} pill</Text>
+                            >{reminder.quantity} {t('medicationShortSingle')}</Text>
                     }
                 </View>
                 <TouchableOpacity

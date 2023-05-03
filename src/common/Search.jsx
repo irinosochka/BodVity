@@ -5,8 +5,10 @@ import {auth} from "../../firebase";
 import {ScrollView, StyleSheet, TextInput} from "react-native";
 import StockItem from "../components/StockComponents/StockItem";
 import {colors} from "../styles/Styles";
+import {useTranslation} from "react-i18next";
 
 function Search() {
+    const { t } = useTranslation();
 
     const [title, setTitle] = useState('');
 
@@ -34,7 +36,7 @@ function Search() {
     return (
         <>
             <TextInput style={styles.input}
-                   placeholder='Ex: Ibuprofen'
+                   placeholder={t('exampleMed')}
                    onChangeText={setTitle}
                    value={title}
             />

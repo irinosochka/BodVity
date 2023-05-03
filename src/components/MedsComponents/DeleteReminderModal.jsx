@@ -2,8 +2,11 @@ import {Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../styles/Styles";
 import React from "react";
 import Icon from 'react-native-vector-icons/Feather';
+import {useTranslation} from "react-i18next";
 
 export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, handleDeleteOneReminder, handleDeleteAllReminders}) {
+    const { t } = useTranslation();
+
     return (
         <Modal transparent={true} visible={isShowDeleteModal} animationType='fade'>
             <View style={styles.modal}>
@@ -14,16 +17,16 @@ export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, hand
                         </TouchableOpacity>
                     </View>
                     <View style={styles.modalMedInfo}>
-                        <Text style={styles.questionText}>Do you want delete all plan of this medication or only this one reminder?</Text>
+                        <Text style={styles.questionText}>{t('deleteQuestion')}</Text>
                     </View>
 
                     <View style={styles.btnContainer}>
                         <TouchableOpacity style={styles.btn} onPress={handleDeleteAllReminders}>
-                            <Text style={styles.btnText}>Delete all</Text>
+                            <Text style={styles.btnText}>{t('deleteAllBtn')}</Text>
                         </TouchableOpacity>
                         <View style={styles.verticalLine}></View>
                         <TouchableOpacity style={styles.btn} onPress={handleDeleteOneReminder}>
-                            <Text style={styles.btnText}>Delete one</Text>
+                            <Text style={styles.btnText}>{t('deleteOneBtn')}</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

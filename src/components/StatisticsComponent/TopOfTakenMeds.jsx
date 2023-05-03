@@ -8,9 +8,11 @@ import TakenMedItem from "./TakenMedItem";
 import {
     getTakenMedicationIdsWithReminders
 } from "../../services/collections";
+import {useTranslation} from "react-i18next";
 
 
 function TopOfTakenMeds({remindersInRange}) {
+    const { t } = useTranslation();
     const [sortedMedicationIds, setSortedMedicationIds] = useState([]);
 
     useEffect(() => {
@@ -28,9 +30,9 @@ function TopOfTakenMeds({remindersInRange}) {
     return (
         <View style={styles.shadowForContainer}>
             <View style={styles.statsContainer}>
-                <Text style={styles.headerTitle}>Top of your taken medications:</Text>
+                <Text style={styles.headerTitle}>{t('topOfTakenMeds')}:</Text>
                 <ScrollView>
-                    {sortedMedicationIds.length > 0 ? OneTimeMedItems : <Text style={{color: colors.black}}>No medication found.</Text>}
+                    {sortedMedicationIds.length > 0 ? OneTimeMedItems : <Text style={{color: colors.black}}>{t('noMeds')}.</Text>}
                 </ScrollView>
             </View>
         </View>

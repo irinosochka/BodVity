@@ -3,8 +3,10 @@ import {StyleSheet, Text, View} from "react-native";
 import {colors} from "../styles/Styles";
 import TopBarHome from "../components/HomeScreenComponents/TopBarHome";
 import CalendarComponent from "../components/MedsComponents/CalendarComponent";
+import {useTranslation} from "react-i18next";
 
 function HomeScreen({ navigation }) {
+    const { t } = useTranslation();
 
     return (
         <View style={styles.container}>
@@ -12,7 +14,7 @@ function HomeScreen({ navigation }) {
                 <TopBarHome navigation={navigation}/>
             </View>
             <View style={styles.journalTextContainer}>
-                <Text style={styles.journalText}>Journal</Text>
+                <Text style={styles.journalText}>{t('journal')}</Text>
             </View>
             <CalendarComponent navigation={navigation} />
         </View>

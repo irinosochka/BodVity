@@ -5,8 +5,10 @@ import React, {useEffect} from 'react';
 import Search from "../../common/Search";
 import {colors, FormStyles} from "../../styles/Styles";
 import Icon from "react-native-vector-icons/Feather";
+import {useTranslation} from "react-i18next";
 
 function StockScreen({navigation}) {
+    const { t } = useTranslation();
 
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
@@ -24,7 +26,7 @@ function StockScreen({navigation}) {
 
             <View style={styles.stockWrapper}>
                 <View style={styles.header}>
-                    <Text style={{...FormStyles.title}}>Your medications</Text>
+                    <Text style={{...FormStyles.title}}>{t('yourMedications')}</Text>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Icon name="x" size={35} color= {colors.gray}/>
                     </TouchableOpacity>

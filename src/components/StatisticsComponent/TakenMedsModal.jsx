@@ -3,9 +3,11 @@ import Icon from "react-native-vector-icons/Feather";
 import {colors} from "../../styles/Styles";
 import moment from "moment";
 import React from "react";
+import {useTranslation} from "react-i18next";
 
 
 export function TakenMedsModal({isShowTakenMedsModal, setIsShowTakenMedsModal, reminders, title}) {
+    const { t } = useTranslation();
     const sortedReminders = reminders.sort((a, b) => b.timestamp.seconds - a.timestamp.seconds);
 
     return (
@@ -22,9 +24,9 @@ export function TakenMedsModal({isShowTakenMedsModal, setIsShowTakenMedsModal, r
                     </View>
                     <View style={styles.modalMedInfo}>
                         <View style={styles.headerRow}>
-                            <Text style={styles.headerText}>Date</Text>
-                            <Text style={styles.headerText}>Time</Text>
-                            <Text style={styles.headerText}>Quantity</Text>
+                            <Text style={styles.headerText}>{t('date')}</Text>
+                            <Text style={styles.headerText}>{t('time')}</Text>
+                            <Text style={styles.headerText}>{t('quantity')}</Text>
                         </View>
                         <ScrollView>
                         <View style={styles.table}>

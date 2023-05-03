@@ -11,15 +11,27 @@ import moment from "moment";
 import MedicationOfDay from "../../components/MedsComponents/MedicationOfDay";
 import {getReminders, retrieveAppointmentsForUser} from "../../services/collections";
 import AppointmentsOfTheDay from "../Appointments/AppointmentsOfTheDay";
-
+import {useTranslation} from "react-i18next";
 
 function CalendarComponent({navigation}) {
+    const { t } = useTranslation();
     const isFocused = useIsFocused();
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [medications, setMedications] = useState([]);
     const [appointments, setAppointments] = useState([]);
     const [medicationsOfDay, setMedicationsOfDay] = useState([]);
     const [appointmentsOfDay, setAppointmentsOfDay] = useState([]);
+
+    const locale = {
+        name: 'lang',
+        config: {
+            months: t('months').split('_'),
+            monthsShort: t('monthsShort').split('_'),
+            weekdays: t('weekdays').split('_'),
+            weekdaysShort: t('weekdaysShort').split('_'),
+            weekdaysMin: t('weekdaysMin').split('_'),
+        }
+    }
 
     useEffect(() => {
         setSelectedDate(new Date());
@@ -76,20 +88,22 @@ function CalendarComponent({navigation}) {
                 scrollable
                 calendarHeaderStyle={{color: colors.gray3, alignSelf: 'flex-end', paddingRight: 20, fontWeight: '400', fontSize: 14}}
                 selectedDate={selectedDate}
+                locale={locale}
             />
+
             {(appointmentsOfDay.length > 0 || medicationsOfDay.length > 0)
                 ?
 
                 <ScrollView style={{flex: 1}}>
                     {medicationsOfDay.length > 0 &&
                         <View style={styles.pillsWrapper}>
-                            <Text style={styles.journalText}>Upcoming Doses</Text>
+                            <Text style={styles.journalText}>{t('upcomingDoses')}</Text>
                             <MedicationOfDay medicationsOfDay={medicationsOfDay} setMedicationsOfDay={setMedicationsOfDay} navigation={navigation}/>
                         </View>
                     }
                     {appointmentsOfDay.length > 0 &&
                         <View style={styles.pillsWrapper}>
-                            <Text style={styles.journalText}>Upcoming Appointments</Text>
+                            <Text style={styles.journalText}>{t('upcomingAppointments')}</Text>
                             <AppointmentsOfTheDay navigation={navigation} appointmentsOfDay={appointmentsOfDay} setAppointmentsOfDay={setAppointmentsOfDay} />
                         </View>
                     }
@@ -98,7 +112,7 @@ function CalendarComponent({navigation}) {
                 :
 
                 <View style={{justifyContent: 'center', alignItems: 'center', flex: 1}}>
-                    <Text>You have no medication and appointment!</Text>
+                    <Text>{t('noMedAndAppoint')}</Text>
                 </View>
             }
         </View>

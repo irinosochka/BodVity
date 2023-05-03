@@ -3,7 +3,7 @@ import React from "react";
 import Icon from "react-native-vector-icons/Feather";
 import {CreateStyles} from "./createStyles";
 
-const Alarm = ({isAlarm, setIsAlarm, text = 'Notification'}) => {
+const Alarm = ({isAlarm, setIsAlarm, text}) => {
 
     return (
         <View style={{marginBottom: 10}}>

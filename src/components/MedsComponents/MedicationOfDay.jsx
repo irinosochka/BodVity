@@ -5,7 +5,7 @@ import {
 } from 'react-native';
 import React from 'react';
 import MedicationItem from "../MedicationItem";
-import {DeleteMedicationsForUser} from "../../services/collections";
+import {DeleteMedicationForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
 
 const styles = StyleSheet.create({
@@ -19,7 +19,7 @@ function MedicationOfDay({navigation, medicationsOfDay, setMedicationsOfDay}) {
 
     const deleteReminder = async (docID, index) => {
         const itemsCopy = [...medicationsOfDay];
-        await DeleteMedicationsForUser(auth.currentUser.uid, docID);
+        await DeleteMedicationForUser(auth.currentUser.uid, docID);
         itemsCopy.splice(index, 1);
         setMedicationsOfDay(itemsCopy);
     };

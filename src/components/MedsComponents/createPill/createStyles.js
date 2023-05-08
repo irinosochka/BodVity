@@ -174,6 +174,7 @@ export const CreateStyles = StyleSheet.create({
         color: colors.black
     },
     shadowForContainer:{
+        backgroundColor: 'transparent',
         shadowColor: colors.gray2,
         shadowOffset: {
             width: 0,

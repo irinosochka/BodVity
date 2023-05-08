@@ -92,11 +92,6 @@ const CreateMedScreen = ({navigation, route}) => {
                 quantity: 1,
             }
         ]);
-
-        // navigation.reset({
-        //     index: 0,
-        //     routes: [{ name: 'Home', key: Date.now() }],
-        // });
     }
 
     const handleAddMedication = async() => {
@@ -108,7 +103,7 @@ const CreateMedScreen = ({navigation, route}) => {
             } else if(title.length !== 0 && pillsInStock.length !== 0){
                 frequency === 'withoutReminders'
                     ?
-                    createMed(title, pillsInStock, startDate, endDate)
+                    createMed(title, pillsInStock)
                     :
                     createMedicationPlan(frequency, title, pillsInStock, startDate, endDate, reminders, isAlarm, selectedDaysOfWeek);
                 reset();
@@ -153,7 +148,13 @@ const CreateMedScreen = ({navigation, route}) => {
     return (
         <View style={CreateStyles.container}>
             <View style={CreateStyles.header}>
-                <Text style={FormStyles.title}>{t('createNewPlan')}</Text>
+                {
+                    frequency === 'withoutReminders' ?
+                        <Text style={FormStyles.title}>{t('createNewMedToStock')}</Text>
+                        :
+                        <Text style={FormStyles.title}>{t('createNewPlan')}</Text>
+                }
+                {/*<Text style={FormStyles.title}>{t('createNewPlan')}</Text>*/}
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <Icon name="x" size={35} color= {colors.gray}/>
                 </TouchableOpacity>

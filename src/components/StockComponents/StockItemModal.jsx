@@ -6,6 +6,7 @@ import {CreateStyles} from "../MedsComponents/createPill/createStyles";
 import {UpdateMedicationForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
 import {useTranslation} from "react-i18next";
+import {serverTimestamp} from "firebase/firestore";
 
 export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
     const { t } = useTranslation();
@@ -18,6 +19,7 @@ export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
         }else{
             await UpdateMedicationForUser(auth.currentUser.uid, medication.id, {
                 title: title,
+                updatedAt: serverTimestamp(),
             })
             setIsShowMedInfo(!isShowMedInfo);
         }
@@ -52,13 +54,13 @@ export function StockItemModal({isShowMedInfo, setIsShowMedInfo, medication}) {
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>{t('start')}:</Text>
                                     </View>
-                                    <Text style={styles.modalText}>{moment.unix(medication.createdAt).format('HH:mm')}</Text>
+                                    <Text style={styles.modalText}>{moment.unix(medication.createdAt.seconds).format('DD.MM.YY')}</Text>
                                 </View>
                                 <View style={styles.itemContainer}>
                                     <View style={styles.icon}>
                                         <Text style={styles.iconText}>{t('update')}:</Text>
                                     </View>
-                                    <Text style={styles.modalText}>{moment.unix(medication.updatedAt).format('HH:mm')}</Text>
+                                    <Text style={styles.modalText}>{moment.unix(medication.updatedAt.seconds).format('DD.MM.YY')}</Text>
                                 </View>
                             </View>
                         </View>
@@ -102,7 +104,7 @@ const styles = StyleSheet.create({
     },
     icon: {
         height: 30,
-        width: '43%',
+        width: '35%',
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.lightBlue,
@@ -112,7 +114,7 @@ const styles = StyleSheet.create({
         color: colors.gray2
     },
     modalText: {
-        fontSize: 17,
+        fontSize: 16,
         marginLeft: 7,
     },
     input:{

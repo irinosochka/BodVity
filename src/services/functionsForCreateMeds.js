@@ -24,15 +24,16 @@ export const createMedicationPlan = async (frequency, title, pillsInStock, start
     }
 }
 
-export const createMed = async (title, pillsInStock, startDate, endDate ) => {
+export const createMed = async (title, pillsInStock) => {
+    const now = new Date();
     const userMedicationsRef = collection(db, 'users', auth.currentUser.uid, 'medications')
     const medicationDocument = {
         createdAt: serverTimestamp(),
         title: title,
         pillsInStock: parseInt(pillsInStock),
-        startDate: Timestamp.fromDate(startDate),
-        endDate: Timestamp.fromDate(endDate),
-        updatedAt: serverTimestamp()
+        // startDate: Timestamp.fromDate(startDate),
+        // endDate: Timestamp.fromDate(endDate),
+        updatedAt: now,
     }
     return await addDoc(userMedicationsRef, medicationDocument);
 }
@@ -83,7 +84,6 @@ const setUpReminder = async (frequency, reminders, startDate, endDate, title, is
             timestamp: scheduledDate,
             quantity: plan.quantity,
             isConfirmed: false,
-            // isMissed: true,
             updatedAt: now,
             notificationId: notificationId
         })

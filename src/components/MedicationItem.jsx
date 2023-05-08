@@ -14,6 +14,7 @@ import {auth} from "../../firebase";
 import {ReminderInfoModal} from "./MedsComponents/ReminderInfoModal";
 import {DeleteReminderModal} from "./MedsComponents/DeleteReminderModal";
 import {useTranslation} from "react-i18next";
+import {serverTimestamp} from "firebase/firestore";
 
 function MedicationItem(props) {
     const { reminder, navigation, deleteAction } = props;
@@ -43,6 +44,7 @@ function MedicationItem(props) {
         })
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
             pillsInStock: medication.pillsInStock-=reminder.quantity,
+            updatedAt: serverTimestamp(),
         })
         setMedicationCompleted(true);
     }
@@ -53,7 +55,8 @@ function MedicationItem(props) {
             updatedAt: new Date(),
         })
         await UpdateMedicationForUser(auth.currentUser.uid, reminder.medicationId, {
-            pillsInStock: medication.pillsInStock+=reminder.quantity
+            pillsInStock: medication.pillsInStock+=reminder.quantity,
+            updatedAt: serverTimestamp(),
         })
         setMedicationCompleted(false);
     }

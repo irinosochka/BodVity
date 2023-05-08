@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from "react";
 import {useIsFocused} from "@react-navigation/native";
-import {DeleteMedicationsForUser, retrieveMedicationsForUser} from "../services/collections";
+import {DeleteMedicationForUser, retrieveMedicationsForUser} from "../services/collections";
 import {auth} from "../../firebase";
 import {ScrollView, StyleSheet, TextInput} from "react-native";
 import StockItem from "../components/StockComponents/StockItem";
 import {colors} from "../styles/Styles";
 import {useTranslation} from "react-i18next";
 
-function Search() {
+function SearchMed() {
     const { t } = useTranslation();
 
     const [title, setTitle] = useState('');
@@ -17,7 +17,7 @@ function Search() {
 
     const deleteMed = async (docID, index) => {
         const itemsCopy = [...medicationItems];
-        await DeleteMedicationsForUser(auth.currentUser.uid, docID);
+        await DeleteMedicationForUser(auth.currentUser.uid, docID);
         itemsCopy.splice(index, 1);
         setMedicationItems(itemsCopy);
     };
@@ -62,7 +62,7 @@ function Search() {
     )
 }
 
-export default Search;
+export default SearchMed;
 
 const styles = StyleSheet.create({
     input:{

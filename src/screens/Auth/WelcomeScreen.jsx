@@ -7,6 +7,8 @@ import {
 import {FormStyles, colors, sizes} from '../../styles/Styles';
 import {ButtonCustom} from "../../common/Button";
 import {useTranslation} from "react-i18next";
+import i18next from "i18next";
+import i18n from "i18next";
 
 const { width, height } = Dimensions.get('window');
 const defaultProps = {
@@ -19,6 +21,13 @@ const defaultProps = {
 
 export default function WelcomeScreen( {navigation} ) {
     const { t } = useTranslation();
+    const currentLanguage = i18next.language;
+    const [language, setLanguage] = useState(currentLanguage);
+
+    const handleChangeLanguage = async (language) => {
+        await i18n.changeLanguage(language);
+        setLanguage(language);
+    }
 
     const [showTerms, setShowTerms] = useState(false);
 
@@ -136,7 +145,7 @@ export default function WelcomeScreen( {navigation} ) {
     return (
         <View style={styles.container}>
             <View style={styles.container1}>
-                <Text style={{fontSize: sizes.h1, textAlign: "center", fontWeight: "bold"}}>
+                <Text style={{fontSize: sizes.h1, textAlign: "center", fontWeight: "bold", color: colors.black}}>
                     {t('YourHealth.')}
                     <Text style={{fontSize: sizes.h1, color: colors.primary}}> BodVity. </Text>
                 </Text>
@@ -144,6 +153,23 @@ export default function WelcomeScreen( {navigation} ) {
                     {/*Take care of your health*/}
                     {t('welcome')}
                 </Text>
+            </View>
+
+            <View style={styles.lngBtnsContainer}>
+                <TouchableOpacity style={language === 'en' ? styles.lngBtnSelected : styles.lngBtn}
+                                  onPress={() => handleChangeLanguage('en')}
+                >
+                    <Text>
+                        EN
+                    </Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={language === 'pl' ? styles.lngBtnSelected : styles.lngBtn}
+                                  onPress={() => handleChangeLanguage('pl')}
+                >
+                    <Text>
+                        PL
+                    </Text>
+                </TouchableOpacity>
             </View>
 
             <View style={styles.container2}>
@@ -183,6 +209,7 @@ const styles = StyleSheet.create({
         flex: 0.5,
         alignItems: 'center',
         justifyContent: 'flex-start',
+        marginTop: -15
     },
     containerToS: {
         flex: 1,
@@ -190,7 +217,6 @@ const styles = StyleSheet.create({
         paddingVertical: sizes.padding*2,
         paddingHorizontal: sizes.padding,
     },
-
     stepsContainer: {
         flex: 1,
         flexDirection: 'row',
@@ -209,7 +235,6 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: 2.5,
     },
-
     txtTerms: {
         marginTop: sizes.padding,
         fontSize: sizes.caption,
@@ -222,16 +247,31 @@ const styles = StyleSheet.create({
         lineHeight: 24,
         marginBottom: 16,
     },
-    btnDone:{
-        width: 319,
-        height: 56,
-        backgroundColor: colors.primary,
+    lngBtnsContainer:{
+        flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: 14,
+        marginTop: 15,
     },
-    txtBtnDone:{
-        fontSize: 17,
-        color:'#FFF'
+    lngBtn:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 5,
+        borderWidth: 0.7,
+        borderColor: colors.lightBlue,
+        borderRadius: 10,
+        marginHorizontal: 10,
     },
+    lngBtnSelected:{
+        alignItems: 'center',
+        justifyContent: 'center',
+        paddingHorizontal: 15,
+        paddingVertical: 5,
+        borderWidth: 0.7,
+        borderColor: colors.lightBlue,
+        borderRadius: 10,
+        marginHorizontal: 10,
+        backgroundColor: colors.lightBlue,
+    }
 });

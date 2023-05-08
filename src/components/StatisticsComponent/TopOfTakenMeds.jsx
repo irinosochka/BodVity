@@ -45,6 +45,8 @@ export default TopOfTakenMeds;
 
 const styles = StyleSheet.create({
     shadowForContainer:{
+        backgroundColor: 'transparent',
+        borderRadius: 10,
         shadowColor: colors.gray2,
         shadowOffset: {
             width: 0,

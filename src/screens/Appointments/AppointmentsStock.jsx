@@ -2,12 +2,12 @@ import {
     StyleSheet, View, Text, TouchableOpacity, BackHandler,
 } from 'react-native';
 import React, {useEffect} from 'react';
-import SearchMed from "../../common/SearchMed";
 import {colors, FormStyles} from "../../styles/Styles";
 import Icon from "react-native-vector-icons/Feather";
 import {useTranslation} from "react-i18next";
+import SearchAppoint from "../../common/SearchAppoint";
 
-function StockScreen({navigation}) {
+function AppointmentsStock({navigation}) {
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -26,18 +26,18 @@ function StockScreen({navigation}) {
 
             <View style={styles.stockWrapper}>
                 <View style={styles.header}>
-                    <Text style={{...FormStyles.title}}>{t('yourMedications')}</Text>
+                    <Text style={{...FormStyles.title}}>{t('yourAppointments')}</Text>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <Icon name="x" size={35} color= {colors.gray}/>
                     </TouchableOpacity>
                 </View>
-                <SearchMed />
+                <SearchAppoint />
             </View>
         </View>
     );
 }
 
-export default StockScreen;
+export default AppointmentsStock;
 
 const styles = StyleSheet.create({
     container: {
@@ -47,7 +47,6 @@ const styles = StyleSheet.create({
     stockWrapper: {
         flex: 1,
         paddingTop: 42,
-        // paddingHorizontal: 10,
         paddingHorizontal: 15,
     },
     header:{

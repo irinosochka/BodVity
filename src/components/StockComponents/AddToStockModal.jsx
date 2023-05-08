@@ -4,6 +4,7 @@ import React, {useState} from "react";
 import {UpdateMedicationForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
 import {useTranslation} from "react-i18next";
+import {serverTimestamp} from "firebase/firestore";
 
 export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication}) {
     const { t } = useTranslation();
@@ -17,6 +18,8 @@ export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication})
         setMedInStock(medInStock + number);
         UpdateMedicationForUser(auth.currentUser.uid, docID, {
             pillsInStock: medication.pillsInStock+=number,
+            updatedAt: serverTimestamp(),
+
         }).catch(console.error);
     }
 

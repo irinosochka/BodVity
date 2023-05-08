@@ -14,7 +14,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
     const monthNames = [ t('jan'), t('feb'), t('mar'), t('apr'), t('may'), t('jun'), t('jul'), t('aug'), t('sep'), t('oct'), t('nov'), t('dec'),];
 
     const [day, setDay] = useState(birthday.format('DD'));
-    const [month, setMonth] = useState(birthday.month());
+    const [month, setMonth] = useState(1);
     const [year, setYear] = useState(birthday.format('YYYY'));
 
     const handleNext = () => {
@@ -39,8 +39,10 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
     };
 
     useEffect(() => {
-        const ageDiff = moment().diff(moment(`${year}-${month}-${day}`, 'YYYY-M-D'), 'years')
+        const selectedDate = moment(`${year}-${month}-${day}`, 'YYYY-M-D');
+        const ageDiff = moment().diff(selectedDate, 'years');
         setAgeString(ageDiff);
+
         const lastDay = new Date(year, month + 1, 0).getDate();
         if (lastDay < Number(day)) {
             setDay(String(lastDay));
@@ -50,7 +52,9 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
         if (Number(year) < minYear) {
             setYear(String(minYear));
         }
+        console.log(month)
     }, [day, month, year]);
+
 
     return (
         <>
@@ -86,8 +90,8 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
                         selectedValue={month}
                         onValueChange={(value) => setMonth(value)}
                     >
-                        {monthNames.map((m) => (
-                            <Picker.Item key={m} label={`${m}`} value={`${m}`} />
+                        {monthNames.map((m, index) => (
+                            <Picker.Item key={index+1} label={`${m}`} value={`${index+1}`} />
                         ))}
                     </Picker>
                     <Picker

@@ -8,10 +8,16 @@ import {useTranslation} from "react-i18next";
 
 const DateAndTime = ({ dateAppointment, setDateAppointment }) => {
     const { t } = useTranslation();
-    const [startDateString, setStartDateString] = useState(t('today'));
+
+    const setStringDate = (day) => {
+        const formatter = new Intl.DateTimeFormat('en-GB', {day: '2-digit', month: '2-digit', year: '2-digit'});
+        const parts = formatter.formatToParts(day);
+        return `${parts[0].value}.${parts[2].value}.${parts[4].value}`;
+    };
+
+    const [startDateString, setStartDateString] = useState(setStringDate(dateAppointment));
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
-    const today = new Date();
 
     const handleConfirmDate = (day) => {
         const selected = new Date(
@@ -23,8 +29,8 @@ const DateAndTime = ({ dateAppointment, setDateAppointment }) => {
         );
         setDateAppointment(selected);
         setDatePickerVisibility(false);
-        setStringDate(selected);
-        console.log(selected)
+        let sel =  setStringDate(selected);
+        setStartDateString(sel);
     };
 
     const handleConfirmTime = (selectedTime) => {
@@ -37,21 +43,12 @@ const DateAndTime = ({ dateAppointment, setDateAppointment }) => {
         );
         setDateAppointment(selected);
         setTimePickerVisibility(false);
-        console.log(selected)
     };
 
     const getTime = (item) => {
         const h = item.getHours();
         const m = item.getMinutes();
         return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-    };
-
-    const setStringDate = (day) => {
-        if (day.toDateString() === today.toDateString()) {
-            setStartDateString(t('today'));
-        } else {
-            setStartDateString(day.toLocaleDateString('en-US', {day: '2-digit', month: '2-digit', year: '2-digit'}));
-        }
     };
 
     return (

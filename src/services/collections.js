@@ -70,7 +70,7 @@ export const UpdateMedicationForUser = async (userID, medicationID, updateData) 
     await updateDoc(docRef, updateData);
 };
 
-export const DeleteMedicationsForUser = async (userID, medicationID) => {
+export const DeleteMedicationForUser = async (userID, medicationID) => {
     const docRef = doc(db, 'users', userID, 'medications', medicationID);
     await deleteDoc(docRef);
 };
@@ -263,4 +263,9 @@ export const retrieveAppointmentsForUser = async (user) => {
 export const UpdateAppointmentForUser = async (userID, appointmentID, updateData) => {
     const docRef = doc(db, 'users', userID, 'appointments', appointmentID);
     await updateDoc(docRef, updateData);
+};
+
+export const DeleteAppointmentForUser = async (userID, appointmentID) => {
+    const docRef = doc(db, 'users', userID, 'appointments', appointmentID);
+    await deleteDoc(docRef);
 };

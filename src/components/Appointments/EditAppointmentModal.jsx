@@ -69,7 +69,7 @@ export function EditAppointmentModal({isShowEditModal, setIsShowEditModal, appoi
                             <DataAndTime dateAppointment={dateAppointmentEdit} setDateAppointment={setDateAppointmentEdit} />
                         </View>
                         <View style={{alignItems: 'center'}}>
-                            <ButtonCustom buttonText={t('saveBtn')} onPress={handleChangeAndClose} />
+                            <ButtonCustom buttonText={t('saveBtn')} onPress={handleChangeAndClose} width={290}/>
                         </View>
                     </View>
                 </View>

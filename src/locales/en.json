@@ -65,6 +65,7 @@
   "yourAppointments": "Your Appointments",
   "cancelAllNotifications": "Cancel All Notifications",
   "logout": "Logout",
+  "cancel": "Cancel",
   "personalDataInfo": "Change your data if you need it",
   "yourName": "Your Name",
   "yourGender": "Your Gender",
@@ -136,5 +137,6 @@
   "deleteAllBtn": "Delete all",
   "deleteQuestion": "Do you want delete all plan of this medication or only this one reminder?",
   "changeLanguage": "Change Language",
-  "changeLanguageInfo": "Select your preferred language from the options below to use the app in a language you're most comfortable with."
+  "changeLanguageInfo": "Select your preferred language from the options below to use the app in a language you're most comfortable with.",
+  "confirmLogout": "Are you sure you want to log out?"
 }

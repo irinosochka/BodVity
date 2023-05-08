@@ -1,7 +1,7 @@
 import {
     StyleSheet, Text, View, TouchableOpacity,
 } from 'react-native';
-import React, {useContext} from 'react';
+import React, {useContext, useState} from 'react';
 import { signOut } from 'firebase/auth';
 import { auth } from '../../../firebase';
 import {UserDataContext} from "../../context/UserDataContext";
@@ -12,11 +12,12 @@ import HeaderProfile from "../../components/Profile/HeaderProfile";
 import Icon from "react-native-vector-icons/Feather";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import {useTranslation} from "react-i18next";
+import {ConfirmLogoutModal} from "../../components/Auth/ConfirmLogoutModal";
 
 function ProfileScreen({navigation}) {
     const { t } = useTranslation();
-
     const { userData, setUserData } = useContext(UserDataContext)
+    const [isShowConfirmLogoutModal, setShowConfirmLogoutModal] = useState(false);
 
     const handleSignOut = () => {
         signOut(auth)
@@ -70,6 +71,7 @@ function ProfileScreen({navigation}) {
                             <Ionicons name="language-outline" size={20} color={colors.primary} />
                             <Text style={styles.textBtnMenu}>{t('changeLanguage')}</Text>
                         </View>
+                        <Icon name="chevron-right" size={20} color={colors.primary} />
                     </TouchableOpacity>
                     <TouchableOpacity style={styles.itemMenu} onPress={handleCancelAllNotification}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
@@ -77,12 +79,13 @@ function ProfileScreen({navigation}) {
                             <Text style={styles.textBtnMenu}>{t('cancelAllNotifications')}</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.itemMenu} onPress={handleSignOut}>
+                    <TouchableOpacity style={styles.itemMenu} onPress={() => setShowConfirmLogoutModal(true)}>
                         <View style={{flexDirection: 'row', alignItems: 'center'}}>
                             <Ionicons name="log-out-outline" size={20} color={colors.primary} />
                             <Text style={styles.textBtnMenu}>{t('logout')}</Text>
                         </View>
                     </TouchableOpacity>
+                    <ConfirmLogoutModal isShowConfirmLogoutModal={isShowConfirmLogoutModal} setShowConfirmLogoutModal={setShowConfirmLogoutModal} handleSignOut={handleSignOut}/>
                 </View>
             </View>
         </View>
@@ -131,5 +134,6 @@ const styles = StyleSheet.create({
         marginLeft: 7,
         fontWeight: '500',
         fontSize: 15,
+        color: colors.black,
     },
 });

@@ -1,7 +1,6 @@
 import {Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../styles/Styles";
 import React from "react";
-import Icon from 'react-native-vector-icons/Feather';
 import {useTranslation} from "react-i18next";
 
 export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, handleDeleteOneReminder, handleDeleteAllReminders}) {
@@ -9,28 +8,25 @@ export function DeleteReminderModal({isShowDeleteModal, setShowDeleteModal, hand
 
     return (
         <Modal transparent={true} visible={isShowDeleteModal} animationType='fade'>
-            <View style={styles.modal}>
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalHeader}>
-                        <TouchableOpacity onPress={() => setShowDeleteModal(!isShowDeleteModal)}>
-                            <Icon name="x" size={40} color= {colors.primary} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.modalMedInfo}>
-                        <Text style={styles.questionText}>{t('deleteQuestion')}</Text>
-                    </View>
+            <TouchableOpacity style={styles.modalBackground} onPress={() => setShowDeleteModal(false)}>
+                <View style={styles.modal}>
+                    <View style={styles.modalContainer}>
+                        <View style={styles.modalMedInfo}>
+                            <Text style={styles.questionText}>{t('deleteQuestion')}</Text>
+                        </View>
 
-                    <View style={styles.btnContainer}>
-                        <TouchableOpacity style={styles.btn} onPress={handleDeleteAllReminders}>
-                            <Text style={styles.btnText}>{t('deleteAllBtn')}</Text>
-                        </TouchableOpacity>
-                        <View style={styles.verticalLine}></View>
-                        <TouchableOpacity style={styles.btn} onPress={handleDeleteOneReminder}>
-                            <Text style={styles.btnText}>{t('deleteOneBtn')}</Text>
-                        </TouchableOpacity>
+                        <View style={styles.btnContainer}>
+                            <TouchableOpacity style={styles.btn} onPress={handleDeleteAllReminders}>
+                                <Text style={styles.btnText}>{t('deleteAllBtn')}</Text>
+                            </TouchableOpacity>
+                            <View style={styles.verticalLine}></View>
+                            <TouchableOpacity style={styles.btn} onPress={handleDeleteOneReminder}>
+                                <Text style={styles.btnText}>{t('deleteOneBtn')}</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         </Modal>
     )
 }
@@ -47,7 +43,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '30%',
         width: '90%',
-        height: '22%',
+        height: '20%',
         backgroundColor: 'white',
         borderRadius: 14,
     },
@@ -63,6 +59,13 @@ const styles = StyleSheet.create({
     modalMedInfo: {
         flex: 1,
         paddingHorizontal: 10,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modalBackground: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        width: '100%',
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -122,5 +125,8 @@ const styles = StyleSheet.create({
     },
     questionText: {
         fontSize: 17,
+        fontWeight: '500',
+        color: colors.black,
+        textAlign: 'center',
     },
 })

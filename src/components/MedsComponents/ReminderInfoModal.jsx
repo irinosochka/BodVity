@@ -2,7 +2,6 @@ import {Modal, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {colors} from "../../styles/Styles";
 import moment from "moment";
 import React from "react";
-import Icon from 'react-native-vector-icons/Feather';
 import {useTranslation} from "react-i18next";
 
 export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, reminder, handleComplete, isCompleted, medication, setShowDeleteModal}) {
@@ -20,72 +19,69 @@ export function ReminderInfoModal({isShowReminderInfo, setIsShowReminderInfo, re
 
     return (
         <Modal transparent={true} visible={isShowReminderInfo} animationType='fade'>
-            <View style={styles.modal}>
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalHeader}>
-                        <TouchableOpacity onPress={() => setIsShowReminderInfo(!isShowReminderInfo)}>
-                            <Icon name="x" size={40} color= {colors.black} />
-                        </TouchableOpacity>
-                    </View>
-                    <View style={{alignItems: 'center'}}>
-                        <Text style={styles.titleText}>{medication.title}</Text>
-                    </View>
-                    <View style={styles.modalMedInfo}>
-                        <View style={styles.rowContainer}>
-                            <View>
-                                <View style={styles.itemContainer}>
-                                    <View style={styles.icon}>
-                                        <Text style={styles.iconText}>{t('timeSmall')}:</Text>
+            <TouchableOpacity style={styles.modalBackground} onPress={() => setIsShowReminderInfo(false)}>
+                <View style={styles.modal}>
+                    <View style={styles.modalContainer}>
+                        <View style={{alignItems: 'center'}}>
+                            <Text style={styles.titleText}>{medication.title}</Text>
+                        </View>
+                        <View style={styles.modalMedInfo}>
+                            <View style={styles.rowContainer}>
+                                <View>
+                                    <View style={styles.itemContainer}>
+                                        <View style={styles.icon}>
+                                            <Text style={styles.iconText}>{t('timeSmall')}:</Text>
+                                        </View>
+                                        <Text style={styles.modalText}>{moment.unix(reminder.timestamp).format('HH:mm')}</Text>
                                     </View>
-                                    <Text style={styles.modalText}>{moment.unix(reminder.timestamp).format('HH:mm')}</Text>
+
+                                    <View style={styles.itemContainer}>
+                                        <View style={styles.icon}>
+                                            <Text style={styles.iconText}>{t('start')}:</Text>
+                                        </View>
+                                        <Text style={styles.modalText}>{moment.unix(reminder.startDate.seconds).format('D MMM YY')}</Text>
+                                    </View>
                                 </View>
 
-                                <View style={styles.itemContainer}>
-                                    <View style={styles.icon}>
-                                        <Text style={styles.iconText}>{t('start')}:</Text>
+                                <View>
+                                    <View style={styles.itemContainer}>
+                                        <View style={styles.icon}>
+                                            <Text style={styles.iconText}>{t('dose')}:</Text>
+                                        </View>
+                                        {
+                                            parseInt(reminder.quantity) > 1 ? <Text style={styles.modalText}>{reminder.quantity} {t('medicationShortPlural')}</Text>
+                                                :
+                                                <Text style={styles.modalText}>{reminder.quantity} {t('medicationShortSingle')}</Text>
+                                        }
                                     </View>
-                                    <Text style={styles.modalText}>{moment.unix(reminder.startDate.seconds).format('D MMM YY')}</Text>
+
+                                    <View style={styles.itemContainer}>
+                                        <View style={styles.icon}>
+                                            <Text style={styles.iconText}>{t('end')}:</Text>
+                                        </View>
+                                        <Text style={styles.modalText}>{moment.unix(reminder.endDate.seconds).format('D MMM YY')}</Text>
+                                    </View>
                                 </View>
+
                             </View>
+                        </View>
 
-                            <View>
-                                <View style={styles.itemContainer}>
-                                    <View style={styles.icon}>
-                                        <Text style={styles.iconText}>{t('dose')}:</Text>
-                                    </View>
-                                    {
-                                        parseInt(reminder.quantity) > 1 ? <Text style={styles.modalText}>{reminder.quantity} {t('medicationShortPlural')}</Text>
-                                            :
-                                            <Text style={styles.modalText}>{reminder.quantity} {t('medicationShortSingle')}</Text>
-                                    }
-                                </View>
-
-                                <View style={styles.itemContainer}>
-                                    <View style={styles.icon}>
-                                        <Text style={styles.iconText}>{t('end')}:</Text>
-                                    </View>
-                                    <Text style={styles.modalText}>{moment.unix(reminder.endDate.seconds).format('D MMM YY')}</Text>
-                                </View>
-                            </View>
-
+                        <View style={styles.btnContainer}>
+                            <TouchableOpacity style={styles.btn} onPress={handleCompleteAndClose}>
+                                {
+                                    isCompleted ?  <Text style={styles.btnText}>{t('incompleteBtn')}</Text>
+                                        :
+                                        <Text style={styles.btnText}>{t('completeBtn')}</Text>
+                                }
+                            </TouchableOpacity>
+                            <View style={styles.verticalLine}></View>
+                            <TouchableOpacity style={styles.btn} onPress={showDelete}>
+                                <Text style={styles.btnText}>{'  '} {t('deleteBtn')} {'  '}</Text>
+                            </TouchableOpacity>
                         </View>
                     </View>
-
-                    <View style={styles.btnContainer}>
-                        <TouchableOpacity style={styles.btn} onPress={handleCompleteAndClose}>
-                            {
-                                isCompleted ?  <Text style={styles.btnText}>{t('incompleteBtn')}</Text>
-                                    :
-                                    <Text style={styles.btnText}>{t('completeBtn')}</Text>
-                            }
-                        </TouchableOpacity>
-                        <View style={styles.verticalLine}></View>
-                        <TouchableOpacity style={styles.btn} onPress={showDelete}>
-                            <Text style={styles.btnText}>{'  '} {t('deleteBtn')} {'  '}</Text>
-                        </TouchableOpacity>
-                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
         </Modal>
     )
 }
@@ -105,15 +101,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         borderRadius: 14,
     },
-    modalHeader: {
-        height: 43,
-        flexDirection: 'row',
-        justifyContent: 'flex-end',
-        alignItems: 'center',
-        padding: 5,
-        borderTopLeftRadius: 14,
-        borderTopRightRadius: 14,
-    },
     modalMedInfo: {
         flex: 1,
         paddingHorizontal: 10,
@@ -122,7 +109,7 @@ const styles = StyleSheet.create({
     titleText: {
         fontSize: 20,
         fontWeight: '600',
-        marginTop: -29,
+        marginTop: 10,
         color: colors.black,
     },
     rowContainer: {
@@ -169,6 +156,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderBottomLeftRadius: 14,
         borderBottomRightRadius: 14,
+    },
+    modalBackground: {
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     verticalLine: {
         height: '80%',

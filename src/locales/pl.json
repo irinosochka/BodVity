@@ -66,6 +66,7 @@
   "yourAppointments": "Twoje terminy",
   "cancelAllNotifications": "Anuluj wszystkie powiadomienia",
   "logout": "Wyloguj się",
+  "cancel": "Anuluj",
   "personalDataInfo": "Zmień swoje dane w razie potrzeby",
   "yourName": "Twoje Imię",
   "yourGender": "Twoja Płeć",
@@ -136,5 +137,6 @@
   "deleteAllBtn": "Usuń wszystkie",
   "deleteQuestion": "Czy chcesz usunąć wszystkie przypomnienia tego leku czy tylko jedno?",
   "changeLanguage": "Zmień język aplikacji",
-  "changeLanguageInfo": "Wybierz preferowany język z poniższych opcji, aby korzystać z aplikacji w języku, w którym jest Ci najwygodniej."
+  "changeLanguageInfo": "Wybierz preferowany język z poniższych opcji, aby korzystać z aplikacji w języku, w którym jest Ci najwygodniej.",
+  "confirmLogout": "Na pewno chcesz się wylogować?"
 }

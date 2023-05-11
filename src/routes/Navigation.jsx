@@ -8,20 +8,6 @@ import {Scheduling} from "../services/pushNotifications";
 
 const Stack = createNativeStackNavigator();
 
-// function AuthStack() {
-//     return (
-//         <Stack.Navigator headerMode="none" initialRouteName="Login">
-//             {/*<Stack.Screen name="register" component={Register} />*/}
-//             <Stack.Screen name="Login" component={LoginScreen}
-//                           options={{
-//                               headerShown: false,
-//                               gestureEnabled: false,
-//                           }}
-//             />
-//         </Stack.Navigator>
-//     );
-// }
-
 export default function Navigation() {
     Scheduling()
 

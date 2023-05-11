@@ -4,9 +4,9 @@ import {
     ScrollView
 } from 'react-native';
 import React from 'react';
-import MedicationItem from "../MedicationItem";
 import {DeleteMedicationForUser} from "../../services/collections";
 import {auth} from "../../../firebase";
+import MedicationItem from "./MedicationItem";
 
 const styles = StyleSheet.create({
     items: {

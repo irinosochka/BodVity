@@ -3,18 +3,20 @@ import {
 } from 'react-native';
 import React, {useEffect, useState} from 'react';
 import Icon from 'react-native-vector-icons/Feather';
-import {colors} from "../styles/Styles";
+
 import moment from "moment";
 import {
     getMedicationByID,
     UpdateMedicationForUser,
     UpdateMedicationReminderForUser, deleteOneReminder, deleteReminders
-} from "../services/collections";
-import {auth} from "../../firebase";
-import {ReminderInfoModal} from "./MedsComponents/ReminderInfoModal";
-import {DeleteReminderModal} from "./MedsComponents/DeleteReminderModal";
+} from "../../services/collections";
+
 import {useTranslation} from "react-i18next";
 import {serverTimestamp} from "firebase/firestore";
+import {auth} from "../../../firebase";
+import {colors} from "../../styles/Styles";
+import {ReminderInfoModal} from "./ReminderInfoModal";
+import {DeleteReminderModal} from "./DeleteReminderModal";
 
 function MedicationItem(props) {
     const { reminder, navigation, deleteAction } = props;

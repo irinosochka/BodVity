@@ -31,8 +31,8 @@ export default function WelcomeScreen( {navigation} ) {
 
     const [showTerms, setShowTerms] = useState(false);
 
-    var scrollX = new Animated.Value(0);
-    var state = {
+    const scrollX = new Animated.Value(0);
+    const state = {
         showTerms: false,
     }
 

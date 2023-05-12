@@ -36,7 +36,7 @@ export function Scheduling() {
     }, []);
 }
 
-export async function schedulePushNotification(date, pillTitle) {
+export async function schedulePushNotification(date, pillTitle, translatedText) {
     const now = new Date();
     const scheduledDate = new Date(date);
     scheduledDate.setSeconds(0);
@@ -46,7 +46,7 @@ export async function schedulePushNotification(date, pillTitle) {
             content: {
                 sound: 'default',
                 title: "BodVity",
-                body: 'Time to take ' + pillTitle + '.',
+                body: translatedText + ' ' + pillTitle + '.',
                 data: {data: 'goes here'},
             },
             trigger: {

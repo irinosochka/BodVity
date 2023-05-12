@@ -23,7 +23,7 @@ function ProfileScreen({navigation}) {
         signOut(auth)
             .then(() => {
                 setUserData('');
-                Restart()
+                //Restart()
             })
             .catch((error) => {
                 console.log(error.message);

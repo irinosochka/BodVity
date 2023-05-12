@@ -38,11 +38,11 @@ export const createMed = async (title, pillsInStock) => {
     return await addDoc(userMedicationsRef, medicationDocument);
 }
 
-export const createMedicationReminders = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID) => {
+export const createMedicationReminders = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID, translatedText) => {
     const userMedicationRemindersRef = collection(db, 'users', auth.currentUser.uid, 'medications', docID.toString(), 'reminders')
 
     let plans;
-    plans = await setUpReminder(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek);
+    plans = await setUpReminder(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, translatedText);
 
     let array = []
     const now = new Date();
@@ -65,7 +65,7 @@ export const createMedicationReminders = async (frequency, reminders, startDate,
     return array;
 }
 
-const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek) => {
+const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, translatedText) => {
     const now = new Date();
     let res = []
     let start = new Date(startDate)
@@ -77,7 +77,7 @@ const setUpReminder = async (frequency, reminders, startDate, endDate, title, is
         const scheduledDate = new Date(date)
         let notificationId = null;
         if(isAlarm && scheduledDate > new Date()){
-            notificationId = await schedulePushNotification(scheduledDate, title)
+            notificationId = await schedulePushNotification(scheduledDate, title, translatedText)
         }
         res.push({
             plan: frequency,

@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react'
+import React, {useEffect, useContext} from 'react'
 import { UserDataContext } from '../../context/UserDataContext';
 import { doc, onSnapshot } from 'firebase/firestore';
 import { decode, encode } from 'base-64'
@@ -9,6 +9,7 @@ import {auth, db} from "../../../firebase";
 import Loading from "../../common/Loading";
 if (!global.btoa) { global.btoa = encode }
 if (!global.atob) { global.atob = decode }
+
 
 export default function Initial() {
     const [, setChecked] = useAtom(checkedAtom)

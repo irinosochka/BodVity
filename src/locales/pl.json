@@ -139,5 +139,8 @@
   "changeLanguage": "Zmień język aplikacji",
   "changeLanguageInfo": "Wybierz preferowany język z poniższych opcji, aby korzystać z aplikacji w języku, w którym jest Ci najwygodniej.",
   "confirmLogout": "Na pewno chcesz się wylogować?",
-  "timeToTakePillNotification": "Czas na wzięcie"
+  "timeToTakePillNotification": "Czas na wzięcie",
+  "successNotification": "Zaplanowanie leku przebiegło pomyślnie",
+  "textAppointment1": "Przypominamy, że termin",
+  "textAppointment2": "zbliża się"
 }

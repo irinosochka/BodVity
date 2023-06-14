@@ -121,7 +121,6 @@
   "from": "From",
   "daySingle": "day",
   "dayPlural": "days",
-
   "exampleNoteForAppointment": "Ex: Get results from blood test",
   "noteForAppointment": "Note for appointment",
   "differentTimeQuestion": "Different time for notification?",
@@ -139,5 +138,8 @@
   "changeLanguage": "Change Language",
   "changeLanguageInfo": "Select your preferred language from the options below to use the app in a language you're most comfortable with.",
   "confirmLogout": "Are you sure you want to log out?",
-  "timeToTakePillNotification": "Time to take"
+  "timeToTakePillNotification": "Time to take",
+  "successNotification": "Successfully schedule your medicine",
+  "textAppointment1": "Just a reminder that your appointment",
+  "textAppointment2": "is coming up soon"
 }

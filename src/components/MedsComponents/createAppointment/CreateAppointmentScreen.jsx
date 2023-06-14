@@ -49,11 +49,12 @@ const CreateAppointmentScreen = ({navigation}) => {
     }
 
     const handleAddAppointment = async() => {
+        let newNotifDate = dateNotification;
         if(!isNotification)
-            setDateNotification(dateAppointment);
+            newNotifDate = dateAppointment;
         checkError()
         if(title.length !== 0){
-            await createAppointment(auth.currentUser.uid, title, note, dateAppointment, dateNotification);
+            await createAppointment(auth.currentUser.uid, title, note, dateAppointment, newNotifDate, t('textAppointment1'), t('textAppointment2'));
             reset();
             navigation.navigate('Home');
         }else {

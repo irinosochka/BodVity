@@ -98,7 +98,7 @@ const CreateMedScreen = ({navigation, route}) => {
         checkError()
         if(selectedMedication || title.length !== 0 && pillsInStock.length !== 0){
             if(selectedMedication){
-                createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, selectedMedication.id, t('timeToTakePillNotification'));
+                createMedicationReminders(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, selectedMedication.id, t('timeToTakePillNotification'), t('successNotification'));
                 reset();
             } else if(title.length !== 0 && pillsInStock.length !== 0){
                 frequency === 'withoutReminders'

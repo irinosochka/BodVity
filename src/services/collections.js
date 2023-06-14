@@ -213,11 +213,13 @@ export const getMedicationIdsWithMostOneTimePlans = async (reminders) => {
 
 //appointments
 
-export const createAppointment = async (userID, title, note, dateAppointment, dateNotification ) => {
+export const createAppointment = async (userID, title, note, dateAppointment, dateNotification, textAppointment1, textAppointment2) => {
     const userMedicationsRef = collection(db, 'users', userID, 'appointments')
     let notificationId = null;
-    if(dateNotification > new Date()){
-        notificationId = await schedulePushNotificationAppointment(dateNotification, title)
+    const scheduledDate = new Date(dateNotification)
+    scheduledDate.setSeconds(0)
+    if(scheduledDate > new Date()){
+        notificationId = await schedulePushNotificationAppointment(dateNotification, title, textAppointment1, textAppointment2)
     }
     const medicationDocument = {
         createdAt: serverTimestamp(),

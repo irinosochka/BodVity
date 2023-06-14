@@ -1,6 +1,7 @@
 import {createUserWithEmailAndPassword} from "firebase/auth";
 import {auth, db} from "../../firebase";
 import {doc, setDoc, updateDoc} from "firebase/firestore";
+import i18next from "i18next";
 
 export const CreateUser = async (email, password, name, avatarNumber, gender, birthday, bloodGroup) => {
     try{
@@ -14,6 +15,7 @@ export const CreateUser = async (email, password, name, avatarNumber, gender, bi
             gender: gender,
             birthday: new Date(birthday),
             bloodGroup: bloodGroup,
+            language : i18next.language,
         };
         const usersRef = doc(db, 'users', uid);
         await setDoc(usersRef, data);

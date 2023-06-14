@@ -111,6 +111,7 @@ const styles = StyleSheet.create({
     },
     pillInfoWrapper: {
         width: "60%",
+        justifyContent: 'center',
     },
     txtPillInfo: {
         color: colors.gray2,

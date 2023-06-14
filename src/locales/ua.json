@@ -139,6 +139,9 @@
   "changeLanguage": "Змінити мову додатку",
   "changeLanguageInfo": "Виберіть бажану мову з наступних опцій, щоб користуватись додатком було ще зручніше.",
   "confirmLogout": "Ти впевнений що хочеш вийти?",
-  "timeToTakePillNotification": "Час прийняти"
+  "timeToTakePillNotification": "Час прийняти",
+  "successNotification": "Вдало запланований прийом ліків",
+  "textAppointment1": "Нагадуємо, що термін",
+  "textAppointment2": "незабаром відбудеться"
 }
 

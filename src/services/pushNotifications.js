@@ -36,7 +36,7 @@ export function Scheduling() {
     }, []);
 }
 
-export async function schedulePushNotification(date, pillTitle, translatedText) {
+export async function schedulePushNotification(date, pillTitle, textNotification) {
     const now = new Date();
     const scheduledDate = new Date(date);
     scheduledDate.setSeconds(0);
@@ -46,7 +46,7 @@ export async function schedulePushNotification(date, pillTitle, translatedText) 
             content: {
                 sound: 'default',
                 title: "BodVity",
-                body: translatedText + ' ' + pillTitle + '.',
+                body: textNotification + ' ' + pillTitle + '.',
                 data: {data: 'goes here'},
             },
             trigger: {
@@ -61,12 +61,12 @@ export async function schedulePushNotification(date, pillTitle, translatedText) 
 }
 
 
-export async function confirmPushNotification() {
+export async function confirmPushNotification(successNotification) {
     await Notifications.scheduleNotificationAsync({
         content: {
             sound: 'default',
             title: "BodVity",
-            body: 'Successfully schedule your medicine.',
+            body: successNotification + '.',
             data: { data: 'goes here' },
         },
         trigger: {
@@ -97,23 +97,28 @@ export async function refillNotification() {
     });
 }
 
-export async function schedulePushNotificationAppointment(date, appointmentTitle) {
-
+export async function schedulePushNotificationAppointment(date, appointmentTitle, textAppointment1, textAppointment2) {
+    const now = new Date();
     const scheduledDate = new Date(date);
     scheduledDate.setSeconds(0);
 
-    return await Notifications.scheduleNotificationAsync({
-        content: {
-            sound: 'default',
-            title: "BodVity",
-            body: 'Just a reminder that your appointment ' + appointmentTitle + ' is coming up soon.',
-            data: {data: 'goes here'},
-        },
-        trigger: {
-            date: scheduledDate,
-            repeats: false,
-        },
-    });
+    if (scheduledDate > now) {
+        return await Notifications.scheduleNotificationAsync({
+            content: {
+                sound: 'default',
+                title: "BodVity",
+                body: textAppointment1 + ' ' + appointmentTitle + ' ' + textAppointment2 + '.',
+                data: {data: 'goes here'},
+            },
+            trigger: {
+                date: scheduledDate,
+                repeats: false,
+            },
+        })
+    } else {
+        console.log('Invalid date/time for notification');
+        return null;
+    }
 }
 
 export const registerForPushNotificationsAsync = async () => {

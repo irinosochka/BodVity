@@ -34,7 +34,7 @@ export const FormStyles = StyleSheet.create({
     AndroidSafeArea: {
         flex: 1,
         backgroundColor: colors.white,
-        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight + 5 : 5,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight + 10 : 10,
     },
     title: {
         fontSize: sizes.h1,

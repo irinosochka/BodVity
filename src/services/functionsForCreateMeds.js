@@ -31,18 +31,16 @@ export const createMed = async (title, pillsInStock) => {
         createdAt: serverTimestamp(),
         title: title,
         pillsInStock: parseInt(pillsInStock),
-        // startDate: Timestamp.fromDate(startDate),
-        // endDate: Timestamp.fromDate(endDate),
         updatedAt: now,
     }
     return await addDoc(userMedicationsRef, medicationDocument);
 }
 
-export const createMedicationReminders = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID, translatedText) => {
+export const createMedicationReminders = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, docID, textNotification, successNotification ) => {
     const userMedicationRemindersRef = collection(db, 'users', auth.currentUser.uid, 'medications', docID.toString(), 'reminders')
 
     let plans;
-    plans = await setUpReminder(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, translatedText);
+    plans = await setUpReminder(frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, textNotification, successNotification);
 
     let array = []
     const now = new Date();
@@ -65,7 +63,7 @@ export const createMedicationReminders = async (frequency, reminders, startDate,
     return array;
 }
 
-const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, translatedText) => {
+const setUpReminder = async (frequency, reminders, startDate, endDate, title, isAlarm, selectedDaysOfWeek, textNotification, successNotification) => {
     const now = new Date();
     let res = []
     let start = new Date(startDate)
@@ -77,7 +75,7 @@ const setUpReminder = async (frequency, reminders, startDate, endDate, title, is
         const scheduledDate = new Date(date)
         let notificationId = null;
         if(isAlarm && scheduledDate > new Date()){
-            notificationId = await schedulePushNotification(scheduledDate, title, translatedText)
+            notificationId = await schedulePushNotification(scheduledDate, title, textNotification)
         }
         res.push({
             plan: frequency,
@@ -106,6 +104,6 @@ const setUpReminder = async (frequency, reminders, startDate, endDate, title, is
             start.setDate(start.getDate() + 1)
         }
     }
-    isAlarm && await confirmPushNotification();
+    isAlarm && await confirmPushNotification(successNotification);
     return res
 }

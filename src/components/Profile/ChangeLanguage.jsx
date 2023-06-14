@@ -8,7 +8,6 @@ import {useTranslation} from "react-i18next";
 import {CreateStyles} from "../MedsComponents/createPill/createStyles";
 import i18next from "i18next";
 import i18n from "i18next";
-import {Restart} from "../../utils/Restart";
 
 
 function ChangeLanguage({ navigation }) {
@@ -19,7 +18,6 @@ function ChangeLanguage({ navigation }) {
     const handleChangeLanguage = async (language) => {
         await i18n.changeLanguage(language);
         setLanguage(language);
-        Restart();
     }
 
     return (

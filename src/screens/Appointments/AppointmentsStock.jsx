@@ -1,5 +1,5 @@
 import {
-    StyleSheet, View, Text, TouchableOpacity, BackHandler,
+    StyleSheet, View, Text, TouchableOpacity, BackHandler, SafeAreaView
 } from 'react-native';
 import React, {useEffect} from 'react';
 import {colors, FormStyles} from "../../styles/Styles";
@@ -22,9 +22,7 @@ function AppointmentsStock({navigation}) {
     }, [navigation]);
 
     return (
-        <View style={{...styles.container}}>
-
-            <View style={styles.stockWrapper}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
                 <View style={styles.header}>
                     <Text style={{...FormStyles.title}}>{t('yourAppointments')}</Text>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -32,8 +30,7 @@ function AppointmentsStock({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <SearchAppoint />
-            </View>
-        </View>
+        </SafeAreaView>
     );
 }
 

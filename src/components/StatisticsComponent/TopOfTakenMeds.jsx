@@ -29,12 +29,10 @@ function TopOfTakenMeds({remindersInRange}) {
 
     return (
         <View style={styles.shadowForContainer}>
-            <View style={styles.statsContainer}>
-                <Text style={styles.headerTitle}>{t('topOfTakenMeds')}:</Text>
-                <ScrollView>
-                    {sortedMedicationIds.length > 0 ? OneTimeMedItems : <Text style={{color: colors.black}}>{t('noMeds')}.</Text>}
-                </ScrollView>
-            </View>
+            <Text style={styles.headerTitle}>{t('topOfTakenMeds')}:</Text>
+            <ScrollView>
+                {sortedMedicationIds.length > 0 ? OneTimeMedItems : <Text style={{color: colors.black}}>{t('noMeds')}.</Text>}
+            </ScrollView>
         </View>
     );
 }
@@ -45,8 +43,7 @@ export default TopOfTakenMeds;
 
 const styles = StyleSheet.create({
     shadowForContainer:{
-        backgroundColor: 'transparent',
-        borderRadius: 10,
+        backgroundColor: colors.white,
         shadowColor: colors.gray2,
         shadowOffset: {
             width: 0,
@@ -54,13 +51,13 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-    },
-    statsContainer: {
-        backgroundColor: colors.white,
         padding: 10,
         borderRadius: 10,
         elevation: 5,
         paddingHorizontal: 10,
+    },
+    statsContainer: {
+        backgroundColor: colors.white,
     },
     headerTitle: {
         fontSize: 18,

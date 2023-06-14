@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {BackHandler, Keyboard, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {BackHandler, Keyboard, ScrollView, Text, TouchableOpacity, View, SafeAreaView} from "react-native";
 import {retrieveMedicationsForUser} from "../../../services/collections";
 import {auth} from "../../../../firebase";
 import {useIsFocused} from "@react-navigation/native";
@@ -146,72 +146,68 @@ const CreateMedScreen = ({navigation, route}) => {
     Scheduling();
 
     return (
-        <View style={CreateStyles.container}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
             <View style={CreateStyles.header}>
-                {
-                    frequency === 'withoutReminders' ?
-                        <Text style={FormStyles.title}>{t('createNewMedToStock')}</Text>
-                        :
-                        <Text style={FormStyles.title}>{t('createNewPlan')}</Text>
-                }
-                {/*<Text style={FormStyles.title}>{t('createNewPlan')}</Text>*/}
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <Icon name="x" size={35} color= {colors.gray}/>
-                </TouchableOpacity>
-            </View>
-
-            <View style={CreateStyles.shadowForContainer}>
-                <ScrollView>
-                    <View style={CreateStyles.createContainer}>
-                        <Text style={CreateStyles.title}>{t('medicineName')}</Text>
-                        <View style={CreateStyles.zIndex}>
-                            <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle} errorTitle={errorTitle} setErrorTitle={setErrorTitle} setErrorStock={setErrorStock} frequency={frequency}/>
-                        </View>
-                        <Text style={{...CreateStyles.title, marginBottom: 5}}>{t('quantityInStock')}</Text>
-                        {selectedMedication?.title === title
-                            ?
-                            <Quantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock} />
-                            :
-                            <Quantity medication={false} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock}/>
-                        }
-                    </View>
                     {
-                        frequency !== 'withoutReminders' &&
-                        <View style={{...CreateStyles.createContainer, marginTop: 10}}>
-                            <HowLong frequency={frequency} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
-                            {
-                                frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} selectedDaysOfWeek={selectedDaysOfWeek} setSelectedDaysOfWeek={setSelectedDaysOfWeek}/>
-                            }
-                            <View style={{...CreateStyles.doseAndTimeContainer, marginBottom: 5}}>
-                                <Text style={CreateStyles.title}>{t('dosageAndTime')}</Text>
-                                <View style={{flexDirection: 'row',}}>
-                                    <TouchableOpacity style={{paddingRight: 5}} onPress={minusReminderTimes}>
-                                        <Icon style={CreateStyles.icon} name="minus" size={22} color={colors.gray3} />
-                                    </TouchableOpacity>
-                                    <TouchableOpacity style={{paddingLeft: 5}} onPress={plusReminderTimes}>
-                                        <Icon style={CreateStyles.icon} name="plus" size={22} color={colors.gray3} />
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                            {[...Array(reminderTime)].map((_, idx) => (
-                                <DoseAndTime
-                                    key={idx}
-                                    reminders={reminders}
-                                    setReminders={setReminders}
-                                    reminder={reminders[idx]}
-                                    idx={idx}
-                                />
-                            ))}
-                            <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} text={t('notification')}/>
-                        </View>
+                        frequency === 'withoutReminders' ?
+                            <Text style={FormStyles.title}>{t('createNewMedToStock')}</Text>
+                            :
+                            <Text style={FormStyles.title}>{t('createNewPlan')}</Text>
                     }
-
-                    <View style={CreateStyles.buttonContainer}>
-                        <ButtonCustom buttonText={t('createBtn')} onPress={handleAddMedication} />
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <Icon name="x" size={35} color= {colors.gray}/>
+                    </TouchableOpacity>
+                </View>
+            <ScrollView>
+                <View style={CreateStyles.shadowForContainer}>
+                    <Text style={CreateStyles.title}>{t('medicineName')}</Text>
+                    <View style={CreateStyles.zIndex}>
+                        <Title medicationItems={medicationItems} onSelectItem={handleMedicationSelect} title={title} setTitle={setTitle} errorTitle={errorTitle} setErrorTitle={setErrorTitle} setErrorStock={setErrorStock} frequency={frequency}/>
                     </View>
-                </ScrollView>
-            </View>
-        </View>
+                    <Text style={{...CreateStyles.title, marginBottom: 5}}>{t('quantityInStock')}</Text>
+                    {selectedMedication?.title === title
+                        ?
+                        <Quantity medication={selectedMedication} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock} />
+                        :
+                        <Quantity medication={false} setPillsInStock={setPillsInStock} pillsInStock={pillsInStock} errorStock={errorStock} setErrorStock={setErrorStock}/>
+                    }
+                </View>
+                {
+                    frequency !== 'withoutReminders' &&
+                    <View style={{...CreateStyles.shadowForContainer, marginTop: 10}}>
+                        <HowLong frequency={frequency} startDate={startDate} endDate={endDate} setStartDate={setStartDate} setEndDate={setEndDate} />
+                        {
+                            frequency === 'regular' &&  <AlternativeDays isAlternative={isAlternative} setAlternative={setAlternative} selectedDaysOfWeek={selectedDaysOfWeek} setSelectedDaysOfWeek={setSelectedDaysOfWeek}/>
+                        }
+                        <View style={{...CreateStyles.doseAndTimeContainer, marginBottom: 5}}>
+                            <Text style={CreateStyles.title}>{t('dosageAndTime')}</Text>
+                            <View style={{flexDirection: 'row',}}>
+                                <TouchableOpacity style={{paddingRight: 5}} onPress={minusReminderTimes}>
+                                    <Icon style={CreateStyles.icon} name="minus" size={22} color={colors.gray3} />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={{paddingLeft: 5}} onPress={plusReminderTimes}>
+                                    <Icon style={CreateStyles.icon} name="plus" size={22} color={colors.gray3} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                        {[...Array(reminderTime)].map((_, idx) => (
+                            <DoseAndTime
+                                key={idx}
+                                reminders={reminders}
+                                setReminders={setReminders}
+                                reminder={reminders[idx]}
+                                idx={idx}
+                            />
+                        ))}
+                        <Alarm setIsAlarm={setIsAlarm} isAlarm={isAlarm} text={t('notification')}/>
+                    </View>
+                }
+
+                <View style={CreateStyles.buttonContainer}>
+                    <ButtonCustom buttonText={t('createBtn')} onPress={handleAddMedication} />
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

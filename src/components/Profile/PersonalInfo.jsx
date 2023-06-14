@@ -1,5 +1,5 @@
 import {
-    StyleSheet, Text, TextInput, TouchableOpacity, View,
+    StyleSheet, Text, TextInput, TouchableOpacity, View, SafeAreaView
 } from 'react-native';
 import React, {useContext, useState} from 'react';
 import {colors, FormStyles, sizes} from "../../styles/Styles";
@@ -57,12 +57,11 @@ function PersonalInfo({ navigation }) {
     }
 
     return (
-        <View style={FormStyles.container}>
-            <View style={FormStyles.containerSub}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
                 <TouchableOpacity onPress={() => navigation.navigate('profile')} style={{alignItems: 'flex-end'}}>
                     <Icon name="x" size={35} color={colors.gray} />
                 </TouchableOpacity>
-                <View style={{marginTop: '10%' }}>
+                <View style={{marginTop: 20}}>
                     <Text style={FormStyles.title}>{t('personalInfo')}</Text>
                     <Text style={{...styles.registrationInfo, marginTop: 8}}>{t('personalDataInfo')}</Text>
                     <View style={styles.inputsContainer}>
@@ -123,8 +122,7 @@ function PersonalInfo({ navigation }) {
                         <ButtonCustom buttonText={t('saveBtn')} width={'100%'} onPress={handleUpdateUser}/>
                     </View>
                 </View>
-            </View>
-        </View>
+        </SafeAreaView>
 
     );
 }

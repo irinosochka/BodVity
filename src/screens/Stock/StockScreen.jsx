@@ -1,5 +1,5 @@
 import {
-    StyleSheet, View, Text, TouchableOpacity, BackHandler,
+    StyleSheet, View, Text, TouchableOpacity, BackHandler, SafeAreaView
 } from 'react-native';
 import React, {useEffect} from 'react';
 import SearchMed from "../../common/SearchMed";
@@ -22,9 +22,7 @@ function StockScreen({navigation}) {
     }, [navigation]);
 
     return (
-        <View style={{...styles.container}}>
-
-            <View style={styles.stockWrapper}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
                 <View style={styles.header}>
                     <Text style={{...FormStyles.title}}>{t('yourMedications')}</Text>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -32,24 +30,13 @@ function StockScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <SearchMed />
-            </View>
-        </View>
+        </SafeAreaView>
     );
 }
 
 export default StockScreen;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#ffffff',
-    },
-    stockWrapper: {
-        flex: 1,
-        paddingTop: 42,
-        // paddingHorizontal: 10,
-        paddingHorizontal: 15,
-    },
     header:{
         flexDirection: 'row',
         justifyContent: 'space-between',

@@ -6,9 +6,6 @@ import {Picker} from '@react-native-picker/picker';
 import moment from "moment";
 import {useTranslation} from "react-i18next";
 
-//const monthNames = [  "Jan",  "Feb",  "Mar",  "Apr",  "May",  "Jun",  "Jul",  "Aug",  "Sep",  "Oct",  "Nov",  "Dec",];
-//const monthNames = [ t('jan'), t('feb'), t('mar'), t('apr'), t('may'), t('jun'), t('jul'), t('aug'), t('sep'), t('oct'), t('nov'), t('dec'),];
-
 const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, setAgeString }) => {
     const { t } = useTranslation();
     const monthNames = [ t('jan'), t('feb'), t('mar'), t('apr'), t('may'), t('jun'), t('jul'), t('aug'), t('sep'), t('oct'), t('nov'), t('dec'),];
@@ -52,7 +49,6 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
         if (Number(year) < minYear) {
             setYear(String(minYear));
         }
-        console.log(month)
     }, [day, month, year]);
 
 

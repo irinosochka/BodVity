@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {
-    StyleSheet, Text, View,
+    StyleSheet, Text, View, SafeAreaView,
     Animated, Dimensions, Image, FlatList, Modal, ScrollView,
     TouchableOpacity } from 'react-native';
 
@@ -96,7 +96,7 @@ export default function WelcomeScreen( {navigation} ) {
     const renderTermsService = () => {
         return(
             <Modal animationType="slide" visible={showTerms}>
-                <View style={styles.containerToS}>
+                <View style={styles.termsOfServiceContainer}>
                     <Text style={{fontSize: sizes.h2, fontWeight: "200"}}>Terms of Service</Text>
 
                     <ScrollView style={{ marginVertical: sizes.padding}}>
@@ -134,7 +134,7 @@ export default function WelcomeScreen( {navigation} ) {
 
                     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', paddingVertical: sizes.base / 2}}>
                         <TouchableOpacity style={[FormStyles.btn, {width: '80%'}]} onPress={() => setShowTerms(false)}>
-                            <Text style={FormStyles.btnText}>I understand </Text>
+                            <Text style={FormStyles.btnText}>I understand</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -143,75 +143,65 @@ export default function WelcomeScreen( {navigation} ) {
     };
 
     return (
-        <View style={styles.container}>
-            <View style={styles.container1}>
-                <Text style={{fontSize: sizes.h1, textAlign: "center", fontWeight: "bold", color: colors.black}}>
-                    {t('YourHealth.')}
-                    <Text style={{fontSize: sizes.h1, color: colors.primary}}> BodVity. </Text>
-                </Text>
-                <Text style={{fontSize: sizes.h3, color: colors.gray2, marginTop: sizes.padding / 2}}>
-                    {/*Take care of your health*/}
-                    {t('welcome')}
-                </Text>
-            </View>
-
-            <View style={styles.lngBtnsContainer}>
-                <TouchableOpacity style={language === 'en' ? styles.lngBtnSelected : styles.lngBtn}
-                                  onPress={() => handleChangeLanguage('en')}
-                >
-                    <Text>
-                        EN
+        <SafeAreaView style={FormStyles.AndroidSafeArea}>
+            <View style={{...styles.centerContainer, paddingTop: 30}}>
+                    <Text style={{fontSize: sizes.h1, textAlign: "center", fontWeight: "bold", color: colors.black}}>
+                        {t('yourHealth')}
+                        <Text style={{fontSize: sizes.h1, color: colors.primary}}> BodVity. </Text>
                     </Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={language === 'pl' ? styles.lngBtnSelected : styles.lngBtn}
-                                  onPress={() => handleChangeLanguage('pl')}
-                >
-                    <Text>
-                        PL
+                    <Text style={{fontSize: sizes.h3, color: colors.gray2, marginTop: sizes.padding / 2}}>
+                        {t('welcome')}
                     </Text>
-                </TouchableOpacity>
-            </View>
 
-            <View style={styles.container2}>
-                {renderIllustrations()}
-                {renderSteps()}
-            </View>
+                <View style={styles.lngBtnsContainer}>
+                    <TouchableOpacity style={language === 'en' ? styles.lngBtnSelected : styles.lngBtn}
+                                      onPress={() => handleChangeLanguage('en')}
+                    >
+                        <Text>
+                            EN
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={language === 'pl' ? styles.lngBtnSelected : styles.lngBtn}
+                                      onPress={() => handleChangeLanguage('pl')}
+                    >
+                        <Text>
+                            PL
+                        </Text>
+                    </TouchableOpacity>
+                </View>
 
-            <View style={styles.container3}>
-                <ButtonCustom buttonText={t('login')} onPress={() => navigation.navigate('SignIn')} />
-                <View style={{marginBottom: 10}} />
-                <ButtonCustom buttonText={t('registration')} onPress={() => navigation.navigate('Registration')} isShadow={true} />
-                <TouchableOpacity onPress={() => setShowTerms(true)}>
-                    <Text style={styles.txtTerms}>Terms of Service </Text>
-                </TouchableOpacity>
+                <View style={styles.centerContainer}>
+                    {renderIllustrations()}
+                    {renderSteps()}
+                </View>
+
+                <View style={styles.buttonContainer}>
+                    <ButtonCustom buttonText={t('login')} onPress={() => navigation.navigate('SignIn')} />
+                    <View style={{marginBottom: 10}} />
+                    <ButtonCustom buttonText={t('registration')} onPress={() => navigation.navigate('Registration')} isShadow={true} />
+                    <TouchableOpacity onPress={() => setShowTerms(true)}>
+                        <Text style={styles.txtTerms}>Terms of Service </Text>
+                    </TouchableOpacity>
+                </View>
+                {renderTermsService()}
             </View>
-            {renderTermsService()}
-        </View>
+        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.white,
-    },
-    container1: {
-        flex: 0.4,
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
-    container2: {
+    centerContainer:{
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
     },
-    container3: {
+    buttonContainer: {
         flex: 0.5,
         alignItems: 'center',
         justifyContent: 'flex-start',
         marginTop: -15
     },
-    containerToS: {
+    termsOfServiceContainer: {
         flex: 1,
         justifyContent: 'space-between',
         paddingVertical: sizes.padding*2,
@@ -222,7 +212,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'center',
-
         position: 'absolute',
         bottom: 16 * 3,
         right: 0,

@@ -174,7 +174,11 @@ export const CreateStyles = StyleSheet.create({
         color: colors.black
     },
     shadowForContainer:{
-        backgroundColor: 'transparent',
+        backgroundColor: colors.white,
+        padding: 10,
+        margin: 5,
+        borderRadius: 10,
+        elevation: 5,
         shadowColor: colors.gray2,
         shadowOffset: {
             width: 0,
@@ -182,12 +186,6 @@ export const CreateStyles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-    },
-    createContainer: {
-        backgroundColor: colors.white,
-        padding: 10,
-        borderRadius: 10,
-        elevation: 5,
     },
     buttonContainer: {
         alignItems: 'center',

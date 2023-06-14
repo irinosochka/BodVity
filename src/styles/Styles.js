@@ -1,7 +1,4 @@
-import {StyleSheet} from 'react-native';
-import {Dimensions} from 'react-native';
-
-const fullWidth = Dimensions.get('window').width; //full width
+import {Platform, StatusBar, StyleSheet} from 'react-native';
 
 export const colors = {
     accent: "#F3534A",
@@ -42,10 +39,10 @@ export const FormStyles = StyleSheet.create({
         flex: 1,
         backgroundColor: colors.white,
     },
-    containerSub: {
-        marginTop: 42,
-        width: fullWidth,
-        paddingHorizontal: 15,
+    AndroidSafeArea: {
+        flex: 1,
+        backgroundColor: colors.white,
+        paddingTop: Platform.OS === "android" ? StatusBar.currentHeight + 5 : 5,
     },
     title: {
         fontSize: sizes.h1,
@@ -57,16 +54,6 @@ export const FormStyles = StyleSheet.create({
         fontSize: sizes.h3,
         fontWeight: "bold",
         color: colors.black,
-    },
-    textInput: {
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderBottomColor: colors.gray2,
-        borderRadius: 0,
-        borderWidth: 0,
-        fontSize: sizes.body,
-        fontWeight: '500',
-        color: colors.black,
-        height: sizes.base * 3,
     },
     btnShadow: {
         backgroundColor: colors.white,
@@ -89,11 +76,6 @@ export const FormStyles = StyleSheet.create({
         color:'#FFF',
         textAlign: "center",
         fontWeight: "500",
-    },
-    error: {
-        color: colors.accent,
-        fontWeight: '500',
-        fontSize: sizes.body,
     },
     inputContainer:{
         flexDirection: 'row',

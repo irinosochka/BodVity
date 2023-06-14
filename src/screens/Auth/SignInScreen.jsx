@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import {
-    View
-} from 'react-native';
+import { SafeAreaView} from 'react-native';
 import {FormStyles} from "../../styles/Styles";
 import {signInWithEmailAndPassword} from "firebase/auth";
 import {auth, db} from "../../../firebase";
@@ -35,11 +33,9 @@ const SignInScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={FormStyles.container}>
-            <View style={FormStyles.containerSub}>
-                <SignIn navigation={navigation} email={email} setEmail={setEmail} password={password} setPassword={setPassword} handleSignIn={handleSignIn}/>
-            </View>
-        </View>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
+            <SignIn navigation={navigation} email={email} setEmail={setEmail} password={password} setPassword={setPassword} handleSignIn={handleSignIn}/>
+        </SafeAreaView>
     );
 };
 

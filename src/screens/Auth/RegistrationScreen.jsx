@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {
-    View
+    View, SafeAreaView
 } from 'react-native';
 import moment from "moment";
 import {CreateUser} from "../../services/auth";
@@ -55,8 +55,7 @@ const RegistrationScreen = ({ navigation }) => {
     }
 
     return (
-        <View style={FormStyles.container}>
-            <View style={FormStyles.containerSub}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
                 {
                     page === 1 && <Registration navigation={navigation}
                                   name={name} email={email} password={password} confirmPassword={confirmPassword}
@@ -93,8 +92,7 @@ const RegistrationScreen = ({ navigation }) => {
                                                   handleCreateUser={handleCreateUser}
                     />
                 }
-            </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -26,32 +26,30 @@ function MainStatistics({remindersInRange}) {
 
     return (
         <View style={styles.shadowForContainer}>
-            <View style={styles.statsContainer}>
-                <View style={{alignItems: 'center'}}>
-                    <ProgressCircle
-                        percent={percentCompleted}
-                        radius={75}
-                        borderWidth={22}
-                        color={colors.primary}
-                        shadowColor={colors.lightBlue}
-                        bgColor={colors.white}
-                    >
-                        <Text style={styles.percentText}>{parseInt(percentCompleted) + '%'}</Text>
-                    </ProgressCircle>
+            <View style={{alignItems: 'center'}}>
+                <ProgressCircle
+                    percent={percentCompleted}
+                    radius={75}
+                    borderWidth={22}
+                    color={colors.primary}
+                    shadowColor={colors.lightBlue}
+                    bgColor={colors.white}
+                >
+                    <Text style={styles.percentText}>{parseInt(percentCompleted) + '%'}</Text>
+                </ProgressCircle>
+            </View>
+            <View style={styles.medsItemWrapper}>
+                <View style={styles.medItemWrapper}>
+                    <Text style={styles.quantityMedTitle}>All</Text>
+                    <Text style={styles.quantityMedText}>{remindersInRange.length + ' ' + t('medicationShortSingle')}</Text>
                 </View>
-                <View style={styles.medsItemWrapper}>
-                    <View style={styles.medItemWrapper}>
-                        <Text style={styles.quantityMedTitle}>All</Text>
-                        <Text style={styles.quantityMedText}>{remindersInRange.length + ' ' + t('medicationShortSingle')}</Text>
-                    </View>
-                    <View style={styles.medItemWrapper}>
-                        <Text style={styles.quantityMedTitle}>Taken</Text>
-                        <Text style={styles.quantityMedText}>{completedReminders.length + ' ' + t('medicationShortPlural')}</Text>
-                    </View>
-                    <View style={styles.medItemWrapper}>
-                        <Text style={styles.quantityMedTitle}>Missed</Text>
-                        <Text style={styles.quantityMedText}>{missedReminders.length + ' ' + t('medicationShortPlural')}</Text>
-                    </View>
+                <View style={styles.medItemWrapper}>
+                    <Text style={styles.quantityMedTitle}>Taken</Text>
+                    <Text style={styles.quantityMedText}>{completedReminders.length + ' ' + t('medicationShortPlural')}</Text>
+                </View>
+                <View style={styles.medItemWrapper}>
+                    <Text style={styles.quantityMedTitle}>Missed</Text>
+                    <Text style={styles.quantityMedText}>{missedReminders.length + ' ' + t('medicationShortPlural')}</Text>
                 </View>
             </View>
         </View>
@@ -63,7 +61,7 @@ export default MainStatistics;
 
 const styles = StyleSheet.create({
     shadowForContainer:{
-        backgroundColor: 'transparent',
+        backgroundColor: colors.white,
         borderRadius: 10,
         shadowColor: colors.gray2,
         shadowOffset: {
@@ -72,11 +70,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-    },
-    statsContainer: {
-        backgroundColor: colors.white,
         padding: 10,
-        borderRadius: 10,
         elevation: 5,
         paddingHorizontal: 25,
     },

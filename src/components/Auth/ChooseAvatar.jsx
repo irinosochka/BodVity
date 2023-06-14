@@ -1,6 +1,6 @@
 import React  from 'react';
 import {
-    TouchableOpacity, StyleSheet, Text, View, Image
+    TouchableOpacity, StyleSheet, Text, View, Image, ScrollView
 } from 'react-native';
 import {colors, FormStyles} from '../../styles/Styles';
 import Icon from "react-native-vector-icons/Feather";
@@ -44,8 +44,8 @@ const ChooseAvatar = ({avatarNumber, setAvatarNumber, setPage, RegistrationLoade
                 <Text style={styles.subtitle}>{t('avatarInfo')}</Text>
             </View>
 
-
-            <View style={{...styles.registrationContainer, alignItems: 'center', marginBottom: 250}}>
+            <ScrollView style={{paddingTop: 110}} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
+            <View style={{...styles.registrationContainer, alignItems: 'center',}}>
                 <View style={styles.avatarContainer}>
                     <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 0 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(0)}>
                         <Image source={imageSources[0]} style={styles.image} />
@@ -71,6 +71,7 @@ const ChooseAvatar = ({avatarNumber, setAvatarNumber, setPage, RegistrationLoade
                     </TouchableOpacity>
                 </View>
             </View>
+            </ScrollView>
         </>
     );
 };

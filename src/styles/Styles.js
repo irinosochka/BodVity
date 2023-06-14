@@ -3,25 +3,18 @@ import {Platform, StatusBar, StyleSheet} from 'react-native';
 export const colors = {
     accent: "#F3534A",
     primary: "#3879E9",
-    secondary: "#2BDA8E",
     tertiary: "#FFE358",
-    pink: '#EE9CDA',
-    quaternary: '#222566',
     black: '#222566',
     white: "#FFFFFF",
     gray: "#9DA3B4",
     gray2: "#4E515A",
     gray3: "#909090",
     lightBlue: "#EBF1FC",
-    lightGray: '#F7F9FB',
-    softPink: '#F4A4A4',
 };
 
 export const sizes = {
     // global sizes
     base: 16,
-    font: 14,
-    radius: 6,
     padding: 25,
 
     // font sizes
@@ -29,7 +22,6 @@ export const sizes = {
     h2: 20,
     h3: 18,
     title: 18,
-    header: 16,
     body: 14,
     caption: 12,
 };

@@ -31,16 +31,6 @@ function AppointmentItem(props) {
         setAppointmentCompleted(false);
     }
 
-    // const handleDeleteOneReminder = async () => {
-    //     await deleteOneReminder(auth.currentUser.uid, reminder.medicationId, reminder.id, reminder.notificationId);
-    //     setShowDeleteModal(false);
-    //     navigation.reset({
-    //         index: 0,
-    //         routes: [{ name: 'Home', key: Date.now() }],
-    //     });
-    //     deleteAction();
-    // }
-
     return (
         <>
             <TouchableOpacity style={[styles.container, appointmentCompleted ? {backgroundColor: colors.primary} : {backgroundColor: colors.lightBlue}]} >
@@ -126,9 +116,6 @@ const styles = StyleSheet.create({
         color: colors.gray2,
         paddingTop: 4,
         fontSize: 12,
-    },
-    timeWrapper: {
-
     },
     verticalLine: {
         height: '100%',

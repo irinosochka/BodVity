@@ -7,14 +7,6 @@ import React from 'react';
 import AppointmentItem from "./AppointmentItem";
 
 function AppointmentsOfTheDay({navigation, appointmentsOfDay, setAppointmentsOfDay}) {
-
-    // const deleteReminder = async (docID, index) => {
-    //     const itemsCopy = [...medicationsOfDay];
-    //     await DeleteMedicationsForUser(auth.currentUser.uid, docID);
-    //     itemsCopy.splice(index, 1);
-    //     setMedicationsOfDay(itemsCopy);
-    // };
-
     const sortedAppointmentsOfDay = appointmentsOfDay.sort((a, b) => a.timestamp - b.timestamp);
 
     return (

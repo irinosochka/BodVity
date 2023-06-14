@@ -1,4 +1,8 @@
 import { registerRootComponent } from 'expo';
+import 'moment';
+import 'moment/locale/pl';
+// import 'moment/locale/ua';
+// import 'moment/locale/en';
 
 import App from './App';
 

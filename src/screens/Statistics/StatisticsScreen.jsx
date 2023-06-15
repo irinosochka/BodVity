@@ -77,30 +77,32 @@ function StatisticsScreen() {
     };
 
     return (
-        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
-        { showContent &&
-            <>
-                <View style={CreateStyles.header}>
-                    <Text style={FormStyles.title}>{t('progress')}</Text>
-                </View>
-                <View style={CreateStyles.chooseTimeRange}>
-                    <TouchableOpacity style={[CreateStyles.buttonTimeRange,  selectedRange === "week" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]} onPress={() => handleSelectRange("week")}>
-                        <Text style={[CreateStyles.textBtn, selectedRange === "week" && CreateStyles.activeText]}>{t('weekBtn')}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[CreateStyles.buttonTimeRange, selectedRange === "month" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
-                                      onPress={() => handleSelectRange("month")}>
-                        <Text style={[CreateStyles.textBtn, selectedRange === "month" && CreateStyles.activeText]}>{t('monthBtn')}</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[CreateStyles.buttonTimeRange, selectedRange === "year" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
-                                      onPress={() => handleSelectRange("year")}>
-                        <Text style={[CreateStyles.textBtn, selectedRange === "year" && CreateStyles.activeText]}>{t('yearBtn')}</Text>
-                    </TouchableOpacity>
-                </View>
-                <MainStatistics remindersInRange={remindersInRange}/>
-                <View style={{marginBottom: 10}} />
-                <TopOfTakenMeds remindersInRange={remindersInRange}/>
-            </>
-            }
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea}}>
+            <View style={{paddingHorizontal: 15}}>
+            { showContent &&
+                <>
+                    <View style={CreateStyles.header}>
+                        <Text style={FormStyles.title}>{t('progress')}</Text>
+                    </View>
+                    <View style={CreateStyles.chooseTimeRange}>
+                        <TouchableOpacity style={[CreateStyles.buttonTimeRange,  selectedRange === "week" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]} onPress={() => handleSelectRange("week")}>
+                            <Text style={[CreateStyles.textBtn, selectedRange === "week" && CreateStyles.activeText]}>{t('weekBtn')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[CreateStyles.buttonTimeRange, selectedRange === "month" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
+                                          onPress={() => handleSelectRange("month")}>
+                            <Text style={[CreateStyles.textBtn, selectedRange === "month" && CreateStyles.activeText]}>{t('monthBtn')}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[CreateStyles.buttonTimeRange, selectedRange === "year" ? CreateStyles.activeButton : CreateStyles.notActiveButton,]}
+                                          onPress={() => handleSelectRange("year")}>
+                            <Text style={[CreateStyles.textBtn, selectedRange === "year" && CreateStyles.activeText]}>{t('yearBtn')}</Text>
+                        </TouchableOpacity>
+                    </View>
+                    <MainStatistics remindersInRange={remindersInRange}/>
+                    <View style={{marginBottom: 10}} />
+                    <TopOfTakenMeds remindersInRange={remindersInRange}/>
+                </>
+                }
+            </View>
         </SafeAreaView>
     );
 }

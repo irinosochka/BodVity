@@ -25,12 +25,12 @@ const ConfirmAccount = ({setPage, RegistrationLoader, gender, name, avatarNumber
 
             <RegistrationLoader completed={'100%'} />
 
-            <View style={{marginTop: 40}}>
+            <View style={{marginTop: 30}}>
                 <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('confirmUserCard')}</Text>
                 <Text style={styles.subtitle}>{t('userCardInfo')}</Text>
             </View>
 
-            <View style={{alignItems: 'center', marginTop: 40}}>
+            <View style={{alignItems: 'center', marginTop: 20}}>
                 <View style={styles.userProfileContainer}>
                     <View style={styles.avatar}>
                         <Image source={avatarFile} style={styles.image} />
@@ -73,11 +73,11 @@ const styles = StyleSheet.create({
     },
     userProfileContainer: {
         width: '80%',
-        height: '60%',
         backgroundColor: colors.lightBlue,
         borderRadius: 40,
         alignItems: 'center',
         padding: 10,
+        paddingBottom: 15,
         marginBottom: 40,
     },
     avatar: {

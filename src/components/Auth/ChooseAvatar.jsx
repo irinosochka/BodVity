@@ -39,38 +39,38 @@ const ChooseAvatar = ({avatarNumber, setAvatarNumber, setPage, RegistrationLoade
 
             <RegistrationLoader completed={'80%'} />
 
-            <View style={{marginTop: 40}}>
+            <View style={{marginTop: 30}}>
                 <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAvatarQuestion')}</Text>
                 <Text style={styles.subtitle}>{t('avatarInfo')}</Text>
             </View>
 
-            <ScrollView style={{paddingTop: 110}} showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-            <View style={{...styles.registrationContainer, alignItems: 'center',}}>
-                <View style={styles.avatarContainer}>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 0 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(0)}>
-                        <Image source={imageSources[0]} style={styles.image} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 1 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(1)}>
-                        <Image source={imageSources[1]} style={styles.image} />
-                    </TouchableOpacity>
+            <ScrollView style={{paddingVertical: 30}} >
+                <View style={{...styles.registrationContainer, alignItems: 'center',}}>
+                    <View style={styles.avatarContainer}>
+                        <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 0 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(0)}>
+                            <Image source={imageSources[0]} style={styles.image} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 1 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(1)}>
+                            <Image source={imageSources[1]} style={styles.image} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.avatarContainer}>
+                        <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 2 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(2)}>
+                            <Image source={imageSources[2]} style={styles.image} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 3 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(3)}>
+                            <Image source={imageSources[3]} style={styles.image} />
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styles.avatarContainer}>
+                        <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 4 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(4)}>
+                            <Image source={imageSources[4]} style={styles.image} />
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 5 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(5)}>
+                            <Image source={imageSources[5]} style={styles.image} />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-                <View style={styles.avatarContainer}>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 2 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(2)}>
-                        <Image source={imageSources[2]} style={styles.image} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 3 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(3)}>
-                        <Image source={imageSources[3]} style={styles.image} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.avatarContainer}>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 4 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(4)}>
-                        <Image source={imageSources[4]} style={styles.image} />
-                    </TouchableOpacity>
-                    <TouchableOpacity style={[{...styles.avatar}, avatarNumber === 5 && {borderColor: colors.primary}]} onPress={() => handleSelectAvatarNumber(5)}>
-                        <Image source={imageSources[5]} style={styles.image} />
-                    </TouchableOpacity>
-                </View>
-            </View>
             </ScrollView>
         </>
     );
@@ -81,7 +81,7 @@ export default ChooseAvatar;
 
 const styles = StyleSheet.create({
     registrationContainer:{
-        height: '60%',
+        // height: '60%',
         justifyContent: 'center',
         alignItems: 'center',
     },

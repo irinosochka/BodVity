@@ -64,7 +64,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
             </View>
             <RegistrationLoader completed={"40%"} />
 
-            <View style={{marginTop: 40}}>
+            <View style={{marginTop: 30}}>
                 <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourAgeQuestion')}</Text>
                 <Text style={styles.subtitle}>{t('ageInfo')}</Text>
             </View>
@@ -73,7 +73,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
                 <Text style={styles.ageText}>{ageString + ' ' + t('years')}</Text>
                 <View style={styles.pickersContainer}>
                     <Picker
-                        style={{width: '25%'}}
+                        style={{width: '30%'}}
                         selectedValue={day}
                         onValueChange={(value) => setDay(value)}
                     >
@@ -82,7 +82,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
                         ))}
                     </Picker>
                     <Picker
-                        style={{ width: '32%' }}
+                        style={{ width: '35%' }}
                         selectedValue={month}
                         onValueChange={(value) => setMonth(value)}
                     >
@@ -91,7 +91,7 @@ const Age = ({ birthday, setBirthday, setPage, RegistrationLoader, ageString, se
                         ))}
                     </Picker>
                     <Picker
-                        style={{width: '32%'}}
+                        style={{width: '40%'}}
                         selectedValue={year}
                         onValueChange={(value) => setYear(value)}
                     >

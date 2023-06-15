@@ -57,11 +57,12 @@ function PersonalInfo({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea}}>
+            <View style={{paddingHorizontal: 15}}>
                 <TouchableOpacity onPress={() => navigation.navigate('profile')} style={{alignItems: 'flex-end'}}>
                     <Icon name="x" size={35} color={colors.gray} />
                 </TouchableOpacity>
-                <View style={{marginTop: 20}}>
+                <View style={{marginTop: 5}}>
                     <Text style={FormStyles.title}>{t('personalInfo')}</Text>
                     <Text style={{...styles.registrationInfo, marginTop: 8}}>{t('personalDataInfo')}</Text>
                     <View style={styles.inputsContainer}>
@@ -122,6 +123,7 @@ function PersonalInfo({ navigation }) {
                         <ButtonCustom buttonText={t('saveBtn')} width={'100%'} onPress={handleUpdateUser}/>
                     </View>
                 </View>
+            </View>
         </SafeAreaView>
 
     );

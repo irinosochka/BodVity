@@ -21,7 +21,7 @@ function HeaderProfile({ user }) {
     return (
         <>
             <View style={styles.userInfoContainer}>
-                <Avatar radius={100} />
+                <Avatar radius={90} />
                 <View style={{marginLeft: 10}}>
                     <View style={{flexDirection: 'row', alignItems: 'center'}}>
                         <Text style={FormStyles.title}>{user.name}</Text>
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
-        marginBottom: 15,
+        marginBottom: 10,
     },
     subtitle: {
         paddingTop: 3,

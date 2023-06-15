@@ -14,7 +14,7 @@ import ConfirmAccount from "../../components/Auth/ConfirmAccount";
 
 const RegistrationLoader = ({completed}) => (
     <>
-        <View style={{borderWidth: 2, borderRadius: 5, marginTop: 20, borderColor: colors.primary, opacity: 0.2}} />
+        <View style={{borderWidth: 2, borderRadius: 5, marginTop: 5, borderColor: colors.primary, opacity: 0.2}} />
         <View style={{borderWidth: 2, borderRadius: 5, marginTop: -4, borderColor: colors.primary, width: completed}} />
     </>
 );
@@ -55,7 +55,8 @@ const RegistrationScreen = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea}}>
+            <View style={{paddingHorizontal: 15}}>
                 {
                     page === 1 && <Registration navigation={navigation}
                                   name={name} email={email} password={password} confirmPassword={confirmPassword}
@@ -92,6 +93,7 @@ const RegistrationScreen = ({ navigation }) => {
                                                   handleCreateUser={handleCreateUser}
                     />
                 }
+            </View>
         </SafeAreaView>
     );
 };

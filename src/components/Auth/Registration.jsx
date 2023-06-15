@@ -41,7 +41,7 @@ const Registration = ({ navigation, name, email, password, confirmPassword, setN
            <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
                <Icon name="arrow-left" size={35} color={colors.gray} />
            </TouchableOpacity>
-           <View style={{marginTop: '30%' }}>
+           <View style={{marginTop: 50 }}>
                <Text style={FormStyles.title}>{t('registration')}</Text>
                <Text style={{...styles.registrationInfo, marginTop: 8}}>{t('registrationInfo')}</Text>
                <Text style={styles.registrationInfo}>{t('registrationInfo2')}</Text>

@@ -22,7 +22,8 @@ function StockScreen({navigation}) {
     }, [navigation]);
 
     return (
-        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea}}>
+            <View style={{paddingHorizontal: 15}}>
                 <View style={styles.header}>
                     <Text style={{...FormStyles.title}}>{t('yourMedications')}</Text>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -30,6 +31,7 @@ function StockScreen({navigation}) {
                     </TouchableOpacity>
                 </View>
                 <SearchMed />
+            </View>
         </SafeAreaView>
     );
 }

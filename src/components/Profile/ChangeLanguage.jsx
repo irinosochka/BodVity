@@ -21,47 +21,49 @@ function ChangeLanguage({ navigation }) {
     }
 
     return (
-        <SafeAreaView style={{...FormStyles.AndroidSafeArea, paddingHorizontal: 15}}>
-            <TouchableOpacity onPress={() => navigation.navigate('profile')} style={{alignItems: 'flex-end'}}>
-                <Icon name="x" size={35} color={colors.gray} />
-            </TouchableOpacity>
-            <View style={{marginTop: '10%' }}>
-                <Text style={FormStyles.title}>{t('changeLanguage')}</Text>
-                <Text style={styles.languageInfo}>{t('changeLanguageInfo')}</Text>
-            </View>
-            <View style={{marginTop: 20}}>
-                <View style={{...CreateStyles.alternativeContainer, marginTop: 20}}>
-                    <TouchableOpacity
-                        style={language === 'en' ? CreateStyles.squareComplete : CreateStyles.square}
-                        onPress={() => handleChangeLanguage('en')}
-                    >
-                        <View>
-                            {language === 'en' ? <Icon name="check" size={23} color="white" /> : null}
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={CreateStyles.checkText}>English</Text>
+        <SafeAreaView style={{...FormStyles.AndroidSafeArea}}>
+            <View style={{paddingHorizontal: 15}}>
+                <TouchableOpacity onPress={() => navigation.navigate('profile')} style={{alignItems: 'flex-end'}}>
+                    <Icon name="x" size={35} color={colors.gray} />
+                </TouchableOpacity>
+                <View style={{marginTop: '10%' }}>
+                    <Text style={FormStyles.title}>{t('changeLanguage')}</Text>
+                    <Text style={styles.languageInfo}>{t('changeLanguageInfo')}</Text>
                 </View>
-                <View style={{...CreateStyles.alternativeContainer, marginTop: 20}}>
-                    <TouchableOpacity
-                        style={language === 'pl' ? CreateStyles.squareComplete : CreateStyles.square}
-                        onPress={() => handleChangeLanguage('pl')}
-                    >
-                        <View>
-                            {language === 'pl' ? <Icon name="check" size={23} color="white" /> : null}
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={CreateStyles.checkText}>Polski</Text>
-                </View>
-                <View style={{...CreateStyles.alternativeContainer, marginTop: 20}}>
-                    <TouchableOpacity
-                        style={language === 'ua' ? CreateStyles.squareComplete : CreateStyles.square}
-                        onPress={() => handleChangeLanguage('ua')}
-                    >
-                        <View>
-                            {language === 'ua' ? <Icon name="check" size={23} color="white" /> : null}
-                        </View>
-                    </TouchableOpacity>
-                    <Text style={CreateStyles.checkText}>Українська</Text>
+                <View style={{marginTop: 20}}>
+                    <View style={{...CreateStyles.alternativeContainer, marginTop: 20}}>
+                        <TouchableOpacity
+                            style={language === 'en' ? CreateStyles.squareComplete : CreateStyles.square}
+                            onPress={() => handleChangeLanguage('en')}
+                        >
+                            <View>
+                                {language === 'en' ? <Icon name="check" size={23} color="white" /> : null}
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={CreateStyles.checkText}>English</Text>
+                    </View>
+                    <View style={{...CreateStyles.alternativeContainer, marginTop: 20}}>
+                        <TouchableOpacity
+                            style={language === 'pl' ? CreateStyles.squareComplete : CreateStyles.square}
+                            onPress={() => handleChangeLanguage('pl')}
+                        >
+                            <View>
+                                {language === 'pl' ? <Icon name="check" size={23} color="white" /> : null}
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={CreateStyles.checkText}>Polski</Text>
+                    </View>
+                    <View style={{...CreateStyles.alternativeContainer, marginTop: 20}}>
+                        <TouchableOpacity
+                            style={language === 'ua' ? CreateStyles.squareComplete : CreateStyles.square}
+                            onPress={() => handleChangeLanguage('ua')}
+                        >
+                            <View>
+                                {language === 'ua' ? <Icon name="check" size={23} color="white" /> : null}
+                            </View>
+                        </TouchableOpacity>
+                        <Text style={CreateStyles.checkText}>Українська</Text>
+                    </View>
                 </View>
             </View>
         </SafeAreaView>

@@ -33,7 +33,7 @@ const Gender = ({selectedGender, setSelectedGender, setPage, RegistrationLoader}
 
             <RegistrationLoader completed={'20%'} />
 
-            <View style={{marginTop: 40}}>
+            <View style={{marginTop: 30}}>
                 <Text style={{...FormStyles.title, textAlign: 'center'}}>{t('yourGenderQuestion')}</Text>
                 <Text style={styles.subtitle}>{t('genderInfo')}</Text>
             </View>

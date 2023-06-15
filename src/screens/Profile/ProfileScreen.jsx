@@ -35,55 +35,57 @@ function ProfileScreen({navigation}) {
 
     return (
         <View style={FormStyles.container}>
-            <SafeAreaView style={{...FormStyles.AndroidSafeArea, marginHorizontal: 10}}>
-                <View style={styles.shadowForContainer}>
-                    <HeaderProfile user={userData} />
+            <SafeAreaView style={{...FormStyles.AndroidSafeArea}}>
+                <View style={{marginHorizontal: 15}}>
+                    <View style={styles.shadowForContainer}>
+                        <HeaderProfile user={userData} />
+                    </View>
+                    <View style={styles.shadowForContainer} showsVerticalScrollIndicator={false}>
+                        <ScrollView style={{height: 420}} >
+                            <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('personalInfo')}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <Ionicons name='person-outline' size={20} color={colors.primary} />
+                                    <Text style={styles.textBtnMenu}>{t('personalInfo')}</Text>
+                                </View>
+                                <Icon name="chevron-right" size={20} color={colors.primary} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('yourMedications')}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <Ionicons name='bandage-outline' size={20} color={colors.primary} />
+                                    <Text style={styles.textBtnMenu}>{t('yourMedications')}</Text>
+                                </View>
+                                <Icon name="chevron-right" size={20} color={colors.primary} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('yourAppointments')}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <Ionicons name="alarm-outline" size={20} color={colors.primary} />
+                                    <Text style={styles.textBtnMenu}>{t('yourAppointments')}</Text>
+                                </View>
+                                <Icon name="chevron-right" size={20} color={colors.primary} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('changeLanguage')}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <Ionicons name="language-outline" size={20} color={colors.primary} />
+                                    <Text style={styles.textBtnMenu}>{t('changeLanguage')}</Text>
+                                </View>
+                                <Icon name="chevron-right" size={20} color={colors.primary} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.itemMenu} onPress={handleCancelAllNotification}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <Ionicons name="notifications-off-outline" size={20} color={colors.primary} />
+                                    <Text style={styles.textBtnMenu}>{t('cancelAllNotifications')}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.itemMenu} onPress={() => setShowConfirmLogoutModal(true)}>
+                                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                                    <Ionicons name="log-out-outline" size={20} color={colors.primary} />
+                                    <Text style={styles.textBtnMenu}>{t('logout')}</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <ConfirmLogoutModal isShowConfirmLogoutModal={isShowConfirmLogoutModal} setShowConfirmLogoutModal={setShowConfirmLogoutModal} handleSignOut={handleSignOut}/>
+                        </ScrollView>
+                    </View>
                 </View>
-                <View style={styles.shadowForContainer}>
-                    <ScrollView showsVerticalScrollIndicator={false} showsHorizontalScrollIndicator={false}>
-                        <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('personalInfo')}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Ionicons name='person-outline' size={20} color={colors.primary} />
-                                <Text style={styles.textBtnMenu}>{t('personalInfo')}</Text>
-                            </View>
-                            <Icon name="chevron-right" size={20} color={colors.primary} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('yourMedications')}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Ionicons name='bandage-outline' size={20} color={colors.primary} />
-                                <Text style={styles.textBtnMenu}>{t('yourMedications')}</Text>
-                            </View>
-                            <Icon name="chevron-right" size={20} color={colors.primary} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('yourAppointments')}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Ionicons name="alarm-outline" size={20} color={colors.primary} />
-                                <Text style={styles.textBtnMenu}>{t('yourAppointments')}</Text>
-                            </View>
-                            <Icon name="chevron-right" size={20} color={colors.primary} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.itemMenu} onPress={() => navigation.navigate('changeLanguage')}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Ionicons name="language-outline" size={20} color={colors.primary} />
-                                <Text style={styles.textBtnMenu}>{t('changeLanguage')}</Text>
-                            </View>
-                            <Icon name="chevron-right" size={20} color={colors.primary} />
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.itemMenu} onPress={handleCancelAllNotification}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Ionicons name="notifications-off-outline" size={20} color={colors.primary} />
-                                <Text style={styles.textBtnMenu}>{t('cancelAllNotifications')}</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={styles.itemMenu} onPress={() => setShowConfirmLogoutModal(true)}>
-                            <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                                <Ionicons name="log-out-outline" size={20} color={colors.primary} />
-                                <Text style={styles.textBtnMenu}>{t('logout')}</Text>
-                            </View>
-                        </TouchableOpacity>
-                        <ConfirmLogoutModal isShowConfirmLogoutModal={isShowConfirmLogoutModal} setShowConfirmLogoutModal={setShowConfirmLogoutModal} handleSignOut={handleSignOut}/>
-                    </ScrollView>
-                  </View>
             </SafeAreaView>
         </View>
     );

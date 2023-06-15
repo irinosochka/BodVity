@@ -36,16 +36,16 @@ export function AddToStockModal({isShowAddModal, setIsShowAddModal, medication})
                 <View style={styles.modal}>
                     <View style={styles.modalContainer}>
                         <Text style={styles.title}>{t('howManyMedsToAdd')}</Text>
-                        <View style={styles.inputWithButton}>
-                            <TextInput style={styles.input}
-                                       placeholder={t('exampleShort') + ': 10'}
-                                       onChangeText={setQuantityToAdd}
-                                       value={quantityToAdd}
-                            />
-                            <TouchableOpacity style={styles.btnSave} onPress={handleSaveAndClose}>
-                                <Text style={{color: colors.white}}>{t('saveBtn')}</Text>
-                            </TouchableOpacity>
-                        </View>
+                            <View style={styles.inputWithButton}>
+                                <TextInput style={styles.input}
+                                           placeholder={t('exampleShort') + ': 10'}
+                                           onChangeText={setQuantityToAdd}
+                                           value={quantityToAdd}
+                                />
+                                <TouchableOpacity style={styles.btnSave} onPress={handleSaveAndClose}>
+                                    <Text style={{color: colors.white}}>{t('saveBtn')}</Text>
+                                </TouchableOpacity>
+                            </View>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -68,10 +68,9 @@ const styles = StyleSheet.create({
         position: 'absolute',
         top: '40%',
         width: '90%',
-        height: '15%',
+        height: '20%',
         backgroundColor: 'white',
         borderRadius: 14,
-        marginHorizontal: 15,
     },
     title: {
         fontSize: 17,
@@ -81,10 +80,10 @@ const styles = StyleSheet.create({
     },
     input:{
         fontSize: 15,
-        color: '#9B9B9B',
-        width: 275,
-        height: 48,
-        backgroundColor: '#F8F8F6',
+        color: colors.gray3,
+        width: '65%',
+        height: 45,
+        backgroundColor: colors.lightBlue,
         borderBottomLeftRadius: 14,
         borderTopLeftRadius: 14,
         paddingLeft: 10,
@@ -92,10 +91,11 @@ const styles = StyleSheet.create({
     inputWithButton: {
         flexDirection: 'row',
         alignItems: "center",
+        width: '100%',
     },
     btnSave: {
-        width: 65,
-        height: 48,
+        width: '35%',
+        height: 46,
         backgroundColor: colors.primary,
         alignItems: 'center',
         justifyContent: 'center',

@@ -36,7 +36,7 @@ const SignIn = ({ navigation, email, password, setEmail, setPassword, handleSign
             <TouchableOpacity onPress={() => navigation.navigate('Welcome')}>
                 <Icon name="arrow-left" size={35} color={colors.gray} />
             </TouchableOpacity>
-            <View style={{marginTop: '30%' }}>
+            <View style={{marginTop: 50 }}>
                 <Text style={FormStyles.title}>{t('login')}</Text>
                 <Text style={{...styles.registrationInfo, marginTop: 8, marginBottom: 20}}>{t('loginInfo')}</Text>
                 <View style={styles.inputsContainer}>

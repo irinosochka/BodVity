@@ -14,7 +14,7 @@ function VariantOfMedsForAdded({navigation}) {
         <View style={styles.container}>
             <View style={styles.variantsWrapper}>
                 <Text style={FormStyles.title}>{t('chooseVariant')}</Text>
-                <ScrollView style={{width: "100%"}}>
+                <ScrollView style={{width: "100%"}} showsVerticalScrollIndicator={false}>
                     <TouchableOpacity style={styles.variantContainer} onPress={() => navigation.navigate('createRegularMed')}>
                         <View style={styles.textWrapper}>
                             <Text style={styles.titleVariant}>{t('regularMed')}</Text>

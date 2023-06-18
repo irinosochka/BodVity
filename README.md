@@ -8,7 +8,17 @@ The main functionalities of the app are: creating a list of medicines with remin
 
 ## Screenshots
 
-![Welcome Page](./assets/screens/Welcome.png)
+#### Login and Registation
+
+![Login and Registation screens](./screenshots/LoginAndRegistration.png)
+
+#### Features of app
+
+![Features of app](./screenshots/Functionality.png)
+
+#### Profile and settings
+
+![Profile and settings](./screenshots/Profile.png)
 
 
 ## Tech Stack

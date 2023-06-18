@@ -8,6 +8,8 @@ The main functionalities of the app are: creating a list of medicines with remin
 
 ## Screenshots
 
+![Welcome Page](./assets/screens/Welcome.png)
+
 
 ## Tech Stack
 

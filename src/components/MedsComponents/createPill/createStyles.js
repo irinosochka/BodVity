@@ -159,11 +159,11 @@ export const CreateStyles = StyleSheet.create({
     },
     dayOfWeekTitle: {
         color: colors.black,
-        fontSize: 12.5,
+        fontSize: 12,
     },
     dayOfWeekTitleSelected: {
         color: colors.white,
-        fontSize: 12.5,
+        fontSize: 12,
     },
     iconDayOfWeek: {
         marginTop: 5,

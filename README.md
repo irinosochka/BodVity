@@ -21,6 +21,19 @@ The main functionalities of the app are: creating a list of medicines with remin
 ![Profile and settings](./screenshots/Profile.png)
 
 
+## Installation
+
+Install dependencies
+
+```bash
+  npm install
+```
+Start a development server
+
+```bash
+  npx expo start
+```
+
 ## Tech Stack
 
 **Client:** React Native, Expo, i18next
